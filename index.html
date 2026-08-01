@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GemRun — Every run is a treasure hunt</title>
+  <meta name="description" content="GemRun drops gems on real streets near you. Run or walk within 100 feet and they're yours — one shared world, first one there takes it. GPS-verified, free to play, iPhone.">
+  <meta property="og:title" content="GemRun — Every run is a treasure hunt">
+  <meta property="og:description" content="The system drops gems on real streets near you. Run past within 100 ft — first one there takes it.">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" data-header>
+    <div class="container site-header__inner">
+      <a class="brand" href="#top" aria-label="GemRun home">
+        <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/>
+          <path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#ffffff" opacity="0.28"/>
+          <path d="M5 12 L27 12 L16 15.5 Z" fill="#ffffff" opacity="0.18"/>
+        </svg>
+        <span class="brand__name">GemRun</span>
+      </a>
+
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <ul class="site-nav__list">
+          <li><a class="site-nav__link" href="#what" data-navlink>What is GemRun</a></li>
+          <li><a class="site-nav__link" href="#how-it-works" data-navlink>How it works</a></li>
+          <li><a class="site-nav__link" href="#features" data-navlink>Features</a></li>
+          <li><a class="site-nav__link" href="#rarity" data-navlink>Gems</a></li>
+          <li><a class="site-nav__link" href="#faq" data-navlink>FAQ</a></li>
+        </ul>
+      </nav>
+
+      <div class="site-header__actions">
+        <a class="btn btn--pulse btn--sm" href="#download">Get the app</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+          <span class="nav-toggle__bar" aria-hidden="true"></span>
+          <span class="nav-toggle__bar" aria-hidden="true"></span>
+          <span class="visually-hidden">Menu</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============================ HERO ============================ -->
+    <section class="hero" id="top">
+      <div class="container hero__inner">
+        <div class="hero__copy" data-reveal>
+          <p class="kicker">Run · Hunt · Claim</p>
+          <h1 class="hero__title">Every run is a<br>treasure&nbsp;hunt.</h1>
+          <p class="hero__lead">
+            GemRun drops gems on real streets near you. Run or walk within
+            100&nbsp;feet and they're yours — one shared world,
+            <strong>first one there takes it</strong>.
+          </p>
+          <div class="hero__cta">
+            <a class="btn btn--pulse btn--lg" href="#download">Download for iPhone</a>
+            <a class="btn btn--ghost btn--lg" href="#how-it-works">See how it works</a>
+          </div>
+          <ul class="hero__trust">
+            <li>Free to play</li>
+            <li>iPhone · iOS 17+</li>
+            <li>GPS-verified claims</li>
+          </ul>
+        </div>
+
+        <div class="hero__media" data-reveal data-reveal-delay="1">
+          <div class="ph ph--phone" data-placeholder="hero-explore-map" role="img"
+               aria-label="Placeholder for app screenshot: the Explore map with gems">
+            <svg class="ph__gem gem-shimmer" viewBox="0 0 32 32" aria-hidden="true">
+              <path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/>
+              <path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#ffffff" opacity="0.28"/>
+              <path d="M5 12 L27 12 L16 15.5 Z" fill="#ffffff" opacity="0.18"/>
+            </svg>
+            <span class="ph__label">App screenshot</span>
+            <span class="ph__hint">Explore map · gems near you</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= STATS BAND (ink) ===================== -->
+    <section class="stats" aria-label="GemRun by the numbers">
+      <div class="container stats__grid">
+        <div class="stat" data-reveal>
+          <span class="stat__value"><span data-count-to="100">0</span>&nbsp;ft</span>
+          <span class="stat__label">claim radius — get close, it's yours</span>
+        </div>
+        <div class="stat" data-reveal data-reveal-delay="1">
+          <span class="stat__value"><span data-count-to="1">0</span></span>
+          <span class="stat__label">winner per gem — everyone races the same map</span>
+        </div>
+        <div class="stat" data-reveal data-reveal-delay="2">
+          <span class="stat__value"><span data-count-to="5">0</span></span>
+          <span class="stat__label">rarity tiers, from Quartz to Ember</span>
+        </div>
+        <div class="stat" data-reveal data-reveal-delay="3">
+          <span class="stat__value"><span data-count-to="500">0</span>&nbsp;XP</span>
+          <span class="stat__label">for a Legendary — first finder gets the crown</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= WHAT IS GEMRUN ===================== -->
+    <section class="section" id="what">
+      <div class="container">
+        <div class="section__head" data-reveal>
+          <p class="kicker">What is GemRun</p>
+          <h2 class="section__title">A running game played<br>on real streets.</h2>
+          <p class="section__lead">
+            Solo running is a motivation problem, not a fitness problem.
+            GemRun gives you a reason to get out the door: <strong>there is
+            always something out there to go get.</strong> The system stocks
+            the map around you with gems, placed only on real, walkable
+            streets. Open the map, pick a direction, and go — pass within
+            100&nbsp;ft of a gem and it goes in your stash. Everyone sees the
+            same gem; the first runner whose GPS track proves they were there
+            claims it, and it vanishes for everyone else.
+          </p>
+        </div>
+
+        <div class="card-grid">
+          <article class="card" data-reveal>
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 9h17M3.5 15h17M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </div>
+            <h3 class="card__title">One shared world</h3>
+            <p class="card__body">
+              Gems aren't personal spawns — the map is the same for every
+              runner. First come, first served, settled atomically on the
+              server. When it's gone, it's gone.
+            </p>
+          </article>
+
+          <article class="card" data-reveal data-reveal-delay="1">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 21s-7-5.1-7-11a7 7 0 0 1 14 0c0 5.9-7 11-7 11z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.6" fill="currentColor"/></svg>
+            </div>
+            <h3 class="card__title">Never an empty map</h3>
+            <p class="card__body">
+              Every time you open the map, the backend stocks your area —
+              popular routes first, otherwise directly on walkable streets.
+              Wherever you are, there's something to chase.
+            </p>
+          </article>
+
+          <article class="card" data-reveal data-reveal-delay="2">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.6-3 8.4-7 10-4-1.6-7-5.4-7-10V6z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.8 12.2l2.2 2.2 4.2-4.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 class="card__title">Verified, not vibes</h3>
+            <p class="card__body">
+              The app is optimistic; the server is authoritative. Your full
+              GPS track is replayed after every run — pace checks, teleport
+              detection, accuracy gating — before a claim counts.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= HOW IT WORKS ======================= -->
+    <section class="section section--tint" id="how-it-works">
+      <div class="container">
+        <div class="section__head" data-reveal>
+          <p class="kicker">How it works</p>
+          <h2 class="section__title">The core loop.</h2>
+        </div>
+
+        <ol class="steps">
+          <li class="step" data-reveal>
+            <span class="step__num">01</span>
+            <h3 class="step__title">Open the map</h3>
+            <p class="step__body">Gems are already waiting — the system stocks the streets around your location automatically.</p>
+          </li>
+          <li class="step" data-reveal data-reveal-delay="1">
+            <span class="step__num">02</span>
+            <h3 class="step__title">Run &amp; collect</h3>
+            <p class="step__body">A haptic pop at 100 ft — no need to look at the screen. The server confirms every claim.</p>
+          </li>
+          <li class="step" data-reveal data-reveal-delay="2">
+            <span class="step__num">03</span>
+            <h3 class="step__title">Create routes</h3>
+            <p class="step__body">Draw a path snapped to real streets, place gems from your budget, publish it for runners nearby.</p>
+          </li>
+          <li class="step" data-reveal data-reveal-delay="3">
+            <span class="step__num">04</span>
+            <h3 class="step__title">Earn &amp; drop</h3>
+            <p class="step__body">Lifetime kilometers mint wallet gems you can drop anywhere walkable — leave something behind.</p>
+          </li>
+          <li class="step" data-reveal data-reveal-delay="4">
+            <span class="step__num">05</span>
+            <h3 class="step__title">Compete</h3>
+            <p class="step__body">Leaderboards, streaks, rare-gem hunts and first-find crowns keep the same streets fresh.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ========================= FEATURE ROWS ======================= -->
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section__head" data-reveal>
+          <p class="kicker">Features</p>
+          <h2 class="section__title">Built for the hunt.</h2>
+        </div>
+
+        <div class="feature">
+          <div class="feature__copy" data-reveal>
+            <p class="kicker">The living map</p>
+            <h3 class="feature__title">The map is never empty.</h3>
+            <p class="feature__body">
+              Gems don't depend on other players. Every map open triggers the
+              backend to stock that area — on popular routes first, otherwise
+              directly on streets OpenStreetMap says you can actually walk.
+              No gems on highways. No gems on private land. A city nobody has
+              opened yet fills up the moment you arrive.
+            </p>
+            <ul class="feature__list">
+              <li>System-stocked on every map open</li>
+              <li>Walkability checked against OpenStreetMap</li>
+              <li>Auto-refreshes as you move</li>
+            </ul>
+          </div>
+          <div class="feature__media" data-reveal data-reveal-delay="1">
+            <div class="ph ph--wide" data-placeholder="feature-living-map" role="img"
+                 aria-label="Placeholder for app screenshot: map stocked with gems">
+              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
+              <span class="ph__label">App screenshot</span>
+              <span class="ph__hint">Map stocked with gems</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature feature--flip">
+          <div class="feature__copy" data-reveal>
+            <p class="kicker">Active run</p>
+            <h3 class="feature__title">Heads-up. Phone in pocket.</h3>
+            <p class="feature__body">
+              The run screen is a chase camera: tilted to your live direction
+              of travel with a breadcrumb trail behind you. But you don't need
+              it — gems pop with haptics as you pass, a bearing chip points to
+              the next one, auto-pause handles the traffic lights, and a
+              crash-safe buffer means a dead battery never eats your run.
+            </p>
+            <ul class="feature__list">
+              <li>Haptic pop at 100 ft — rarity-scaled patterns</li>
+              <li>Next-gem chip with bearing arrow</li>
+              <li>Per-km splits and a shareable run card</li>
+            </ul>
+          </div>
+          <div class="feature__media" data-reveal data-reveal-delay="1">
+            <div class="ph ph--phone ph--sm" data-placeholder="feature-active-run" role="img"
+                 aria-label="Placeholder for app screenshot: active run chase camera">
+              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
+              <span class="ph__label">App screenshot</span>
+              <span class="ph__hint">Active run · chase view</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature__copy" data-reveal>
+            <p class="kicker">Route creation</p>
+            <h3 class="feature__title">Every runner is a level designer.</h3>
+            <p class="feature__body">
+              Tap waypoints and the path snaps to real walking routes — roads,
+              trails, paths, never through buildings. Then place gems like
+              level design: a budget of slots and rarity points scales with
+              distance, Epics demand a genuinely hard hill, and minimum
+              spacing stops cluster-grazing. Publish, and it's live on nearby
+              maps immediately.
+            </p>
+            <ul class="feature__list">
+              <li>Paths snapped to real streets at creation</li>
+              <li>Slot + rarity-point budget per route</li>
+              <li>Run counts and a leaderboard on your route</li>
+            </ul>
+          </div>
+          <div class="feature__media" data-reveal data-reveal-delay="1">
+            <div class="ph ph--wide" data-placeholder="feature-route-editor" role="img"
+                 aria-label="Placeholder for app screenshot: route editor with gem placement">
+              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
+              <span class="ph__label">App screenshot</span>
+              <span class="ph__hint">Route editor · gem placement</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature feature--flip">
+          <div class="feature__copy" data-reveal>
+            <p class="kicker">Fair play</p>
+            <h3 class="feature__title">You can't fake your way to a gem.</h3>
+            <p class="feature__body">
+              People will try to spoof GPS to farm gems — we planned for it.
+              After every run the server replays your entire track: pace
+              bounds, teleport detection, route adherence. Fixes worse than
+              50&nbsp;m of accuracy can't prove presence. Claims settle under a
+              database lock so ties have exactly one winner, and every attempt
+              — winners and losers — lands in an audit log.
+            </p>
+            <ul class="feature__list">
+              <li>Full-track replay after every run</li>
+              <li>One winner per gem, settled atomically</li>
+              <li>Every claim attempt audited</li>
+            </ul>
+          </div>
+          <div class="feature__media" data-reveal data-reveal-delay="1">
+            <div class="ph ph--wide" data-placeholder="feature-fair-play" role="img"
+                 aria-label="Placeholder for illustration: server-verified GPS track">
+              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
+              <span class="ph__label">Illustration</span>
+              <span class="ph__hint">GPS track verification</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================== RARITY =========================== -->
+    <section class="section section--ink" id="rarity">
+      <div class="container">
+        <div class="section__head" data-reveal>
+          <p class="kicker kicker--on-ink">The gems</p>
+          <h2 class="section__title">Five tiers. One color.<br>No mercy.</h2>
+          <p class="section__lead section__lead--on-ink">
+            Rarity is an intensity ramp of GemRun's single accent — plus a
+            distinct shape for every tier, so the map reads even in grayscale.
+            Tap a tier to see its rules.
+          </p>
+        </div>
+
+        <div class="rarity" data-rarity>
+          <div class="rarity__tiers" role="tablist" aria-label="Gem rarity tiers">
+            <button class="tier is-active" role="tab" aria-selected="true" id="tier-tab-0" aria-controls="tier-panel" data-tier="0" type="button">
+              <svg class="tier__glyph" viewBox="0 0 24 24" aria-hidden="true" style="--step:.30">
+                <path d="M12 2 L22 12 L12 22 L2 12 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              <span class="tier__name">Quartz</span>
+              <span class="tier__grade">Common</span>
+            </button>
+            <button class="tier" role="tab" aria-selected="false" id="tier-tab-1" aria-controls="tier-panel" data-tier="1" type="button">
+              <svg class="tier__glyph" viewBox="0 0 24 24" aria-hidden="true" style="--step:.50">
+                <path d="M12 2 L22 12 L12 22 L2 12 Z" fill="currentColor"/>
+              </svg>
+              <span class="tier__name">Emerald</span>
+              <span class="tier__grade">Uncommon</span>
+            </button>
+            <button class="tier" role="tab" aria-selected="false" id="tier-tab-2" aria-controls="tier-panel" data-tier="2" type="button">
+              <svg class="tier__glyph" viewBox="0 0 24 24" aria-hidden="true" style="--step:.70">
+                <path d="M12 3 L21 12 L12 21 L3 12 Z" transform="scale(1.15 0.9) translate(-1.5 1.2)" fill="currentColor"/>
+              </svg>
+              <span class="tier__name">Sapphire</span>
+              <span class="tier__grade">Rare</span>
+            </button>
+            <button class="tier" role="tab" aria-selected="false" id="tier-tab-3" aria-controls="tier-panel" data-tier="3" type="button">
+              <svg class="tier__glyph" viewBox="0 0 24 24" aria-hidden="true" style="--step:.88">
+                <path d="M12 1.8l2.5 2 3.2-.3 1 3 2.9 1.4-.7 3.1 2 2.5-2 2.5.7 3.1-2.9 1.4-1 3-3.2-.3-2.5 2-2.5-2-3.2.3-1-3-2.9-1.4.7-3.1-2-2.5 2-2.5-.7-3.1L7.3 6.5l1-3 3.2.3z" fill="currentColor"/>
+              </svg>
+              <span class="tier__name">Amethyst</span>
+              <span class="tier__grade">Epic</span>
+            </button>
+            <button class="tier" role="tab" aria-selected="false" id="tier-tab-4" aria-controls="tier-panel" data-tier="4" type="button">
+              <svg class="tier__glyph" viewBox="0 0 24 24" aria-hidden="true" style="--step:1">
+                <path d="M3 8l4.5 4L12 5l4.5 7L21 8l-1.6 10H4.6z" fill="currentColor"/>
+              </svg>
+              <span class="tier__name">Ember</span>
+              <span class="tier__grade">Legendary</span>
+            </button>
+          </div>
+
+          <div class="rarity__panel" id="tier-panel" role="tabpanel" aria-live="polite" data-tier-panel>
+            <div class="rarity__row">
+              <span class="rarity__stat"><strong data-tier-xp>10</strong> XP</span>
+              <span class="rarity__stat" data-tier-respawn>Respawns daily, per runner</span>
+            </div>
+            <p class="rarity__rule" data-tier-rule>
+              The bread and butter of every route — placeable anywhere, worth
+              re-running for daily.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== EARN &amp; COMPETE ===================== -->
+    <section class="section" id="compete">
+      <div class="container">
+        <div class="feature">
+          <div class="feature__copy" data-reveal>
+            <p class="kicker">The wallet</p>
+            <h3 class="feature__title">Miles mint gems.</h3>
+            <p class="feature__body">
+              Your lifetime kilometers earn droppable gems for your wallet —
+              hit a distance threshold, mint a gem, drop it anywhere walkable
+              for the next runner to find. Legendaries are system-seeded only,
+              so nobody farms their own crowns.
+            </p>
+            <ul class="feature__list">
+              <li>Lifetime km unlock per-tier mints</li>
+              <li>Drop anywhere walkable — GPS-checked</li>
+              <li>Leave something behind for the next runner</li>
+            </ul>
+          </div>
+          <div class="feature__media" data-reveal data-reveal-delay="1">
+            <div class="ph ph--wide" data-placeholder="feature-wallet" role="img"
+                 aria-label="Placeholder for app screenshot: gem wallet and stash">
+              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
+              <span class="ph__label">App screenshot</span>
+              <span class="ph__hint">Stash · wallet &amp; sets</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-grid card-grid--3up">
+          <article class="card" data-reveal>
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 20V10M12 20V4M20 20v-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+            </div>
+            <h3 class="card__title">Leaderboards</h3>
+            <p class="card__body">Every published route keeps a board. Top times, most gems, your own best — race the neighborhood, not the world.</p>
+          </article>
+          <article class="card" data-reveal data-reveal-delay="1">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M13 2 L6 13h5l-1 9 8-12h-5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 class="card__title">Streaks</h3>
+            <p class="card__body">Daily-respawning gems make every loop worth re-running. Keep the chain alive and your XP multiplier climbs.</p>
+          </article>
+          <article class="card" data-reveal data-reveal-delay="2">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-1.6 10H4.6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 class="card__title">First-find crowns</h3>
+            <p class="card__body">A Legendary appears once. The first runner to reach it takes a unique first-find variant — everyone else gets the story.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= FAQ ============================ -->
+    <section class="section section--tint" id="faq">
+      <div class="container container--narrow">
+        <div class="section__head" data-reveal>
+          <p class="kicker">FAQ</p>
+          <h2 class="section__title">Questions, answered.</h2>
+        </div>
+
+        <div class="faq" data-faq>
+          <details class="faq__item" data-reveal>
+            <summary class="faq__q">What exactly is GemRun?</summary>
+            <div class="faq__a">
+              <p>A free iPhone game that turns running into a treasure hunt.
+              The system places virtual gems on real, walkable streets near
+              you. Run or walk within 100 ft of one and it's yours — collected
+              gems build your stash, earn XP, complete sets, and climb
+              leaderboards. You can also create routes, place your own gems on
+              them, and publish them for runners nearby.</p>
+            </div>
+          </details>
+
+          <details class="faq__item" data-reveal>
+            <summary class="faq__q">Do I have to run fast — or run at all?</summary>
+            <div class="faq__a">
+              <p>No. Claims are about presence, not pace: walking collects
+              gems too (at reduced XP). Speed only matters if you're chasing a
+              route's leaderboard time or racing someone to a fresh Legendary.</p>
+            </div>
+          </details>
+
+          <details class="faq__item" data-reveal>
+            <summary class="faq__q">Where do gems come from?</summary>
+            <div class="faq__a">
+              <p>Two places. The system stocks every area that gets opened —
+              so the map is never empty, even somewhere no player has been.
+              And runners place gems on routes they create, from a budget that
+              scales with route distance. Either way, placement is checked
+              against OpenStreetMap so gems only ever sit on walkable ground.</p>
+            </div>
+          </details>
+
+          <details class="faq__item" data-reveal>
+            <summary class="faq__q">What stops people from faking GPS?</summary>
+            <div class="faq__a">
+              <p>The server treats every run as a claim to be verified, not a
+              fact. It replays your full track and checks pace bounds,
+              teleports, and route adherence; GPS fixes with worse than 50 m
+              accuracy can't prove presence. One winner per gem is enforced
+              atomically, and every attempt — successful or not — is logged
+              for audit.</p>
+            </div>
+          </details>
+
+          <details class="faq__item" data-reveal>
+            <summary class="faq__q">Will there be gems where I live?</summary>
+            <div class="faq__a">
+              <p>If people can walk there, yes. Stocking is triggered by the
+              map itself: the first time anyone opens your area, the backend
+              fills it — popular routes first, otherwise directly on walkable
+              streets a short distance from you.</p>
+            </div>
+          </details>
+
+          <details class="faq__item" data-reveal>
+            <summary class="faq__q">What does it cost, and what do I need?</summary>
+            <div class="faq__a">
+              <p>GemRun is free to play. You need an iPhone on iOS 17 or
+              later, and location permission while you use it — GemRun never
+              tracks you in the background outside a run.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= FINAL CTA ========================== -->
+    <section class="cta" id="download">
+      <div class="container cta__inner" data-reveal>
+        <svg class="cta__gem gem-shimmer" viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/>
+          <path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#ffffff" opacity="0.28"/>
+          <path d="M5 12 L27 12 L16 15.5 Z" fill="#ffffff" opacity="0.18"/>
+        </svg>
+        <h2 class="cta__title">The streets are already stocked.</h2>
+        <p class="cta__lead">Somewhere within a mile of you, a gem is sitting on a sidewalk with your name on it — until someone else gets there first.</p>
+
+        <div class="cta__actions">
+          <a class="store-badge" href="#" data-placeholder="app-store-badge" aria-label="Download on the App Store (link coming soon)">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="store-badge__icon">
+              <path d="M16.7 12.6c0-2 1.6-3 1.7-3-1-1.4-2.4-1.6-2.9-1.6-1.2-.1-2.4.7-3 .7-.6 0-1.6-.7-2.6-.7-1.3 0-2.6.8-3.3 2-1.4 2.4-.4 6 1 8 .7 1 1.5 2.1 2.5 2 1-.1 1.4-.7 2.6-.7s1.6.7 2.6.7c1.1 0 1.8-1 2.5-2 .8-1.1 1.1-2.2 1.1-2.3 0 0-2.1-.8-2.2-3.1zM14.8 6.1c.5-.7.9-1.6.8-2.6-.8 0-1.8.6-2.3 1.2-.5.6-1 1.6-.8 2.5.9.1 1.8-.4 2.3-1.1z" fill="currentColor"/>
+            </svg>
+            <span class="store-badge__text">
+              <small>Download on the</small>
+              App Store
+            </span>
+          </a>
+        </div>
+
+        <form class="waitlist" data-waitlist novalidate>
+          <label class="waitlist__label" for="waitlist-email">Not on iPhone yet? Get launch news:</label>
+          <div class="waitlist__row">
+            <input class="waitlist__input" id="waitlist-email" name="email" type="email"
+                   placeholder="you@example.com" autocomplete="email" required>
+            <button class="btn btn--pulse" type="submit">Notify me</button>
+          </div>
+          <p class="waitlist__msg" data-waitlist-msg role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div class="site-footer__brand">
+          <a class="brand brand--footer" href="#top" aria-label="GemRun home">
+            <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
+              <path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/>
+              <path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#ffffff" opacity="0.28"/>
+            </svg>
+            <span class="brand__name">GemRun</span>
+          </a>
+          <p class="site-footer__tag">
+            GemRun turns any running route into a treasure hunt. Gems on real
+            streets, one shared world, first one there takes it.
+          </p>
+        </div>
+
+        <nav class="site-footer__col" aria-label="Product">
+          <h3 class="site-footer__heading">Product</h3>
+          <ul>
+            <li><a href="#what">What is GemRun</a></li>
+            <li><a href="#how-it-works">How it works</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#rarity">Gem rarities</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </nav>
+
+        <nav class="site-footer__col" aria-label="Company">
+          <h3 class="site-footer__heading">Company</h3>
+          <ul>
+            <li><a href="#" data-placeholder-link>About</a></li>
+            <li><a href="#" data-placeholder-link>Blog</a></li>
+            <li><a href="#" data-placeholder-link>Press kit</a></li>
+            <li><a href="#" data-placeholder-link>Contact</a></li>
+          </ul>
+        </nav>
+
+        <nav class="site-footer__col" aria-label="Legal">
+          <h3 class="site-footer__heading">Legal</h3>
+          <ul>
+            <li><a href="#" data-placeholder-link>Privacy</a></li>
+            <li><a href="#" data-placeholder-link>Terms</a></li>
+            <li><a href="#" data-placeholder-link>Community guidelines</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="site-footer__legal">
+        <p>© <span data-year>2026</span> GemRun. iPhone, iOS 17+. Location is used only while you run.</p>
+        <p>Map data © <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap</a> contributors, available under the Open Database License.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
