@@ -56,8 +56,13 @@ There are no real screenshots yet. Every spot that needs one is a styled
 | `feature-active-run` | Features | Active run chase-camera view |
 | `feature-route-editor` | Features | Route drawing + gem placement |
 | `feature-fair-play`  | Features | GPS-verification illustration |
-| `feature-wallet`     | Compete | Stash / wallet screen |
+| `feature-run-summary` | Track | Run summary: calories, splits, gems |
+| `feature-wallet`     | Track | Stash / wallet screen |
 | `app-store-badge`    | Final CTA | Real App Store link |
+
+The "Watch a gem get taken" map is **not** a placeholder — it's a built-in
+animated SVG demo (street grid, route, four gems, a runner with the 100 ft
+claim ring) that plays automatically on scroll and can be replayed.
 
 To swap one in, replace the `.ph` div with an `<img>` (keep the surrounding
 `*__media` wrapper). Footer links marked `data-placeholder-link` and the
@@ -67,7 +72,12 @@ before launch.
 ## Interactions implemented
 
 Sticky header, mobile drawer nav, scroll-spy nav highlighting, reveal-on-scroll,
-animated stat counters, interactive rarity-tier tabs (keyboard-navigable),
-single-open FAQ accordion, and client-side waitlist validation — all gated on
-`prefers-reduced-motion` and fully functional without JavaScript (content is
-never hidden when JS is off).
+animated stat counters, the animated gem-capture map demo (auto-play +
+replay, synced step highlights, XP/gem counters), interactive rarity-tier
+tabs (keyboard-navigable), an interactive calorie estimator (weight ×
+distance sliders), animated head-to-head friend comparison bars, single-open
+FAQ accordion, client-side waitlist validation, and a cookie-consent banner
+("Accept all" / "Essential only", choice stored in `localStorage` under
+`gemrun-consent`, reopenable from the footer's "Cookie preferences" link) —
+all gated on `prefers-reduced-motion` and fully functional without
+JavaScript (content is never hidden when JS is off).

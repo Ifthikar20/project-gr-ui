@@ -286,6 +286,209 @@
     });
   }
 
+  /* ------------------------- Map capture demo --------------------------- */
+
+  var demo = document.querySelector('[data-demo]');
+
+  if (demo) {
+    var route = demo.querySelector('#demo-route');
+    var runner = demo.querySelector('[data-demo-runner]');
+    var gemChip = demo.querySelector('[data-demo-gems]');
+    var xpChip = demo.querySelector('[data-demo-xp]');
+    var playBtn = demo.querySelector('[data-demo-play]');
+    var stepEls = Array.prototype.slice.call(
+      demo.querySelectorAll('.demo-step')
+    );
+    var CLAIM_RADIUS = 40; // matches the runner's "100 ft" ring in SVG units
+    var DURATION = 9000;
+    var routeLength = route.getTotalLength();
+
+    // Project each gem onto the route: the path length at which the runner
+    // is closest to it (gems sit exactly on the route, so this is exact).
+    var demoGems = Array.prototype.slice
+      .call(demo.querySelectorAll('.demo-gem'))
+      .map(function (el) {
+        var gx = parseFloat(el.getAttribute('data-x'));
+        var gy = parseFloat(el.getAttribute('data-y'));
+        var bestLen = 0;
+        var bestDist = Infinity;
+        for (var l = 0; l <= routeLength; l += 3) {
+          var p = route.getPointAtLength(l);
+          var d = Math.hypot(p.x - gx, p.y - gy);
+          if (d < bestDist) { bestDist = d; bestLen = l; }
+        }
+        return { el: el, len: bestLen, xp: parseInt(el.getAttribute('data-xp'), 10) };
+      });
+
+    var demoPlaying = false;
+    var demoPlayed = false;
+    var claimedCount = 0;
+    var xpTotal = 0;
+
+    var updateChips = function () {
+      gemChip.textContent = claimedCount + '/' + demoGems.length + ' gems';
+      xpChip.textContent = xpTotal + ' XP';
+    };
+
+    var placeRunner = function (len) {
+      var p = route.getPointAtLength(Math.min(len, routeLength));
+      runner.setAttribute('transform', 'translate(' + p.x + ',' + p.y + ')');
+    };
+
+    var claimThrough = function (len) {
+      demoGems.forEach(function (gem) {
+        if (
+          !gem.el.classList.contains('is-claimed') &&
+          len >= gem.len - CLAIM_RADIUS
+        ) {
+          gem.el.classList.add('is-claimed');
+          claimedCount += 1;
+          xpTotal += gem.xp;
+          updateChips();
+          stepEls[1].classList.add('is-done');
+          stepEls[1].classList.remove('is-active');
+          stepEls[2].classList.add('is-active');
+        }
+      });
+    };
+
+    var resetDemo = function () {
+      demoGems.forEach(function (gem) { gem.el.classList.remove('is-claimed'); });
+      claimedCount = 0;
+      xpTotal = 0;
+      updateChips();
+      placeRunner(0);
+      stepEls.forEach(function (el, i) {
+        el.classList.toggle('is-active', i === 0);
+        el.classList.remove('is-done');
+      });
+    };
+
+    var finishDemo = function () {
+      placeRunner(routeLength);
+      claimThrough(routeLength + CLAIM_RADIUS);
+      stepEls.forEach(function (el) {
+        el.classList.add('is-done');
+        el.classList.remove('is-active');
+      });
+      demoPlaying = false;
+      playBtn.disabled = false;
+      playBtn.textContent = 'Replay the hunt';
+    };
+
+    var playDemo = function () {
+      if (demoPlaying) return;
+      demoPlaying = true;
+      demoPlayed = true;
+      resetDemo();
+      playBtn.disabled = true;
+      playBtn.textContent = 'Running…';
+
+      if (prefersReducedMotion) {
+        finishDemo();
+        return;
+      }
+
+      var startTime = null;
+      var frame = function (now) {
+        if (startTime === null) startTime = now;
+        var progress = Math.min((now - startTime) / DURATION, 1);
+        var len = routeLength * progress;
+        placeRunner(len);
+        claimThrough(len);
+        if (progress > 0.12) {
+          stepEls[0].classList.add('is-done');
+          stepEls[0].classList.remove('is-active');
+          if (!stepEls[2].classList.contains('is-active')) {
+            stepEls[1].classList.add('is-active');
+          }
+        }
+        if (progress < 1) requestAnimationFrame(frame);
+        else finishDemo();
+      };
+      requestAnimationFrame(frame);
+    };
+
+    playBtn.addEventListener('click', playDemo);
+
+    if ('IntersectionObserver' in window && !prefersReducedMotion) {
+      var demoObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting && !demoPlayed) {
+              playDemo();
+              demoObserver.disconnect();
+            }
+          });
+        },
+        { threshold: 0.45 }
+      );
+      demoObserver.observe(demo);
+    }
+  }
+
+  /* -------------------------- Calorie estimator ------------------------- */
+
+  var estimator = document.querySelector('[data-estimator]');
+
+  if (estimator) {
+    var weightInput = estimator.querySelector('[data-est-weight]');
+    var distInput = estimator.querySelector('[data-est-dist]');
+    var weightOut = estimator.querySelector('[data-est-weight-out]');
+    var distOut = estimator.querySelector('[data-est-dist-out]');
+    var kcalOut = estimator.querySelector('[data-est-kcal]');
+
+    var updateEstimate = function () {
+      var w = parseFloat(weightInput.value);
+      var d = parseFloat(distInput.value);
+      weightOut.textContent = w + ' kg';
+      distOut.textContent = d + ' km';
+      // Net running burn ≈ 1.036 kcal per kg per km on flat ground.
+      kcalOut.textContent = String(Math.round(w * d * 1.036));
+    };
+
+    weightInput.addEventListener('input', updateEstimate);
+    distInput.addEventListener('input', updateEstimate);
+    updateEstimate();
+  }
+
+  /* --------------------------- Cookie consent --------------------------- */
+
+  var cookieBanner = document.querySelector('[data-cookie]');
+
+  if (cookieBanner) {
+    var CONSENT_KEY = 'gemrun-consent';
+
+    var readConsent = function () {
+      try { return localStorage.getItem(CONSENT_KEY); } catch (e) { return null; }
+    };
+
+    var chooseConsent = function (value) {
+      try { localStorage.setItem(CONSENT_KEY, value); } catch (e) { /* private mode */ }
+      cookieBanner.hidden = true;
+    };
+
+    cookieBanner
+      .querySelector('[data-cookie-accept]')
+      .addEventListener('click', function () { chooseConsent('all'); });
+
+    cookieBanner
+      .querySelector('[data-cookie-essential]')
+      .addEventListener('click', function () { chooseConsent('essential'); });
+
+    Array.prototype.slice
+      .call(document.querySelectorAll('[data-cookie-open]'))
+      .forEach(function (button) {
+        button.addEventListener('click', function () {
+          cookieBanner.hidden = false;
+        });
+      });
+
+    if (!readConsent()) {
+      setTimeout(function () { cookieBanner.hidden = false; }, 900);
+    }
+  }
+
   /* ------------------------------ Footer ------------------------------- */
 
   var yearEl = document.querySelector('[data-year]');

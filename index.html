@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GemRun — Every run is a treasure hunt</title>
-  <meta name="description" content="GemRun drops gems on real streets near you. Run or walk within 100 feet and they're yours — one shared world, first one there takes it. GPS-verified, free to play, iPhone.">
-  <meta property="og:title" content="GemRun — Every run is a treasure hunt">
-  <meta property="og:description" content="The system drops gems on real streets near you. Run past within 100 ft — first one there takes it.">
+  <title>GemRun — A gamified running experience</title>
+  <meta name="description" content="GemRun is a gamified running experience: gems drop on real streets near you — run within 100 feet to claim them, race friends on leaderboards, and track every kilometer and calorie along the way.">
+  <meta property="og:title" content="GemRun — A gamified running experience">
+  <meta property="og:description" content="Gems drop on real streets near you. Run within 100 ft to claim them, race your friends, track every calorie.">
   <meta property="og:type" content="website">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="stylesheet" href="css/styles.css">
@@ -27,10 +27,11 @@
 
       <nav class="site-nav" id="site-nav" aria-label="Primary">
         <ul class="site-nav__list">
-          <li><a class="site-nav__link" href="#what" data-navlink>What is GemRun</a></li>
           <li><a class="site-nav__link" href="#how-it-works" data-navlink>How it works</a></li>
           <li><a class="site-nav__link" href="#features" data-navlink>Features</a></li>
           <li><a class="site-nav__link" href="#rarity" data-navlink>Gems</a></li>
+          <li><a class="site-nav__link" href="#track" data-navlink>Track</a></li>
+          <li><a class="site-nav__link" href="#compete" data-navlink>Compete</a></li>
           <li><a class="site-nav__link" href="#faq" data-navlink>FAQ</a></li>
         </ul>
       </nav>
@@ -55,8 +56,9 @@
           <p class="kicker">Run · Hunt · Claim</p>
           <h1 class="hero__title">Every run is a<br>treasure&nbsp;hunt.</h1>
           <p class="hero__lead">
-            GemRun drops gems on real streets near you. Run or walk within
-            100&nbsp;feet and they're yours — one shared world,
+            GemRun is a <strong>gamified running experience</strong>: gems
+            drop on real streets near you. Run or walk within 100&nbsp;feet
+            and they're yours — one shared world,
             <strong>first one there takes it</strong>.
           </p>
           <div class="hero__cta">
@@ -170,9 +172,112 @@
       <div class="container">
         <div class="section__head" data-reveal>
           <p class="kicker">How it works</p>
-          <h2 class="section__title">The core loop.</h2>
+          <h2 class="section__title">Watch a gem get taken.</h2>
+          <p class="section__lead">
+            This is the whole game in nine seconds: gems are waiting on the
+            map, you close the distance, and the first runner inside
+            100&nbsp;ft claims it. Press play.
+          </p>
         </div>
 
+        <div class="demo" data-demo data-reveal>
+          <div class="demo__map">
+            <div class="demo__bar">
+              <span class="demo__tag">Live demo — no GPS required</span>
+              <span class="demo__chips" aria-live="polite">
+                <span class="demo__chip" data-demo-gems>0/4 gems</span>
+                <span class="demo__chip demo__chip--xp" data-demo-xp>0 XP</span>
+              </span>
+            </div>
+
+            <svg class="demo__svg" viewBox="0 0 760 560" role="img"
+                 aria-label="Animated demo: a runner follows a route through a street grid, claiming four gems as they pass within 100 feet of each">
+              <!-- street grid -->
+              <g class="demo-streets">
+                <path d="M20 100 H740 M20 200 H740 M20 300 H740 M20 400 H740 M20 500 H740" class="demo-street"/>
+                <path d="M100 20 V540 M240 20 V540 M380 20 V540 M520 20 V540 M660 20 V540" class="demo-street"/>
+                <path d="M20 100 H740 M100 20 V540 M380 20 V540 M20 300 H740 M20 500 H740" class="demo-street demo-street--main"/>
+              </g>
+              <rect class="demo-park" x="530" y="210" width="120" height="80" rx="14"/>
+
+              <!-- the route -->
+              <path id="demo-route" class="demo-route"
+                    d="M100 500 H380 V300 H660 V100"/>
+
+              <!-- start marker -->
+              <g class="demo-start" transform="translate(100,500)">
+                <circle r="7"/>
+                <text y="26">START</text>
+              </g>
+
+              <!-- gems (positions mirrored in data-x/data-y for the script) -->
+              <g class="demo-gem" transform="translate(240,500)" data-x="240" data-y="500" data-xp="10">
+                <g class="demo-gem__art" style="--step:.30">
+                  <path transform="translate(-15.6,-15.6) scale(1.3)" d="M12 2 L22 12 L12 22 L2 12 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+                </g>
+                <g class="demo-gem__check"><circle r="12"/><path d="M-4.5 0l3 3 6-6"/></g>
+                <text class="demo-gem__toast" y="-26">+10 XP</text>
+              </g>
+              <g class="demo-gem" transform="translate(380,400)" data-x="380" data-y="400" data-xp="25">
+                <g class="demo-gem__art" style="--step:.50">
+                  <path transform="translate(-15.6,-15.6) scale(1.3)" d="M12 2 L22 12 L12 22 L2 12 Z" fill="currentColor"/>
+                </g>
+                <g class="demo-gem__check"><circle r="12"/><path d="M-4.5 0l3 3 6-6"/></g>
+                <text class="demo-gem__toast" y="-26">+25 XP</text>
+              </g>
+              <g class="demo-gem" transform="translate(520,300)" data-x="520" data-y="300" data-xp="200">
+                <g class="demo-gem__art" style="--step:.88">
+                  <path transform="translate(-15.6,-15.6) scale(1.3)" d="M12 1.8l2.5 2 3.2-.3 1 3 2.9 1.4-.7 3.1 2 2.5-2 2.5.7 3.1-2.9 1.4-1 3-3.2-.3-2.5 2-2.5-2-3.2.3-1-3-2.9-1.4.7-3.1-2-2.5 2-2.5-.7-3.1L7.3 6.5l1-3 3.2.3z" fill="currentColor"/>
+                </g>
+                <g class="demo-gem__check"><circle r="12"/><path d="M-4.5 0l3 3 6-6"/></g>
+                <text class="demo-gem__toast" y="-26">+200 XP</text>
+              </g>
+              <g class="demo-gem" transform="translate(660,100)" data-x="660" data-y="100" data-xp="500">
+                <g class="demo-gem__art" style="--step:1">
+                  <path transform="translate(-15.6,-15.6) scale(1.3)" d="M3 8l4.5 4L12 5l4.5 7L21 8l-1.6 10H4.6z" fill="currentColor"/>
+                </g>
+                <g class="demo-gem__check"><circle r="12"/><path d="M-4.5 0l3 3 6-6"/></g>
+                <text class="demo-gem__toast" y="-26">+500 XP · first find</text>
+              </g>
+
+              <!-- the runner + 100 ft claim radius -->
+              <g class="demo-runner" data-demo-runner transform="translate(100,500)">
+                <circle class="demo-runner__radius" r="40"/>
+                <circle class="demo-runner__dot" r="9"/>
+                <text class="demo-runner__label" y="-50">100 ft</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="demo__side">
+            <ol class="demo-steps" data-demo-steps>
+              <li class="demo-step is-active">
+                <span class="demo-step__dot">1</span>
+                <div>
+                  <h3 class="demo-step__title">Spot gems on the map</h3>
+                  <p class="demo-step__body">The system has already stocked the streets around you. Open the map, pick a target, plan a line.</p>
+                </div>
+              </li>
+              <li class="demo-step">
+                <span class="demo-step__dot">2</span>
+                <div>
+                  <h3 class="demo-step__title">Close the distance</h3>
+                  <p class="demo-step__body">Run toward it. The moment you're inside 100 ft your phone pops with haptics — no need to look at the screen.</p>
+                </div>
+              </li>
+              <li class="demo-step">
+                <span class="demo-step__dot">3</span>
+                <div>
+                  <h3 class="demo-step__title">Claim it first</h3>
+                  <p class="demo-step__body">Your GPS track proves you were there and the server settles it: one winner, XP banked, gem gone for everyone else.</p>
+                </div>
+              </li>
+            </ol>
+            <button class="btn btn--pulse demo__play" type="button" data-demo-play>Play the hunt</button>
+          </div>
+        </div>
+
+        <h3 class="steps__heading" data-reveal>The full loop, end to end</h3>
         <ol class="steps">
           <li class="step" data-reveal>
             <span class="step__num">01</span>
@@ -389,9 +494,93 @@
       </div>
     </section>
 
-    <!-- ====================== EARN &amp; COMPETE ===================== -->
-    <section class="section" id="compete">
+    <!-- ====================== TRACK EVERYTHING ====================== -->
+    <section class="section section--tint" id="track">
       <div class="container">
+        <div class="section__head" data-reveal>
+          <p class="kicker">Track everything</p>
+          <h2 class="section__title">Every mile counted.<br>Every calorie banked.</h2>
+          <p class="section__lead">
+            Under the game, GemRun is a full running tracker. Every run
+            records your distance, time, per-km splits, pace, elevation gain
+            and estimated calorie burn — synced with Apple Health — and those
+            same miles feed the game: streak multipliers, XP, and gem mints.
+          </p>
+        </div>
+
+        <div class="tile-grid">
+          <div class="tile" data-reveal>
+            <div class="tile__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 22c-4 0-6.5-2.7-6.5-6.2 0-2.6 1.5-4.5 2.8-6 .5-.6 1.5-.2 1.5.6 0 .9.6 1.4 1.2 1.2C12.4 11.2 10 6.5 13 2c.4 2.8 1.7 4 3.1 5.6 1.4 1.6 2.4 3.6 2.4 6.2 0 4.4-2.5 8.2-6.5 8.2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 class="tile__title">Calories burned</h3>
+            <p class="tile__body">Estimated from your pace, the grade, and your Apple Health profile — logged on every run.</p>
+          </div>
+          <div class="tile" data-reveal data-reveal-delay="1">
+            <div class="tile__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M5 20v-2a4 4 0 0 1 4-4h6a4 4 0 0 0 4-4V4M5 20l-2-2m2 2 2-2M19 4l-2 2m2-2 2 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 class="tile__title">Distance &amp; splits</h3>
+            <p class="tile__body">Per-km splits on every run; lifetime kilometers mint wallet gems at each tier threshold.</p>
+          </div>
+          <div class="tile" data-reveal data-reveal-delay="2">
+            <div class="tile__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 20a8 8 0 1 1 8-8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 12l5-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></svg>
+            </div>
+            <h3 class="tile__title">Live pace</h3>
+            <p class="tile__body">Current and average pace with auto-pause at the lights — and pace-sanity checks keep claims honest.</p>
+          </div>
+          <div class="tile" data-reveal>
+            <div class="tile__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 19L9 8l4 6 3-4 5 9z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 class="tile__title">Elevation gain</h3>
+            <p class="tile__body">Climb counts double: it shapes your calorie burn, and Epic gems only live on hard ground.</p>
+          </div>
+          <div class="tile" data-reveal data-reveal-delay="1">
+            <div class="tile__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M13 2 L6 13h5l-1 9 8-12h-5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 class="tile__title">Streak multiplier</h3>
+            <p class="tile__body">Daily gems keep the chain alive; the longer the streak, the bigger the XP multiplier on every find.</p>
+          </div>
+          <div class="tile" data-reveal data-reveal-delay="2">
+            <div class="tile__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.2 6.4.5-4.9 4.3 1.5 6.5L12 16l-5.6 3.5 1.5-6.5L3 8.7l6.4-.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 class="tile__title">XP &amp; levels</h3>
+            <p class="tile__body">Every gem pays XP toward your level — pure bragging rights on the boards, never a paywall.</p>
+          </div>
+        </div>
+
+        <div class="track__row">
+          <div class="estimator" data-estimator data-reveal>
+            <h3 class="estimator__title">Quick math: what a run burns</h3>
+            <label class="estimator__field">
+              <span class="estimator__label">Your weight <output data-est-weight-out>70 kg</output></span>
+              <input type="range" min="40" max="130" step="1" value="70" data-est-weight aria-label="Your weight in kilograms">
+            </label>
+            <label class="estimator__field">
+              <span class="estimator__label">Run distance <output data-est-dist-out>5 km</output></span>
+              <input type="range" min="1" max="42" step="1" value="5" data-est-dist aria-label="Run distance in kilometers">
+            </label>
+            <p class="estimator__result">≈ <strong data-est-kcal>363</strong> kcal</p>
+            <p class="estimator__note">
+              Flat-ground estimate (~1.04 kcal per kg per km). In the app the
+              number also uses your pace, elevation and Apple Health profile.
+            </p>
+          </div>
+
+          <div class="feature__media" data-reveal data-reveal-delay="1">
+            <div class="ph ph--phone ph--sm" data-placeholder="feature-run-summary" role="img"
+                 aria-label="Placeholder for app screenshot: run summary with calories, splits and gems">
+              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
+              <span class="ph__label">App screenshot</span>
+              <span class="ph__hint">Run summary · calories &amp; splits</span>
+            </div>
+          </div>
+        </div>
+
         <div class="feature">
           <div class="feature__copy" data-reveal>
             <p class="kicker">The wallet</p>
@@ -416,6 +605,90 @@
               <span class="ph__hint">Stash · wallet &amp; sets</span>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================== COMPETE =========================== -->
+    <section class="section" id="compete">
+      <div class="container">
+        <div class="section__head" data-reveal>
+          <p class="kicker">Friends &amp; rivalry</p>
+          <h2 class="section__title">Measure up,<br>friend by friend.</h2>
+          <p class="section__lead">
+            Follow your friends and every shared street becomes a scoreboard:
+            weekly head-to-head totals for gems, distance and calories, best
+            times on every route, and crowns for whoever gets there first.
+          </p>
+        </div>
+
+        <div class="h2h" data-reveal>
+          <div class="h2h__head">
+            <span class="h2h__avatar" aria-hidden="true">Y</span>
+            <div class="h2h__names">
+              <span class="h2h__title">This week — You vs Jordan</span>
+              <span class="h2h__sub">Head-to-head resets every Monday</span>
+            </div>
+            <span class="h2h__avatar h2h__avatar--friend" aria-hidden="true">J</span>
+          </div>
+
+          <div class="h2h__row">
+            <span class="h2h__label">Gems collected</span>
+            <div class="h2h__pair">
+              <div class="h2h__side">
+                <span class="h2h__val h2h__val--win">12</span>
+                <div class="h2h__bar"><span class="h2h__fill" style="--pct:100%"></span></div>
+              </div>
+              <div class="h2h__side h2h__side--friend">
+                <div class="h2h__bar"><span class="h2h__fill h2h__fill--friend" style="--pct:75%"></span></div>
+                <span class="h2h__val">9</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="h2h__row">
+            <span class="h2h__label">Distance</span>
+            <div class="h2h__pair">
+              <div class="h2h__side">
+                <span class="h2h__val">24.5 km</span>
+                <div class="h2h__bar"><span class="h2h__fill" style="--pct:79%"></span></div>
+              </div>
+              <div class="h2h__side h2h__side--friend">
+                <div class="h2h__bar"><span class="h2h__fill h2h__fill--friend" style="--pct:100%"></span></div>
+                <span class="h2h__val h2h__val--win">31.2 km</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="h2h__row">
+            <span class="h2h__label">Calories burned</span>
+            <div class="h2h__pair">
+              <div class="h2h__side">
+                <span class="h2h__val">1,840</span>
+                <div class="h2h__bar"><span class="h2h__fill" style="--pct:83%"></span></div>
+              </div>
+              <div class="h2h__side h2h__side--friend">
+                <div class="h2h__bar"><span class="h2h__fill h2h__fill--friend" style="--pct:100%"></span></div>
+                <span class="h2h__val h2h__val--win">2,210</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="h2h__row">
+            <span class="h2h__label">Best time · Harbor Loop 5k</span>
+            <div class="h2h__pair">
+              <div class="h2h__side">
+                <span class="h2h__val h2h__val--win">24:31</span>
+                <div class="h2h__bar"><span class="h2h__fill" style="--pct:100%"></span></div>
+              </div>
+              <div class="h2h__side h2h__side--friend">
+                <div class="h2h__bar"><span class="h2h__fill h2h__fill--friend" style="--pct:94%"></span></div>
+                <span class="h2h__val">26:02</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="h2h__note">Sample data — in the app this is your feed, with real friends.</p>
         </div>
 
         <div class="card-grid card-grid--3up">
@@ -504,6 +777,28 @@
               map itself: the first time anyone opens your area, the backend
               fills it — popular routes first, otherwise directly on walkable
               streets a short distance from you.</p>
+            </div>
+          </details>
+
+          <details class="faq__item" data-reveal>
+            <summary class="faq__q">Does it track calories and stats like a normal running app?</summary>
+            <div class="faq__a">
+              <p>Yes — under the game it's a full tracker. Every run records
+              distance, time, per-km splits, pace, elevation gain and an
+              estimated calorie burn, and syncs with Apple Health. The same
+              miles power the game: streaks, XP multipliers, and lifetime-km
+              gem mints.</p>
+            </div>
+          </details>
+
+          <details class="faq__item" data-reveal>
+            <summary class="faq__q">How do I compete with friends?</summary>
+            <div class="faq__a">
+              <p>Follow them, and every shared street becomes a scoreboard:
+              per-route leaderboards for best times, weekly head-to-head
+              totals for gems, distance and calories, and first-find crowns
+              when you beat everyone to a Legendary. Racing your actual
+              neighborhood beats racing strangers.</p>
             </div>
           </details>
 
@@ -605,10 +900,26 @@
 
       <div class="site-footer__legal">
         <p>© <span data-year>2026</span> GemRun. iPhone, iOS 17+. Location is used only while you run.</p>
-        <p>Map data © <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap</a> contributors, available under the Open Database License.</p>
+        <p>
+          <button class="link-button" type="button" data-cookie-open>Cookie preferences</button>
+          · Map data © <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap</a> contributors, available under the Open Database License.
+        </p>
       </div>
     </div>
   </footer>
+
+  <div class="cookie" role="dialog" aria-label="Cookie preferences" data-cookie hidden>
+    <p class="cookie__text">
+      <strong>Cookies, briefly.</strong> Essential ones keep this site
+      working; optional ones help us understand what's resonating so we can
+      make the hunt better. Your choice is saved on this device.
+      <a href="#" data-placeholder-link>Privacy policy</a>
+    </p>
+    <div class="cookie__actions">
+      <button class="btn btn--pulse btn--sm" type="button" data-cookie-accept>Accept all</button>
+      <button class="btn btn--ghost btn--sm" type="button" data-cookie-essential>Essential only</button>
+    </div>
+  </div>
 
   <script src="js/main.js"></script>
 </body>
