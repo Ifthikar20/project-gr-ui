@@ -1,8 +1,10 @@
 /* ==========================================================================
-   GemRun landing page — "Daybreak Pulse" web adaptation
-   Exactly three colors (docs/03 in the app repo): snow surfaces, ink text,
-   one ember-red pulse accent. Opacity steps of a hue count as the same color.
-   Layout energy borrowed from strava.com/get-started; palette stays ours.
+   GemRun landing page — monochrome by intent.
+   The mobile palette and nothing else: snow surfaces, ink text, grays as
+   opacity steps of ink. No brand hue — deliberately not Strava-adjacent.
+   "--pulse" is the accent slot (name kept for minimal churn); it resolves
+   to ink on light surfaces and flips to snow inside dark scopes (.hero,
+   .cta, .section--ink, the overlay header).
    ========================================================================== */
 
 :root {
@@ -17,10 +19,11 @@
   --ink-12: rgba(22, 24, 29, 0.12);
   --ink-06: rgba(22, 24, 29, 0.06);
 
-  /* 3 — Pulse: THE accent (CTAs, gems, live stats) */
-  --pulse: #ef3b23;
-  --pulse-deep: #d92f18;      /* hover step of the same hue */
-  --pulse-12: rgba(239, 59, 35, 0.12);
+  /* 3 — The accent slot: ink on light surfaces; dark scopes flip it */
+  --pulse: #16181d;
+  --pulse-deep: #000000;      /* hover step */
+  --pulse-12: rgba(22, 24, 29, 0.08);
+  --on-pulse: #ffffff;        /* text/icon color on top of the accent */
 
   /* On-ink neutrals (tint steps of snow) */
   --snow-on-ink-70: rgba(250, 250, 248, 0.72);
@@ -36,6 +39,31 @@
 
   --font: ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont,
           "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Dark scopes: the accent slot becomes snow, and anything sitting on the
+   accent becomes ink. */
+.hero,
+.cta,
+.section--ink {
+  --pulse: #fafaf8;
+  --pulse-deep: #ffffff;
+  --pulse-12: rgba(250, 250, 248, 0.14);
+  --on-pulse: #16181d;
+}
+
+/* The fixed header floats over the photo until scrolled (or menu open). */
+.site-header {
+  --pulse: #fafaf8;
+  --pulse-deep: #ffffff;
+  --on-pulse: #16181d;
+}
+
+.site-header.is-scrolled,
+.nav-open .site-header {
+  --pulse: #16181d;
+  --pulse-deep: #000000;
+  --on-pulse: #ffffff;
 }
 
 /* ------------------------------ Reset ---------------------------------- */
@@ -106,11 +134,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--pulse);
+  color: var(--ink-55);
   margin-bottom: 14px;
 }
 
-.kicker--on-ink { color: var(--pulse); }
+.kicker--on-ink { color: var(--snow-on-ink-70); }
 
 .section__title {
   font-size: clamp(30px, 4.4vw, 48px);
@@ -149,8 +177,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 .btn--pulse {
   background: var(--pulse);
-  color: #fff;
-  box-shadow: 0 4px 14px rgba(239, 59, 35, 0.28);
+  color: var(--on-pulse);
+  box-shadow: 0 4px 14px rgba(22, 24, 29, 0.22);
 }
 .btn--pulse:hover { background: var(--pulse-deep); transform: translateY(-1px); }
 .btn--pulse:active { transform: translateY(0); }
@@ -258,7 +286,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 .site-nav__link:hover { color: var(--ink); background: var(--ink-06); }
 
-.site-nav__link.is-active { color: var(--pulse); }
+.site-nav__link.is-active { color: var(--ink); background: var(--ink-06); }
 
 /* Over the hero photo (desktop only — the mobile panel is always white) */
 @media (min-width: 881px) {
@@ -326,18 +354,17 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .kicker--hero {
   display: inline-block;
   background: var(--pulse);
-  color: #fff;
+  color: var(--on-pulse);
   padding: 7px 14px;
   border-radius: 999px;
   letter-spacing: 0.12em;
 }
 
 .hero__title {
-  font-size: clamp(46px, 7.2vw, 92px);
+  font-size: clamp(44px, 6.4vw, 84px);
   font-weight: 800;
-  line-height: 0.99;
-  letter-spacing: -0.015em;
-  text-transform: uppercase;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
   color: #fff;
 }
 
@@ -1074,7 +1101,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 .demo-runner__radius {
-  fill: rgba(239, 59, 35, 0.1);
+  fill: rgba(22, 24, 29, 0.06);
   stroke: var(--pulse);
   stroke-width: 1.5;
   stroke-dasharray: 5 6;
@@ -1273,7 +1300,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-size: 17px;
 }
 
-.h2h__avatar--friend { background: var(--ink); }
+.h2h__avatar--friend { background: rgba(22, 24, 29, 0.45); }
 
 .h2h__names { flex: 1; display: flex; flex-direction: column; }
 
@@ -1335,11 +1362,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   min-width: 54px;
+  color: var(--ink-55);
 }
 
 .h2h__side--friend .h2h__val { text-align: right; }
 
-.h2h__val--win { color: var(--pulse); }
+.h2h__val--win { color: var(--ink); }
 
 .h2h__note { margin-top: 16px; font-size: 12.5px; color: var(--ink-55); }
 

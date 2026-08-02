@@ -30,19 +30,20 @@ assets/           favicon.svg (real images land here later)
 
 ## Design system
 
-The page is a web adaptation of the app's **"Daybreak Pulse"** design language
-(`docs/03-ux-spec.md` in the app repo) — exactly three colors, with layout
-energy referenced from Strava's get-started page:
+Monochrome by intent — the mobile palette and nothing else, deliberately
+**not** Strava-adjacent (no orange, no red):
 
 | Token | Value | Role |
 |---|---|---|
 | Snow  | `#FAFAF8` bg / `#FFFFFF` cards | Surfaces |
-| Ink   | `#16181D` (+ 0.55 gray text, + 0.12 hairlines) | Text, icons, dark bands |
-| Pulse | `#EF3B23` ember red (+ opacity ramp) | THE accent: CTAs, gems, stats |
+| Ink   | `#16181D` (+ 0.55 gray text, + 0.12 hairlines) | Text, icons, CTAs, dark bands |
 
-Grays are opacity steps of ink — never a fourth hue. Gem rarity is rendered as
-a pulse-opacity ramp (0.30 → 1.0) plus a distinct glyph per tier, matching the
-app.
+Grays are opacity steps of ink — never another hue. The CSS accent variable
+is still named `--pulse` (to keep the diff small); it resolves to **ink** on
+light surfaces and flips to **snow** inside dark scopes (`.hero`, `.cta`,
+`.section--ink`, the overlay header), with `--on-pulse` carrying the paired
+text color. Gem rarity is an opacity ramp (0.30 → 1.0) plus a distinct glyph
+per tier, so tiers stay readable purely by shape and brightness.
 
 ## Image placeholders
 
