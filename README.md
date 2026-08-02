@@ -30,20 +30,21 @@ assets/           favicon.svg (real images land here later)
 
 ## Design system
 
-Monochrome by intent — the mobile palette and nothing else, deliberately
-**not** Strava-adjacent (no orange, no red):
+**Ember red-orange × black.** The brand accent is the app's pulse color —
+`#EF3B23`, deliberately red-shifted off Strava's orange — set against a
+black-forward frame, so the identity reads as red-orange *with* black
+rather than Strava's orange-on-white:
 
 | Token | Value | Role |
 |---|---|---|
 | Snow  | `#FAFAF8` bg / `#FFFFFF` cards | Surfaces |
-| Ink   | `#16181D` (+ 0.55 gray text, + 0.12 hairlines) | Text, icons, CTAs, dark bands |
+| Ink   | `#16181D` (+ 0.55 gray text, + 0.12 hairlines) | Text, icons, dark bands (hero, ticker, rarity, CTA) |
+| Pulse | `#EF3B23` (+ opacity ramp) | THE accent: CTAs, kickers, gems, live stats |
 
-Grays are opacity steps of ink — never another hue. The CSS accent variable
-is still named `--pulse` (to keep the diff small); it resolves to **ink** on
-light surfaces and flips to **snow** inside dark scopes (`.hero`, `.cta`,
-`.section--ink`, the overlay header), with `--on-pulse` carrying the paired
-text color. Gem rarity is an opacity ramp (0.30 → 1.0) plus a distinct glyph
-per tier, so tiers stay readable purely by shape and brightness.
+Grays are opacity steps of ink — never another hue. The ticker strip is the
+mix in one line: black band, red type. Gem rarity is a pulse-opacity ramp
+(0.30 → 1.0) plus a distinct glyph per tier, so tiers stay readable by shape
+even in grayscale.
 
 ## Image placeholders
 
