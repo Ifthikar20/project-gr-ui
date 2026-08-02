@@ -162,22 +162,49 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .btn--ghost:hover { border-color: var(--ink); transform: translateY(-1px); }
 
+.btn--ghost-light {
+  background: rgba(250, 250, 248, 0.08);
+  color: #fff;
+  border: 1.5px solid rgba(250, 250, 248, 0.45);
+}
+.btn--ghost-light:hover { border-color: #fff; transform: translateY(-1px); }
+
 .btn--sm { padding: 10px 20px; font-size: 15px; }
 .btn--lg { padding: 16px 32px; font-size: 17px; }
 
 /* ------------------------------ Header --------------------------------- */
 
+/* Transparent over the hero photo (white text), solid snow once scrolled
+   or when the mobile menu is open. */
 .site-header {
   position: fixed;
   inset: 0 0 auto 0;
   z-index: 50;
   height: var(--header-h);
-  background: rgba(250, 250, 248, 0.86);
+  color: #fff;
+  background: linear-gradient(180deg, rgba(16, 18, 22, 0.5), rgba(16, 18, 22, 0));
+  border-bottom: 1px solid transparent;
+  transition: color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(250, 250, 248, 0.88);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  opacity: 0;
+  transition: opacity 0.25s ease;
 }
+
+.site-header.is-scrolled,
+.nav-open .site-header {
+  color: var(--ink);
+}
+
+.site-header.is-scrolled::before,
+.nav-open .site-header::before { opacity: 1; }
 
 .site-header.is-scrolled {
   border-bottom-color: var(--ink-12);
@@ -185,6 +212,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 .site-header__inner {
+  position: relative;
+  z-index: 1;
   height: 100%;
   display: flex;
   align-items: center;
@@ -205,6 +234,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-size: 21px;
   font-weight: 700;
   letter-spacing: -0.02em;
+  color: inherit;
 }
 
 .site-nav__list {
@@ -230,6 +260,21 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 .site-nav__link.is-active { color: var(--pulse); }
 
+/* Over the hero photo (desktop only — the mobile panel is always white) */
+@media (min-width: 881px) {
+  .site-header:not(.is-scrolled) .site-nav__link { color: rgba(255, 255, 255, 0.85); }
+
+  .site-header:not(.is-scrolled) .site-nav__link:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.14);
+  }
+
+  .site-header:not(.is-scrolled) .site-nav__link.is-active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.14);
+  }
+}
+
 .site-header__actions { display: flex; align-items: center; gap: 12px; }
 
 /* Hamburger (mobile) */
@@ -245,7 +290,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   position: absolute;
   left: 11px;
   width: 22px; height: 2px;
-  background: var(--ink);
+  background: currentColor;
   border-radius: 2px;
   transition: transform 0.25s ease, top 0.25s ease;
 }
@@ -255,42 +300,61 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .nav-open .nav-toggle__bar:nth-child(1) { top: 21px; transform: rotate(45deg); }
 .nav-open .nav-toggle__bar:nth-child(2) { top: 21px; transform: rotate(-45deg); }
 
-/* ------------------------------- Hero ---------------------------------- */
+/* ------------------------------- Hero ----------------------------------
+   Full-bleed photo. The image lives at assets/running-background.jpg —
+   swap that file to change the shot; the ink gradient scrim underneath
+   guarantees text contrast even if the image is missing. */
 
 .hero {
-  padding-top: calc(var(--header-h) + clamp(40px, 8vh, 90px));
-  padding-bottom: clamp(48px, 8vh, 96px);
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: min(860px, 92vh);
+  padding: calc(var(--header-h) + clamp(36px, 7vh, 80px)) 0 clamp(56px, 9vh, 110px);
+  background:
+    linear-gradient(180deg, rgba(16, 18, 22, 0.62) 0%, rgba(16, 18, 22, 0.34) 45%, rgba(16, 18, 22, 0.78) 100%),
+    url("../assets/running-background.jpg") center / cover no-repeat,
+    var(--ink);
+  color: var(--snow);
   overflow: hidden;
 }
 
-.hero__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-  align-items: center;
-  gap: clamp(32px, 5vw, 72px);
+.hero__inner { width: 100%; }
+
+.hero__copy { max-width: 850px; }
+
+.kicker--hero {
+  display: inline-block;
+  background: var(--pulse);
+  color: #fff;
+  padding: 7px 14px;
+  border-radius: 999px;
+  letter-spacing: 0.12em;
 }
 
 .hero__title {
-  font-size: clamp(42px, 6.4vw, 76px);
+  font-size: clamp(46px, 7.2vw, 92px);
   font-weight: 800;
-  line-height: 1.02;
-  letter-spacing: -0.03em;
+  line-height: 0.99;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: #fff;
 }
 
 .hero__lead {
-  max-width: 520px;
-  margin-top: 22px;
+  max-width: 560px;
+  margin-top: 24px;
   font-size: clamp(18px, 1.8vw, 21px);
-  color: var(--ink-70);
+  color: rgba(250, 250, 248, 0.86);
 }
 
-.hero__lead strong { color: var(--ink); }
+.hero__lead strong { color: #fff; }
 
 .hero__cta {
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
-  margin-top: 32px;
+  margin-top: 34px;
 }
 
 .hero__trust {
@@ -298,11 +362,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   flex-wrap: wrap;
   gap: 8px 24px;
   list-style: none;
-  margin: 28px 0 0;
+  margin: 30px 0 0;
   padding: 0;
   font-size: 14px;
   font-weight: 600;
-  color: var(--ink-55);
+  color: rgba(250, 250, 248, 0.75);
 }
 
 .hero__trust li {
@@ -319,7 +383,32 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   flex: none;
 }
 
-.hero__media { display: flex; justify-content: center; }
+/* ------------------------------ Ticker ---------------------------------- */
+
+.ticker {
+  background: var(--pulse);
+  color: #fff;
+  overflow: hidden;
+  padding: 13px 0;
+}
+
+.ticker__inner {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 28s linear infinite;
+}
+
+.ticker__seq {
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@keyframes ticker-scroll {
+  to { transform: translateX(-50%); }
+}
 
 /* -------------------------- Media placeholders --------------------------
    Swap each .ph block for a real <img>/<picture> later; the data-placeholder
@@ -386,9 +475,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* ---------------------------- Stats band ------------------------------- */
 
 .stats {
-  background: var(--ink);
-  color: var(--snow);
-  padding: clamp(40px, 6vh, 64px) 0;
+  background: var(--card);
+  border-bottom: 1px solid var(--ink-06);
+  padding: clamp(36px, 6vh, 60px) 0;
 }
 
 .stats__grid {
@@ -413,8 +502,15 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   display: block;
   margin-top: 8px;
   font-size: 14px;
-  color: var(--snow-on-ink-70);
+  color: var(--ink-55);
   max-width: 220px;
+}
+
+@media (min-width: 881px) {
+  .stat:not(:first-child) {
+    border-left: 1px solid var(--ink-06);
+    padding-left: clamp(20px, 2.5vw, 40px);
+  }
 }
 
 /* ----------------------------- Sections -------------------------------- */
@@ -634,9 +730,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .faq { display: grid; gap: 12px; }
 
 .faq__item {
-  background: var(--snow);
+  background: var(--card);
   border: 1px solid var(--ink-06);
   border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
   overflow: hidden;
 }
 
@@ -675,10 +772,22 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* ------------------------------ Final CTA ------------------------------- */
 
 .cta {
-  background: var(--ink);
+  background:
+    linear-gradient(180deg, rgba(16, 18, 22, 0.82), rgba(16, 18, 22, 0.88)),
+    url("../assets/running-background.jpg") center / cover no-repeat,
+    var(--ink);
   color: var(--snow);
   padding: clamp(72px, 12vh, 130px) 0;
   text-align: center;
+}
+
+.cta__platform {
+  margin-top: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(250, 250, 248, 0.6);
 }
 
 .cta__inner {
@@ -1234,6 +1343,119 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 .h2h__note { margin-top: 16px; font-size: 12.5px; color: var(--ink-55); }
 
+/* -------------------------- Screens carousel ----------------------------- */
+
+.screens__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: clamp(28px, 4vh, 44px);
+}
+
+.section__head--flush { margin-bottom: 0; }
+
+.screens__nav { display: flex; gap: 10px; flex: none; }
+
+.screens__btn {
+  width: 48px; height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1.5px solid var(--ink-12);
+  background: var(--card);
+  color: var(--ink);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.screens__btn:hover { border-color: var(--ink); transform: translateY(-1px); }
+
+.screens__btn svg { width: 22px; height: 22px; }
+
+.screens {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(300px, 80vw);
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 4px 4px 20px;
+}
+
+.screens::-webkit-scrollbar { height: 8px; }
+
+.screens::-webkit-scrollbar-thumb { background: var(--ink-12); border-radius: 999px; }
+
+.screens::-webkit-scrollbar-track { background: transparent; }
+
+.screen-card { scroll-snap-align: start; }
+
+.screen-card .ph--card {
+  max-width: none;
+  border-radius: 34px;
+  box-shadow: var(--shadow-card);
+}
+
+.screen-card__title { margin-top: 18px; font-size: 19px; font-weight: 700; }
+
+.screen-card__body { margin-top: 6px; font-size: 14.5px; color: var(--ink-70); }
+
+/* ------------------------------ Privacy ---------------------------------- */
+
+.privacy {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: clamp(36px, 5vw, 88px);
+  align-items: start;
+}
+
+.privacy__intro .section__lead { margin-top: 18px; }
+
+.privacy__platform {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 8px 15px;
+  border-radius: 999px;
+  background: var(--pulse-12);
+  color: var(--pulse);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.privacy__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.privacy__row {
+  display: flex;
+  gap: 18px;
+  padding: 24px 0;
+  border-top: 1px solid var(--ink-12);
+}
+
+.privacy__row:last-child { border-bottom: 1px solid var(--ink-12); }
+
+.privacy__icon {
+  flex: none;
+  width: 44px; height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--pulse-12);
+  color: var(--pulse);
+}
+
+.privacy__icon svg { width: 24px; height: 24px; }
+
+.privacy__title { font-size: 17.5px; font-weight: 700; margin: 0; }
+
+.privacy__body { margin: 6px 0 0; font-size: 15px; color: var(--ink-70); }
+
 /* ---------------------------- Cookie banner ------------------------------ */
 
 .cookie {
@@ -1342,10 +1564,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
   .nav-toggle { display: block; }
 
-  .hero__inner { grid-template-columns: 1fr; }
-
-  .hero__media { order: 2; }
-
   .ph--phone { max-width: 260px; }
 
   .stats__grid { grid-template-columns: repeat(2, 1fr); }
@@ -1404,6 +1622,20 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .h2h__pair { gap: 12px; }
 
   .h2h__val { font-size: 14px; min-width: 46px; }
+
+  .screens__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .screens { grid-auto-columns: min(272px, 84vw); }
+
+  .screen-card .ph--card { max-width: none; }
+
+  .privacy { grid-template-columns: 1fr; }
+
+  .hero { min-height: min(760px, 88vh); }
 }
 
 @media (max-width: 560px) {
@@ -1432,6 +1664,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .demo-gem.is-claimed .demo-gem__toast { animation: none; opacity: 0; }
 
   .cookie { animation: none; }
+
+  .ticker__inner { animation: none; }
+
+  .screens { scroll-behavior: auto; }
 
   .js .h2h__fill,
   .js .h2h.is-revealed .h2h__fill { width: var(--pct, 0%); transition: none; }

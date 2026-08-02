@@ -51,7 +51,7 @@ There are no real screenshots yet. Every spot that needs one is a styled
 
 | `data-placeholder` | Section | Suggested asset |
 |---|---|---|
-| `hero-explore-map`   | Hero | Phone screenshot: Explore map with gems |
+| `screen-explore` … `screen-profile` | Screens carousel | One screenshot per app screen (Explore, Route Detail, Active Run, Stash, Compete, Profile) |
 | `feature-living-map` | Features | Map stocked with system gems |
 | `feature-active-run` | Features | Active run chase-camera view |
 | `feature-route-editor` | Features | Route drawing + gem placement |
@@ -64,6 +64,15 @@ The "Watch a gem get taken" map is **not** a placeholder — it's a built-in
 animated SVG demo (street grid, route, four gems, a runner with the 100 ft
 claim ring) that plays automatically on scroll and can be replayed.
 
+### Hero / CTA background photo
+
+The hero and final-CTA sections use `assets/running-background.jpg` as a
+full-bleed photo. The committed file is a **generated stand-in** (dark
+asphalt tones with light streaks) — replace it with the real photo
+(`running-background.jpg` from the project-gr folder on the design machine)
+by overwriting that one file; no code changes needed. An ink gradient scrim
+sits above the image, so any reasonably dark photo keeps text readable.
+
 To swap one in, replace the `.ph` div with an `<img>` (keep the surrounding
 `*__media` wrapper). Footer links marked `data-placeholder-link` and the
 waitlist form's endpoint (`TODO` in `js/main.js`) also need real destinations
@@ -71,9 +80,11 @@ before launch.
 
 ## Interactions implemented
 
-Sticky header, mobile drawer nav, scroll-spy nav highlighting, reveal-on-scroll,
-animated stat counters, the animated gem-capture map demo (auto-play +
-replay, synced step highlights, XP/gem counters), interactive rarity-tier
+Overlay-to-solid sticky header (white over the hero photo, snow once
+scrolled), mobile drawer nav, scroll-spy nav highlighting, marquee ticker,
+reveal-on-scroll, animated stat counters, the animated gem-capture map demo
+(auto-play + replay, synced step highlights, XP/gem counters), the screens
+carousel (scroll-snap + arrow buttons + keyboard), interactive rarity-tier
 tabs (keyboard-navigable), an interactive calorie estimator (weight ×
 distance sliders), animated head-to-head friend comparison bars, single-open
 FAQ accordion, client-side waitlist validation, and a cookie-consent banner

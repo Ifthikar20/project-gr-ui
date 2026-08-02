@@ -28,10 +28,10 @@
       <nav class="site-nav" id="site-nav" aria-label="Primary">
         <ul class="site-nav__list">
           <li><a class="site-nav__link" href="#how-it-works" data-navlink>How it works</a></li>
-          <li><a class="site-nav__link" href="#features" data-navlink>Features</a></li>
+          <li><a class="site-nav__link" href="#screens" data-navlink>Screens</a></li>
           <li><a class="site-nav__link" href="#rarity" data-navlink>Gems</a></li>
           <li><a class="site-nav__link" href="#track" data-navlink>Track</a></li>
-          <li><a class="site-nav__link" href="#compete" data-navlink>Compete</a></li>
+          <li><a class="site-nav__link" href="#privacy" data-navlink>Privacy</a></li>
           <li><a class="site-nav__link" href="#faq" data-navlink>FAQ</a></li>
         </ul>
       </nav>
@@ -53,39 +53,34 @@
     <section class="hero" id="top">
       <div class="container hero__inner">
         <div class="hero__copy" data-reveal>
-          <p class="kicker">Run · Hunt · Claim</p>
-          <h1 class="hero__title">Every run is a<br>treasure&nbsp;hunt.</h1>
+          <p class="kicker kicker--hero">A gamified running experience</p>
+          <h1 class="hero__title">Every run is a treasure&nbsp;hunt.</h1>
           <p class="hero__lead">
-            GemRun is a <strong>gamified running experience</strong>: gems
-            drop on real streets near you. Run or walk within 100&nbsp;feet
-            and they're yours — one shared world,
+            Gems drop on real streets near you. Run or walk within
+            100&nbsp;feet and they're yours — one shared world,
             <strong>first one there takes it</strong>.
           </p>
           <div class="hero__cta">
-            <a class="btn btn--pulse btn--lg" href="#download">Download for iPhone</a>
-            <a class="btn btn--ghost btn--lg" href="#how-it-works">See how it works</a>
+            <a class="btn btn--pulse btn--lg" href="#download">Get it on iPhone</a>
+            <a class="btn btn--ghost-light btn--lg" href="#how-it-works">Watch the hunt</a>
           </div>
           <ul class="hero__trust">
             <li>Free to play</li>
-            <li>iPhone · iOS 17+</li>
-            <li>GPS-verified claims</li>
+            <li>Only on iPhone · iOS 17+</li>
+            <li>Your data stays on your phone</li>
           </ul>
-        </div>
-
-        <div class="hero__media" data-reveal data-reveal-delay="1">
-          <div class="ph ph--phone" data-placeholder="hero-explore-map" role="img"
-               aria-label="Placeholder for app screenshot: the Explore map with gems">
-            <svg class="ph__gem gem-shimmer" viewBox="0 0 32 32" aria-hidden="true">
-              <path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/>
-              <path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#ffffff" opacity="0.28"/>
-              <path d="M5 12 L27 12 L16 15.5 Z" fill="#ffffff" opacity="0.18"/>
-            </svg>
-            <span class="ph__label">App screenshot</span>
-            <span class="ph__hint">Explore map · gems near you</span>
-          </div>
         </div>
       </div>
     </section>
+
+    <!-- =========================== TICKER =========================== -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__inner">
+        <span class="ticker__seq">Run the streets&ensp;◆&ensp;Claim the gems&ensp;◆&ensp;Beat your friends&ensp;◆&ensp;Keep the streak&ensp;◆&ensp;First one there takes it&ensp;◆&ensp;</span>
+        <span class="ticker__seq">Run the streets&ensp;◆&ensp;Claim the gems&ensp;◆&ensp;Beat your friends&ensp;◆&ensp;Keep the streak&ensp;◆&ensp;First one there takes it&ensp;◆&ensp;</span>
+      </div>
+    </div>
+    <p class="visually-hidden">Run the streets. Claim the gems. Beat your friends. Keep the streak. First one there takes it.</p>
 
     <!-- ======================= STATS BAND (ink) ===================== -->
     <section class="stats" aria-label="GemRun by the numbers">
@@ -308,8 +303,95 @@
       </div>
     </section>
 
+    <!-- ========================== SCREENS =========================== -->
+    <section class="section" id="screens">
+      <div class="container">
+        <div class="screens__head" data-reveal>
+          <div class="section__head section__head--flush">
+            <p class="kicker">Inside the app</p>
+            <h2 class="section__title">Six screens.<br>Zero clutter.</h2>
+            <p class="section__lead">
+              Everything lives in four tabs plus two full-screen moments.
+              Currently iPhone-only (iOS&nbsp;17+) — swipe through what each
+              screen is for.
+            </p>
+          </div>
+          <div class="screens__nav">
+            <button class="screens__btn" type="button" data-screens-prev aria-label="Previous screens">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="screens__btn" type="button" data-screens-next aria-label="Next screens">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="screens" data-screens tabindex="0" aria-label="App screens carousel">
+          <article class="screen-card" data-reveal>
+            <div class="ph ph--phone ph--card" data-placeholder="screen-explore" role="img"
+                 aria-label="Placeholder for app screenshot: Explore map">
+              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
+              <span class="ph__label">Explore</span>
+            </div>
+            <h3 class="screen-card__title">Explore</h3>
+            <p class="screen-card__body">The map home. Gems and routes near you, live from the server, with swipeable route cards and the ➕ that starts a new route. Answers "what can I run right now?" in one glance.</p>
+          </article>
+
+          <article class="screen-card" data-reveal data-reveal-delay="1">
+            <div class="ph ph--phone ph--card" data-placeholder="screen-route-detail" role="img"
+                 aria-label="Placeholder for app screenshot: Route Detail">
+              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
+              <span class="ph__label">Route detail</span>
+            </div>
+            <h3 class="screen-card__title">Route Detail</h3>
+            <p class="screen-card__body">Everything you need to commit: map preview, distance, elevation, the gem manifest and leaderboard. Rare gems show only a fuzzy zone — finding the exact spot is the game.</p>
+          </article>
+
+          <article class="screen-card" data-reveal data-reveal-delay="2">
+            <div class="ph ph--phone ph--card" data-placeholder="screen-active-run" role="img"
+                 aria-label="Placeholder for app screenshot: Active Run">
+              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
+              <span class="ph__label">Active run</span>
+            </div>
+            <h3 class="screen-card__title">Active Run</h3>
+            <p class="screen-card__body">A full-screen chase camera pointed where you're headed, breadcrumb trail behind you, next-gem arrow ahead. Built to stay in your pocket — haptics do the talking.</p>
+          </article>
+
+          <article class="screen-card" data-reveal>
+            <div class="ph ph--phone ph--card" data-placeholder="screen-stash" role="img"
+                 aria-label="Placeholder for app screenshot: Stash">
+              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
+              <span class="ph__label">Stash</span>
+            </div>
+            <h3 class="screen-card__title">Stash</h3>
+            <p class="screen-card__body">Every gem you've caught, plus silhouettes of the ones you haven't — sets of five with a badge and bonus XP for completing each. The completionist's tab.</p>
+          </article>
+
+          <article class="screen-card" data-reveal data-reveal-delay="1">
+            <div class="ph ph--phone ph--card" data-placeholder="screen-compete" role="img"
+                 aria-label="Placeholder for app screenshot: Compete">
+              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
+              <span class="ph__label">Compete</span>
+            </div>
+            <h3 class="screen-card__title">Compete</h3>
+            <p class="screen-card__body">Route leaderboards, your streak and its multiplier, and the weekly head-to-head against people you follow — gems, distance, calories, best times.</p>
+          </article>
+
+          <article class="screen-card" data-reveal data-reveal-delay="2">
+            <div class="ph ph--phone ph--card" data-placeholder="screen-profile" role="img"
+                 aria-label="Placeholder for app screenshot: Profile">
+              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
+              <span class="ph__label">Profile</span>
+            </div>
+            <h3 class="screen-card__title">Profile</h3>
+            <p class="screen-card__body">Your lifetime kilometers, calories, level and wallet, the routes you've published and how they're doing. Your running life, one screen.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <!-- ========================= FEATURE ROWS ======================= -->
-    <section class="section" id="features">
+    <section class="section section--tint" id="features">
       <div class="container">
         <div class="section__head" data-reveal>
           <p class="kicker">Features</p>
@@ -609,8 +691,63 @@
       </div>
     </section>
 
+    <!-- ========================== PRIVACY =========================== -->
+    <section class="section" id="privacy">
+      <div class="container privacy">
+        <div class="privacy__intro" data-reveal>
+          <p class="kicker">Privacy</p>
+          <h2 class="section__title">Your data lives<br>on your iPhone.</h2>
+          <p class="section__lead">
+            GemRun is built local-first. The phone is the source of truth for
+            your running life; the server only ever sees the minimum it needs
+            to keep one shared, fair world. No ads. No data brokers.
+          </p>
+          <p class="privacy__platform">Currently iPhone-only · iOS 17+</p>
+        </div>
+
+        <ul class="privacy__list">
+          <li class="privacy__row" data-reveal>
+            <span class="privacy__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 18.5h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </span>
+            <div>
+              <h3 class="privacy__title">Stored on the phone first</h3>
+              <p class="privacy__body">Your runs, routes, stash and settings live in an on-device database on your iPhone. Lose signal mid-run and nothing is lost — the run is buffered locally, crash-safe, and settles when you're back.</p>
+            </div>
+          </li>
+          <li class="privacy__row" data-reveal>
+            <span class="privacy__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-9.6C5 7.6 7 6 9.2 6c1.3 0 2.3.6 2.8 1.5C12.5 6.6 13.5 6 14.8 6 17 6 19 7.6 19 10.4c0 5.1-7 9.6-7 9.6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            </span>
+            <div>
+              <h3 class="privacy__title">Apple Health never leaves</h3>
+              <p class="privacy__body">Lifetime distance is read from Apple Health on-device, only to mint your wallet gems. Health data is never uploaded, never shared, never part of any leaderboard.</p>
+            </div>
+          </li>
+          <li class="privacy__row" data-reveal>
+            <span class="privacy__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 21s-7-5.1-7-11a7 7 0 0 1 14 0c0 5.9-7 11-7 11z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="10" r="2.4" fill="currentColor"/></svg>
+            </span>
+            <div>
+              <h3 class="privacy__title">Location only while you run</h3>
+              <p class="privacy__body">"While Using" permission, nothing more. Your position is used during an active run to confirm gem claims — there is no background tracking and no location history outside a run.</p>
+            </div>
+          </li>
+          <li class="privacy__row" data-reveal>
+            <span class="privacy__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.6-3 8.4-7 10-4-1.6-7-5.4-7-10V6z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8.8 12l2.2 2.2 4.2-4.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <div>
+              <h3 class="privacy__title">The only things that leave</h3>
+              <p class="privacy__body">Two things go to the server: the GPS track that proves a claim (used for verification, then the verdict), and your public bits — username and route best times for the boards. Delete your account and it's gone.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
     <!-- ========================== COMPETE =========================== -->
-    <section class="section" id="compete">
+    <section class="section section--tint" id="compete">
       <div class="container">
         <div class="section__head" data-reveal>
           <p class="kicker">Friends &amp; rivalry</p>
@@ -718,7 +855,7 @@
     </section>
 
     <!-- ============================= FAQ ============================ -->
-    <section class="section section--tint" id="faq">
+    <section class="section" id="faq">
       <div class="container container--narrow">
         <div class="section__head" data-reveal>
           <p class="kicker">FAQ</p>
@@ -803,11 +940,22 @@
           </details>
 
           <details class="faq__item" data-reveal>
+            <summary class="faq__q">Where is my data stored?</summary>
+            <div class="faq__a">
+              <p>On your iPhone, first and foremost. Runs, routes, your stash
+              and settings live in an on-device database; Apple Health is
+              read on the phone and never uploaded; location works only while
+              you run. The server receives just the GPS track that settles a
+              claim and your public leaderboard entries — nothing else.</p>
+            </div>
+          </details>
+
+          <details class="faq__item" data-reveal>
             <summary class="faq__q">What does it cost, and what do I need?</summary>
             <div class="faq__a">
-              <p>GemRun is free to play. You need an iPhone on iOS 17 or
-              later, and location permission while you use it — GemRun never
-              tracks you in the background outside a run.</p>
+              <p>GemRun is free to play, and currently iPhone-only — you need
+              iOS 17 or later, and location permission while you use it.
+              GemRun never tracks you in the background outside a run.</p>
             </div>
           </details>
         </div>
@@ -836,6 +984,8 @@
             </span>
           </a>
         </div>
+
+        <p class="cta__platform">Currently iPhone-only · iOS 17+ · your data stays on your phone</p>
 
         <form class="waitlist" data-waitlist novalidate>
           <label class="waitlist__label" for="waitlist-email">Not on iPhone yet? Get launch news:</label>
@@ -872,8 +1022,11 @@
           <ul>
             <li><a href="#what">What is GemRun</a></li>
             <li><a href="#how-it-works">How it works</a></li>
+            <li><a href="#screens">The screens</a></li>
             <li><a href="#features">Features</a></li>
             <li><a href="#rarity">Gem rarities</a></li>
+            <li><a href="#compete">Compete</a></li>
+            <li><a href="#privacy">Privacy</a></li>
             <li><a href="#faq">FAQ</a></li>
           </ul>
         </nav>

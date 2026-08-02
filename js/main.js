@@ -427,6 +427,29 @@
     }
   }
 
+  /* --------------------------- Screens carousel ------------------------- */
+
+  var screens = document.querySelector('[data-screens]');
+
+  if (screens) {
+    var scrollByCard = function (direction) {
+      var card = screens.querySelector('.screen-card');
+      var step = card ? card.getBoundingClientRect().width + 20 : 320;
+      screens.scrollBy({ left: step * direction, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+    };
+
+    var prevBtn = document.querySelector('[data-screens-prev]');
+    var nextBtn = document.querySelector('[data-screens-next]');
+
+    if (prevBtn) prevBtn.addEventListener('click', function () { scrollByCard(-1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { scrollByCard(1); });
+
+    screens.addEventListener('keydown', function (event) {
+      if (event.key === 'ArrowRight') { event.preventDefault(); scrollByCard(1); }
+      if (event.key === 'ArrowLeft') { event.preventDefault(); scrollByCard(-1); }
+    });
+  }
+
   /* -------------------------- Calorie estimator ------------------------- */
 
   var estimator = document.querySelector('[data-estimator]');
