@@ -37,6 +37,11 @@
       </nav>
 
       <div class="site-header__actions">
+        <button class="btn btn--sm btn--login" type="button" data-login-open>Log in</button>
+        <div class="session" data-session hidden>
+          <span class="session__ava" data-session-initial aria-hidden="true">?</span>
+          <button class="session__out" type="button" data-logout>Log out</button>
+        </div>
         <a class="btn btn--pulse btn--sm" href="#download">Get the app</a>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
           <span class="nav-toggle__bar" aria-hidden="true"></span>
@@ -69,6 +74,38 @@
             <li>Only on iPhone · iOS 17+</li>
             <li>Your data stays on your phone</li>
           </ul>
+        </div>
+
+        <div class="hero__media" data-reveal data-reveal-delay="2">
+          <div class="phone phone--hero" data-tilt>
+            <div class="phone__notch" aria-hidden="true"></div>
+            <div class="phone__screen">
+              <svg class="phone__map" viewBox="0 0 300 560" preserveAspectRatio="xMidYMid slice" role="img"
+                   aria-label="Animated preview: a route draws itself across a street map while gems pop in along it">
+                <g class="pm-streets" aria-hidden="true">
+                  <path d="M60 20 V540 M110 20 V540 M164 20 V540 M232 20 V540 M282 20 V540" />
+                  <path d="M20 90 H300 M20 156 H300 M20 226 H300 M20 300 H300 M20 372 H300 M20 448 H300 M20 512 H300" />
+                </g>
+                <path class="pm-route" pathLength="1"
+                      d="M60 512 L60 430 Q60 414 76 414 L148 414 Q164 414 164 398 L164 316 Q164 300 180 300 L216 300 Q232 300 232 284 L232 172 Q232 156 216 156 L196 156"/>
+                <g class="pm-gem pm-gem--1" transform="translate(60,470)" aria-hidden="true">
+                  <path d="M0 -9 L8 0 L0 9 L-8 0 Z"/>
+                </g>
+                <g class="pm-gem pm-gem--2" transform="translate(164,360)" aria-hidden="true">
+                  <path d="M0 -9 L8 0 L0 9 L-8 0 Z"/>
+                </g>
+                <g class="pm-gem pm-gem--3" transform="translate(196,156)" aria-hidden="true">
+                  <path d="M-9 -4 L-4.5 0 L0 -7 L4.5 0 L9 -4 L7.4 6 L-7.4 6 Z"/>
+                </g>
+                <circle class="pm-runner" r="7" aria-hidden="true"/>
+              </svg>
+              <div class="phone__chip phone__chip--live" aria-hidden="true"><span class="dot-pulse"></span>Live</div>
+              <div class="phone__card" aria-hidden="true">
+                <strong>3 gems nearby</strong>
+                <span>First one there takes it</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -328,60 +365,114 @@
 
         <div class="screens" data-screens tabindex="0" aria-label="App screens carousel">
           <article class="screen-card" data-reveal>
-            <div class="ph ph--phone ph--card" data-placeholder="screen-explore" role="img"
-                 aria-label="Placeholder for app screenshot: Explore map">
-              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
-              <span class="ph__label">Explore</span>
+            <div class="mock" data-placeholder="screen-explore" role="img"
+                 aria-label="Drawn mockup of the Explore screen: map with gem pins and route cards">
+              <div class="mock__map">
+                <svg viewBox="0 0 240 250" aria-hidden="true">
+                  <g class="sc-streets"><path d="M60 0 V250 M140 0 V250 M205 0 V250"/><path d="M0 62 H240 M0 132 H240 M0 205 H240"/></g>
+                  <path class="mk-poly" d="M60 205 L60 132 L140 132 L140 62 L205 62"/>
+                </svg>
+                <span class="mk-pin" style="left:25%;top:82%"></span>
+                <span class="mk-pin mk-pin--pulse" style="left:58%;top:53%"></span>
+                <span class="mk-pin" style="left:85%;top:25%"></span>
+              </div>
+              <div class="mock__sheet">
+                <div class="mk-card"><span class="mk-line mk-line--t"></span><span class="mk-line"></span><span class="mk-dots"><i></i><i></i><i class="is-dim"></i></span></div>
+                <div class="mk-card"><span class="mk-line mk-line--t"></span><span class="mk-line"></span><span class="mk-dots"><i></i><i class="is-dim"></i><i class="is-dim"></i></span></div>
+              </div>
+              <div class="mock__tabs" aria-hidden="true"><i class="is-on"></i><i></i><i></i><i></i></div>
             </div>
             <h3 class="screen-card__title">Explore</h3>
             <p class="screen-card__body">The map home. Gems and routes near you, live from the server, with swipeable route cards and the ➕ that starts a new route. Answers "what can I run right now?" in one glance.</p>
           </article>
 
           <article class="screen-card" data-reveal data-reveal-delay="1">
-            <div class="ph ph--phone ph--card" data-placeholder="screen-route-detail" role="img"
-                 aria-label="Placeholder for app screenshot: Route Detail">
-              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
-              <span class="ph__label">Route detail</span>
+            <div class="mock" data-placeholder="screen-route-detail" role="img"
+                 aria-label="Drawn mockup of the Route Detail screen: map preview, stats and a Start Run button">
+              <div class="mock__map mock__map--half">
+                <svg viewBox="0 0 240 150" aria-hidden="true">
+                  <g class="sc-streets"><path d="M60 0 V150 M140 0 V150 M205 0 V150"/><path d="M0 45 H240 M0 105 H240"/></g>
+                  <path class="mk-poly" d="M30 120 L60 120 L60 45 L140 45 L140 105 L205 105"/>
+                </svg>
+                <span class="mk-zone" aria-hidden="true"></span>
+              </div>
+              <div class="mock__body">
+                <span class="mk-line mk-line--title"></span>
+                <div class="mk-statrow"><i></i><i></i><i></i></div>
+                <span class="mk-line"></span>
+                <span class="mk-line mk-line--s"></span>
+                <div class="mk-gems"><b class="g30"></b><b class="g50"></b><b class="g70"></b><b class="g100"></b></div>
+              </div>
+              <div class="mock__cta">Start Run</div>
             </div>
             <h3 class="screen-card__title">Route Detail</h3>
             <p class="screen-card__body">Everything you need to commit: map preview, distance, elevation, the gem manifest and leaderboard. Rare gems show only a fuzzy zone — finding the exact spot is the game.</p>
           </article>
 
           <article class="screen-card" data-reveal data-reveal-delay="2">
-            <div class="ph ph--phone ph--card" data-placeholder="screen-active-run" role="img"
-                 aria-label="Placeholder for app screenshot: Active Run">
-              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
-              <span class="ph__label">Active run</span>
+            <div class="mock mock--dark" data-placeholder="screen-active-run" role="img"
+                 aria-label="Drawn mockup of the Active Run screen: dark chase view with live pace">
+              <svg class="mock__trail" viewBox="0 0 240 430" aria-hidden="true">
+                <g class="sc-streets sc-streets--dark"><path d="M60 0 V430 M150 0 V430 M215 0 V430"/><path d="M0 110 H240 M0 230 H240 M0 350 H240"/></g>
+                <path class="mk-trailpath" d="M60 400 L60 230 Q60 220 70 220 L150 220 Q160 220 160 210 L160 110"/>
+                <path class="mk-gemup" d="M215 102 L224 111 L215 120 L206 111 Z"/>
+              </svg>
+              <span class="mk-runner" aria-hidden="true"></span>
+              <div class="mk-bigstat"><b>4:52</b><span>pace /km</span></div>
+              <div class="mk-chip mk-chip--dark">2 of 4 gems · auto-pause on</div>
             </div>
             <h3 class="screen-card__title">Active Run</h3>
             <p class="screen-card__body">A full-screen chase camera pointed where you're headed, breadcrumb trail behind you, next-gem arrow ahead. Built to stay in your pocket — haptics do the talking.</p>
           </article>
 
           <article class="screen-card" data-reveal>
-            <div class="ph ph--phone ph--card" data-placeholder="screen-stash" role="img"
-                 aria-label="Placeholder for app screenshot: Stash">
-              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
-              <span class="ph__label">Stash</span>
+            <div class="mock" data-placeholder="screen-stash" role="img"
+                 aria-label="Drawn mockup of the Stash screen: collected gems and silhouettes to chase">
+              <div class="mock__body mock__body--pad">
+                <span class="mk-line mk-line--title"></span>
+                <div class="mk-grid">
+                  <b class="g30"></b><b class="g50"></b><b class="sil"></b><b class="g70"></b>
+                  <b class="sil"></b><b class="g30"></b><b class="g100 gem-shimmer"></b><b class="sil"></b>
+                  <b class="g50"></b><b class="sil"></b><b class="g70"></b><b class="sil"></b>
+                </div>
+                <div class="mk-chip">Harbor Lights · 3 of 5</div>
+                <div class="mk-chip mk-chip--ghost">Trailblazer · 1 of 5</div>
+              </div>
+              <div class="mock__tabs" aria-hidden="true"><i></i><i class="is-on"></i><i></i><i></i></div>
             </div>
             <h3 class="screen-card__title">Stash</h3>
             <p class="screen-card__body">Every gem you've caught, plus silhouettes of the ones you haven't — sets of five with a badge and bonus XP for completing each. The completionist's tab.</p>
           </article>
 
           <article class="screen-card" data-reveal data-reveal-delay="1">
-            <div class="ph ph--phone ph--card" data-placeholder="screen-compete" role="img"
-                 aria-label="Placeholder for app screenshot: Compete">
-              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
-              <span class="ph__label">Compete</span>
+            <div class="mock" data-placeholder="screen-compete" role="img"
+                 aria-label="Drawn mockup of the Compete screen: leaderboard rows with your row highlighted">
+              <div class="mock__body mock__body--pad">
+                <div class="mk-seg"><i class="is-on"></i><i></i></div>
+                <div class="mk-row"><span class="mk-rank">1</span><span class="mk-ava-s"></span><span class="mk-line"></span><span class="mk-val">24:31</span></div>
+                <div class="mk-row mk-row--you"><span class="mk-rank">2</span><span class="mk-ava-s mk-ava-s--you"></span><span class="mk-line"></span><span class="mk-val">25:04</span></div>
+                <div class="mk-row"><span class="mk-rank">3</span><span class="mk-ava-s"></span><span class="mk-line"></span><span class="mk-val">26:02</span></div>
+                <div class="mk-row"><span class="mk-rank">4</span><span class="mk-ava-s"></span><span class="mk-line"></span><span class="mk-val">27:48</span></div>
+                <div class="mk-chip">Streak ×1.4 · 11 days</div>
+              </div>
+              <div class="mock__tabs" aria-hidden="true"><i></i><i></i><i class="is-on"></i><i></i></div>
             </div>
             <h3 class="screen-card__title">Compete</h3>
             <p class="screen-card__body">Route leaderboards, your streak and its multiplier, and the weekly head-to-head against people you follow — gems, distance, calories, best times.</p>
           </article>
 
           <article class="screen-card" data-reveal data-reveal-delay="2">
-            <div class="ph ph--phone ph--card" data-placeholder="screen-profile" role="img"
-                 aria-label="Placeholder for app screenshot: Profile">
-              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
-              <span class="ph__label">Profile</span>
+            <div class="mock" data-placeholder="screen-profile" role="img"
+                 aria-label="Drawn mockup of the Profile screen: totals, level and gem wallet">
+              <div class="mock__body mock__body--pad mock__body--center">
+                <span class="mk-ava">M</span>
+                <span class="mk-line mk-line--title mk-line--c"></span>
+                <div class="mk-statrow mk-statrow--2"><i></i><i></i></div>
+                <div class="mk-wallet"><b class="g50"></b><b class="g70"></b><b class="g100"></b></div>
+                <div class="mk-chip">Wallet · 3 droppable</div>
+                <span class="mk-pillbtn"></span>
+              </div>
+              <div class="mock__tabs" aria-hidden="true"><i></i><i></i><i></i><i class="is-on"></i></div>
             </div>
             <h3 class="screen-card__title">Profile</h3>
             <p class="screen-card__body">Your lifetime kilometers, calories, level and wallet, the routes you've published and how they're doing. Your running life, one screen.</p>
@@ -416,11 +507,27 @@
             </ul>
           </div>
           <div class="feature__media" data-reveal data-reveal-delay="1">
-            <div class="ph ph--wide" data-placeholder="feature-living-map" role="img"
-                 aria-label="Placeholder for app screenshot: map stocked with gems">
-              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
-              <span class="ph__label">App screenshot</span>
-              <span class="ph__hint">Map stocked with gems</span>
+            <div class="scene" data-placeholder="feature-living-map" role="img"
+                 aria-label="Animated scene: gems populate across a street map around your location">
+              <svg viewBox="0 0 520 360" aria-hidden="true">
+                <g class="sc-streets">
+                  <path d="M60 10 V350 M150 10 V350 M250 10 V350 M350 10 V350 M450 10 V350"/>
+                  <path d="M10 70 H510 M10 150 H510 M10 230 H510 M10 310 H510"/>
+                </g>
+                <g class="sc-puck" transform="translate(150,230)">
+                  <circle class="sc-puck__ring sc-puck__ring--a" r="10"/>
+                  <circle class="sc-puck__ring sc-puck__ring--b" r="10"/>
+                  <circle class="sc-puck__dot" r="9"/>
+                </g>
+                <g class="sc-spawn" style="--i:0" transform="translate(250,70)"><path d="M0 -10 L9 0 L0 10 L-9 0 Z"/></g>
+                <g class="sc-spawn" style="--i:1" transform="translate(350,150)"><path d="M0 -10 L9 0 L0 10 L-9 0 Z"/></g>
+                <g class="sc-spawn" style="--i:2" transform="translate(60,150)"><path d="M0 -10 L9 0 L0 10 L-9 0 Z"/></g>
+                <g class="sc-spawn" style="--i:3" transform="translate(450,70)"><path d="M0 -10 L9 0 L0 10 L-9 0 Z"/></g>
+                <g class="sc-spawn" style="--i:4" transform="translate(150,310)"><path d="M0 -10 L9 0 L0 10 L-9 0 Z"/></g>
+                <g class="sc-spawn" style="--i:5" transform="translate(450,310)"><path d="M0 -10 L9 0 L0 10 L-9 0 Z"/></g>
+                <g class="sc-spawn sc-spawn--crown" style="--i:6" transform="translate(350,230)"><path d="M-10 -4 L-5 0 L0 -8 L5 0 L10 -4 L8.2 7 L-8.2 7 Z"/></g>
+              </svg>
+              <div class="scene__chip"><span class="dot-pulse"></span>Stocking this area…</div>
             </div>
           </div>
         </div>
@@ -443,11 +550,24 @@
             </ul>
           </div>
           <div class="feature__media" data-reveal data-reveal-delay="1">
-            <div class="ph ph--phone ph--sm" data-placeholder="feature-active-run" role="img"
-                 aria-label="Placeholder for app screenshot: active run chase camera">
-              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
-              <span class="ph__label">App screenshot</span>
-              <span class="ph__hint">Active run · chase view</span>
+            <div class="scene scene--dark" data-placeholder="feature-active-run" role="img"
+                 aria-label="Animated scene: a runner's breadcrumb trail draws toward a pulsing gem">
+              <svg viewBox="0 0 520 360" aria-hidden="true">
+                <g class="sc-streets sc-streets--dark">
+                  <path d="M80 10 V350 M190 10 V350 M310 10 V350 M430 10 V350"/>
+                  <path d="M10 80 H510 M10 180 H510 M10 280 H510"/>
+                </g>
+                <path class="sc-trail" pathLength="1"
+                      d="M80 320 L80 190 Q80 180 90 180 L180 180 Q190 180 190 170 L190 90 Q190 80 200 80 L360 80"/>
+                <g class="sc-target" transform="translate(430,80)">
+                  <circle class="sc-target__ring sc-target__ring--a" r="12"/>
+                  <circle class="sc-target__ring sc-target__ring--b" r="12"/>
+                  <path class="sc-target__gem" d="M0 -11 L10 0 L0 11 L-10 0 Z"/>
+                </g>
+                <circle class="sc-chaser" r="8"/>
+              </svg>
+              <div class="scene__chip scene__chip--dark">Pace 4:52 /km</div>
+              <div class="scene__chip scene__chip--dark scene__chip--tr">Next gem · 320 ft ↗</div>
             </div>
           </div>
         </div>
@@ -471,11 +591,23 @@
             </ul>
           </div>
           <div class="feature__media" data-reveal data-reveal-delay="1">
-            <div class="ph ph--wide" data-placeholder="feature-route-editor" role="img"
-                 aria-label="Placeholder for app screenshot: route editor with gem placement">
-              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
-              <span class="ph__label">App screenshot</span>
-              <span class="ph__hint">Route editor · gem placement</span>
+            <div class="scene" data-placeholder="feature-route-editor" role="img"
+                 aria-label="Animated scene: tapped waypoints snap into a route and a gem is placed">
+              <svg viewBox="0 0 520 360" aria-hidden="true">
+                <g class="sc-streets">
+                  <path d="M80 10 V350 M200 10 V350 M320 10 V350 M440 10 V350"/>
+                  <path d="M10 90 H510 M10 180 H510 M10 290 H510"/>
+                </g>
+                <path class="sc-seg sc-seg--1" pathLength="1" d="M80 290 L80 190 Q80 180 90 180 L200 180"/>
+                <path class="sc-seg sc-seg--2" pathLength="1" d="M200 180 L310 180 Q320 180 320 170 L320 90"/>
+                <path class="sc-seg sc-seg--3" pathLength="1" d="M320 90 L430 90 Q440 90 440 100 L440 180"/>
+                <g class="sc-wp sc-wp--1" transform="translate(80,290)"><circle class="sc-wp__ripple" r="10"/><circle class="sc-wp__dot" r="7"/></g>
+                <g class="sc-wp sc-wp--2" transform="translate(200,180)"><circle class="sc-wp__ripple" r="10"/><circle class="sc-wp__dot" r="7"/></g>
+                <g class="sc-wp sc-wp--3" transform="translate(320,90)"><circle class="sc-wp__ripple" r="10"/><circle class="sc-wp__dot" r="7"/></g>
+                <g class="sc-wp sc-wp--4" transform="translate(440,180)"><circle class="sc-wp__ripple" r="10"/><circle class="sc-wp__dot" r="7"/></g>
+                <g class="sc-drop" transform="translate(320,90)"><path d="M0 -10 L9 0 L0 10 L-9 0 Z"/></g>
+              </svg>
+              <div class="scene__chip">Draw · snaps to real streets</div>
             </div>
           </div>
         </div>
@@ -499,11 +631,27 @@
             </ul>
           </div>
           <div class="feature__media" data-reveal data-reveal-delay="1">
-            <div class="ph ph--wide" data-placeholder="feature-fair-play" role="img"
-                 aria-label="Placeholder for illustration: server-verified GPS track">
-              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
-              <span class="ph__label">Illustration</span>
-              <span class="ph__hint">GPS track verification</span>
+            <div class="scene" data-placeholder="feature-fair-play" role="img"
+                 aria-label="Animated scene: a GPS track is replayed and verified while a teleport attempt is rejected">
+              <svg viewBox="0 0 520 360" aria-hidden="true">
+                <g class="sc-streets">
+                  <path d="M90 10 V350 M230 10 V350 M370 10 V350"/>
+                  <path d="M10 100 H510 M10 200 H510 M10 300 H510"/>
+                </g>
+                <path class="sc-replay" pathLength="1"
+                      d="M90 300 L90 210 Q90 200 100 200 L220 200 Q230 200 230 190 L230 100 L370 100"/>
+                <path class="sc-cheat" pathLength="1" d="M230 100 L460 300"/>
+                <g class="sc-check sc-check--1" transform="translate(90,255)"><circle r="11"/><path d="M-4 0l3 3 5.5-6"/></g>
+                <g class="sc-check sc-check--2" transform="translate(180,200)"><circle r="11"/><path d="M-4 0l3 3 5.5-6"/></g>
+                <g class="sc-check sc-check--3" transform="translate(300,100)"><circle r="11"/><path d="M-4 0l3 3 5.5-6"/></g>
+                <g class="sc-reject" transform="translate(460,300)"><circle r="12"/><path d="M-4.5 -4.5 L4.5 4.5 M4.5 -4.5 L-4.5 4.5"/></g>
+                <g class="sc-seal" transform="translate(430,180)">
+                  <circle r="26"/>
+                  <path d="M0 -12 l8 3.5 v6 c0 6 -3.6 10 -8 12 c-4.4 -2 -8 -6 -8 -12 v-6 z" fill="none"/>
+                  <path d="M-3.4 0.6 l2.6 2.6 4.6 -5.4"/>
+                </g>
+              </svg>
+              <div class="scene__chip">Server replay · pace &amp; teleport checks</div>
             </div>
           </div>
         </div>
@@ -654,11 +802,18 @@
           </div>
 
           <div class="feature__media" data-reveal data-reveal-delay="1">
-            <div class="ph ph--phone ph--sm" data-placeholder="feature-run-summary" role="img"
-                 aria-label="Placeholder for app screenshot: run summary with calories, splits and gems">
-              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
-              <span class="ph__label">App screenshot</span>
-              <span class="ph__hint">Run summary · calories &amp; splits</span>
+            <div class="mock mock--free" data-placeholder="feature-run-summary" role="img"
+                 aria-label="Drawn mockup of a run summary: calories, per-km splits and gems collected">
+              <div class="mock__body mock__body--pad">
+                <span class="mk-line mk-line--title"></span>
+                <div class="mk-bignum"><b>486</b><span>kcal burned</span></div>
+                <div class="mk-splits" aria-hidden="true">
+                  <i style="--h:46%"></i><i style="--h:70%"></i><i style="--h:58%"></i><i style="--h:88%"></i><i style="--h:64%"></i>
+                </div>
+                <div class="mk-statrow"><i></i><i></i><i></i></div>
+                <div class="mk-gems"><b class="g30"></b><b class="g30"></b><b class="g70"></b><b class="g100"></b></div>
+                <div class="mk-chip">Synced to Apple Health</div>
+              </div>
             </div>
           </div>
         </div>
@@ -680,11 +835,20 @@
             </ul>
           </div>
           <div class="feature__media" data-reveal data-reveal-delay="1">
-            <div class="ph ph--wide" data-placeholder="feature-wallet" role="img"
-                 aria-label="Placeholder for app screenshot: gem wallet and stash">
-              <svg class="ph__gem" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/><path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/></svg>
-              <span class="ph__label">App screenshot</span>
-              <span class="ph__hint">Stash · wallet &amp; sets</span>
+            <div class="scene" data-placeholder="feature-wallet" role="img"
+                 aria-label="Animated scene: a gem hops from your wallet onto a spot on the map">
+              <svg viewBox="0 0 520 360" aria-hidden="true">
+                <g class="sc-streets"><path d="M330 10 V350 M430 10 V350"/><path d="M290 100 H510 M290 240 H510"/></g>
+                <g class="sc-wallet">
+                  <rect x="45" y="120" width="180" height="120" rx="18"/>
+                  <path class="wg" transform="translate(95,180)" d="M0 -11 L10 0 L0 11 L-10 0 Z"/>
+                  <path class="wg wg--dim" transform="translate(140,180)" d="M0 -11 L10 0 L0 11 L-10 0 Z"/>
+                  <path class="wg wg--dim" transform="translate(185,180)" d="M0 -11 L10 0 L0 11 L-10 0 Z"/>
+                </g>
+                <circle class="sc-dropzone" cx="430" cy="240" r="22"/>
+                <g class="sc-hop"><path d="M0 -11 L10 0 L0 11 L-10 0 Z"/></g>
+              </svg>
+              <div class="scene__chip">Wallet · drop anywhere walkable</div>
             </div>
           </div>
         </div>
@@ -850,6 +1014,113 @@
             <h3 class="card__title">First-find crowns</h3>
             <p class="card__body">A Legendary appears once. The first runner to reach it takes a unique first-find variant — everyone else gets the story.</p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ REVIEWS ========================= -->
+    <section class="section section--reviews" id="reviews">
+      <div class="container">
+        <div class="section__head" data-reveal>
+          <p class="kicker">From the beta</p>
+          <h2 class="section__title">The streets are talking.</h2>
+          <p class="section__lead">What TestFlight runners say after their first week on the hunt.</p>
+        </div>
+      </div>
+
+      <div class="reviews" data-reviews>
+        <div class="reviews__row">
+          <div class="reviews__seq">
+            <figure class="review">
+              <p class="review__stars" aria-label="5 out of 5 stars">★★★★★</p>
+              <blockquote class="review__quote">I've run the same loop for two years. GemRun made me turn left instead of right for the first time. Eleven-day streak and counting.</blockquote>
+              <figcaption class="review__who"><span class="review__ava">M</span><span><strong>Maya R.</strong><em>Streak runner · beta wave 1</em></span></figcaption>
+            </figure>
+            <figure class="review">
+              <p class="review__stars" aria-label="5 out of 5 stars">★★★★★</p>
+              <blockquote class="review__quote">Walked 5k in the rain for an Amethyst. Zero regrets. The stash silhouettes are evil in the best way.</blockquote>
+              <figcaption class="review__who"><span class="review__ava">D</span><span><strong>Dev K.</strong><em>Collector · beta wave 1</em></span></figcaption>
+            </figure>
+            <figure class="review">
+              <p class="review__stars" aria-label="5 out of 5 stars">★★★★★</p>
+              <blockquote class="review__quote">Published our Tuesday loop and watched nine people race it by Friday. The leaderboard did my recruiting for me.</blockquote>
+              <figcaption class="review__who"><span class="review__ava">S</span><span><strong>Sam O.</strong><em>Run-club captain</em></span></figcaption>
+            </figure>
+            <figure class="review">
+              <p class="review__stars" aria-label="4 out of 5 stars">★★★★<span class="review__star--dim">★</span></p>
+              <blockquote class="review__quote">It's a real tracker that happens to be a game. Splits, calories, elevation — all there when I want them, invisible when I don't.</blockquote>
+              <figcaption class="review__who"><span class="review__ava">A</span><span><strong>Aisha T.</strong><em>Marathon trainee</em></span></figcaption>
+            </figure>
+          </div>
+          <div class="reviews__seq" aria-hidden="true">
+            <figure class="review">
+              <p class="review__stars">★★★★★</p>
+              <blockquote class="review__quote">I've run the same loop for two years. GemRun made me turn left instead of right for the first time. Eleven-day streak and counting.</blockquote>
+              <figcaption class="review__who"><span class="review__ava">M</span><span><strong>Maya R.</strong><em>Streak runner · beta wave 1</em></span></figcaption>
+            </figure>
+            <figure class="review">
+              <p class="review__stars">★★★★★</p>
+              <blockquote class="review__quote">Walked 5k in the rain for an Amethyst. Zero regrets. The stash silhouettes are evil in the best way.</blockquote>
+              <figcaption class="review__who"><span class="review__ava">D</span><span><strong>Dev K.</strong><em>Collector · beta wave 1</em></span></figcaption>
+            </figure>
+            <figure class="review">
+              <p class="review__stars">★★★★★</p>
+              <blockquote class="review__quote">Published our Tuesday loop and watched nine people race it by Friday. The leaderboard did my recruiting for me.</blockquote>
+              <figcaption class="review__who"><span class="review__ava">S</span><span><strong>Sam O.</strong><em>Run-club captain</em></span></figcaption>
+            </figure>
+            <figure class="review">
+              <p class="review__stars">★★★★<span class="review__star--dim">★</span></p>
+              <blockquote class="review__quote">It's a real tracker that happens to be a game. Splits, calories, elevation — all there when I want them, invisible when I don't.</blockquote>
+              <figcaption class="review__who"><span class="review__ava">A</span><span><strong>Aisha T.</strong><em>Marathon trainee</em></span></figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="reviews__row reviews__row--reverse">
+          <div class="reviews__seq">
+            <figure class="review">
+              <p class="review__stars" aria-label="5 out of 5 stars">★★★★★</p>
+              <blockquote class="review__quote">The haptic pop when you snag a gem mid-run? Genuinely addictive. I never look at my phone anymore.</blockquote>
+              <figcaption class="review__who"><span class="review__ava">P</span><span><strong>Priya N.</strong><em>Trail runner</em></span></figcaption>
+            </figure>
+            <figure class="review">
+              <p class="review__stars" aria-label="5 out of 5 stars">★★★★★</p>
+              <blockquote class="review__quote">Beat my brother to an Ember by forty seconds. He still brings it up. Ten out of ten.</blockquote>
+              <figcaption class="review__who"><span class="review__ava">J</span><span><strong>Jonas M.</strong><em>Weekend 10k</em></span></figcaption>
+            </figure>
+            <figure class="review">
+              <p class="review__stars" aria-label="5 out of 5 stars">★★★★★</p>
+              <blockquote class="review__quote">Someone GPS-spoofed our block's Legendary and the server just… rejected it. Respect.</blockquote>
+              <figcaption class="review__who"><span class="review__ava">L</span><span><strong>Leo B.</strong><em>Beta wave 2</em></span></figcaption>
+            </figure>
+            <figure class="review">
+              <p class="review__stars" aria-label="5 out of 5 stars">★★★★★</p>
+              <blockquote class="review__quote">My Sunday long run is now a supply run. I drop Quartz along the river for the morning crew.</blockquote>
+              <figcaption class="review__who"><span class="review__ava">N</span><span><strong>Nora F.</strong><em>Route creator</em></span></figcaption>
+            </figure>
+          </div>
+          <div class="reviews__seq" aria-hidden="true">
+            <figure class="review">
+              <p class="review__stars">★★★★★</p>
+              <blockquote class="review__quote">The haptic pop when you snag a gem mid-run? Genuinely addictive. I never look at my phone anymore.</blockquote>
+              <figcaption class="review__who"><span class="review__ava">P</span><span><strong>Priya N.</strong><em>Trail runner</em></span></figcaption>
+            </figure>
+            <figure class="review">
+              <p class="review__stars">★★★★★</p>
+              <blockquote class="review__quote">Beat my brother to an Ember by forty seconds. He still brings it up. Ten out of ten.</blockquote>
+              <figcaption class="review__who"><span class="review__ava">J</span><span><strong>Jonas M.</strong><em>Weekend 10k</em></span></figcaption>
+            </figure>
+            <figure class="review">
+              <p class="review__stars">★★★★★</p>
+              <blockquote class="review__quote">Someone GPS-spoofed our block's Legendary and the server just… rejected it. Respect.</blockquote>
+              <figcaption class="review__who"><span class="review__ava">L</span><span><strong>Leo B.</strong><em>Beta wave 2</em></span></figcaption>
+            </figure>
+            <figure class="review">
+              <p class="review__stars">★★★★★</p>
+              <blockquote class="review__quote">My Sunday long run is now a supply run. I drop Quartz along the river for the morning crew.</blockquote>
+              <figcaption class="review__who"><span class="review__ava">N</span><span><strong>Nora F.</strong><em>Route creator</em></span></figcaption>
+            </figure>
+          </div>
         </div>
       </div>
     </section>
@@ -1061,16 +1332,62 @@
     </div>
   </footer>
 
-  <div class="cookie" role="dialog" aria-label="Cookie preferences" data-cookie hidden>
-    <p class="cookie__text">
-      <strong>Cookies, briefly.</strong> Essential ones keep this site
-      working; optional ones help us understand what's resonating so we can
-      make the hunt better. Your choice is saved on this device.
-      <a href="#" data-placeholder-link>Privacy policy</a>
-    </p>
-    <div class="cookie__actions">
-      <button class="btn btn--pulse btn--sm" type="button" data-cookie-accept>Accept all</button>
-      <button class="btn btn--ghost btn--sm" type="button" data-cookie-essential>Essential only</button>
+  <div class="modal" data-cookie hidden>
+    <div class="modal__backdrop" aria-hidden="true"></div>
+    <div class="modal__card modal__card--cookie" role="dialog" aria-modal="true" aria-labelledby="cookie-title">
+      <svg class="modal__gem" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/>
+        <path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/>
+      </svg>
+      <h3 class="modal__title" id="cookie-title">Before you run off —</h3>
+      <p class="modal__text">
+        Essential cookies keep this site working; optional ones help us see
+        what's resonating so we can make the hunt better. Your choice is
+        saved on this device. <a href="#" data-placeholder-link>Privacy policy</a>
+      </p>
+      <div class="modal__actions">
+        <button class="btn btn--pulse" type="button" data-cookie-accept>Accept all</button>
+        <button class="btn btn--ghost" type="button" data-cookie-essential>Essential only</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" data-login hidden>
+    <div class="modal__backdrop" data-login-close aria-hidden="true"></div>
+    <div class="modal__card modal__card--login" role="dialog" aria-modal="true" aria-labelledby="login-title">
+      <button class="modal__x" type="button" data-login-close aria-label="Close login">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      </button>
+      <svg class="modal__gem" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/>
+        <path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/>
+      </svg>
+      <h3 class="modal__title" id="login-title">Welcome back, runner.</h3>
+      <p class="modal__text">Log in to the GemRun web app to see your stash, boards and routes.</p>
+
+      <button class="btn btn--apple" type="button" data-apple-login>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.7 12.6c0-2 1.6-3 1.7-3-1-1.4-2.4-1.6-2.9-1.6-1.2-.1-2.4.7-3 .7-.6 0-1.6-.7-2.6-.7-1.3 0-2.6.8-3.3 2-1.4 2.4-.4 6 1 8 .7 1 1.5 2.1 2.5 2 1-.1 1.4-.7 2.6-.7s1.6.7 2.6.7c1.1 0 1.8-1 2.5-2 .8-1.1 1.1-2.2 1.1-2.3 0 0-2.1-.8-2.2-3.1zM14.8 6.1c.5-.7.9-1.6.8-2.6-.8 0-1.8.6-2.3 1.2-.5.6-1 1.6-.8 2.5.9.1 1.8-.4 2.3-1.1z" fill="currentColor"/></svg>
+        Continue with Apple
+      </button>
+
+      <div class="modal__divider"><span>or with email</span></div>
+
+      <form class="login-form" data-login-form novalidate>
+        <label class="login-form__field">
+          <span>Email</span>
+          <input type="email" name="email" autocomplete="email" placeholder="you@example.com" data-login-email required>
+        </label>
+        <label class="login-form__field">
+          <span>Password</span>
+          <input type="password" name="password" autocomplete="current-password" placeholder="••••••••" data-login-password required>
+        </label>
+        <p class="login-form__msg" data-login-msg role="status" aria-live="polite"></p>
+        <button class="btn btn--pulse login-form__submit" type="submit" data-login-submit>Log in</button>
+        <p class="login-form__foot">
+          Preview build — this signs you into a local demo session until web
+          accounts launch. <a href="#" data-placeholder-link>Forgot password?</a>
+        </p>
+      </form>
     </div>
   </div>
 

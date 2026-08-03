@@ -475,11 +475,29 @@
     updateEstimate();
   }
 
-  /* --------------------------- Cookie consent --------------------------- */
+  /* ------------------------------ Modals -------------------------------- */
 
-  var cookieBanner = document.querySelector('[data-cookie]');
+  var openModals = 0;
 
-  if (cookieBanner) {
+  var showModal = function (modal) {
+    if (modal.hidden === false) return;
+    modal.hidden = false;
+    openModals += 1;
+    document.body.style.overflow = 'hidden';
+  };
+
+  var hideModal = function (modal) {
+    if (modal.hidden) return;
+    modal.hidden = true;
+    openModals = Math.max(0, openModals - 1);
+    if (openModals === 0) document.body.style.overflow = '';
+  };
+
+  /* ------------------------ Cookie consent popup ------------------------- */
+
+  var cookieModal = document.querySelector('[data-cookie]');
+
+  if (cookieModal) {
     var CONSENT_KEY = 'gemrun-consent';
 
     var readConsent = function () {
@@ -488,28 +506,144 @@
 
     var chooseConsent = function (value) {
       try { localStorage.setItem(CONSENT_KEY, value); } catch (e) { /* private mode */ }
-      cookieBanner.hidden = true;
+      hideModal(cookieModal);
     };
 
-    cookieBanner
+    cookieModal
       .querySelector('[data-cookie-accept]')
       .addEventListener('click', function () { chooseConsent('all'); });
 
-    cookieBanner
+    cookieModal
       .querySelector('[data-cookie-essential]')
       .addEventListener('click', function () { chooseConsent('essential'); });
 
     Array.prototype.slice
       .call(document.querySelectorAll('[data-cookie-open]'))
       .forEach(function (button) {
-        button.addEventListener('click', function () {
-          cookieBanner.hidden = false;
-        });
+        button.addEventListener('click', function () { showModal(cookieModal); });
       });
 
     if (!readConsent()) {
-      setTimeout(function () { cookieBanner.hidden = false; }, 900);
+      setTimeout(function () { showModal(cookieModal); }, 900);
     }
+  }
+
+  /* -------------------------- Login & session --------------------------- */
+
+  var loginModal = document.querySelector('[data-login]');
+
+  if (loginModal) {
+    var SESSION_KEY = 'gemrun-web-session';
+    var loginButton = document.querySelector('[data-login-open]');
+    var sessionChip = document.querySelector('[data-session]');
+    var sessionInitial = document.querySelector('[data-session-initial]');
+    var loginForm = loginModal.querySelector('[data-login-form]');
+    var emailInput = loginModal.querySelector('[data-login-email]');
+    var passwordInput = loginModal.querySelector('[data-login-password]');
+    var loginMsg = loginModal.querySelector('[data-login-msg]');
+    var loginSubmit = loginModal.querySelector('[data-login-submit]');
+    var LOGIN_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+    var readSession = function () {
+      try { return localStorage.getItem(SESSION_KEY); } catch (e) { return null; }
+    };
+
+    var syncSession = function () {
+      var email = readSession();
+      if (email) {
+        loginButton.hidden = true;
+        sessionChip.hidden = false;
+        sessionInitial.textContent = email.charAt(0).toUpperCase();
+        sessionChip.title = 'Signed in as ' + email;
+      } else {
+        loginButton.hidden = false;
+        sessionChip.hidden = true;
+      }
+    };
+
+    var openLogin = function () {
+      showModal(loginModal);
+      emailInput.focus();
+    };
+
+    var closeLogin = function () {
+      hideModal(loginModal);
+      loginForm.classList.remove('is-error');
+      loginMsg.textContent = '';
+    };
+
+    loginButton.addEventListener('click', openLogin);
+
+    Array.prototype.slice
+      .call(loginModal.querySelectorAll('[data-login-close]'))
+      .forEach(function (el) { el.addEventListener('click', closeLogin); });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && !loginModal.hidden) closeLogin();
+    });
+
+    loginModal
+      .querySelector('[data-apple-login]')
+      .addEventListener('click', function () {
+        loginForm.classList.remove('is-error');
+        loginMsg.textContent = 'Sign in with Apple arrives with the public launch — use email for now.';
+      });
+
+    loginForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var email = emailInput.value.trim();
+
+      if (!LOGIN_EMAIL.test(email)) {
+        loginForm.classList.add('is-error');
+        loginMsg.textContent = 'That doesn’t look like an email — try again?';
+        emailInput.focus();
+        return;
+      }
+      if (passwordInput.value.length < 6) {
+        loginForm.classList.add('is-error');
+        loginMsg.textContent = 'Passwords are at least 6 characters.';
+        passwordInput.focus();
+        return;
+      }
+
+      loginForm.classList.remove('is-error');
+      loginMsg.textContent = '';
+      loginSubmit.classList.add('is-loading');
+
+      // TODO: replace the timeout with POST {API_BASE}/v1/auth/login once
+      // the web backend is exposed; store the returned token instead.
+      setTimeout(function () {
+        try { localStorage.setItem(SESSION_KEY, email); } catch (e) { /* private mode */ }
+        loginSubmit.classList.remove('is-loading');
+        closeLogin();
+        loginForm.reset();
+        syncSession();
+      }, 900);
+    });
+
+    document.querySelector('[data-logout]').addEventListener('click', function () {
+      try { localStorage.removeItem(SESSION_KEY); } catch (e) { /* private mode */ }
+      syncSession();
+    });
+
+    syncSession();
+  }
+
+  /* ------------------------- Hero phone tilt ----------------------------- */
+
+  var tiltEl = document.querySelector('[data-tilt]');
+
+  if (tiltEl && !prefersReducedMotion && window.matchMedia('(hover: hover)').matches) {
+    tiltEl.addEventListener('mousemove', function (event) {
+      var rect = tiltEl.getBoundingClientRect();
+      var x = (event.clientX - rect.left) / rect.width - 0.5;
+      var y = (event.clientY - rect.top) / rect.height - 0.5;
+      tiltEl.style.transform =
+        'perspective(900px) rotateY(' + (x * 10).toFixed(2) + 'deg) rotateX(' + (-y * 10).toFixed(2) + 'deg)';
+    });
+    tiltEl.addEventListener('mouseleave', function () {
+      tiltEl.style.transform = '';
+    });
   }
 
   /* ------------------------------ Footer ------------------------------- */

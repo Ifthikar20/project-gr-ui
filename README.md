@@ -46,25 +46,36 @@ mix in one line: black band, red type. Gem rarity is a pulse-opacity ramp
 (0.30 → 1.0) plus a distinct glyph per tier, so tiers stay readable by shape
 even in grayscale.
 
-## Image placeholders
+## Graphics: animated scenes & drawn mockups (no placeholder boxes)
 
-There are no real screenshots yet. Every spot that needs one is a styled
-`.ph` block tagged with a `data-placeholder` attribute naming the asset:
+Every visual slot renders real graphics today — animated SVG scenes and
+hand-drawn app-UI mockups — and each is still tagged with a
+`data-placeholder` attribute so a real screenshot can replace it later:
 
-| `data-placeholder` | Section | Suggested asset |
-|---|---|---|
-| `screen-explore` … `screen-profile` | Screens carousel | One screenshot per app screen (Explore, Route Detail, Active Run, Stash, Compete, Profile) |
-| `feature-living-map` | Features | Map stocked with system gems |
-| `feature-active-run` | Features | Active run chase-camera view |
-| `feature-route-editor` | Features | Route drawing + gem placement |
-| `feature-fair-play`  | Features | GPS-verification illustration |
-| `feature-run-summary` | Track | Run summary: calories, splits, gems |
-| `feature-wallet`     | Track | Stash / wallet screen |
-| `app-store-badge`    | Final CTA | Real App Store link |
+| `data-placeholder` | What renders now |
+|---|---|
+| *(hero phone)* | Animated phone: route draws itself, gems pop in, runner travels it, looping |
+| `feature-living-map` | Animated: gems spawn around a radar-pinging location puck |
+| `feature-active-run` | Animated: breadcrumb trail draws toward a pulsing gem (dark) |
+| `feature-route-editor` | Animated: tapped waypoints ripple, segments snap in, a gem drops |
+| `feature-fair-play` | Animated: track replays with checks; a teleport branch gets rejected; verified seal |
+| `feature-wallet` | Animated: a gem hops from the wallet card to a dashed drop zone |
+| `feature-run-summary` | Drawn mockup: calories, split bars, gems, Health chip |
+| `screen-explore` … `screen-profile` | Six drawn phone mockups, one per app screen |
+| `app-store-badge` | Styled badge — needs the real App Store link |
 
-The "Watch a gem get taken" map is **not** a placeholder — it's a built-in
-animated SVG demo (street grid, route, four gems, a runner with the 100 ft
-claim ring) that plays automatically on scroll and can be replayed.
+The "Watch a gem get taken" map in How It Works remains the interactive
+JS demo (auto-play, replay button, live gem/XP counters).
+
+## Sample content to replace before launch
+
+- **Reviews** ("The streets are talking") are written sample quotes for the
+  beta-marketing voice — swap in real TestFlight feedback.
+- **Login** is a working preview flow: full validation, loading state, and a
+  local demo session in `localStorage` (`gemrun-web-session`), restored on
+  reload with a header session chip + logout. The `TODO` in `js/main.js`
+  marks where the real `POST /v1/auth/login` call goes.
+- **Head-to-head** numbers are illustrative (labeled in the UI).
 
 ### Hero / CTA background photo
 
@@ -82,15 +93,15 @@ before launch.
 
 ## Interactions implemented
 
-Overlay-to-solid sticky header (white over the hero photo, snow once
-scrolled), mobile drawer nav, scroll-spy nav highlighting, marquee ticker,
-reveal-on-scroll, animated stat counters, the animated gem-capture map demo
-(auto-play + replay, synced step highlights, XP/gem counters), the screens
-carousel (scroll-snap + arrow buttons + keyboard), interactive rarity-tier
-tabs (keyboard-navigable), an interactive calorie estimator (weight ×
-distance sliders), animated head-to-head friend comparison bars, single-open
-FAQ accordion, client-side waitlist validation, and a cookie-consent banner
-("Accept all" / "Essential only", choice stored in `localStorage` under
-`gemrun-consent`, reopenable from the footer's "Cookie preferences" link) —
-all gated on `prefers-reduced-motion` and fully functional without
-JavaScript (content is never hidden when JS is off).
+Overlay-to-solid sticky header, mobile drawer nav, scroll-spy, marquee
+ticker, Framer-style blur/scale reveal-on-scroll, animated stat counters,
+the interactive gem-capture map demo, hero-phone mouse tilt, the screens
+carousel (scroll-snap + arrows + keyboard), rarity-tier tabs, the calorie
+estimator, head-to-head bars, the auto-scrolling reviews marquee (pauses on
+hover), single-open FAQ, waitlist validation, a **cookie-consent popup
+modal** (Accept all / Essential only, persisted as `gemrun-consent`,
+reopenable from the footer), and a **login modal** (validation, loading
+state, demo session with header chip + logout) — all gated on
+`prefers-reduced-motion` (animated scenes settle into their finished
+state) and fully functional without JavaScript (content is never hidden
+when JS is off).
