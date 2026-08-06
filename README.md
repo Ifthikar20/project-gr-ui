@@ -28,6 +28,7 @@ privacy.html      Real privacy policy matching the app architecture
 terms.html        Terms & fair play
 press.html        Press kit: boilerplate, facts, brand swatches, logo
 404.html          On-brand not-found page
+llms.txt          Structured site summary for AI crawlers (llmstxt.org format)
 css/styles.css    Design tokens & every component (shared by all pages)
 js/main.js        Interactions (no dependencies; landing page only)
 assets/           favicon.svg, og-card.jpg, apple-touch-icon.png,
