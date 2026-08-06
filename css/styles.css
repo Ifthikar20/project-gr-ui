@@ -19,9 +19,9 @@
   --ink-06: rgba(22, 24, 29, 0.06);
 
   /* 3 — Pulse: the ember red-orange accent */
-  --pulse: #ef3b23;
-  --pulse-deep: #d92f18;      /* hover step of the same hue */
-  --pulse-12: rgba(239, 59, 35, 0.12);
+  --pulse: #f20d5b;
+  --pulse-deep: #d60b50;      /* hover step of the same hue */
+  --pulse-12: rgba(242, 13, 91, 0.12);
   --on-pulse: #ffffff;        /* text/icon color on top of the accent */
 
   /* On-ink neutrals (tint steps of snow) */
@@ -156,7 +156,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .btn--pulse {
   background: var(--pulse);
   color: var(--on-pulse);
-  box-shadow: 0 4px 14px rgba(239, 59, 35, 0.28);
+  box-shadow: 0 4px 14px rgba(242, 13, 91, 0.28);
 }
 .btn--pulse:hover { background: var(--pulse-deep); transform: translateY(-1px); }
 .btn--pulse:active { transform: translateY(0); }
@@ -1094,7 +1094,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 .demo-runner__radius {
-  fill: rgba(239, 59, 35, 0.1);
+  fill: rgba(242, 13, 91, 0.1);
   stroke: var(--pulse);
   stroke-width: 1.5;
   stroke-dasharray: 5 6;
@@ -1727,7 +1727,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-weight: 700;
   line-height: 1;
   border-radius: 50%;
-  box-shadow: 0 8px 22px rgba(239, 59, 35, 0.4);
+  box-shadow: 0 8px 22px rgba(242, 13, 91, 0.4);
 }
 
 .app__card {
@@ -2155,7 +2155,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   animation: sc-seal 9s ease infinite;
 }
 
-.sc-seal circle { fill: rgba(239, 59, 35, 0.1); }
+.sc-seal circle { fill: rgba(242, 13, 91, 0.1); }
 
 .sc-seal path { stroke: var(--pulse); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; fill: none; }
 

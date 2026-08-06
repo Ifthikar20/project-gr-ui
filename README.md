@@ -42,16 +42,16 @@ pending a real store URL.
 
 ## Design system
 
-**Ember red-orange × black.** The brand accent is the app's pulse color —
-`#EF3B23`, deliberately red-shifted off Strava's orange — set against a
-black-forward frame, so the identity reads as red-orange *with* black
-rather than Strava's orange-on-white:
+**Pulse × black.** The brand accent is the app's pulse color — currently
+`#F20D5B` (a test shade; swap the `--pulse` tokens in `css/styles.css` to
+change it site-wide) — set against a black-forward frame, so the identity
+reads as accent-*with*-black rather than Strava's orange-on-white:
 
 | Token | Value | Role |
 |---|---|---|
 | Snow  | `#FAFAF8` bg / `#FFFFFF` cards | Surfaces |
 | Ink   | `#16181D` (+ 0.55 gray text, + 0.12 hairlines) | Text, icons, dark bands (hero, ticker, rarity, CTA) |
-| Pulse | `#EF3B23` (+ opacity ramp) | THE accent: CTAs, kickers, gems, live stats |
+| Pulse | `#F20D5B` (+ opacity ramp) | THE accent: CTAs, kickers, gems, live stats |
 
 Grays are opacity steps of ink — never another hue. The ticker strip is the
 mix in one line: black band, red type. Gem rarity is a pulse-opacity ramp
