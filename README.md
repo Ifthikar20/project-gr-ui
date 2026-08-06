@@ -93,7 +93,6 @@ JS demo (auto-play, replay button, live gem/XP counters).
   local demo session in `localStorage` (`gemrun-web-session`), restored on
   reload with a header session chip + logout. The `TODO` in `js/main.js`
   marks where the real `POST /v1/auth/login` call goes.
-- **Head-to-head** numbers are illustrative (labeled in the UI).
 
 ### Hero / CTA background photo
 
@@ -115,7 +114,7 @@ Overlay-to-solid sticky header, mobile drawer nav, scroll-spy, marquee
 ticker, Framer-style blur/scale reveal-on-scroll, animated stat counters,
 the interactive gem-capture map demo, hero-phone mouse tilt, the screens
 carousel (scroll-snap + arrows + keyboard), rarity-tier tabs, the calorie
-estimator, head-to-head bars, the auto-scrolling reviews marquee (pauses on
+estimator, the auto-scrolling reviews marquee (pauses on
 hover), single-open FAQ, waitlist validation, a **cookie-consent popup
 modal** (Accept all / Essential only, persisted as `gemrun-consent`,
 reopenable from the footer), and a **login modal** (validation, loading
