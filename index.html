@@ -8,7 +8,13 @@
   <meta property="og:title" content="GemRun — A gamified running experience">
   <meta property="og:description" content="Gems drop on real streets near you. Run within 100 ft to claim them, race your friends, track every calorie.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/og-card.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GemRun — A gamified running experience">
+  <meta name="twitter:image" content="assets/og-card.jpg">
+  <meta name="theme-color" content="#16181d">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -23,6 +29,7 @@
           <path d="M5 12 L27 12 L16 15.5 Z" fill="#ffffff" opacity="0.18"/>
         </svg>
         <span class="brand__name">GemRun</span>
+        <span class="brand__beta">beta</span>
       </a>
 
       <nav class="site-nav" id="site-nav" aria-label="Primary">
@@ -31,8 +38,8 @@
           <li><a class="site-nav__link" href="#screens" data-navlink>Screens</a></li>
           <li><a class="site-nav__link" href="#rarity" data-navlink>Gems</a></li>
           <li><a class="site-nav__link" href="#track" data-navlink>Track</a></li>
-          <li><a class="site-nav__link" href="#privacy" data-navlink>Privacy</a></li>
           <li><a class="site-nav__link" href="#faq" data-navlink>FAQ</a></li>
+          <li><a class="site-nav__link" href="changelog.html">Changelog</a></li>
         </ul>
       </nav>
 
@@ -159,43 +166,35 @@
           </p>
         </div>
 
-        <div class="card-grid">
-          <article class="card" data-reveal>
-            <div class="card__icon" aria-hidden="true">
+        <ul class="row-list row-list--offset">
+          <li class="row" data-reveal>
+            <span class="row__icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 9h17M3.5 15h17M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </span>
+            <div>
+              <h3 class="row__title">One shared world</h3>
+              <p class="row__body">Gems aren't personal spawns — the map is the same for every runner. First come, first served, settled atomically on the server. When it's gone, it's gone.</p>
             </div>
-            <h3 class="card__title">One shared world</h3>
-            <p class="card__body">
-              Gems aren't personal spawns — the map is the same for every
-              runner. First come, first served, settled atomically on the
-              server. When it's gone, it's gone.
-            </p>
-          </article>
-
-          <article class="card" data-reveal data-reveal-delay="1">
-            <div class="card__icon" aria-hidden="true">
+          </li>
+          <li class="row" data-reveal>
+            <span class="row__icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M12 21s-7-5.1-7-11a7 7 0 0 1 14 0c0 5.9-7 11-7 11z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.6" fill="currentColor"/></svg>
+            </span>
+            <div>
+              <h3 class="row__title">Never an empty map</h3>
+              <p class="row__body">Every map open triggers the backend to stock your area — popular routes first, otherwise directly on walkable streets. Wherever you are, there's something to chase.</p>
             </div>
-            <h3 class="card__title">Never an empty map</h3>
-            <p class="card__body">
-              Every time you open the map, the backend stocks your area —
-              popular routes first, otherwise directly on walkable streets.
-              Wherever you are, there's something to chase.
-            </p>
-          </article>
-
-          <article class="card" data-reveal data-reveal-delay="2">
-            <div class="card__icon" aria-hidden="true">
+          </li>
+          <li class="row" data-reveal>
+            <span class="row__icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.6-3 8.4-7 10-4-1.6-7-5.4-7-10V6z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.8 12.2l2.2 2.2 4.2-4.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <div>
+              <h3 class="row__title">Verified, not vibes</h3>
+              <p class="row__body">The app is optimistic; the server is authoritative. Your full GPS track is replayed after every run — pace checks, teleport detection, accuracy gating — before a claim counts.</p>
             </div>
-            <h3 class="card__title">Verified, not vibes</h3>
-            <p class="card__body">
-              The app is optimistic; the server is authoritative. Your full
-              GPS track is replayed after every run — pace checks, teleport
-              detection, accuracy gating — before a claim counts.
-            </p>
-          </article>
-        </div>
+          </li>
+        </ul>
       </div>
     </section>
 
@@ -1014,6 +1013,13 @@
             <h3 class="card__title">First-find crowns</h3>
             <p class="card__body">A Legendary appears once. The first runner to reach it takes a unique first-find variant — everyone else gets the story.</p>
           </article>
+          <article class="card" data-reveal data-reveal-delay="3">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M7 5.5 12 3l5 2.5v4.8c0 3.6-2.2 6.5-5 7.7-2.8-1.2-5-4.1-5-7.7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" transform="translate(0 2.5)"/><path d="M9 2.8h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <h3 class="card__title">Sets &amp; badges</h3>
+            <p class="card__body">Gems belong to themed sets of five. Complete one and it's a profile badge plus 500 bonus XP — the stash shows the gaps.</p>
+          </article>
         </div>
       </div>
     </section>
@@ -1032,44 +1038,36 @@
         <div class="reviews__row">
           <div class="reviews__seq">
             <figure class="review">
-              <p class="review__stars" aria-label="5 out of 5 stars">★★★★★</p>
               <blockquote class="review__quote">I've run the same loop for two years. GemRun made me turn left instead of right for the first time. Eleven-day streak and counting.</blockquote>
               <figcaption class="review__who"><span class="review__ava">M</span><span><strong>Maya R.</strong><em>Streak runner · beta wave 1</em></span></figcaption>
             </figure>
             <figure class="review">
-              <p class="review__stars" aria-label="5 out of 5 stars">★★★★★</p>
               <blockquote class="review__quote">Walked 5k in the rain for an Amethyst. Zero regrets. The stash silhouettes are evil in the best way.</blockquote>
               <figcaption class="review__who"><span class="review__ava">D</span><span><strong>Dev K.</strong><em>Collector · beta wave 1</em></span></figcaption>
             </figure>
             <figure class="review">
-              <p class="review__stars" aria-label="5 out of 5 stars">★★★★★</p>
               <blockquote class="review__quote">Published our Tuesday loop and watched nine people race it by Friday. The leaderboard did my recruiting for me.</blockquote>
               <figcaption class="review__who"><span class="review__ava">S</span><span><strong>Sam O.</strong><em>Run-club captain</em></span></figcaption>
             </figure>
             <figure class="review">
-              <p class="review__stars" aria-label="4 out of 5 stars">★★★★<span class="review__star--dim">★</span></p>
               <blockquote class="review__quote">It's a real tracker that happens to be a game. Splits, calories, elevation — all there when I want them, invisible when I don't.</blockquote>
               <figcaption class="review__who"><span class="review__ava">A</span><span><strong>Aisha T.</strong><em>Marathon trainee</em></span></figcaption>
             </figure>
           </div>
           <div class="reviews__seq" aria-hidden="true">
             <figure class="review">
-              <p class="review__stars">★★★★★</p>
               <blockquote class="review__quote">I've run the same loop for two years. GemRun made me turn left instead of right for the first time. Eleven-day streak and counting.</blockquote>
               <figcaption class="review__who"><span class="review__ava">M</span><span><strong>Maya R.</strong><em>Streak runner · beta wave 1</em></span></figcaption>
             </figure>
             <figure class="review">
-              <p class="review__stars">★★★★★</p>
               <blockquote class="review__quote">Walked 5k in the rain for an Amethyst. Zero regrets. The stash silhouettes are evil in the best way.</blockquote>
               <figcaption class="review__who"><span class="review__ava">D</span><span><strong>Dev K.</strong><em>Collector · beta wave 1</em></span></figcaption>
             </figure>
             <figure class="review">
-              <p class="review__stars">★★★★★</p>
               <blockquote class="review__quote">Published our Tuesday loop and watched nine people race it by Friday. The leaderboard did my recruiting for me.</blockquote>
               <figcaption class="review__who"><span class="review__ava">S</span><span><strong>Sam O.</strong><em>Run-club captain</em></span></figcaption>
             </figure>
             <figure class="review">
-              <p class="review__stars">★★★★<span class="review__star--dim">★</span></p>
               <blockquote class="review__quote">It's a real tracker that happens to be a game. Splits, calories, elevation — all there when I want them, invisible when I don't.</blockquote>
               <figcaption class="review__who"><span class="review__ava">A</span><span><strong>Aisha T.</strong><em>Marathon trainee</em></span></figcaption>
             </figure>
@@ -1079,44 +1077,36 @@
         <div class="reviews__row reviews__row--reverse">
           <div class="reviews__seq">
             <figure class="review">
-              <p class="review__stars" aria-label="5 out of 5 stars">★★★★★</p>
               <blockquote class="review__quote">The haptic pop when you snag a gem mid-run? Genuinely addictive. I never look at my phone anymore.</blockquote>
               <figcaption class="review__who"><span class="review__ava">P</span><span><strong>Priya N.</strong><em>Trail runner</em></span></figcaption>
             </figure>
             <figure class="review">
-              <p class="review__stars" aria-label="5 out of 5 stars">★★★★★</p>
               <blockquote class="review__quote">Beat my brother to an Ember by forty seconds. He still brings it up. Ten out of ten.</blockquote>
               <figcaption class="review__who"><span class="review__ava">J</span><span><strong>Jonas M.</strong><em>Weekend 10k</em></span></figcaption>
             </figure>
             <figure class="review">
-              <p class="review__stars" aria-label="5 out of 5 stars">★★★★★</p>
               <blockquote class="review__quote">Someone GPS-spoofed our block's Legendary and the server just… rejected it. Respect.</blockquote>
               <figcaption class="review__who"><span class="review__ava">L</span><span><strong>Leo B.</strong><em>Beta wave 2</em></span></figcaption>
             </figure>
             <figure class="review">
-              <p class="review__stars" aria-label="5 out of 5 stars">★★★★★</p>
               <blockquote class="review__quote">My Sunday long run is now a supply run. I drop Quartz along the river for the morning crew.</blockquote>
               <figcaption class="review__who"><span class="review__ava">N</span><span><strong>Nora F.</strong><em>Route creator</em></span></figcaption>
             </figure>
           </div>
           <div class="reviews__seq" aria-hidden="true">
             <figure class="review">
-              <p class="review__stars">★★★★★</p>
               <blockquote class="review__quote">The haptic pop when you snag a gem mid-run? Genuinely addictive. I never look at my phone anymore.</blockquote>
               <figcaption class="review__who"><span class="review__ava">P</span><span><strong>Priya N.</strong><em>Trail runner</em></span></figcaption>
             </figure>
             <figure class="review">
-              <p class="review__stars">★★★★★</p>
               <blockquote class="review__quote">Beat my brother to an Ember by forty seconds. He still brings it up. Ten out of ten.</blockquote>
               <figcaption class="review__who"><span class="review__ava">J</span><span><strong>Jonas M.</strong><em>Weekend 10k</em></span></figcaption>
             </figure>
             <figure class="review">
-              <p class="review__stars">★★★★★</p>
               <blockquote class="review__quote">Someone GPS-spoofed our block's Legendary and the server just… rejected it. Respect.</blockquote>
               <figcaption class="review__who"><span class="review__ava">L</span><span><strong>Leo B.</strong><em>Beta wave 2</em></span></figcaption>
             </figure>
             <figure class="review">
-              <p class="review__stars">★★★★★</p>
               <blockquote class="review__quote">My Sunday long run is now a supply run. I drop Quartz along the river for the morning crew.</blockquote>
               <figcaption class="review__who"><span class="review__ava">N</span><span><strong>Nora F.</strong><em>Route creator</em></span></figcaption>
             </figure>
@@ -1305,19 +1295,17 @@
         <nav class="site-footer__col" aria-label="Company">
           <h3 class="site-footer__heading">Company</h3>
           <ul>
-            <li><a href="#" data-placeholder-link>About</a></li>
-            <li><a href="#" data-placeholder-link>Blog</a></li>
-            <li><a href="#" data-placeholder-link>Press kit</a></li>
-            <li><a href="#" data-placeholder-link>Contact</a></li>
+            <li><a href="changelog.html">Changelog</a></li>
+            <li><a href="press.html">Press kit</a></li>
+            <li><a href="mailto:hello@gemrun.app">Contact</a></li>
           </ul>
         </nav>
 
         <nav class="site-footer__col" aria-label="Legal">
           <h3 class="site-footer__heading">Legal</h3>
           <ul>
-            <li><a href="#" data-placeholder-link>Privacy</a></li>
-            <li><a href="#" data-placeholder-link>Terms</a></li>
-            <li><a href="#" data-placeholder-link>Community guidelines</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+            <li><a href="terms.html">Terms &amp; fair play</a></li>
           </ul>
         </nav>
       </div>
@@ -1343,7 +1331,7 @@
       <p class="modal__text">
         Essential cookies keep this site working; optional ones help us see
         what's resonating so we can make the hunt better. Your choice is
-        saved on this device. <a href="#" data-placeholder-link>Privacy policy</a>
+        saved on this device. <a href="privacy.html">Privacy policy</a>
       </p>
       <div class="modal__actions">
         <button class="btn btn--pulse" type="button" data-cookie-accept>Accept all</button>
@@ -1385,7 +1373,7 @@
         <button class="btn btn--pulse login-form__submit" type="submit" data-login-submit>Log in</button>
         <p class="login-form__foot">
           Preview build — this signs you into a local demo session until web
-          accounts launch. <a href="#" data-placeholder-link>Forgot password?</a>
+          accounts launch. <a href="mailto:hello@gemrun.app?subject=Password%20reset">Forgot password?</a>
         </p>
       </form>
     </div>

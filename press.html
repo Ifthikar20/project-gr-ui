@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Press kit — GemRun</title>
+  <meta name="description" content="GemRun press kit: what it is, facts, brand colors, logo, and contact.">
+  <meta name="theme-color" content="#16181d">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="page-top">
+    <div class="container page-top__inner">
+      <a class="brand" href="index.html" aria-label="GemRun home">
+        <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/>
+          <path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#ffffff" opacity="0.28"/>
+        </svg>
+        <span class="brand__name">GemRun</span>
+        <span class="brand__beta">beta</span>
+      </a>
+      <a class="page-top__back" href="index.html">← Back to the site</a>
+    </div>
+  </header>
+
+  <main class="page__main">
+    <div class="container">
+      <div class="prose">
+        <h1>Press kit</h1>
+        <p class="prose__updated">Everything on this page may be reused in coverage of GemRun.</p>
+
+        <h2>One-liner</h2>
+        <p><strong>GemRun turns any running route into a treasure hunt.</strong>
+        The system drops gems on real streets; run within 100 ft to claim
+        them — one shared world, first one there takes it.</p>
+
+        <h2>Boilerplate</h2>
+        <p>GemRun is a gamified running experience for iPhone. Instead of
+        rewarding a run after the fact, it gives you a reason to get out the
+        door: virtual gems placed on real, walkable streets, verified by GPS
+        and claimed first-come-first-served. Runners collect, build streaks,
+        design routes with gem placement as level design, and race friends on
+        per-route leaderboards — while the app quietly tracks distance,
+        splits, elevation and calories, synced with Apple Health. Runner data
+        is stored on-device first; only claim-verification tracks and public
+        leaderboard entries ever reach the server.</p>
+
+        <h2>Facts</h2>
+        <ul>
+          <li><strong>Platform:</strong> iPhone, iOS 17+ (iPhone-only for now)</li>
+          <li><strong>Status:</strong> TestFlight beta</li>
+          <li><strong>Price:</strong> free to play — gems have no monetary value</li>
+          <li><strong>Map data:</strong> © OpenStreetMap contributors (ODbL)</li>
+          <li><strong>Gem tiers:</strong> Quartz, Emerald, Sapphire, Amethyst, Ember</li>
+        </ul>
+
+        <h2>Brand</h2>
+        <p>Ember red-orange on a black-forward frame. Grays are opacity steps
+        of ink — never another hue.</p>
+
+        <div class="swatches">
+          <div class="swatch">
+            <div class="swatch__chip" style="background:#EF3B23"></div>
+            <div class="swatch__meta"><strong>Pulse</strong><code>#EF3B23</code></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch__chip" style="background:#16181D"></div>
+            <div class="swatch__meta"><strong>Ink</strong><code>#16181D</code></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch__chip" style="background:#FAFAF8; border-bottom:1px solid rgba(22,24,29,.08)"></div>
+            <div class="swatch__meta"><strong>Snow</strong><code>#FAFAF8</code></div>
+          </div>
+        </div>
+
+        <h2>Logo</h2>
+        <p>The gem mark, as SVG: <a href="assets/favicon.svg" download>download
+        gemrun-mark.svg</a>. Please don't recolor it, squash it, or set it on
+        a busy photo without a scrim. The wordmark is simply “GemRun” set
+        bold in a rounded sans.</p>
+
+        <h2>Contact</h2>
+        <p><a href="mailto:hello@gemrun.app">hello@gemrun.app</a> — happy to
+        share TestFlight access, screenshots, and founder interviews.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__legal">
+        <p>© <span data-year>2026</span> GemRun. iPhone, iOS 17+.</p>
+        <p><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="changelog.html">Changelog</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelector('[data-year]').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

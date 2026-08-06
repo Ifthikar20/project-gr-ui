@@ -61,7 +61,8 @@
   );
   var spied = navLinks
     .map(function (link) {
-      return document.querySelector(link.getAttribute('href'));
+      var href = link.getAttribute('href');
+      return href.charAt(0) === '#' ? document.querySelector(href) : null;
     })
     .filter(Boolean);
 

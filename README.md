@@ -22,11 +22,22 @@ npx serve .
 ## Structure
 
 ```
-index.html        All sections + copy
-css/styles.css    Design tokens & every component
-js/main.js        Interactions (no dependencies)
-assets/           favicon.svg (real images land here later)
+index.html        The landing page (all sections + copy)
+changelog.html    TestFlight beta changelog (linked from the nav)
+privacy.html      Real privacy policy matching the app architecture
+terms.html        Terms & fair play
+press.html        Press kit: boilerplate, facts, brand swatches, logo
+404.html          On-brand not-found page
+css/styles.css    Design tokens & every component (shared by all pages)
+js/main.js        Interactions (no dependencies; landing page only)
+assets/           favicon.svg, og-card.jpg, apple-touch-icon.png,
+                  running-background.jpg (stand-in — replace with real photo)
 ```
+
+The nav mixes in-page anchors with one real route (Changelog) plus the
+Log in action; the footer carries the rest of the real routes — no dead
+`#` links anywhere except the App Store badge, which is intentionally
+pending a real store URL.
 
 ## Design system
 
@@ -70,7 +81,13 @@ JS demo (auto-play, replay button, live gem/XP counters).
 ## Sample content to replace before launch
 
 - **Reviews** ("The streets are talking") are written sample quotes for the
-  beta-marketing voice — swap in real TestFlight feedback.
+  beta-marketing voice (no star ratings by design — quotes only) — swap in
+  real TestFlight feedback.
+- **Changelog entries** are grounded in the app repo's real feature history
+  but carry invented build numbers/dates — sync with actual TestFlight
+  builds.
+- **Contact email** `hello@gemrun.app` is a placeholder domain — search and
+  replace once the real domain exists.
 - **Login** is a working preview flow: full validation, loading state, and a
   local demo session in `localStorage` (`gemrun-web-session`), restored on
   reload with a header session chip + logout. The `TODO` in `js/main.js`
