@@ -19,10 +19,15 @@
   --ink-06: rgba(22, 24, 29, 0.06);
 
   /* 3 — Pulse: the ember red-orange accent */
-  --pulse: #f20d5b;
-  --pulse-deep: #d60b50;      /* hover step of the same hue */
-  --pulse-12: rgba(242, 13, 91, 0.12);
+  --pulse: #5f40bf;
+  --pulse-deep: #4d33a0;      /* hover step of the same hue */
+  --pulse-12: rgba(95, 64, 191, 0.12);
   --on-pulse: #ffffff;        /* text/icon color on top of the accent */
+
+  /* Map/app accent — everything that depicts the app or its map */
+  --map: #61ff00;
+  --map-12: rgba(97, 255, 0, 0.14);
+  --on-map: #16181d;          /* content on top of the map accent */
 
   /* On-ink neutrals (tint steps of snow) */
   --snow-on-ink-70: rgba(250, 250, 248, 0.72);
@@ -156,7 +161,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .btn--pulse {
   background: var(--pulse);
   color: var(--on-pulse);
-  box-shadow: 0 4px 14px rgba(242, 13, 91, 0.28);
+  box-shadow: 0 4px 14px rgba(95, 64, 191, 0.28);
 }
 .btn--pulse:hover { background: var(--pulse-deep); transform: translateY(-1px); }
 .btn--pulse:active { transform: translateY(0); }
@@ -1094,7 +1099,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 .demo-runner__radius {
-  fill: rgba(242, 13, 91, 0.1);
+  fill: rgba(95, 64, 191, 0.1);
   stroke: var(--pulse);
   stroke-width: 1.5;
   stroke-dasharray: 5 6;
@@ -1727,7 +1732,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-weight: 700;
   line-height: 1;
   border-radius: 50%;
-  box-shadow: 0 8px 22px rgba(242, 13, 91, 0.4);
+  box-shadow: 0 8px 22px rgba(95, 64, 191, 0.4);
 }
 
 .app__card {
@@ -2155,7 +2160,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   animation: sc-seal 9s ease infinite;
 }
 
-.sc-seal circle { fill: rgba(242, 13, 91, 0.1); }
+.sc-seal circle { fill: rgba(95, 64, 191, 0.1); }
 
 .sc-seal path { stroke: var(--pulse); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; fill: none; }
 
@@ -2884,3 +2889,135 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
   .log__date { margin-left: 0; width: 100%; }
 }
+
+
+/* ================= Two-accent test overrides =================
+   Map/app graphics take --map (electric green); site chrome keeps
+   --pulse (violet); accent-colored TEXT is neutralized to ink on
+   light surfaces and snow on dark ones. Delete this block (and the
+   --map tokens) to fall back to single-accent. */
+
+/* Gem marks (logo, modals, CTA, 404) */
+.brand__mark path:first-of-type,
+.modal__gem path:first-of-type,
+.cta__gem path:first-of-type,
+.error-hero__gem path:first-of-type { fill: var(--map); }
+
+/* Hero phone: Explore replica */
+.app-route { stroke: var(--map); }
+.app-origin circle { fill: var(--map); }
+.app-origin text { fill: var(--on-map); }
+.app-gem { fill: var(--map); }
+.app__gems b { background: var(--map); }
+.app-puck__ring { stroke: var(--map); }
+.app__fab {
+  background: var(--map);
+  color: var(--on-map);
+  box-shadow: 0 8px 22px rgba(97, 255, 0, 0.35);
+}
+.app__tab.is-on { color: var(--ink); }
+.app__tab.is-on svg { color: var(--map); }
+
+/* Interactive map demo */
+.demo-route { stroke: var(--map); }
+.demo-gem__art { color: var(--map); }
+.demo-gem__check circle { fill: var(--map); }
+.demo-gem__check path { stroke: var(--on-map); }
+.demo-runner__radius { stroke: var(--map); fill: rgba(97, 255, 0, 0.12); }
+.demo-runner__label { fill: var(--ink); }
+.demo__chip--xp { color: var(--ink); }
+
+/* Animated feature scenes */
+.sc-spawn path { fill: var(--map); }
+.sc-puck__ring { stroke: var(--map); }
+.sc-chaser { fill: var(--map); }
+.sc-target__gem { fill: var(--map); }
+.sc-target__ring { stroke: var(--map); }
+.sc-seg { stroke: var(--map); }
+.sc-wp__ripple { stroke: var(--map); }
+.sc-drop path { fill: var(--map); }
+.sc-replay { stroke: var(--map); }
+.sc-check circle { fill: var(--map); }
+.sc-check path { stroke: var(--on-map); }
+.sc-seal circle { fill: var(--map-12); }
+.sc-seal path { stroke: var(--map); }
+.sc-dropzone { stroke: var(--map); }
+.sc-wallet .wg { fill: var(--map); }
+.sc-hop path { fill: var(--map); }
+
+/* Drawn app mockups */
+.mk-poly { stroke: var(--map); }
+.mk-pin { background: var(--map); }
+.mk-pin--pulse::after { border-color: var(--map); }
+.mk-zone { border-color: var(--map); }
+.mk-dots i { background: var(--map); }
+.mk-dots i.is-dim { background: var(--ink-12); }
+.mock__tabs i.is-on { background: var(--map); }
+.mock__cta { background: var(--map); color: var(--on-map); }
+.mk-gemup { fill: var(--map); }
+.mk-runner { background: var(--map); }
+.mk-runner::after { border-color: var(--map); }
+.mk-row--you { background: var(--map-12); }
+.mk-row--you .mk-val { color: var(--ink); }
+.mk-ava { background: var(--map); color: var(--on-map); }
+.mk-ava-s--you { background: var(--map); }
+.mk-splits i { background: var(--map); }
+.mk-bignum b { color: var(--ink); }
+.mk-gems b, .mk-grid b, .mk-wallet b { background: var(--map); }
+.sil { background: var(--ink-12) !important; }
+
+/* Rarity band: gems are app content */
+.tier__glyph { color: var(--map); }
+.tier.is-active { border-color: var(--map); }
+.rarity__stat strong { color: #fff; }
+.kicker--on-ink { color: var(--snow-on-ink-70); }
+
+/* Accent-colored text goes black on light surfaces */
+.kicker { color: var(--ink-55); }
+.stat__value { color: var(--ink); }
+.estimator__result strong { color: var(--ink); }
+.privacy__platform { color: var(--ink); }
+
+/* Ticker: violet band, white type */
+.ticker { background: var(--pulse); color: #fff; }
+
+/* Fixes for the two-accent test: kicker modifiers must beat the late
+   .kicker override, and green needs an ink casing on light maps. */
+
+.kicker--hero { color: var(--on-pulse); }
+
+.kicker--on-ink { color: var(--snow-on-ink-70); }
+
+/* Ink casing so #61ff00 stays legible on light map surfaces */
+.app-route,
+.demo-route,
+.mk-poly,
+.sc-seg,
+.sc-replay,
+.sc-trail { filter: drop-shadow(0 0 1px rgba(22, 24, 29, 0.55)); }
+
+.app-gem,
+.sc-spawn path,
+.sc-drop path,
+.sc-target__gem,
+.sc-hop path,
+.sc-wallet .wg,
+.mk-gemup { stroke: rgba(22, 24, 29, 0.6); stroke-width: 1.3; }
+
+.app-origin circle,
+.sc-check circle,
+.demo-gem__check circle { stroke: rgba(22, 24, 29, 0.55); stroke-width: 1.2; }
+
+.app__gems b,
+.mk-gems b,
+.mk-grid b,
+.mk-wallet b,
+.mk-dots i:not(.is-dim),
+.mk-splits i,
+.mk-pin,
+.mock__tabs i.is-on { filter: drop-shadow(0 0 0.8px rgba(22, 24, 29, 0.75)); }
+
+.mock__cta,
+.app__fab { box-shadow: inset 0 0 0 1.5px rgba(22, 24, 29, 0.35); }
+
+.app__fab { box-shadow: inset 0 0 0 1.5px rgba(22, 24, 29, 0.35), 0 8px 22px rgba(97, 255, 0, 0.35); }
