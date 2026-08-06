@@ -49,7 +49,7 @@
           <span class="session__ava" data-session-initial aria-hidden="true">?</span>
           <button class="session__out" type="button" data-logout>Log out</button>
         </div>
-        <a class="btn btn--pulse btn--sm" href="#download">Get the app</a>
+        <a class="btn btn--pulse btn--sm" href="#download">Join the beta</a>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
           <span class="nav-toggle__bar" aria-hidden="true"></span>
           <span class="nav-toggle__bar" aria-hidden="true"></span>
@@ -73,7 +73,7 @@
             <strong>first one there takes it</strong>.
           </p>
           <div class="hero__cta">
-            <a class="btn btn--pulse btn--lg" href="#download">Get it on iPhone</a>
+            <a class="btn btn--pulse btn--lg" href="#download">Join the beta</a>
             <a class="btn btn--ghost-light btn--lg" href="#how-it-works">Watch the hunt</a>
           </div>
           <ul class="hero__trust">
@@ -86,31 +86,82 @@
         <div class="hero__media" data-reveal data-reveal-delay="2">
           <div class="phone phone--hero" data-tilt>
             <div class="phone__notch" aria-hidden="true"></div>
-            <div class="phone__screen">
-              <svg class="phone__map" viewBox="0 0 300 560" preserveAspectRatio="xMidYMid slice" role="img"
-                   aria-label="Animated preview: a route draws itself across a street map while gems pop in along it">
-                <g class="pm-streets" aria-hidden="true">
-                  <path d="M60 20 V540 M110 20 V540 M164 20 V540 M232 20 V540 M282 20 V540" />
-                  <path d="M20 90 H300 M20 156 H300 M20 226 H300 M20 300 H300 M20 372 H300 M20 448 H300 M20 512 H300" />
-                </g>
-                <path class="pm-route" pathLength="1"
-                      d="M60 512 L60 430 Q60 414 76 414 L148 414 Q164 414 164 398 L164 316 Q164 300 180 300 L216 300 Q232 300 232 284 L232 172 Q232 156 216 156 L196 156"/>
-                <g class="pm-gem pm-gem--1" transform="translate(60,470)" aria-hidden="true">
-                  <path d="M0 -9 L8 0 L0 9 L-8 0 Z"/>
-                </g>
-                <g class="pm-gem pm-gem--2" transform="translate(164,360)" aria-hidden="true">
-                  <path d="M0 -9 L8 0 L0 9 L-8 0 Z"/>
-                </g>
-                <g class="pm-gem pm-gem--3" transform="translate(196,156)" aria-hidden="true">
-                  <path d="M-9 -4 L-4.5 0 L0 -7 L4.5 0 L9 -4 L7.4 6 L-7.4 6 Z"/>
-                </g>
-                <circle class="pm-runner" r="7" aria-hidden="true"/>
-              </svg>
-              <div class="phone__chip phone__chip--live" aria-hidden="true"><span class="dot-pulse"></span>Live</div>
-              <div class="phone__card" aria-hidden="true">
-                <strong>3 gems nearby</strong>
-                <span>First one there takes it</span>
+            <div class="phone__screen app" role="img"
+                 aria-label="Replica of the GemRun Explore screen: a light map with a route, gem markers, your location, a route card and the tab bar">
+              <div class="app__status" aria-hidden="true">
+                <span class="app__time">9:41</span>
+                <svg class="app__status-icons" viewBox="0 0 46 12">
+                  <rect x="0" y="6" width="2.5" height="5" rx="1"/>
+                  <rect x="4" y="4" width="2.5" height="7" rx="1"/>
+                  <rect x="8" y="2" width="2.5" height="9" rx="1"/>
+                  <path d="M18 10.5a5.5 5.5 0 0 1 8 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" transform="translate(0,-3.5)"/>
+                  <circle cx="22" cy="9.5" r="1.3"/>
+                  <rect x="32" y="2.5" width="12" height="7" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.2"/>
+                  <rect x="33.5" y="4" width="7" height="4" rx="1.2"/>
+                </svg>
               </div>
+
+              <div class="app__map">
+                <svg viewBox="0 0 300 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                  <g class="app-streets">
+                    <path d="M40 0 V560 M110 0 V560 M162 0 V560 M240 0 V560"/>
+                    <path d="M0 70 H300 M0 208 H300 M0 348 H300 M0 480 H300"/>
+                  </g>
+                  <rect class="app-park" x="180" y="368" width="100" height="80" rx="12"/>
+                  <path class="app-route"
+                        d="M40 430 L40 360 Q40 348 52 348 L150 348 Q162 348 162 336 L162 220 Q162 208 174 208 L240 208"/>
+                  <g class="app-origin" transform="translate(40,430)">
+                    <circle r="10"/>
+                    <text y="3.5">4</text>
+                  </g>
+                  <path class="app-gem" style="--step:.3" transform="translate(40,396)" d="M0 -7.5 L7 0 L0 7.5 L-7 0 Z"/>
+                  <path class="app-gem" style="--step:.5" transform="translate(110,348)" d="M0 -7.5 L7 0 L0 7.5 L-7 0 Z"/>
+                  <path class="app-gem" style="--step:.7" transform="translate(162,278)" d="M0 -7.5 L7 0 L0 7.5 L-7 0 Z"/>
+                  <path class="app-gem app-gem--crown" style="--step:1" transform="translate(240,208) scale(1.25)" d="M-8 -3.5 L-4 0 L0 -6.5 L4 0 L8 -3.5 L6.5 5.5 L-6.5 5.5 Z"/>
+                  <g class="app-puck" transform="translate(222,300)">
+                    <circle class="app-puck__ring app-puck__ring--a" r="9"/>
+                    <circle class="app-puck__ring app-puck__ring--b" r="9"/>
+                    <circle class="app-puck__dot" r="8"/>
+                  </g>
+                </svg>
+
+                <div class="app__search" aria-hidden="true">Search this area</div>
+                <div class="app__recenter" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M12 4l3.5 8.5L12 11l-3.5 1.5z" fill="currentColor"/><path d="M12 4v7" stroke="currentColor" stroke-width="1.6"/></svg>
+                </div>
+                <div class="app__fab" aria-hidden="true">+</div>
+
+                <div class="app__card" aria-hidden="true">
+                  <div class="app__card-main">
+                    <div class="app__card-top">
+                      <strong>Harbor Loop 5k</strong>
+                      <span class="app__gems"><b style="--step:.3"></b><b style="--step:.5"></b><b style="--step:.7"></b><b style="--step:1"></b></span>
+                    </div>
+                    <span class="app__meta">5.0 km · 62 m ↑ · 4 gems</span>
+                    <span class="app__top">Top 24:31 · by @sam_runs</span>
+                  </div>
+                  <div class="app__card-peek"></div>
+                </div>
+              </div>
+
+              <nav class="app__tabs" aria-hidden="true">
+                <span class="app__tab is-on">
+                  <svg viewBox="0 0 24 24"><path d="M12 21s-7-5.1-7-11a7 7 0 0 1 14 0c0 5.9-7 11-7 11z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.4" fill="currentColor"/></svg>
+                  Explore
+                </span>
+                <span class="app__tab">
+                  <svg viewBox="0 0 24 24"><path d="M12 3 L20 11 L12 21 L4 11 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+                  Stash
+                </span>
+                <span class="app__tab">
+                  <svg viewBox="0 0 24 24"><path d="M5 20v-7M12 20V6M19 20v-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+                  Compete
+                </span>
+                <span class="app__tab">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5.5 19.5a6.5 6.5 0 0 1 13 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  Profile
+                </span>
+              </nav>
             </div>
           </div>
         </div>
@@ -205,9 +256,9 @@
           <p class="kicker">How it works</p>
           <h2 class="section__title">Watch a gem get taken.</h2>
           <p class="section__lead">
-            This is the whole game in nine seconds: gems are waiting on the
-            map, you close the distance, and the first runner inside
-            100&nbsp;ft claims it. Press play.
+            Here's the whole game in nine seconds, simulated right on this
+            page: gems are waiting on the map, you close the distance, and
+            the first runner inside 100&nbsp;ft claims it. Press play.
           </p>
         </div>
 
@@ -1120,21 +1171,21 @@
         <p class="cta__lead">Somewhere within a mile of you, a gem is sitting on a sidewalk with your name on it — until someone else gets there first.</p>
 
         <div class="cta__actions">
-          <a class="store-badge" href="#" data-placeholder="app-store-badge" aria-label="Download on the App Store (link coming soon)">
+          <span class="store-badge store-badge--soon" data-placeholder="app-store-badge" aria-label="Coming soon to the App Store">
             <svg viewBox="0 0 24 24" aria-hidden="true" class="store-badge__icon">
               <path d="M16.7 12.6c0-2 1.6-3 1.7-3-1-1.4-2.4-1.6-2.9-1.6-1.2-.1-2.4.7-3 .7-.6 0-1.6-.7-2.6-.7-1.3 0-2.6.8-3.3 2-1.4 2.4-.4 6 1 8 .7 1 1.5 2.1 2.5 2 1-.1 1.4-.7 2.6-.7s1.6.7 2.6.7c1.1 0 1.8-1 2.5-2 .8-1.1 1.1-2.2 1.1-2.3 0 0-2.1-.8-2.2-3.1zM14.8 6.1c.5-.7.9-1.6.8-2.6-.8 0-1.8.6-2.3 1.2-.5.6-1 1.6-.8 2.5.9.1 1.8-.4 2.3-1.1z" fill="currentColor"/>
             </svg>
             <span class="store-badge__text">
-              <small>Download on the</small>
+              <small>Coming soon to the</small>
               App Store
             </span>
-          </a>
+          </span>
         </div>
 
-        <p class="cta__platform">Currently iPhone-only · iOS 17+ · your data stays on your phone</p>
+        <p class="cta__platform">In TestFlight beta · iPhone-only, iOS 17+ · your data stays on your phone</p>
 
         <form class="waitlist" data-waitlist novalidate>
-          <label class="waitlist__label" for="waitlist-email">Not on iPhone yet? Get launch news:</label>
+          <label class="waitlist__label" for="waitlist-email">Want in? Join the beta waitlist:</label>
           <div class="waitlist__row">
             <input class="waitlist__input" id="waitlist-email" name="email" type="email"
                    placeholder="you@example.com" autocomplete="email" required>

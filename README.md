@@ -66,7 +66,7 @@ hand-drawn app-UI mockups — and each is still tagged with a
 
 | `data-placeholder` | What renders now |
 |---|---|
-| *(hero phone)* | Animated phone: route draws itself, gems pop in, runner travels it, looping |
+| *(hero phone)* | Replica of the app's Explore screen (docs/03 in the app repo): status bar, light map with route polyline + origin gem-count marker, rarity-ramp gems, location puck, "Search this area", recenter, red ➕ FAB, swipeable route card, 4-tab bar |
 | `feature-living-map` | Animated: gems spawn around a radar-pinging location puck |
 | `feature-active-run` | Animated: breadcrumb trail draws toward a pulsing gem (dark) |
 | `feature-route-editor` | Animated: tapped waypoints ripple, segments snap in, a gem drops |
