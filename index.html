@@ -720,8 +720,9 @@
           <h2 class="section__title">Five stones.<br>No mercy.</h2>
           <p class="section__lead section__lead--on-ink">
             Every tier is its own stone — its own color, its own cut, its own
-            rules — so the map reads at a glance, even mid-run. Tap a tier
-            to see its rules.
+            rules. The rare ones stay hidden until you reveal them, just
+            like the stash. Tap a tier to uncover its stone, its XP and
+            its rules.
           </p>
         </div>
 
@@ -744,6 +745,7 @@
               </span>
               <span class="tier__name">Quartz</span>
               <span class="tier__grade">Common</span>
+              <span class="tier__xp">+10 XP</span>
             </button>
             <button class="tier" role="tab" aria-selected="false" id="tier-tab-1" aria-controls="tier-panel" data-tier="1" type="button">
               <span class="tier__stone" aria-hidden="true">
@@ -763,9 +765,11 @@
               </span>
               <span class="tier__name">Emerald</span>
               <span class="tier__grade">Uncommon</span>
+              <span class="tier__xp">+25 XP</span>
             </button>
-            <button class="tier" role="tab" aria-selected="false" id="tier-tab-2" aria-controls="tier-panel" data-tier="2" type="button">
+            <button class="tier tier--secret" role="tab" aria-selected="false" id="tier-tab-2" aria-controls="tier-panel" data-tier="2" type="button">
               <span class="tier__stone" aria-hidden="true">
+                <span class="tier__mystery">?</span>
                 <svg viewBox="0 0 64 64">
                   <defs>
                     <radialGradient id="gem-s" cx=".35" cy=".3" r=".9">
@@ -781,9 +785,11 @@
               </span>
               <span class="tier__name">Sapphire</span>
               <span class="tier__grade">Rare</span>
+              <span class="tier__xp">+75 XP</span>
             </button>
-            <button class="tier" role="tab" aria-selected="false" id="tier-tab-3" aria-controls="tier-panel" data-tier="3" type="button">
+            <button class="tier tier--secret" role="tab" aria-selected="false" id="tier-tab-3" aria-controls="tier-panel" data-tier="3" type="button">
               <span class="tier__stone" aria-hidden="true">
+                <span class="tier__mystery">?</span>
                 <svg viewBox="0 0 64 64">
                   <defs>
                     <linearGradient id="gem-a" x1="0" y1="0" x2=".8" y2="1">
@@ -799,9 +805,11 @@
               </span>
               <span class="tier__name">Amethyst</span>
               <span class="tier__grade">Epic</span>
+              <span class="tier__xp">+200 XP</span>
             </button>
-            <button class="tier" role="tab" aria-selected="false" id="tier-tab-4" aria-controls="tier-panel" data-tier="4" type="button">
+            <button class="tier tier--secret" role="tab" aria-selected="false" id="tier-tab-4" aria-controls="tier-panel" data-tier="4" type="button">
               <span class="tier__stone" aria-hidden="true">
+                <span class="tier__mystery">?</span>
                 <svg viewBox="0 0 64 64">
                   <defs>
                     <radialGradient id="gem-m" cx=".5" cy=".42" r=".75">
@@ -820,6 +828,7 @@
               </span>
               <span class="tier__name">Ember</span>
               <span class="tier__grade">Legendary</span>
+              <span class="tier__xp">+500 XP</span>
             </button>
           </div>
 
@@ -909,8 +918,9 @@
             </label>
             <p class="estimator__result">≈ <strong data-est-kcal>363</strong> kcal</p>
             <p class="estimator__note">
-              Flat-ground estimate (~1.04 kcal per kg per km). In the app the
-              number also uses your pace, elevation and Apple Health profile.
+              Flat-ground estimate (~1.04 kcal per kg per km) — drag the sliders
+              and the phone mirrors them live. In the app the number also
+              uses your pace, elevation and Apple Health profile.
             </p>
           </div>
 
@@ -919,8 +929,9 @@
                  aria-label="Drawn mockup of a run summary: calories, per-km splits and gems collected">
               <div class="mock__body mock__body--pad">
                 <span class="mk-line mk-line--title"></span>
-                <div class="mk-bignum"><b>486</b><span>kcal burned</span></div>
-                <div class="mk-splits" aria-hidden="true">
+                <div class="mk-bignum"><b data-mock-kcal>363</b><span>kcal burned</span></div>
+                <span class="mk-sub" data-mock-dist>5 km · per-km splits</span>
+                <div class="mk-splits" data-mock-splits aria-hidden="true">
                   <i style="--h:46%"></i><i style="--h:70%"></i><i style="--h:58%"></i><i style="--h:88%"></i><i style="--h:64%"></i>
                 </div>
                 <div class="mk-statrow"><i></i><i></i><i></i></div>
