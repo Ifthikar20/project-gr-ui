@@ -1834,20 +1834,16 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   transform-origin: center;
   transform: scale(0);
   opacity: 0;
-  animation: sc-spawn 6.5s ease infinite;
-  animation-delay: calc(var(--i) * 0.55s);
+  animation: sc-spawn 7s ease infinite;
+  animation-delay: calc(var(--i) * 0.4s);
 }
-
-.sc-spawn path { fill: var(--pulse); }
-
-.sc-spawn--crown path { fill: var(--pulse); }
 
 @keyframes sc-spawn {
   0% { transform: scale(0); opacity: 0; }
-  6% { transform: scale(1.35); opacity: 1; }
-  9% { transform: scale(1); }
-  78% { transform: scale(1); opacity: 1; }
-  90%, 100% { transform: scale(0.5); opacity: 0; }
+  5% { transform: scale(1.35); opacity: 1; }
+  8% { transform: scale(1); }
+  90% { transform: scale(1); opacity: 1; }
+  97%, 100% { transform: scale(0.6); opacity: 0; }
 }
 
 /* Scene: active run — trail draws toward a pulsing gem */
@@ -2825,7 +2821,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .demo__chip--xp { color: var(--ink); }
 
 /* Animated feature scenes */
-.sc-spawn path { fill: var(--map); }
 .sc-puck__ring { stroke: var(--map); }
 .sc-chaser { fill: var(--map); }
 .sc-target__gem { fill: var(--map); }
@@ -2890,7 +2885,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .sc-trail { filter: drop-shadow(0 0 1px rgba(22, 24, 29, 0.55)); }
 
 .app-gem,
-.sc-spawn path,
 .sc-drop path,
 .sc-target__gem,
 .mk-gemup { stroke: rgba(22, 24, 29, 0.6); stroke-width: 1.3; }
