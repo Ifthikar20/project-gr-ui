@@ -584,47 +584,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 .section__head { max-width: 780px; margin-bottom: clamp(36px, 5vh, 64px); }
 
-/* ------------------------------- Steps --------------------------------- */
-
-.steps {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 18px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  counter-reset: step;
-}
-
-.step {
-  position: relative;
-  background: var(--snow);
-  border: 1px solid var(--ink-06);
-  border-radius: var(--radius);
-  padding: 24px 20px;
-}
-
-.step__num {
-  display: block;
-  font-size: 15px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  color: var(--pulse);
-  margin-bottom: 32px;
-}
-
-.step__num::after {
-  content: "";
-  position: absolute;
-  top: 30px; right: 20px;
-  width: 34px; height: 2px;
-  background: var(--ink-12);
-}
-
-.step__title { font-size: 18px; font-weight: 700; }
-
-.step__body { margin-top: 8px; font-size: 14.5px; color: var(--ink-70); }
-
 /* ---------------------------- Feature rows ------------------------------ */
 
 .feature {
@@ -1168,11 +1127,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 .demo__play { margin-top: 16px; width: 100%; }
 
-.steps__heading {
-  font-size: 20px;
-  font-weight: 700;
-  margin: clamp(40px, 6vh, 64px) 0 18px;
-}
 
 /* ---------------------------- Track tiles ------------------------------- */
 
@@ -2572,7 +2526,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* ----------------------------- Responsive ------------------------------- */
 
 @media (max-width: 1024px) {
-  .steps { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 880px) {
@@ -2611,8 +2564,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
   .stats__grid { grid-template-columns: repeat(2, 1fr); }
 
-  .steps { grid-template-columns: repeat(2, 1fr); }
-
   .feature {
     grid-template-columns: 1fr;
     gap: 28px;
@@ -2632,8 +2583,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 @media (max-width: 560px) {
-  .steps { grid-template-columns: 1fr; }
-
   .stats__grid { gap: 28px 16px; }
 
   .waitlist__row { flex-direction: column; }
