@@ -298,7 +298,6 @@
     var runner = demo.querySelector('[data-demo-runner]');
     var gemChip = demo.querySelector('[data-demo-gems]');
     var xpChip = demo.querySelector('[data-demo-xp]');
-    var playBtn = demo.querySelector('[data-demo-play]');
     var stepEls = Array.prototype.slice.call(
       demo.querySelectorAll('.demo-step')
     );
@@ -324,7 +323,8 @@
       });
 
     var demoPlaying = false;
-    var demoPlayed = false;
+    var demoVisible = false;
+    var replayTimer = null;
     var claimedCount = 0;
     var xpTotal = 0;
 
@@ -367,6 +367,8 @@
       });
     };
 
+    // Runs on its own: plays when scrolled into view, then loops with a
+    // short pause for as long as it stays visible.
     var finishDemo = function () {
       placeRunner(routeLength);
       claimThrough(routeLength + CLAIM_RADIUS);
@@ -375,17 +377,18 @@
         el.classList.remove('is-active');
       });
       demoPlaying = false;
-      playBtn.disabled = false;
-      playBtn.textContent = 'Replay the hunt';
+      if (!prefersReducedMotion) {
+        replayTimer = setTimeout(function () {
+          if (demoVisible) playDemo();
+        }, 2400);
+      }
     };
 
     var playDemo = function () {
       if (demoPlaying) return;
       demoPlaying = true;
-      demoPlayed = true;
+      clearTimeout(replayTimer);
       resetDemo();
-      playBtn.disabled = true;
-      playBtn.textContent = 'Running…';
 
       if (prefersReducedMotion) {
         finishDemo();
@@ -412,21 +415,21 @@
       requestAnimationFrame(frame);
     };
 
-    playBtn.addEventListener('click', playDemo);
-
-    if ('IntersectionObserver' in window && !prefersReducedMotion) {
+    if (prefersReducedMotion) {
+      finishDemo();
+    } else if ('IntersectionObserver' in window) {
       var demoObserver = new IntersectionObserver(
         function (entries) {
           entries.forEach(function (entry) {
-            if (entry.isIntersecting && !demoPlayed) {
-              playDemo();
-              demoObserver.disconnect();
-            }
+            demoVisible = entry.isIntersecting;
+            if (demoVisible && !demoPlaying) playDemo();
           });
         },
         { threshold: 0.45 }
       );
       demoObserver.observe(demo);
+    } else {
+      playDemo();
     }
   }
 
