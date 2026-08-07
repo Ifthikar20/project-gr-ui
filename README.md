@@ -73,7 +73,6 @@ hand-drawn app-UI mockups — and each is still tagged with a
 | `feature-active-run` | Animated: breadcrumb trail draws toward a pulsing gem (dark) |
 | `feature-route-editor` | Animated: tapped waypoints ripple, segments snap in, a gem drops |
 | `feature-fair-play` | Animated: track replays with checks; a teleport branch gets rejected; verified seal |
-| `feature-wallet` | Animated: a gem hops from the wallet card to a dashed drop zone |
 | `feature-run-summary` | Drawn mockup: calories, split bars, gems, Health chip |
 | `screen-explore` … `screen-profile` | Six drawn phone mockups, one per app screen |
 | `app-store-badge` | Styled badge — needs the real App Store link |
