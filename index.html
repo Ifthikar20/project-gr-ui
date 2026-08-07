@@ -114,10 +114,14 @@
                     <circle r="10"/>
                     <text y="3.5">4</text>
                   </g>
-                  <path class="app-gem" style="--step:.3" transform="translate(40,396)" d="M0 -7.5 L7 0 L0 7.5 L-7 0 Z"/>
-                  <path class="app-gem" style="--step:.5" transform="translate(110,348)" d="M0 -7.5 L7 0 L0 7.5 L-7 0 Z"/>
-                  <path class="app-gem" style="--step:.7" transform="translate(162,278)" d="M0 -7.5 L7 0 L0 7.5 L-7 0 Z"/>
-                  <path class="app-gem app-gem--crown" style="--step:1" transform="translate(240,208) scale(1.25)" d="M-8 -3.5 L-4 0 L0 -6.5 L4 0 L8 -3.5 L6.5 5.5 L-6.5 5.5 Z"/>
+                  <path class="app-gem gem-tq" transform="translate(40,396)" d="M0 -7.5 L7 0 L0 7.5 L-7 0 Z"/>
+                  <path class="app-gem gem-te" transform="translate(110,348)" d="M0 -7.5 L7 0 L0 7.5 L-7 0 Z"/>
+                  <path class="app-gem gem-ts" transform="translate(162,278)" d="M0 -7.5 L7 0 L0 7.5 L-7 0 Z"/>
+                  <path class="app-gem gem-ta" transform="translate(240,208) scale(1.1)" d="M0 -7.5 L7 0 L0 7.5 L-7 0 Z"/>
+                  <g class="app-ember" transform="translate(240,96)">
+                    <circle class="app-ember__glow" r="14"/>
+                    <path class="app-ember__flame" d="M0 -8.5 C5 -3.5 7 2 0 12 C-7 2 -5 -3.5 0 -8.5 Z"/>
+                  </g>
                   <g class="app-puck" transform="translate(222,300)">
                     <circle class="app-puck__ring app-puck__ring--a" r="9"/>
                     <circle class="app-puck__ring app-puck__ring--b" r="9"/>
@@ -135,7 +139,7 @@
                   <div class="app__card-main">
                     <div class="app__card-top">
                       <strong>Harbor Loop 5k</strong>
-                      <span class="app__gems"><b style="--step:.3"></b><b style="--step:.5"></b><b style="--step:.7"></b><b style="--step:1"></b></span>
+                      <span class="app__gems"><b class="tq"></b><b class="te"></b><b class="ts"></b><b class="ta"></b></span>
                     </div>
                     <span class="app__meta">5.0 km · 62 m ↑ · 4 gems</span>
                     <span class="app__top">Top 24:31 · by @sam_runs</span>
@@ -713,48 +717,107 @@
       <div class="container">
         <div class="section__head" data-reveal>
           <p class="kicker kicker--on-ink">The gems</p>
-          <h2 class="section__title">Five tiers. One color.<br>No mercy.</h2>
+          <h2 class="section__title">Five stones.<br>No mercy.</h2>
           <p class="section__lead section__lead--on-ink">
-            Rarity is a brightness ramp of one color — plus a distinct shape
-            for every tier, so the map reads at a glance, even mid-run.
-            Tap a tier to see its rules.
+            Every tier is its own stone — its own color, its own cut, its own
+            rules — so the map reads at a glance, even mid-run. Tap a tier
+            to see its rules.
           </p>
         </div>
 
         <div class="rarity" data-rarity>
           <div class="rarity__tiers" role="tablist" aria-label="Gem rarity tiers">
             <button class="tier is-active" role="tab" aria-selected="true" id="tier-tab-0" aria-controls="tier-panel" data-tier="0" type="button">
-              <svg class="tier__glyph" viewBox="0 0 24 24" aria-hidden="true" style="--step:.30">
-                <path d="M12 2 L22 12 L12 22 L2 12 Z" fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
+              <span class="tier__stone" aria-hidden="true">
+                <svg viewBox="0 0 64 64">
+                  <defs>
+                    <linearGradient id="gem-q" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#dfe8ee"/><stop offset="1" stop-color="#a9bac6"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M32 5 L45 24 L40 57 L24 57 L19 24 Z" fill="url(#gem-q)" stroke="rgba(22,24,29,.4)" stroke-width="1.2"/>
+                  <path d="M32 5 L38 24 L35 57 L29 57 L26 24 Z" fill="#ffffff" opacity=".6"/>
+                  <path d="M45 24 L40 57 L35 57 L38 24 Z" fill="#8fa4b2" opacity=".55"/>
+                  <path d="M19 24 L45 24 L32 31 Z" fill="#cfdae2" opacity=".75"/>
+                  <path d="M46 12 l1.7 3.4 3.4 1.7 -3.4 1.7 -1.7 3.4 -1.7 -3.4 -3.4 -1.7 3.4 -1.7 z" fill="#ffffff" opacity=".9"/>
+                </svg>
+              </span>
               <span class="tier__name">Quartz</span>
               <span class="tier__grade">Common</span>
             </button>
             <button class="tier" role="tab" aria-selected="false" id="tier-tab-1" aria-controls="tier-panel" data-tier="1" type="button">
-              <svg class="tier__glyph" viewBox="0 0 24 24" aria-hidden="true" style="--step:.50">
-                <path d="M12 2 L22 12 L12 22 L2 12 Z" fill="currentColor"/>
-              </svg>
+              <span class="tier__stone" aria-hidden="true">
+                <svg viewBox="0 0 64 64">
+                  <defs>
+                    <linearGradient id="gem-e" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0" stop-color="#7be3a8"/><stop offset=".5" stop-color="#1fa55a"/><stop offset="1" stop-color="#0b6b37"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M19 10 H45 L55 20 V44 L45 54 H19 L9 44 V20 Z" fill="url(#gem-e)" stroke="rgba(8,60,32,.55)" stroke-width="1.2"/>
+                  <path d="M23 16 H41 L49 23 V41 L41 48 H23 L15 41 V23 Z" fill="none" stroke="#d9ffe9" stroke-width="1.4" opacity=".5"/>
+                  <rect x="24" y="24" width="16" height="16" fill="#39c478" opacity=".85"/>
+                  <path d="M19 10 L9 20 L15 23 L23 16 Z" fill="#ffffff" opacity=".38"/>
+                  <path d="M45 54 L55 44 L49 41 L41 48 Z" fill="#07482a" opacity=".6"/>
+                  <path d="M48 13 l1.5 3 3 1.5 -3 1.5 -1.5 3 -1.5 -3 -3 -1.5 3 -1.5 z" fill="#ffffff" opacity=".85"/>
+                </svg>
+              </span>
               <span class="tier__name">Emerald</span>
               <span class="tier__grade">Uncommon</span>
             </button>
             <button class="tier" role="tab" aria-selected="false" id="tier-tab-2" aria-controls="tier-panel" data-tier="2" type="button">
-              <svg class="tier__glyph" viewBox="0 0 24 24" aria-hidden="true" style="--step:.70">
-                <path d="M12 3 L21 12 L12 21 L3 12 Z" transform="scale(1.15 0.9) translate(-1.5 1.2)" fill="currentColor"/>
-              </svg>
+              <span class="tier__stone" aria-hidden="true">
+                <svg viewBox="0 0 64 64">
+                  <defs>
+                    <radialGradient id="gem-s" cx=".35" cy=".3" r=".9">
+                      <stop offset="0" stop-color="#8fb0ff"/><stop offset=".55" stop-color="#2456e6"/><stop offset="1" stop-color="#122c8a"/>
+                    </radialGradient>
+                  </defs>
+                  <circle cx="32" cy="32" r="24" fill="url(#gem-s)" stroke="rgba(10,22,70,.55)" stroke-width="1.2"/>
+                  <path d="M32 8 L40 24 L56 32 L40 40 L32 56 L24 40 L8 32 L24 24 Z" fill="#ffffff" opacity=".16"/>
+                  <path d="M32 17 L42 32 L32 47 L22 32 Z" fill="#4a78f2" opacity=".85" stroke="#bfd2ff" stroke-width="1" stroke-opacity=".45"/>
+                  <path d="M20 18 a18 18 0 0 1 12 -6 l0 6 a12 12 0 0 0 -8 4 z" fill="#ffffff" opacity=".4"/>
+                  <path d="M45 14 l1.5 3 3 1.5 -3 1.5 -1.5 3 -1.5 -3 -3 -1.5 3 -1.5 z" fill="#ffffff" opacity=".85"/>
+                </svg>
+              </span>
               <span class="tier__name">Sapphire</span>
               <span class="tier__grade">Rare</span>
             </button>
             <button class="tier" role="tab" aria-selected="false" id="tier-tab-3" aria-controls="tier-panel" data-tier="3" type="button">
-              <svg class="tier__glyph" viewBox="0 0 24 24" aria-hidden="true" style="--step:.88">
-                <path d="M12 1.8l2.5 2 3.2-.3 1 3 2.9 1.4-.7 3.1 2 2.5-2 2.5.7 3.1-2.9 1.4-1 3-3.2-.3-2.5 2-2.5-2-3.2.3-1-3-2.9-1.4.7-3.1-2-2.5 2-2.5-.7-3.1L7.3 6.5l1-3 3.2.3z" fill="currentColor"/>
-              </svg>
+              <span class="tier__stone" aria-hidden="true">
+                <svg viewBox="0 0 64 64">
+                  <defs>
+                    <linearGradient id="gem-a" x1="0" y1="0" x2=".8" y2="1">
+                      <stop offset="0" stop-color="#c29aff"/><stop offset=".55" stop-color="#8a3ffc"/><stop offset="1" stop-color="#49209b"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M32 7 L55 43 Q57 49 51 51 L13 51 Q7 49 9 43 Z" fill="url(#gem-a)" stroke="rgba(40,16,88,.55)" stroke-width="1.2"/>
+                  <path d="M32 14 L45 44 L19 44 Z" fill="#a669ff" opacity=".85"/>
+                  <path d="M32 7 L9 43 L19 44 L32 14 Z" fill="#ffffff" opacity=".3"/>
+                  <path d="M32 14 L45 44 L51 51 L55 43 Z" fill="#3b1580" opacity=".55"/>
+                  <path d="M42 12 l1.5 3 3 1.5 -3 1.5 -1.5 3 -1.5 -3 -3 -1.5 3 -1.5 z" fill="#ffffff" opacity=".85"/>
+                </svg>
+              </span>
               <span class="tier__name">Amethyst</span>
               <span class="tier__grade">Epic</span>
             </button>
             <button class="tier" role="tab" aria-selected="false" id="tier-tab-4" aria-controls="tier-panel" data-tier="4" type="button">
-              <svg class="tier__glyph" viewBox="0 0 24 24" aria-hidden="true" style="--step:1">
-                <path d="M3 8l4.5 4L12 5l4.5 7L21 8l-1.6 10H4.6z" fill="currentColor"/>
-              </svg>
+              <span class="tier__stone" aria-hidden="true">
+                <svg viewBox="0 0 64 64">
+                  <defs>
+                    <radialGradient id="gem-m" cx=".5" cy=".42" r=".75">
+                      <stop offset="0" stop-color="#ffd36b"/><stop offset=".5" stop-color="#ff7a1a"/><stop offset="1" stop-color="#e8230f"/>
+                    </radialGradient>
+                    <radialGradient id="gem-mg" cx=".5" cy=".5" r=".5">
+                      <stop offset="0" stop-color="rgba(255,122,26,.5)"/><stop offset="1" stop-color="rgba(255,122,26,0)"/>
+                    </radialGradient>
+                  </defs>
+                  <circle cx="32" cy="32" r="30" fill="url(#gem-mg)"/>
+                  <path d="M32 6 C44 17 50 30 32 58 C14 30 20 17 32 6 Z" fill="url(#gem-m)" stroke="rgba(120,20,0,.5)" stroke-width="1.2"/>
+                  <path d="M32 16 C39 24 41 32 32 48 C23 32 25 24 32 16 Z" fill="#ffe9a8" opacity=".75"/>
+                  <path d="M32 26 C36 31 36 36 32 44 C28 36 28 31 32 26 Z" fill="#ff9d3d" opacity=".9"/>
+                  <path d="M44 10 l1.5 3 3 1.5 -3 1.5 -1.5 3 -1.5 -3 -3 -1.5 3 -1.5 z" fill="#ffffff" opacity=".9"/>
+                </svg>
+              </span>
               <span class="tier__name">Ember</span>
               <span class="tier__grade">Legendary</span>
             </button>
