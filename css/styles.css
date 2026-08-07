@@ -267,8 +267,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   padding: 0;
 }
 
-.row-list--offset { max-width: 780px; margin-left: auto; }
-
 .row {
   display: flex;
   gap: 18px;
@@ -2763,8 +2761,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 @media (max-width: 880px) {
-  .row-list--offset { max-width: none; margin-left: 0; }
-
   .log__date { margin-left: 0; width: 100%; }
 }
 
@@ -3099,3 +3095,17 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 
+
+/* What-is: aligned split (head left, rows right) */
+.what-grid {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: clamp(36px, 5vw, 88px);
+  align-items: start;
+}
+
+.what-grid .section__lead { margin-top: 18px; }
+
+@media (max-width: 880px) {
+  .what-grid { grid-template-columns: 1fr; }
+}
