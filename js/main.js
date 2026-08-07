@@ -462,52 +462,6 @@
     });
   }
 
-  /* -------------------------- Calorie estimator ------------------------- */
-
-  var estimator = document.querySelector('[data-estimator]');
-
-  if (estimator) {
-    var weightInput = estimator.querySelector('[data-est-weight]');
-    var distInput = estimator.querySelector('[data-est-dist]');
-    var weightOut = estimator.querySelector('[data-est-weight-out]');
-    var distOut = estimator.querySelector('[data-est-dist-out]');
-    var kcalOut = estimator.querySelector('[data-est-kcal]');
-    var mockKcal = document.querySelector('[data-mock-kcal]');
-    var mockDist = document.querySelector('[data-mock-dist]');
-    var mockSplits = document.querySelector('[data-mock-splits]');
-
-    var updateEstimate = function () {
-      var w = parseFloat(weightInput.value);
-      var d = parseFloat(distInput.value);
-      // Net running burn ≈ 1.036 kcal per kg per km on flat ground.
-      var kcal = Math.round(w * d * 1.036);
-      weightOut.textContent = w + ' kg';
-      distOut.textContent = d + ' km';
-      kcalOut.textContent = String(kcal);
-
-      // The run-summary phone mirrors the sliders live
-      if (mockKcal) mockKcal.textContent = String(kcal);
-      if (mockDist) mockDist.textContent = d + ' km · per-km splits';
-      if (mockSplits) {
-        var bars = Math.max(3, Math.min(10, Math.round(d)));
-        while (mockSplits.children.length > bars) {
-          mockSplits.removeChild(mockSplits.lastChild);
-        }
-        while (mockSplits.children.length < bars) {
-          mockSplits.appendChild(document.createElement('i'));
-        }
-        Array.prototype.forEach.call(mockSplits.children, function (bar, i) {
-          var wave = 0.5 + 0.5 * Math.sin(i * 2.9 + w * 0.11 + d * 0.53);
-          bar.style.setProperty('--h', Math.round(38 + 52 * wave) + '%');
-        });
-      }
-    };
-
-    weightInput.addEventListener('input', updateEstimate);
-    distInput.addEventListener('input', updateEstimate);
-    updateEstimate();
-  }
-
   /* ------------------------------ Modals -------------------------------- */
 
   var openModals = 0;

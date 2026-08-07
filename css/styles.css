@@ -1125,66 +1125,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 .tile__body { margin-top: 6px; font-size: 14.5px; color: var(--ink-70); }
 
-.track__row {
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: clamp(28px, 4vw, 56px);
-  align-items: center;
-  margin-top: clamp(32px, 5vh, 56px);
-}
-
-/* --------------------------- Calorie estimator -------------------------- */
-
-.estimator {
-  background: var(--snow);
-  border: 1px solid var(--ink-06);
-  border-radius: var(--radius-lg);
-  padding: 28px;
-}
-
-.estimator__title { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
-
-.estimator__field { display: block; margin-top: 20px; }
-
-.estimator__label {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  font-size: 14.5px;
-  font-weight: 600;
-  color: var(--ink-70);
-  margin-bottom: 10px;
-}
-
-.estimator__label output {
-  font-weight: 800;
-  color: var(--ink);
-  font-variant-numeric: tabular-nums;
-}
-
-.estimator input[type="range"] {
-  width: 100%;
-  accent-color: var(--pulse);
-  cursor: pointer;
-}
-
-.estimator__result {
-  margin-top: 24px;
-  font-size: 17px;
-  color: var(--ink-70);
-}
-
-.estimator__result strong {
-  font-size: 42px;
-  font-weight: 800;
-  color: var(--pulse);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.02em;
-  margin: 0 2px;
-}
-
-.estimator__note { margin-top: 10px; font-size: 13px; color: var(--ink-55); }
-
 /* -------------------------- Screens carousel ----------------------------- */
 
 .screens__head {
@@ -2116,8 +2056,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 .mock--dark { background: #101216; }
 
-.mock--free { max-width: 300px; margin-inline: auto; aspect-ratio: 9 / 13.5; }
-
 .mock__map { position: relative; flex: 1; background: #f1f1ee; overflow: hidden; }
 
 .mock__map--half { flex: none; height: 38%; }
@@ -2338,16 +2276,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 .mk-pillbtn { display: block; height: 30px; width: 72%; margin: 10px auto 0; border-radius: 999px; border: 1.5px solid var(--ink-12); }
 
-.mk-bignum { margin: 6px 0 2px; }
-
-.mk-bignum b { font-size: 40px; font-weight: 800; letter-spacing: -0.02em; color: var(--pulse); }
-
-.mk-bignum span { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-55); }
-
-.mk-splits { display: flex; align-items: flex-end; gap: 6px; height: 54px; margin: 12px 0 4px; }
-
-.mk-splits i { flex: 1; height: var(--h, 50%); background: var(--pulse); opacity: 0.85; border-radius: 6px 6px 2px 2px; }
-
 /* --------------------------- Reviews marquee ------------------------------ */
 
 .section--reviews {
@@ -2538,8 +2466,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
   .demo__side { max-width: 560px; }
 
-  .track__row { grid-template-columns: 1fr; }
-
   .screens__head {
     flex-direction: column;
     align-items: flex-start;
@@ -2569,8 +2495,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .tile-grid { grid-template-columns: 1fr; }
 
   .demo__bar { flex-direction: column; align-items: flex-start; gap: 8px; }
-
-  .estimator { padding: 22px; }
 
   .cookie {
     left: 12px;
@@ -2831,8 +2755,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .mk-row--you .mk-val { color: var(--ink); }
 .mk-ava { background: var(--map); color: var(--on-map); }
 .mk-ava-s--you { background: var(--map); }
-.mk-splits i { background: var(--map); }
-.mk-bignum b { color: var(--ink); }
 .mk-gems b, .mk-grid b, .mk-wallet b { background: var(--map); }
 .sil { background: var(--ink-12) !important; }
 
@@ -2845,7 +2767,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* Accent-colored text goes black on light surfaces */
 .kicker { color: var(--ink-55); }
 .stat__value { color: var(--ink); }
-.estimator__result strong { color: var(--ink); }
 .privacy__platform { color: var(--ink); }
 
 
@@ -2878,7 +2799,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .mk-grid b,
 .mk-wallet b,
 .mk-dots i:not(.is-dim),
-.mk-splits i,
 .mk-pin,
 .mock__tabs i.is-on { filter: drop-shadow(0 0 0.8px rgba(22, 24, 29, 0.75)); }
 
@@ -3022,21 +2942,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   100% { transform: scale(1.12) rotate(0deg); filter: none; }
 }
 
-.mk-sub {
-  display: block;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink-55);
-  margin-top: 2px;
-}
-
-.mk-splits i { transition: height 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
-
 @media (prefers-reduced-motion: reduce) {
   .tier--secret.is-revealed .tier__stone svg { animation: none; }
-  .mk-splits i { transition: none; }
 }
 
 /* ------------- Demo stash tray: claims land in your stash --------------- */

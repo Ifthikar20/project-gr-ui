@@ -73,7 +73,6 @@ hand-drawn app-UI mockups — and each is still tagged with a
 | `feature-active-run` | Animated: breadcrumb trail draws toward a pulsing gem (dark) |
 | `feature-route-editor` | Animated: tapped waypoints ripple, segments snap in, a gem drops |
 | `feature-fair-play` | Animated: track replays with checks; a teleport branch gets rejected; verified seal |
-| `feature-run-summary` | Drawn mockup: calories, split bars, gems, Health chip |
 | `screen-explore` … `screen-profile` | Six drawn phone mockups, one per app screen |
 | `app-store-badge` | Styled badge — needs the real App Store link |
 
@@ -109,9 +108,8 @@ Overlay-to-solid sticky header, mobile drawer nav, scroll-spy,
 Framer-style blur/scale reveal-on-scroll, animated stat counters, the
 self-looping gem-capture demo with its stash tray, hero-phone mouse tilt,
 the full-width screens carousel (scroll-snap + arrows + keyboard),
-hidden-stone rarity reveals with XP chips, the calorie estimator driving
-the live run-summary phone, the auto-scrolling reviews marquee (pauses on
-hover), single-open FAQ, waitlist validation, a **cookie-consent popup
+hidden-stone rarity reveals with XP chips, the auto-scrolling reviews
+marquee (pauses on hover), single-open FAQ, waitlist validation, a **cookie-consent popup
 modal** (Accept all / Essential only, persisted as `gemrun-consent`,
 reopenable from the footer), and a **login modal** (validation, loading
 state, demo session with header chip + logout) — all gated on
