@@ -1029,22 +1029,30 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   100% { opacity: 0; transform: translateY(-22px); }
 }
 
-.demo-runner__radius {
-  fill: rgba(95, 64, 191, 0.1);
-  stroke: var(--pulse);
+/* The capture zone around each gem — same mechanic the app draws: step
+   inside the green circle and the gem is yours. Fades once claimed. */
+.demo-gem__zone {
+  fill: var(--map);
+  fill-opacity: 0.13;
+  stroke: var(--map);
+  stroke-opacity: 0.7;
   stroke-width: 1.5;
-  stroke-dasharray: 5 6;
+  transition: opacity 0.5s ease;
 }
+
+.demo-gem.is-claimed .demo-gem__zone,
+.demo-gem.is-claimed .demo-gem__zonelabel { opacity: 0; }
 
 .demo-runner__dot { fill: var(--ink); stroke: #fff; stroke-width: 3; }
 
-.demo-runner__label {
+.demo-gem__zonelabel {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  fill: var(--pulse);
+  fill: var(--ink-55);
   text-anchor: middle;
+  transition: opacity 0.5s ease;
 }
 
 .demo-steps {
@@ -1533,6 +1541,16 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-weight: 800;
   text-anchor: middle;
   font-family: var(--font);
+}
+
+/* Capture zone around each map gem — the app draws the same circle: get
+   inside it (200 ft) and the gem is yours. */
+.app-zone {
+  fill: var(--map);
+  fill-opacity: 0.13;
+  stroke: var(--map);
+  stroke-opacity: 0.6;
+  stroke-width: 1.2;
 }
 
 .app-gem {

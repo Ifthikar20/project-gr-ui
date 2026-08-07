@@ -301,7 +301,7 @@
     var stepEls = Array.prototype.slice.call(
       demo.querySelectorAll('.demo-step')
     );
-    var CLAIM_RADIUS = 40; // matches the runner's "100 ft" ring in SVG units
+    var CLAIM_RADIUS = 40; // the gems' "200 ft" capture zones, in SVG units
     var DURATION = 9000;
     var routeLength = route.getTotalLength();
 

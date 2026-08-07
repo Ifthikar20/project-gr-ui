@@ -2,7 +2,7 @@
 
 The marketing landing page for **[GemRun](https://github.com/ifthikar20/project-gr)**,
 the iPhone app that turns any running route into a treasure hunt: the system
-drops gems on real streets, you run within 100 ft to claim them, first one
+drops gems on real streets, you run within 200 ft to claim them, first one
 there takes it.
 
 Static site — plain HTML, CSS, and vanilla JavaScript. No framework, no build
@@ -68,7 +68,7 @@ hand-drawn app-UI mockups — and each is still tagged with a
 
 | `data-placeholder` | What renders now |
 |---|---|
-| *(hero phone)* | Replica of the app's Explore screen (docs/03 in the app repo): status bar, light map with route polyline + origin gem-count marker, rarity-ramp gems, location puck, "Search this area", recenter, red ➕ FAB, swipeable route card, 4-tab bar |
+| *(hero phone)* | Replica of the app's Explore screen (docs/03 in the app repo): status bar, light map with route polyline + origin gem-count marker, tier-colored gems inside their 200 ft capture-zone rings, location puck, "Search this area", recenter, green ➕ FAB, swipeable route card, 4-tab bar |
 | `feature-living-map` | Animated: gems spawn around a radar-pinging location puck |
 | `feature-active-run` | Animated: breadcrumb trail draws toward a pulsing gem (dark) |
 | `feature-route-editor` | Animated: tapped waypoints ripple, segments snap in, a gem drops |

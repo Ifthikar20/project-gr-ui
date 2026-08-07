@@ -2,7 +2,7 @@
 
 > GemRun is a gamified running experience for iPhone (iOS 17+, currently in
 > TestFlight beta). The system drops virtual gems on real, walkable streets;
-> runners claim them by passing within 100 ft. Claims are GPS-verified
+> runners claim them by passing within 200 ft. Claims are GPS-verified
 > server-side and first-come-first-served — one shared world, one winner per
 > gem. Free to play, and runner data is stored on the phone first.
 
@@ -12,7 +12,7 @@ Key facts:
 - Price: free to play; gems have no monetary value and cannot be bought or sold
 - Gem rarity tiers: Quartz (Common), Emerald (Uncommon), Sapphire (Rare),
   Amethyst (Epic), Ember (Legendary — system-seeded only, never player-placed)
-- Claim rule: pass within 100 ft of a gem; one winner per gem, settled
+- Claim rule: pass within 200 ft of a gem; one winner per gem, settled
   atomically; every run's GPS track is replayed server-side with pace bounds,
   teleport detection and accuracy gating (fixes worse than 50 m cannot claim)
 - Gameplay: the backend stocks the map around every player automatically;
