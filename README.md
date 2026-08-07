@@ -32,7 +32,7 @@ llms.txt          Structured site summary for AI crawlers (llmstxt.org format)
 css/styles.css    Design tokens & every component (shared by all pages)
 js/main.js        Interactions (no dependencies; landing page only)
 assets/           favicon.svg, og-card.jpg, apple-touch-icon.png,
-                  running-background.jpg (stand-in — replace with real photo)
+                  running-background.jpg (the real photo)
 ```
 
 The nav mixes in-page anchors with one real route (Changelog) plus the
@@ -55,10 +55,10 @@ snow on dark. Swap the tokens in `css/styles.css` (and delete the
 | Map   | `#61FF00` (+ opacity ramp) | Map & app graphics: routes, gems, pins, FAB, tabs |
 | Pulse | `#5F40BF` | Site chrome: CTAs, ticker, links, focus |
 
-Grays are opacity steps of ink — never another hue. The ticker strip is the
-mix in one line: black band, red type. Gem rarity is a pulse-opacity ramp
-(0.30 → 1.0) plus a distinct glyph per tier, so tiers stay readable by shape
-even in grayscale.
+Grays are opacity steps of ink — never another hue. Gem rarity uses real
+per-tier stone colors (`--gem-q` … `--gem-m`): Quartz white, Emerald green,
+Sapphire blue, Amethyst purple, Ember gold-ruby — consistently across the
+rarity showcase, hero replica, demo, scenes and mockups.
 
 ## Graphics: animated scenes & drawn mockups (no placeholder boxes)
 
@@ -77,8 +77,9 @@ hand-drawn app-UI mockups — and each is still tagged with a
 | `screen-explore` … `screen-profile` | Six drawn phone mockups, one per app screen |
 | `app-store-badge` | Styled badge — needs the real App Store link |
 
-The "Watch a gem get taken" map in How It Works remains the interactive
-JS demo (auto-play, replay button, live gem/XP counters).
+The "How you collect a gem" map in How It Works is the interactive JS
+demo: it auto-plays on scroll, loops while visible, fills the on-map stash
+tray as gems are claimed, and shows live gem/XP counters.
 
 ## Sample content to replace before launch
 
@@ -98,24 +99,18 @@ JS demo (auto-play, replay button, live gem/XP counters).
 ### Hero / CTA background photo
 
 The hero and final-CTA sections use `assets/running-background.jpg` as a
-full-bleed photo. The committed file is a **generated stand-in** (dark
-asphalt tones with light streaks) — replace it with the real photo
-(`running-background.jpg` from the project-gr folder on the design machine)
-by overwriting that one file; no code changes needed. An ink gradient scrim
-sits above the image, so any reasonably dark photo keeps text readable.
-
-To swap one in, replace the `.ph` div with an `<img>` (keep the surrounding
-`*__media` wrapper). Footer links marked `data-placeholder-link` and the
-waitlist form's endpoint (`TODO` in `js/main.js`) also need real destinations
-before launch.
+full-bleed photo (the real shot is committed). To change it, overwrite that
+one file — no code changes needed; an ink gradient scrim above the image
+keeps text readable on any reasonably dark photo.
 
 ## Interactions implemented
 
-Overlay-to-solid sticky header, mobile drawer nav, scroll-spy, marquee
-ticker, Framer-style blur/scale reveal-on-scroll, animated stat counters,
-the interactive gem-capture map demo, hero-phone mouse tilt, the screens
-carousel (scroll-snap + arrows + keyboard), rarity-tier tabs, the calorie
-estimator, the auto-scrolling reviews marquee (pauses on
+Overlay-to-solid sticky header, mobile drawer nav, scroll-spy,
+Framer-style blur/scale reveal-on-scroll, animated stat counters, the
+self-looping gem-capture demo with its stash tray, hero-phone mouse tilt,
+the full-width screens carousel (scroll-snap + arrows + keyboard),
+hidden-stone rarity reveals with XP chips, the calorie estimator driving
+the live run-summary phone, the auto-scrolling reviews marquee (pauses on
 hover), single-open FAQ, waitlist validation, a **cookie-consent popup
 modal** (Accept all / Essential only, persisted as `gemrun-consent`,
 reopenable from the footer), and a **login modal** (validation, loading
