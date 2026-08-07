@@ -338,8 +338,12 @@
       runner.setAttribute('transform', 'translate(' + p.x + ',' + p.y + ')');
     };
 
+    var stashSlots = Array.prototype.slice.call(
+      demo.querySelectorAll('.demo-stash__slot')
+    );
+
     var claimThrough = function (len) {
-      demoGems.forEach(function (gem) {
+      demoGems.forEach(function (gem, i) {
         if (
           !gem.el.classList.contains('is-claimed') &&
           len >= gem.len - CLAIM_RADIUS
@@ -348,6 +352,7 @@
           claimedCount += 1;
           xpTotal += gem.xp;
           updateChips();
+          if (stashSlots[i]) stashSlots[i].classList.add('is-filled');
           stepEls[1].classList.add('is-done');
           stepEls[1].classList.remove('is-active');
           stepEls[2].classList.add('is-active');
@@ -357,6 +362,7 @@
 
     var resetDemo = function () {
       demoGems.forEach(function (gem) { gem.el.classList.remove('is-claimed'); });
+      stashSlots.forEach(function (slot) { slot.classList.remove('is-filled'); });
       claimedCount = 0;
       xpTotal = 0;
       updateChips();

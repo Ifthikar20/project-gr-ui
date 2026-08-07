@@ -940,6 +940,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 .demo__map {
+  position: relative;
   background: var(--card);
   border: 1px solid var(--ink-06);
   border-radius: var(--radius-lg);
@@ -1253,14 +1254,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   padding-block: 4px 20px;
-  padding-inline:
-    max(clamp(20px, 4vw, 40px), calc((100% - var(--container)) / 2 + clamp(20px, 4vw, 40px)))
-    clamp(20px, 4vw, 40px);
-  scroll-padding-inline:
-    max(clamp(20px, 4vw, 40px), calc((100% - var(--container)) / 2 + clamp(20px, 4vw, 40px)))
-    clamp(20px, 4vw, 40px);
-  -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 72px), transparent);
-  mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 72px), transparent);
+  padding-inline: clamp(20px, 4vw, 40px);
+  scroll-padding-inline: clamp(20px, 4vw, 40px);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 22px, #000 calc(100% - 72px), transparent);
+  mask-image: linear-gradient(90deg, transparent 0, #000 22px, #000 calc(100% - 72px), transparent);
 }
 
 .screens::-webkit-scrollbar { height: 8px; }
@@ -3129,4 +3126,59 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 @media (prefers-reduced-motion: reduce) {
   .tier--secret.is-revealed .tier__stone svg { animation: none; }
   .mk-splits i { transition: none; }
+}
+
+/* ------------- Demo stash tray: claims land in your stash --------------- */
+
+.demo-stash {
+  position: absolute;
+  right: 22px;
+  bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--card);
+  border: 1px solid var(--ink-06);
+  border-radius: 999px;
+  padding: 8px 14px;
+  box-shadow: var(--shadow-card);
+}
+
+.demo-stash__label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-55);
+  margin-right: 2px;
+}
+
+.demo-stash__slot {
+  width: 14px;
+  height: 14px;
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  background: var(--ink-12);
+  transition: background-color 0.2s ease;
+}
+
+.demo-stash__slot.is-filled { animation: stash-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+.demo-stash__slot:nth-child(2).is-filled { background: #d9e0e6; }
+.demo-stash__slot:nth-child(3).is-filled { background: var(--gem-e); }
+.demo-stash__slot:nth-child(4).is-filled { background: var(--gem-a); }
+.demo-stash__slot:nth-child(5).is-filled { background: var(--gem-m); }
+
+@keyframes stash-pop {
+  0% { transform: scale(0.3); }
+  60% { transform: scale(1.55); }
+  100% { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-stash__slot.is-filled { animation: none; }
+}
+
+@media (max-width: 560px) {
+  .demo-stash { right: 12px; bottom: 12px; padding: 6px 11px; }
+  .demo-stash__label { display: none; }
 }
