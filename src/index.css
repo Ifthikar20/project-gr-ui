@@ -1,0 +1,140 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ------------------------------------------------------------------ tokens
+   FindRun palette mapped onto the shadcn/ui semantic variables. Light only.
+   The --ink-* / --bevel* / --shadow-* / --r-* aliases keep the ported
+   collectible-card chrome (src/components/cards/cards.css) working verbatim. */
+:root {
+  --background: #f6f8fb;
+  --foreground: #101216;
+  --card: #ffffff;
+  --card-foreground: #101216;
+  --popover: #ffffff;
+  --popover-foreground: #101216;
+  --primary: #101216;
+  --primary-foreground: #ffffff;
+  --secondary: #edf0f5;
+  --secondary-foreground: #101216;
+  --muted: #eef1f5;
+  --muted-foreground: rgba(16, 18, 22, 0.55);
+  --accent: rgba(16, 18, 22, 0.05);
+  --accent-foreground: #101216;
+  --destructive: #dc2626;
+  --border: rgba(16, 18, 22, 0.08);
+  --input: rgba(16, 18, 22, 0.14);
+  --ring: #2c8f00;
+  --radius: 1.25rem;
+
+  /* Volt — small accents only (dots, pips, highlights) */
+  --volt: #61ff00;
+  --volt-deep: #2c8f00;
+  --volt-glow: rgba(97, 255, 0, 0.35);
+
+  /* Rarity ladder */
+  --r-common: #9a9ba1;
+  --r-uncommon: #57b878;
+  --r-rare: #4f8fe0;
+  --r-epic: #9b6fe0;
+  --r-legendary: #e0a63a;
+
+  /* Soft pastel washes */
+  --wash-blue: #dfe9fb;
+  --wash-lav: #e6e3fb;
+  --wash-green: #def2e4;
+  --wash-pink: #fbe6f0;
+  --wash-sun: #fdf0da;
+
+  /* Ink opacity steps + bevel/shadow system consumed by cards.css */
+  --ink: #101216;
+  --ink-70: rgba(16, 18, 22, 0.68);
+  --ink-55: rgba(16, 18, 22, 0.52);
+  --ink-40: rgba(16, 18, 22, 0.38);
+  --ink-14: rgba(16, 18, 22, 0.14);
+  --ink-08: rgba(16, 18, 22, 0.08);
+  --ink-05: rgba(16, 18, 22, 0.05);
+  --bevel: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 0 rgba(16, 18, 22, 0.04);
+  --bevel-dark: inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  --shadow-soft: 0 1px 2px rgba(16, 18, 22, 0.03), 0 12px 34px rgba(16, 18, 22, 0.06);
+  --shadow-pop: 0 24px 64px rgba(16, 18, 22, 0.13);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Brand utilities: bg-volt, text-volt-deep, bg-rarity-*, from-wash-* … */
+  --color-volt: var(--volt);
+  --color-volt-deep: var(--volt-deep);
+  --color-rarity-common: var(--r-common);
+  --color-rarity-uncommon: var(--r-uncommon);
+  --color-rarity-rare: var(--r-rare);
+  --color-rarity-epic: var(--r-epic);
+  --color-rarity-legendary: var(--r-legendary);
+  --color-wash-blue: var(--wash-blue);
+  --color-wash-lav: var(--wash-lav);
+  --color-wash-green: var(--wash-green);
+  --color-wash-pink: var(--wash-pink);
+  --color-wash-sun: var(--wash-sun);
+
+  /* System stacks only — zero webfont fetches */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+/* -------------------------------------------------------------- reveal fx */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
