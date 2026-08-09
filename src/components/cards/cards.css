@@ -1,0 +1,131 @@
+/* The collectible run-card + binder-mini chrome, ported verbatim from the
+   legacy stylesheet (public/css/styles.css). This bevel system leans on
+   color-mix() shadows, a pseudo-element sheen and keyframes that don't
+   transcribe safely to utilities — so it stays hand-written CSS. All the
+   custom properties it consumes are defined in src/index.css. */
+
+/* --------------------------------------------- THE RUN CARD (informative) */
+.card {
+  --edge: var(--r-legendary);
+  position: relative; width: 330px; max-width: 86vw;
+  border-radius: 26px; padding: 9px;
+  background: linear-gradient(180deg, #ffffff, #f2f3f6);
+  box-shadow:
+    inset 0 0 0 2px color-mix(in srgb, var(--edge) 40%, #ffffff),
+    inset 0 2px 0 rgba(255,255,255,0.95),
+    inset 0 -2px 3px rgba(16,18,22,0.05),
+    0 24px 56px rgba(16,18,22,0.14);
+  transform-style: preserve-3d;
+  transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .3s;
+  will-change: transform;
+}
+.card--interactive { cursor: grab; }
+.card__inner {
+  position: relative; height: 100%; border-radius: 18px; padding: 13px 14px 11px; overflow: hidden;
+  background: #ffffff; color: var(--ink);
+  display: flex; flex-direction: column; gap: 9px;
+  box-shadow: inset 0 0 0 1px rgba(16,18,22,0.05);
+}
+.card__top { display: flex; align-items: center; gap: 8px; }
+.card__stage {
+  flex: none; font-size: 8.5px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--ink-70); background: linear-gradient(180deg, #f4f5f8, #e8eaef);
+  border-radius: 7px; padding: 4px 7px; box-shadow: var(--bevel), inset 0 0 0 1px rgba(16,18,22,0.07);
+}
+.card__name { font-family: var(--font-display); font-weight: 750; font-size: 16.5px; letter-spacing: -0.02em; line-height: 1.02; min-width: 0; }
+.card__value { margin-left: auto; flex: none; font-family: var(--font-display); font-weight: 750; font-size: 17px; letter-spacing: -0.01em; }
+.card__value span { font-size: 10px; color: var(--ink-55); margin-left: 2px; font-weight: 800; }
+
+.card__art {
+  position: relative; border-radius: 14px; overflow: hidden; aspect-ratio: 16 / 10;
+  box-shadow: inset 0 0 0 1px rgba(16,18,22,0.06), inset 0 3px 12px rgba(16,18,22,0.05);
+}
+.card__art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.card__band {
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  font-size: 9.5px; font-weight: 700; letter-spacing: 0.02em; color: var(--ink-70);
+  background: color-mix(in srgb, var(--edge) 12%, #f6f7f9);
+  border-radius: 8px; padding: 4px 8px;
+  box-shadow: var(--bevel), inset 0 0 0 1px color-mix(in srgb, var(--edge) 24%, transparent);
+}
+.card__pip { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--edge); box-shadow: 0 0 0 2.5px color-mix(in srgb, var(--edge) 22%, transparent); }
+
+.card__stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+.card__stat { text-align: center; background: #f4f5f8; border-radius: 9px; padding: 6px 4px 5px; box-shadow: var(--bevel), inset 0 0 0 1px rgba(16,18,22,0.045); }
+.card__stat b { display: block; font-family: var(--font-display); font-size: 13.5px; font-weight: 750; letter-spacing: -0.01em; }
+.card__stat span { display: block; margin-top: 1px; font-size: 7.5px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-55); }
+.card__stat--volt { background: color-mix(in srgb, var(--volt) 20%, #f4f5f8); }
+
+.card__use { border-top: 1.5px solid color-mix(in srgb, var(--edge) 36%, rgba(16,18,22,0.1)); padding-top: 7px; }
+.card__use-head { display: flex; align-items: center; gap: 6px; }
+.card__use-ico {
+  flex: none; display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%;
+  background: var(--edge); color: #fff; box-shadow: 0 1px 2px rgba(16,18,22,0.22);
+}
+.card__use-ico svg { width: 9px; height: 9px; }
+.card__use-name { font-family: var(--font-display); font-weight: 750; font-size: 12.5px; }
+.card__use-val { margin-left: auto; font-family: var(--font-display); font-weight: 750; font-size: 14px; }
+.card__use-text { margin-top: 3px; font-size: 9.5px; line-height: 1.45; color: var(--ink-70); }
+
+.card__found { display: flex; align-items: center; gap: 7px; border-top: 1px solid rgba(16,18,22,0.08); padding-top: 6px; }
+.card__found-label { flex: none; font-size: 7.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-55); }
+.card__found-where { font-size: 9.5px; font-weight: 700; }
+.card__found-bar { flex: 1; height: 5px; border-radius: 4px; background: rgba(16,18,22,0.07); box-shadow: inset 0 1px 1px rgba(16,18,22,0.07); overflow: hidden; min-width: 34px; }
+.card__found-bar i { display: block; height: 100%; border-radius: 4px; background: var(--edge); }
+.card__found-pct { flex: none; font-family: var(--font-mono); font-size: 8px; font-weight: 700; color: var(--ink-55); }
+
+.card__flavor {
+  font-size: 9.5px; line-height: 1.45; font-style: italic; color: var(--ink-70);
+  background: color-mix(in srgb, var(--edge) 8%, #f7f8fa);
+  border-radius: 8px; padding: 6px 9px;
+  box-shadow: var(--bevel), inset 0 0 0 1px color-mix(in srgb, var(--edge) 16%, transparent);
+}
+
+.card__foot { margin-top: auto; padding-top: 7px; border-top: 1px solid rgba(16,18,22,0.08); display: flex; align-items: center; justify-content: space-between; font-size: 9px; color: var(--ink-40); font-weight: 650; letter-spacing: 0.02em; }
+.card__set { font-family: var(--font-mono); }
+
+/* soft light sweep on tilt */
+.card__sheen {
+  position: absolute; inset: 9px; border-radius: 18px; pointer-events: none; z-index: 4;
+  opacity: 0; mix-blend-mode: screen; transition: opacity .3s;
+  background: radial-gradient(60% 60% at var(--mx,50%) var(--my,50%),
+              color-mix(in srgb, var(--edge) 40%, #ffffff) 0%, transparent 58%);
+}
+.card--lit .card__sheen { opacity: 0.5; }
+@media (prefers-reduced-motion: reduce) {
+  .card { transition: none; }
+  .card__sheen { display: none; }
+}
+
+.card--gem, .card--legendary { --edge: var(--r-legendary); }
+.card--artifact, .card--epic { --edge: var(--r-epic); }
+.card--fact, .card--rare { --edge: var(--r-rare); }
+.card--common { --edge: var(--r-common); }
+.card--uncommon { --edge: var(--r-uncommon); }
+
+.card--float { animation: cardFloat 6.5s ease-in-out infinite; }
+@keyframes cardFloat { 0%,100% { transform: translateY(0) rotateX(4deg) rotateY(-7deg); } 50% { transform: translateY(-12px) rotateX(1deg) rotateY(-4deg); } }
+@media (prefers-reduced-motion: reduce) { .card--float { animation: none; } }
+
+/* ----------------------------------------------- the binder (mini cards) */
+.mini {
+  --edge: var(--r-common);
+  background: #ffffff; border-radius: 16px; padding: 7px 7px 9px;
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--edge) 38%, #ffffff), var(--bevel), var(--shadow-soft);
+  transition: transform .18s ease, box-shadow .2s ease;
+}
+.mini:hover { transform: translateY(-4px) rotate(-1deg); box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--edge) 55%, #ffffff), var(--bevel), var(--shadow-pop); }
+.mini__art { position: relative; border-radius: 11px; overflow: hidden; aspect-ratio: 5 / 4; box-shadow: inset 0 0 0 1px rgba(16,18,22,0.06); }
+.mini__art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.mini__row { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; margin: 8px 3px 0; }
+.mini__name { font-family: var(--font-display); font-weight: 700; font-size: 12.5px; letter-spacing: -0.01em; }
+.mini__xp { flex: none; font-family: var(--font-display); font-weight: 750; font-size: 11.5px; }
+.mini__xp i { font-style: normal; font-size: 8px; color: var(--ink-55); margin-left: 1px; font-weight: 800; }
+.mini__type { display: inline-flex; align-items: center; gap: 5px; margin: 3px 3px 0; font-size: 8px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-55); }
+.mini__type .card__pip { width: 7px; height: 7px; box-shadow: 0 0 0 2px color-mix(in srgb, var(--edge) 22%, transparent); }
+.mini--common { --edge: var(--r-common); }
+.mini--uncommon { --edge: var(--r-uncommon); }
+.mini--rare { --edge: var(--r-rare); }
+.mini--epic { --edge: var(--r-epic); }
+.mini--legendary { --edge: var(--r-legendary); }
