@@ -2,11 +2,10 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Container, Kicker, SectionLead, SectionTitle } from '@/components/Bits'
 import { Reveal } from '@/components/Reveal'
 import { ActivityRingsArt } from '@/components/cards/art/ActivityRingsArt'
-import { cn } from '@/lib/utils'
 
 const tiles = [
   { label: 'Distance', num: '5.0', unit: 'km' },
-  { label: 'Cards found', num: '3', volt: true },
+  { label: 'Cards found', num: '3' },
   { label: 'Avg pace', num: '5:24', unit: '/km' },
   { label: 'Day streak', num: '12' },
 ]
@@ -30,20 +29,9 @@ export function Track() {
             </SectionLead>
             <div className="grid grid-cols-2 gap-4">
               {tiles.map((tile) => (
-                <Card
-                  key={tile.label}
-                  className={cn(
-                    'rounded-[20px] border-border/60 py-5 shadow-sm',
-                    tile.volt && 'border-0 bg-gradient-to-b from-volt/30 to-volt/10',
-                  )}
-                >
+                <Card key={tile.label} className="rounded-[20px] border-border/60 py-5 shadow-sm">
                   <CardContent className="px-5">
-                    <div
-                      className={cn(
-                        'text-xs font-bold tracking-[0.04em] uppercase',
-                        tile.volt ? 'text-foreground/70' : 'text-muted-foreground',
-                      )}
-                    >
+                    <div className="text-xs font-bold tracking-[0.04em] uppercase text-muted-foreground">
                       {tile.label}
                     </div>
                     <div className="mt-1.5 font-display text-[clamp(26px,3.6vw,36px)] font-bold tracking-[-0.02em]">

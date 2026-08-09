@@ -7,7 +7,7 @@ export function ActivityRingsArt() {
     >
       <g transform="rotate(-90 120 120)" fill="none" strokeLinecap="round" strokeWidth="18">
         <circle cx="120" cy="120" r="100" stroke="rgba(16,18,22,0.08)" />
-        <circle cx="120" cy="120" r="100" stroke="#61ff00" strokeDasharray="490 640" />
+        <circle cx="120" cy="120" r="100" stroke="#101216" strokeDasharray="490 640" />
         <circle cx="120" cy="120" r="76" stroke="rgba(16,18,22,0.08)" />
         <circle cx="120" cy="120" r="76" stroke="#4f8fe0" strokeDasharray="300 478" />
         <circle cx="120" cy="120" r="52" stroke="rgba(16,18,22,0.08)" />

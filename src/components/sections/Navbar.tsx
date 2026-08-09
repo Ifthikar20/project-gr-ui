@@ -10,7 +10,6 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import { BrandMark } from '@/components/BrandMark'
-import { VoltDot } from '@/components/Bits'
 import { cn } from '@/lib/utils'
 
 const navLinks = [
@@ -27,9 +26,9 @@ function Brand() {
     <a href="#top" aria-label="FindRun home" className="flex items-center gap-2">
       <BrandMark />
       <span className="font-display text-[17px] font-bold tracking-[-0.02em]">
-        Find<b className="text-volt-deep">Run</b>
+        Find<b>Run</b>
       </span>
-      <span className="rounded-md bg-volt px-1.5 py-0.5 text-[9.5px] font-extrabold tracking-[0.08em] uppercase text-foreground">
+      <span className="rounded-md border border-border bg-secondary px-1.5 py-0.5 text-[9.5px] font-extrabold tracking-[0.08em] uppercase text-muted-foreground">
         beta
       </span>
     </a>
@@ -74,10 +73,7 @@ export function Navbar() {
 
         <div className="flex items-center gap-2">
           <Button asChild size="sm" className="rounded-full px-4">
-            <a href="#join">
-              <VoltDot className="size-[7px]" />
-              Join the beta
-            </a>
+            <a href="#join">Join the beta</a>
           </Button>
 
           <Sheet open={open} onOpenChange={setOpen}>
@@ -92,7 +88,7 @@ export function Navbar() {
                   <span className="flex items-center gap-2 font-display text-[17px] font-bold tracking-[-0.02em]">
                     <BrandMark className="size-7" />
                     <span>
-                      Find<b className="text-volt-deep">Run</b>
+                      Find<b>Run</b>
                     </span>
                   </span>
                 </SheetTitle>
@@ -114,7 +110,6 @@ export function Navbar() {
                 </ul>
                 <Button asChild className="mt-4 w-full rounded-full">
                   <a href="#join" onClick={() => setOpen(false)}>
-                    <VoltDot className="size-[7px]" />
                     Join the beta
                   </a>
                 </Button>

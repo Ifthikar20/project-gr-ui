@@ -1,4 +1,5 @@
 import { Badge } from '@/components/ui/badge'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Container, Kicker, SectionLead, SectionTitle } from '@/components/Bits'
 import { Reveal } from '@/components/Reveal'
 import { CollectibleCard } from '@/components/cards/CollectibleCard'
@@ -27,24 +28,56 @@ export function CardTypes() {
           <SectionLead className="mx-auto">Every card is one of five. Tilt one — the good ones shimmer.</SectionLead>
         </Reveal>
 
-        <div className="mt-12 flex flex-wrap justify-center gap-8 [perspective:1400px]">
-          {galleryEntries.map((entry) => (
-            <Reveal key={entry.type} delay={entry.delay} className="flex flex-col items-center gap-4">
-              <CollectibleCard data={entry.card} />
-              <div className="max-w-[300px] text-center">
-                <h3 className="flex items-center justify-center gap-2 font-display text-xl font-bold">
+        <Reveal className="mt-10">
+          <Tabs defaultValue={galleryEntries[0].type}>
+            <TabsList className="mx-auto flex h-auto flex-wrap justify-center rounded-full p-1">
+              {galleryEntries.map((entry) => (
+                <TabsTrigger
+                  key={entry.type}
+                  value={entry.type}
+                  className="rounded-full px-4 py-1.5 text-sm font-semibold"
+                >
                   {entry.type}
-                  <Badge
-                    className={`${tagBg[entry.tagTier]} rounded-[7px] border-0 px-2 py-0.5 text-[10.5px] font-bold tracking-[0.05em] uppercase text-white`}
-                  >
-                    {entry.tag}
-                  </Badge>
-                </h3>
-                <p className="mt-1.5 text-[14.5px] leading-relaxed text-foreground/70">{entry.blurb}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+                </TabsTrigger>
+              ))}
+            </TabsList>
+            {galleryEntries.map((entry) => (
+              <TabsContent key={entry.type} value={entry.type}>
+                <div className="mx-auto mt-8 grid max-w-[880px] items-center justify-items-center gap-10 md:grid-cols-[auto_1fr] md:justify-items-start">
+                  <div className="[perspective:1400px]">
+                    <CollectibleCard data={entry.card} compact />
+                  </div>
+                  <div className="max-w-[52ch] text-center md:text-left">
+                    <h3 className="flex items-center justify-center gap-2.5 font-display text-2xl font-bold md:justify-start">
+                      {entry.type}
+                      <Badge
+                        className={`${tagBg[entry.tagTier]} rounded-[7px] border-0 px-2 py-0.5 text-[10.5px] font-bold tracking-[0.05em] uppercase text-white`}
+                      >
+                        {entry.tag}
+                      </Badge>
+                    </h3>
+                    <p className="mt-3 text-[17px] leading-relaxed text-foreground/70">{entry.blurb}</p>
+                    <div className="mt-5 space-y-2.5 text-[15px]">
+                      <p>
+                        <span className="font-semibold">
+                          Ability — {entry.card.use.name} {entry.card.use.val}:
+                        </span>{' '}
+                        <span className="text-foreground/70">{entry.card.use.text}</span>
+                      </p>
+                      <p>
+                        <span className="font-semibold">Found most —</span>{' '}
+                        <span className="text-foreground/70">{entry.card.found.where}.</span>
+                      </p>
+                    </div>
+                    <blockquote className="mt-5 border-l-2 border-border pl-4 text-[15px] italic text-muted-foreground">
+                      {entry.card.flavor}
+                    </blockquote>
+                  </div>
+                </div>
+              </TabsContent>
+            ))}
+          </Tabs>
+        </Reveal>
 
         {/* the binder */}
         <Reveal className="mt-16 md:mt-20">
@@ -58,7 +91,7 @@ export function CardTypes() {
             </p>
           </div>
           <div className="mx-auto mt-8 grid max-w-[1000px] grid-cols-2 gap-4 md:grid-cols-4">
-            {miniCards.map((mini) => (
+            {miniCards.slice(0, 4).map((mini) => (
               <MiniCard key={mini.name} data={mini} />
             ))}
           </div>

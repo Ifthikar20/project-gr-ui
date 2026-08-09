@@ -48,7 +48,7 @@ export function Reviews() {
                   <blockquote className="text-[15.5px] leading-relaxed">{review.body}</blockquote>
                   <div className="mt-auto flex items-center gap-3 pt-1">
                     <Avatar className="size-9">
-                      <AvatarFallback className="bg-foreground text-[13px] font-bold text-volt">
+                      <AvatarFallback className="bg-foreground text-[13px] font-bold text-background">
                         {review.initials}
                       </AvatarFallback>
                     </Avatar>

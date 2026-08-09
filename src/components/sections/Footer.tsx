@@ -39,7 +39,7 @@ export function Footer() {
             <a href="#top" aria-label="FindRun home" className="flex items-center gap-2">
               <BrandMark variant="footer" />
               <span className="font-display text-[17px] font-bold tracking-[-0.02em]">
-                Find<b className="text-volt">Run</b>
+                Find<b>Run</b>
               </span>
             </a>
             <p className="mt-3 text-sm leading-relaxed text-foreground/70">

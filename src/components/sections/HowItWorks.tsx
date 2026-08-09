@@ -32,7 +32,7 @@ export function HowItWorks() {
             <Reveal key={step.title} delay={i} className="relative">
               <Card className="h-full rounded-[20px] border-border/60 py-6 shadow-sm">
                 <CardContent className="px-6">
-                  <div className="grid size-[30px] place-items-center rounded-full bg-volt font-display text-sm font-bold text-foreground">
+                  <div className="grid size-[30px] place-items-center rounded-full border border-border bg-secondary font-display text-sm font-bold text-foreground">
                     {i + 1}
                   </div>
                   <h3 className="mt-4 font-display text-[17.5px] font-bold">{step.title}</h3>

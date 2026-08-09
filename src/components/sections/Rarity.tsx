@@ -1,4 +1,11 @@
-import { Card, CardContent } from '@/components/ui/card'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
 import { Container, Kicker, SectionLead, SectionTitle } from '@/components/Bits'
 import { Reveal } from '@/components/Reveal'
 import { RarityGlyph, type RarityTier } from '@/components/cards/art/RarityGlyph'
@@ -45,38 +52,60 @@ export function Rarity() {
   return (
     <section id="rarity" className="scroll-mt-20 py-16 md:py-24">
       <Container>
-        <Reveal>
-          <Kicker>Rarity</Kicker>
-          <SectionTitle>
+        <Reveal className="text-center">
+          <Kicker center>Rarity</Kicker>
+          <SectionTitle className="mx-auto">
             Five tiers.
             <br />
             The rare ones make you run further.
           </SectionTitle>
-          <SectionLead>
+          <SectionLead className="mx-auto">
             Every card carries a tier. Commons keep the streak alive; legendaries surface once in a blue moon and only
             in the toughest zones.
           </SectionLead>
         </Reveal>
-        <div className="mt-10 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-5">
-          {tiers.map((tier, i) => (
-            <Reveal key={tier.tier} delay={i}>
-              <Card className="relative h-full overflow-hidden rounded-[20px] border-border/60 py-5 shadow-sm">
-                <div aria-hidden="true" className={`absolute inset-x-0 top-0 h-1 ${tier.bg}`} />
-                <CardContent className="px-4">
-                  <div
-                    className={`grid size-10 place-items-center rounded-xl text-white shadow-md ${tier.bg}`}
-                    aria-hidden="true"
-                  >
-                    <RarityGlyph tier={tier.tier} />
-                  </div>
-                  <h3 className="mt-3 font-display text-[16.5px] font-bold">{tier.name}</h3>
-                  <p className="mt-0.5 text-[12.5px] font-bold tracking-[0.02em] text-muted-foreground">{tier.odds}</p>
-                  <p className="mt-2 text-[13px] leading-relaxed text-foreground/70">{tier.desc}</p>
-                </CardContent>
-              </Card>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal className="mx-auto mt-10 max-w-[780px]">
+          <div className="overflow-hidden rounded-[20px] border border-border/60 bg-card shadow-sm">
+            <Table>
+              <TableHeader>
+                <TableRow className="hover:bg-transparent">
+                  <TableHead className="h-12 pl-6 text-[12px] font-bold tracking-[0.06em] uppercase text-muted-foreground">
+                    Tier
+                  </TableHead>
+                  <TableHead className="h-12 text-[12px] font-bold tracking-[0.06em] uppercase text-muted-foreground">
+                    Odds
+                  </TableHead>
+                  <TableHead className="h-12 pr-6 text-[12px] font-bold tracking-[0.06em] uppercase text-muted-foreground">
+                    What lives here
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {tiers.map((tier) => (
+                  <TableRow key={tier.tier} className="border-border/60">
+                    <TableCell className="py-4 pl-6">
+                      <span className="flex items-center gap-3">
+                        <span
+                          className={`grid size-8 shrink-0 place-items-center rounded-lg text-white ${tier.bg}`}
+                          aria-hidden="true"
+                        >
+                          <RarityGlyph tier={tier.tier} className="size-4" />
+                        </span>
+                        <span className="font-display text-[15.5px] font-bold">{tier.name}</span>
+                      </span>
+                    </TableCell>
+                    <TableCell className="py-4 font-display text-[15px] font-bold whitespace-nowrap">
+                      {tier.odds}
+                    </TableCell>
+                    <TableCell className="py-4 pr-6 text-[14.5px] leading-relaxed text-foreground/70">
+                      {tier.desc}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </Reveal>
       </Container>
     </section>
   )

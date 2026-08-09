@@ -104,6 +104,17 @@
 .card--common { --edge: var(--r-common); }
 .card--uncommon { --edge: var(--r-uncommon); }
 
+/* compact variant — fewer blocks, larger legible type */
+.card--compact .card__inner { gap: 11px; padding: 14px 15px 13px; }
+.card--compact .card__stage { font-size: 9.5px; }
+.card--compact .card__name { font-size: 19px; }
+.card--compact .card__value { font-size: 19px; }
+.card--compact .card__value span { font-size: 11px; }
+.card--compact .card__band { font-size: 11px; padding: 5px 9px; }
+.card--compact .card__stat { padding: 8px 5px 7px; }
+.card--compact .card__stat b { font-size: 16px; }
+.card--compact .card__stat span { font-size: 9px; }
+
 .card--float { animation: cardFloat 6.5s ease-in-out infinite; }
 @keyframes cardFloat { 0%,100% { transform: translateY(0) rotateX(4deg) rotateY(-7deg); } 50% { transform: translateY(-12px) rotateX(1deg) rotateY(-4deg); } }
 @media (prefers-reduced-motion: reduce) { .card--float { animation: none; } }

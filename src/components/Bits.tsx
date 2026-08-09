@@ -5,10 +5,6 @@ export function Container({ className, children }: { className?: string; childre
   return <div className={cn('mx-auto w-full max-w-[1120px] px-6', className)}>{children}</div>
 }
 
-export function VoltDot({ className }: { className?: string }) {
-  return <span aria-hidden="true" className={cn('inline-block size-[9px] shrink-0 rounded-full bg-volt', className)} />
-}
-
 export function Kicker({
   center = false,
   className,
@@ -21,12 +17,11 @@ export function Kicker({
   return (
     <p
       className={cn(
-        'flex items-center gap-2 text-[12.5px] font-extrabold tracking-[0.14em] uppercase text-muted-foreground',
-        center && 'justify-center',
+        'text-[12.5px] font-extrabold tracking-[0.14em] uppercase text-muted-foreground',
+        center && 'text-center',
         className,
       )}
     >
-      <VoltDot className="size-[7px]" />
       {children}
     </p>
   )

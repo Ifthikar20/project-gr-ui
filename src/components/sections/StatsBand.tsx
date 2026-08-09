@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
 const stats: { num: ReactNode; label: string }[] = [
-  { num: <span className="text-volt-deep">5</span>, label: 'card types to hunt' },
+  { num: '5', label: 'card types to hunt' },
   { num: '5', label: 'rarity tiers' },
   {
     num: (

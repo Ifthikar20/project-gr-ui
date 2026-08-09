@@ -1,7 +1,7 @@
 import { useRef, useState, type FormEvent } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Container, VoltDot } from '@/components/Bits'
+import { Container } from '@/components/Bits'
 import { Reveal } from '@/components/Reveal'
 
 const ctaGlow = {
@@ -41,7 +41,7 @@ export function JoinCta() {
               <h2 className="font-display text-[clamp(30px,4.6vw,52px)] leading-[1.05] font-bold tracking-[-0.028em]">
                 Your city is full of cards
                 <br />
-                you haven't <span className="text-volt-deep">found yet</span>.
+                you haven't found yet.
               </h2>
               <p className="mt-4 text-[17.5px] text-foreground/70">
                 Join the FindRun beta and start collecting the ground you cover.
@@ -61,7 +61,6 @@ export function JoinCta() {
                       className="h-12 min-w-[250px] max-w-[340px] flex-1 rounded-full border-transparent bg-background px-5 text-[15.5px] shadow-sm"
                     />
                     <Button type="submit" size="lg" className="h-12 rounded-full px-7 text-[15px]">
-                      <VoltDot className="size-[7px]" />
                       Get my invite
                     </Button>
                   </form>
@@ -70,7 +69,7 @@ export function JoinCta() {
                   </p>
                 </>
               ) : (
-                <p className="mt-6 font-semibold text-volt-deep">
+                <p className="mt-6 font-semibold text-foreground">
                   You're on the list — check your inbox for a TestFlight invite.
                 </p>
               )}

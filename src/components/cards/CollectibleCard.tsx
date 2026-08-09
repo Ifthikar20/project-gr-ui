@@ -13,6 +13,7 @@ export function CollectibleCard({
   data,
   float = false,
   heroHeading = false,
+  compact = false,
   ariaLabel,
 }: {
   data: CardData
@@ -20,6 +21,8 @@ export function CollectibleCard({
   float?: boolean
   /** Render the card name as an h2 (hero) instead of h3 (gallery). */
   heroHeading?: boolean
+  /** Name/art/band/stats only, with larger type — drops the fine-print blocks. */
+  compact?: boolean
   ariaLabel?: string
 }) {
   const ref = useCardTilt<HTMLElement>()
@@ -27,7 +30,13 @@ export function CollectibleCard({
   return (
     <article
       ref={ref}
-      className={cn('card', `card--${data.edge}`, 'card--interactive', float && 'card--float')}
+      className={cn(
+        'card',
+        `card--${data.edge}`,
+        'card--interactive',
+        float && 'card--float',
+        compact && 'card--compact',
+      )}
       aria-label={ariaLabel ?? data.ariaLabel}
     >
       <div className="card__inner">
@@ -52,27 +61,31 @@ export function CollectibleCard({
             </div>
           ))}
         </div>
-        <div className="card__use">
-          <div className="card__use-head">
-            <span className="card__use-ico">{boltGlyph}</span>
-            <span className="card__use-name">{data.use.name}</span>
-            <span className="card__use-val">{data.use.val}</span>
-          </div>
-          <p className="card__use-text">{data.use.text}</p>
-        </div>
-        <div className="card__found">
-          <span className="card__found-label">found most</span>
-          <span className="card__found-where">{data.found.where}</span>
-          <span className="card__found-bar">
-            <i style={{ width: `${data.found.pct}%` }} />
-          </span>
-          <span className="card__found-pct">{data.found.pct}%</span>
-        </div>
-        <p className="card__flavor">{data.flavor}</p>
-        <div className="card__foot">
-          <span>{data.foot.left}</span>
-          <span className="card__set">{data.foot.right}</span>
-        </div>
+        {!compact && (
+          <>
+            <div className="card__use">
+              <div className="card__use-head">
+                <span className="card__use-ico">{boltGlyph}</span>
+                <span className="card__use-name">{data.use.name}</span>
+                <span className="card__use-val">{data.use.val}</span>
+              </div>
+              <p className="card__use-text">{data.use.text}</p>
+            </div>
+            <div className="card__found">
+              <span className="card__found-label">found most</span>
+              <span className="card__found-where">{data.found.where}</span>
+              <span className="card__found-bar">
+                <i style={{ width: `${data.found.pct}%` }} />
+              </span>
+              <span className="card__found-pct">{data.found.pct}%</span>
+            </div>
+            <p className="card__flavor">{data.flavor}</p>
+            <div className="card__foot">
+              <span>{data.foot.left}</span>
+              <span className="card__set">{data.foot.right}</span>
+            </div>
+          </>
+        )}
       </div>
       <div className="card__sheen" aria-hidden="true" />
     </article>
