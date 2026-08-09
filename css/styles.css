@@ -206,11 +206,13 @@ body {
 }
 .hero__media { display: grid; place-items: center; perspective: 1400px; }
 
-/* ------------------------------------------------ THE RUN CARD (simple) - */
-/* Clean, beveled, minimal: rarity · art · name · value. No busy scene. */
+/* --------------------------------------------- THE RUN CARD (informative) */
+/* TCG-style information bands in the bevel style:
+   stage · name · XP  →  art  →  type band  →  run log (km/steps/xp)
+   →  use/ability  →  found-most  →  flavor fact  →  set footer */
 .card {
   --edge: var(--r-legendary);
-  position: relative; width: 300px; max-width: 82vw; aspect-ratio: 63 / 88;
+  position: relative; width: 330px; max-width: 86vw;
   border-radius: 26px; padding: 9px;
   background: linear-gradient(180deg, #fbf9f3, #efece2);
   box-shadow:
@@ -224,28 +226,75 @@ body {
 }
 .card--interactive { cursor: grab; }
 .card__inner {
-  position: relative; height: 100%; border-radius: 18px; padding: 15px 15px 13px; overflow: hidden;
+  position: relative; height: 100%; border-radius: 18px; padding: 13px 14px 11px; overflow: hidden;
   background: #fcfbf6; color: var(--ink);
-  display: flex; flex-direction: column; gap: 13px;
+  display: flex; flex-direction: column; gap: 9px;
   box-shadow: inset 0 0 0 1px rgba(23,21,15,0.05);
 }
-.card__top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.card__rarity { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-55); }
-.card__pip { width: 10px; height: 10px; border-radius: 50%; background: var(--edge); box-shadow: 0 0 0 3px color-mix(in srgb, var(--edge) 22%, transparent); }
-.card__value { font-family: var(--font-display); font-weight: 800; font-size: 18px; color: var(--ink); letter-spacing: -0.01em; }
-.card__value span { font-size: 11px; color: var(--ink-55); margin-left: 3px; font-weight: 700; }
+
+/* header: stage chip · name · XP (the "HP line") */
+.card__top { display: flex; align-items: center; gap: 8px; }
+.card__stage {
+  flex: none; font-size: 8.5px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--ink-70); background: linear-gradient(180deg, #f4f1e6, #e6e2d3);
+  border-radius: 7px; padding: 4px 7px; box-shadow: var(--bevel), inset 0 0 0 1px rgba(23,21,15,0.08);
+}
+.card__name { font-family: var(--font-display); font-weight: 800; font-size: 16.5px; letter-spacing: -0.02em; line-height: 1.02; min-width: 0; }
+.card__value { margin-left: auto; flex: none; font-family: var(--font-display); font-weight: 800; font-size: 17px; letter-spacing: -0.01em; }
+.card__value span { font-size: 10px; color: var(--ink-55); margin-left: 2px; font-weight: 800; }
 
 .card__art {
-  position: relative; border-radius: 17px; overflow: hidden; aspect-ratio: 5 / 4;
+  position: relative; border-radius: 14px; overflow: hidden; aspect-ratio: 16 / 10;
   box-shadow: inset 0 0 0 1px rgba(23,21,15,0.06), inset 0 3px 12px rgba(23,21,15,0.05);
 }
 .card__art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 
-.card__caption { padding: 0 2px; }
-.card__name { font-family: var(--font-display); font-weight: 800; font-size: 21px; letter-spacing: -0.02em; line-height: 1.04; }
-.card__sub { margin-top: 4px; font-size: 12.5px; color: var(--ink-55); font-weight: 650; }
+/* type band: rarity pip · type · zone (the "Flame Pokémon. Length…" strip) */
+.card__band {
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  font-size: 9.5px; font-weight: 750; letter-spacing: 0.02em; color: var(--ink-70);
+  background: color-mix(in srgb, var(--edge) 14%, #f6f3e8);
+  border-radius: 8px; padding: 4px 8px;
+  box-shadow: var(--bevel), inset 0 0 0 1px color-mix(in srgb, var(--edge) 26%, transparent);
+}
+.card__pip { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--edge); box-shadow: 0 0 0 2.5px color-mix(in srgb, var(--edge) 22%, transparent); }
 
-.card__foot { margin-top: auto; padding-top: 11px; border-top: 1px solid rgba(23,21,15,0.09); display: flex; align-items: center; justify-content: space-between; font-size: 10px; color: var(--ink-40); font-weight: 650; letter-spacing: 0.02em; }
+/* run log: the run that found it (distance · steps · xp gained) */
+.card__stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+.card__stat { text-align: center; background: #f6f3ea; border-radius: 9px; padding: 6px 4px 5px; box-shadow: var(--bevel), inset 0 0 0 1px rgba(23,21,15,0.05); }
+.card__stat b { display: block; font-family: var(--font-display); font-size: 13.5px; font-weight: 800; letter-spacing: -0.01em; }
+.card__stat span { display: block; margin-top: 1px; font-size: 7.5px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-55); }
+.card__stat--volt { background: color-mix(in srgb, var(--volt) 26%, #f6f3ea); }
+
+/* use/ability block (the "attack" band) */
+.card__use { border-top: 1.5px solid color-mix(in srgb, var(--edge) 38%, rgba(23,21,15,0.12)); padding-top: 7px; }
+.card__use-head { display: flex; align-items: center; gap: 6px; }
+.card__use-ico {
+  flex: none; display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%;
+  background: var(--edge); color: #fff; box-shadow: 0 1px 2px rgba(23,21,15,0.25);
+}
+.card__use-ico svg { width: 9px; height: 9px; }
+.card__use-name { font-family: var(--font-display); font-weight: 800; font-size: 12.5px; }
+.card__use-val { margin-left: auto; font-family: var(--font-display); font-weight: 800; font-size: 14px; color: var(--ink); }
+.card__use-text { margin-top: 3px; font-size: 9.5px; line-height: 1.45; color: var(--ink-70); }
+
+/* found-most row (the weakness/retreat line) */
+.card__found { display: flex; align-items: center; gap: 7px; border-top: 1px solid rgba(23,21,15,0.09); padding-top: 6px; }
+.card__found-label { flex: none; font-size: 7.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-55); }
+.card__found-where { font-size: 9.5px; font-weight: 700; color: var(--ink); }
+.card__found-bar { flex: 1; height: 5px; border-radius: 4px; background: rgba(23,21,15,0.08); box-shadow: inset 0 1px 1px rgba(23,21,15,0.08); overflow: hidden; min-width: 34px; }
+.card__found-bar i { display: block; height: 100%; border-radius: 4px; background: var(--edge); }
+.card__found-pct { flex: none; font-family: var(--font-mono); font-size: 8px; font-weight: 700; color: var(--ink-55); }
+
+/* flavor fact strip (the italic bottom box) */
+.card__flavor {
+  font-size: 9.5px; line-height: 1.45; font-style: italic; color: var(--ink-70);
+  background: color-mix(in srgb, var(--edge) 9%, #f7f4ea);
+  border-radius: 8px; padding: 6px 9px;
+  box-shadow: var(--bevel), inset 0 0 0 1px color-mix(in srgb, var(--edge) 18%, transparent);
+}
+
+.card__foot { margin-top: auto; padding-top: 7px; border-top: 1px solid rgba(23,21,15,0.09); display: flex; align-items: center; justify-content: space-between; font-size: 9px; color: var(--ink-40); font-weight: 650; letter-spacing: 0.02em; }
 .card__set { font-family: var(--font-mono); }
 
 /* soft light sweep on tilt — tactile, not a loud rainbow holo */
