@@ -91,7 +91,9 @@ export function Navbar() {
                 <SheetTitle>
                   <span className="flex items-center gap-2 font-display text-[17px] font-bold tracking-[-0.02em]">
                     <BrandMark className="size-7" />
-                    Find<b className="-ml-1 text-volt-deep">Run</b>
+                    <span>
+                      Find<b className="text-volt-deep">Run</b>
+                    </span>
                   </span>
                 </SheetTitle>
                 <SheetDescription className="sr-only">Site navigation</SheetDescription>
