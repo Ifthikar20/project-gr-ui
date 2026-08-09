@@ -1,249 +1,138 @@
-/* GemRun landing page — vanilla JS, no dependencies.
+/* FindRun landing page — vanilla JS, no dependencies.
    Interactions: sticky header, mobile nav, scroll-spy, reveal-on-scroll,
-   stat counters, rarity tier tabs, single-open FAQ, waitlist validation. */
-
+   holographic card tilt, single-open FAQ, waitlist validation. */
 (function () {
-  'use strict';
+  "use strict";
 
-  // Signals JS is available; CSS only hides [data-reveal] under .js so the
-  // page stays fully visible with scripts disabled.
-  document.documentElement.classList.add('js');
+  // JS is available → let CSS reveal-hide the [data-reveal] elements.
+  document.documentElement.classList.add("js");
 
-  var prefersReducedMotion =
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduceMotion = window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ------------------------------ Header ------------------------------ */
-
-  var header = document.querySelector('[data-header]');
-
-  function syncHeader() {
-    header.classList.toggle('is-scrolled', window.scrollY > 8);
+  // ---------------------------------------------------------- sticky header
+  var header = document.querySelector("[data-header]");
+  if (header) {
+    var syncHeader = function () {
+      header.classList.toggle("is-stuck", window.scrollY > 8);
+    };
+    window.addEventListener("scroll", syncHeader, { passive: true });
+    syncHeader();
   }
 
-  window.addEventListener('scroll', syncHeader, { passive: true });
-  syncHeader();
-
-  /* ---------------------------- Mobile nav ---------------------------- */
-
-  var navToggle = document.querySelector('[data-nav-toggle]');
-  var siteNav = document.getElementById('site-nav');
-
-  function setNav(open) {
-    document.body.classList.toggle('nav-open', open);
-    navToggle.setAttribute('aria-expanded', String(open));
-  }
-
-  navToggle.addEventListener('click', function () {
-    setNav(!document.body.classList.contains('nav-open'));
-  });
-
-  siteNav.addEventListener('click', function (event) {
-    if (event.target.closest('a')) setNav(false);
-  });
-
-  document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape') setNav(false);
-  });
-
-  document.addEventListener('click', function (event) {
-    if (
-      document.body.classList.contains('nav-open') &&
-      !event.target.closest('.site-header')
-    ) {
-      setNav(false);
-    }
-  });
-
-  /* ---------------------------- Scroll-spy ----------------------------- */
-
-  var navLinks = Array.prototype.slice.call(
-    document.querySelectorAll('[data-navlink]')
-  );
-  var spied = navLinks
-    .map(function (link) {
-      var href = link.getAttribute('href');
-      return href.charAt(0) === '#' ? document.querySelector(href) : null;
-    })
-    .filter(Boolean);
-
-  function setActiveLink(id) {
-    navLinks.forEach(function (link) {
-      link.classList.toggle('is-active', link.getAttribute('href') === '#' + id);
+  // ------------------------------------------------------------- mobile nav
+  var navToggle = document.querySelector("[data-nav-toggle]");
+  var siteNav = document.getElementById("site-nav");
+  if (navToggle && siteNav) {
+    var setNav = function (open) {
+      navToggle.setAttribute("aria-expanded", String(open));
+      siteNav.classList.toggle("is-open", open);
+    };
+    navToggle.addEventListener("click", function () {
+      setNav(navToggle.getAttribute("aria-expanded") !== "true");
+    });
+    siteNav.addEventListener("click", function (e) {
+      if (e.target.closest("a")) setNav(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") setNav(false);
+    });
+    document.addEventListener("click", function (e) {
+      if (!siteNav.contains(e.target) && !navToggle.contains(e.target)) setNav(false);
     });
   }
 
-  if ('IntersectionObserver' in window && spied.length) {
-    var spy = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) setActiveLink(entry.target.id);
-        });
-      },
-      { rootMargin: '-40% 0px -55% 0px' }
-    );
-    spied.forEach(function (section) { spy.observe(section); });
+  // -------------------------------------------------------------- scroll-spy
+  var navLinks = Array.prototype.slice
+    .call(document.querySelectorAll("[data-navlink]"));
+  var sections = navLinks
+    .map(function (link) {
+      var href = link.getAttribute("href") || "";
+      return href.charAt(0) === "#" ? document.querySelector(href) : null;
+    })
+    .filter(Boolean);
+  if ("IntersectionObserver" in window && sections.length) {
+    var setActive = function (id) {
+      navLinks.forEach(function (link) {
+        link.classList.toggle("is-active", link.getAttribute("href") === "#" + id);
+      });
+    };
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    sections.forEach(function (s) { spy.observe(s); });
   }
 
-  /* ------------------------- Reveal on scroll -------------------------- */
-
-  var revealEls = Array.prototype.slice.call(
-    document.querySelectorAll('[data-reveal]')
-  );
-
+  // --------------------------------------------------------- reveal on scroll
+  var revealEls = Array.prototype.slice
+    .call(document.querySelectorAll("[data-reveal]"));
   revealEls.forEach(function (el) {
-    var delay = el.getAttribute('data-reveal-delay');
-    if (delay) el.style.setProperty('--reveal-delay', delay);
+    var delay = el.getAttribute("data-reveal-delay");
+    if (delay) el.style.transitionDelay = (parseInt(delay, 10) * 90) + "ms";
   });
-
-  if (!('IntersectionObserver' in window) || prefersReducedMotion) {
-    revealEls.forEach(function (el) { el.classList.add('is-revealed'); });
+  if (reduceMotion || !("IntersectionObserver" in window)) {
+    revealEls.forEach(function (el) { el.classList.add("is-revealed"); });
   } else {
-    var revealer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-revealed');
-            revealer.unobserve(entry.target);
-          }
-        });
-      },
-      { rootMargin: '0px 0px -8% 0px', threshold: 0.05 }
-    );
+    var revealer = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-revealed");
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
     revealEls.forEach(function (el) { revealer.observe(el); });
   }
 
-  /* --------------------------- Stat counters --------------------------- */
-
-  var counters = Array.prototype.slice.call(
-    document.querySelectorAll('[data-count-to]')
-  );
-
-  function runCounter(el) {
-    var target = parseInt(el.getAttribute('data-count-to'), 10);
-    if (prefersReducedMotion || !isFinite(target)) {
-      el.textContent = String(target);
-      return;
-    }
-    var duration = 1200;
-    var start = null;
-    function tick(now) {
-      if (start === null) start = now;
-      var progress = Math.min((now - start) / duration, 1);
-      var eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = String(Math.round(target * eased));
-      if (progress < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }
-
-  if ('IntersectionObserver' in window) {
-    var counting = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            runCounter(entry.target);
-            counting.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.6 }
-    );
-    counters.forEach(function (el) { counting.observe(el); });
-  } else {
-    counters.forEach(runCounter);
-  }
-
-  /* -------------------------- Rarity tier tabs -------------------------- */
-
-  var TIERS = [
-    {
-      xp: 10,
-      respawn: 'Respawns daily, per runner',
-      rule:
-        'The everyday find — placeable anywhere on a route, back again ' +
-        'tomorrow. Quartz keeps your home loop paying out and your streak alive.'
-    },
-    {
-      xp: 25,
-      respawn: 'Respawns daily, per runner',
-      rule:
-        'Worth a small detour. Daily respawns like Quartz, better XP — the ' +
-        'backbone of streak multipliers.'
-    },
-    {
-      xp: 75,
-      respawn: 'Once per runner, per route',
-      rule:
-        'Sapphires sit at least 40% of the way into a route — a reason to ' +
-        'finish what you started, and to keep trying new routes.'
-    },
-    {
-      xp: 200,
-      respawn: 'Once per runner, per route',
-      rule:
-        'Amethysts only live on genuinely hard ground: a steep sustained ' +
-        'climb, or deep into a long route. If you collected one, you earned it.'
-    },
-    {
-      xp: 500,
-      respawn: 'One appearance, one winner',
-      rule:
-        'Embers are seeded by the system only — nobody can plant one for ' +
-        'themselves. The first runner to reach it claims a unique first-find ' +
-        'variant. Everyone else gets the story.'
-    }
-  ];
-
-  var rarity = document.querySelector('[data-rarity]');
-
-  if (rarity) {
-    var tierButtons = Array.prototype.slice.call(
-      rarity.querySelectorAll('[data-tier]')
-    );
-    var xpEl = rarity.querySelector('[data-tier-xp]');
-    var respawnEl = rarity.querySelector('[data-tier-respawn]');
-    var ruleEl = rarity.querySelector('[data-tier-rule]');
-
-    function selectTier(index) {
-      var tier = TIERS[index];
-      if (!tier) return;
-      tierButtons.forEach(function (button, i) {
-        var active = i === index;
-        button.classList.toggle('is-active', active);
-        button.setAttribute('aria-selected', String(active));
+  // ------------------------------------------------------ soft card tilt
+  // Pointer position drives a gentle 3D tilt plus a soft light sweep
+  // (the --mx/--my vars feed .card__sheen). Disabled under reduced-motion
+  // and on touch, where a hover tilt only gets in the way.
+  var finePointer = !window.matchMedia || window.matchMedia("(hover: hover)").matches;
+  if (!reduceMotion && finePointer) {
+    document.querySelectorAll("[data-card]").forEach(function (card) {
+      var raf = null, pending = null;
+      var apply = function () {
+        raf = null;
+        var r = card.getBoundingClientRect();
+        var x = (pending.x - r.left) / r.width;   // 0..1
+        var y = (pending.y - r.top) / r.height;   // 0..1
+        x = Math.max(0, Math.min(1, x));
+        y = Math.max(0, Math.min(1, y));
+        var rx = (0.5 - y) * 10;                  // tilt up/down (gentle)
+        var ry = (x - 0.5) * 12;                  // tilt left/right
+        card.style.transform =
+          "perspective(900px) rotateX(" + rx.toFixed(2) + "deg) rotateY(" +
+          ry.toFixed(2) + "deg) translateZ(4px)";
+        card.style.setProperty("--mx", (x * 100).toFixed(1) + "%");
+        card.style.setProperty("--my", (y * 100).toFixed(1) + "%");
+      };
+      var onMove = function (e) {
+        pending = { x: e.clientX, y: e.clientY };
+        if (!raf) raf = requestAnimationFrame(apply);
+      };
+      card.addEventListener("pointerenter", function () {
+        card.classList.add("card--lit");
+        card.style.animation = "none";   // pause the idle float while lit
       });
-      // Hidden stones flip from silhouette on first selection (stash-style)
-      tierButtons[index].classList.add('is-revealed');
-      xpEl.textContent = String(tier.xp);
-      respawnEl.textContent = tier.respawn;
-      ruleEl.textContent = tier.rule;
-    }
-
-    tierButtons.forEach(function (button, index) {
-      button.addEventListener('click', function () { selectTier(index); });
-    });
-
-    rarity.addEventListener('keydown', function (event) {
-      if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
-      var current = tierButtons.findIndex(function (button) {
-        return button.classList.contains('is-active');
+      card.addEventListener("pointermove", onMove);
+      card.addEventListener("pointerleave", function () {
+        card.classList.remove("card--lit");
+        if (raf) { cancelAnimationFrame(raf); raf = null; }
+        card.style.transform = "";
+        card.style.animation = "";       // resume float (hero card)
       });
-      var next =
-        (current + (event.key === 'ArrowRight' ? 1 : -1) + TIERS.length) %
-        TIERS.length;
-      selectTier(next);
-      tierButtons[next].focus();
     });
   }
 
-  /* ------------------------- FAQ (single open) -------------------------- */
-
-  var faq = document.querySelector('[data-faq]');
-
+  // -------------------------------------------------------- single-open FAQ
+  var faq = document.querySelector("[data-faq]");
   if (faq) {
-    var items = Array.prototype.slice.call(faq.querySelectorAll('details'));
+    var items = Array.prototype.slice.call(faq.querySelectorAll("details"));
     items.forEach(function (item) {
-      item.addEventListener('toggle', function () {
+      item.addEventListener("toggle", function () {
         if (!item.open) return;
         items.forEach(function (other) {
           if (other !== item) other.open = false;
@@ -252,389 +141,19 @@
     });
   }
 
-  /* --------------------------- Waitlist form ---------------------------- */
-
-  var waitlist = document.querySelector('[data-waitlist]');
-
+  // ---------------------------------------------------------- waitlist form
+  var waitlist = document.querySelector("[data-waitlist]");
   if (waitlist) {
-    var input = waitlist.querySelector('input[type="email"]');
-    var msg = waitlist.querySelector('[data-waitlist-msg]');
-    var submitButton = waitlist.querySelector('button[type="submit"]');
-    var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
-    waitlist.addEventListener('submit', function (event) {
-      event.preventDefault();
-      var value = input.value.trim();
-
-      if (!EMAIL.test(value)) {
-        waitlist.classList.remove('is-success');
-        waitlist.classList.add('is-error');
-        msg.textContent = 'That doesn’t look like an email — try again?';
-        input.focus();
+    var ok = document.querySelector("[data-waitlist-ok]");
+    waitlist.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var input = waitlist.querySelector('input[type="email"]');
+      if (!input || !input.value || input.value.indexOf("@") === -1) {
+        if (input) input.focus();
         return;
       }
-
-      // TODO: POST to the launch-list endpoint once the backend exposes one.
-      waitlist.classList.remove('is-error');
-      waitlist.classList.add('is-success');
-      msg.textContent =
-        'You’re on the list — we’ll ping you at ' + value + '.';
-      input.disabled = true;
-      submitButton.disabled = true;
-    });
-
-    input.addEventListener('input', function () {
-      waitlist.classList.remove('is-error');
-      if (!waitlist.classList.contains('is-success')) msg.textContent = '';
+      waitlist.hidden = true;
+      if (ok) ok.hidden = false;
     });
   }
-
-  /* ------------------------- Map capture demo --------------------------- */
-
-  var demo = document.querySelector('[data-demo]');
-
-  if (demo) {
-    var route = demo.querySelector('#demo-route');
-    var runner = demo.querySelector('[data-demo-runner]');
-    var gemChip = demo.querySelector('[data-demo-gems]');
-    var xpChip = demo.querySelector('[data-demo-xp]');
-    var stepEls = Array.prototype.slice.call(
-      demo.querySelectorAll('.demo-step')
-    );
-    var CLAIM_RADIUS = 40; // the gems' "200 ft" capture zones, in SVG units
-    var DURATION = 9000;
-    var routeLength = route.getTotalLength();
-
-    // Project each gem onto the route: the path length at which the runner
-    // is closest to it (gems sit exactly on the route, so this is exact).
-    var demoGems = Array.prototype.slice
-      .call(demo.querySelectorAll('.demo-gem'))
-      .map(function (el) {
-        var gx = parseFloat(el.getAttribute('data-x'));
-        var gy = parseFloat(el.getAttribute('data-y'));
-        var bestLen = 0;
-        var bestDist = Infinity;
-        for (var l = 0; l <= routeLength; l += 3) {
-          var p = route.getPointAtLength(l);
-          var d = Math.hypot(p.x - gx, p.y - gy);
-          if (d < bestDist) { bestDist = d; bestLen = l; }
-        }
-        return { el: el, len: bestLen, xp: parseInt(el.getAttribute('data-xp'), 10) };
-      });
-
-    var demoPlaying = false;
-    var demoVisible = false;
-    var replayTimer = null;
-    var claimedCount = 0;
-    var xpTotal = 0;
-
-    var updateChips = function () {
-      gemChip.textContent = claimedCount + '/' + demoGems.length + ' gems';
-      xpChip.textContent = xpTotal + ' XP';
-    };
-
-    var placeRunner = function (len) {
-      var p = route.getPointAtLength(Math.min(len, routeLength));
-      runner.setAttribute('transform', 'translate(' + p.x + ',' + p.y + ')');
-    };
-
-    var stashSlots = Array.prototype.slice.call(
-      demo.querySelectorAll('.demo-stash__slot')
-    );
-
-    var claimThrough = function (len) {
-      demoGems.forEach(function (gem, i) {
-        if (
-          !gem.el.classList.contains('is-claimed') &&
-          len >= gem.len - CLAIM_RADIUS
-        ) {
-          gem.el.classList.add('is-claimed');
-          claimedCount += 1;
-          xpTotal += gem.xp;
-          updateChips();
-          if (stashSlots[i]) stashSlots[i].classList.add('is-filled');
-          stepEls[1].classList.add('is-done');
-          stepEls[1].classList.remove('is-active');
-          stepEls[2].classList.add('is-active');
-        }
-      });
-    };
-
-    var resetDemo = function () {
-      demoGems.forEach(function (gem) { gem.el.classList.remove('is-claimed'); });
-      stashSlots.forEach(function (slot) { slot.classList.remove('is-filled'); });
-      claimedCount = 0;
-      xpTotal = 0;
-      updateChips();
-      placeRunner(0);
-      stepEls.forEach(function (el, i) {
-        el.classList.toggle('is-active', i === 0);
-        el.classList.remove('is-done');
-      });
-    };
-
-    // Runs on its own: plays when scrolled into view, then loops with a
-    // short pause for as long as it stays visible.
-    var finishDemo = function () {
-      placeRunner(routeLength);
-      claimThrough(routeLength + CLAIM_RADIUS);
-      stepEls.forEach(function (el) {
-        el.classList.add('is-done');
-        el.classList.remove('is-active');
-      });
-      demoPlaying = false;
-      if (!prefersReducedMotion) {
-        replayTimer = setTimeout(function () {
-          if (demoVisible) playDemo();
-        }, 2400);
-      }
-    };
-
-    var playDemo = function () {
-      if (demoPlaying) return;
-      demoPlaying = true;
-      clearTimeout(replayTimer);
-      resetDemo();
-
-      if (prefersReducedMotion) {
-        finishDemo();
-        return;
-      }
-
-      var startTime = null;
-      var frame = function (now) {
-        if (startTime === null) startTime = now;
-        var progress = Math.min((now - startTime) / DURATION, 1);
-        var len = routeLength * progress;
-        placeRunner(len);
-        claimThrough(len);
-        if (progress > 0.12) {
-          stepEls[0].classList.add('is-done');
-          stepEls[0].classList.remove('is-active');
-          if (!stepEls[2].classList.contains('is-active')) {
-            stepEls[1].classList.add('is-active');
-          }
-        }
-        if (progress < 1) requestAnimationFrame(frame);
-        else finishDemo();
-      };
-      requestAnimationFrame(frame);
-    };
-
-    if (prefersReducedMotion) {
-      finishDemo();
-    } else if ('IntersectionObserver' in window) {
-      var demoObserver = new IntersectionObserver(
-        function (entries) {
-          entries.forEach(function (entry) {
-            demoVisible = entry.isIntersecting;
-            if (demoVisible && !demoPlaying) playDemo();
-          });
-        },
-        { threshold: 0.45 }
-      );
-      demoObserver.observe(demo);
-    } else {
-      playDemo();
-    }
-  }
-
-  /* --------------------------- Screens carousel ------------------------- */
-
-  var screens = document.querySelector('[data-screens]');
-
-  if (screens) {
-    var scrollByCard = function (direction) {
-      var card = screens.querySelector('.screen-card');
-      var step = card ? card.getBoundingClientRect().width + 20 : 320;
-      screens.scrollBy({ left: step * direction, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
-    };
-
-    var prevBtn = document.querySelector('[data-screens-prev]');
-    var nextBtn = document.querySelector('[data-screens-next]');
-
-    if (prevBtn) prevBtn.addEventListener('click', function () { scrollByCard(-1); });
-    if (nextBtn) nextBtn.addEventListener('click', function () { scrollByCard(1); });
-
-    screens.addEventListener('keydown', function (event) {
-      if (event.key === 'ArrowRight') { event.preventDefault(); scrollByCard(1); }
-      if (event.key === 'ArrowLeft') { event.preventDefault(); scrollByCard(-1); }
-    });
-  }
-
-  /* ------------------------------ Modals -------------------------------- */
-
-  var openModals = 0;
-
-  var showModal = function (modal) {
-    if (modal.hidden === false) return;
-    modal.hidden = false;
-    openModals += 1;
-    document.body.style.overflow = 'hidden';
-  };
-
-  var hideModal = function (modal) {
-    if (modal.hidden) return;
-    modal.hidden = true;
-    openModals = Math.max(0, openModals - 1);
-    if (openModals === 0) document.body.style.overflow = '';
-  };
-
-  /* ------------------------ Cookie consent popup ------------------------- */
-
-  var cookieModal = document.querySelector('[data-cookie]');
-
-  if (cookieModal) {
-    var CONSENT_KEY = 'gemrun-consent';
-
-    var readConsent = function () {
-      try { return localStorage.getItem(CONSENT_KEY); } catch (e) { return null; }
-    };
-
-    var chooseConsent = function (value) {
-      try { localStorage.setItem(CONSENT_KEY, value); } catch (e) { /* private mode */ }
-      hideModal(cookieModal);
-    };
-
-    cookieModal
-      .querySelector('[data-cookie-accept]')
-      .addEventListener('click', function () { chooseConsent('all'); });
-
-    cookieModal
-      .querySelector('[data-cookie-essential]')
-      .addEventListener('click', function () { chooseConsent('essential'); });
-
-    Array.prototype.slice
-      .call(document.querySelectorAll('[data-cookie-open]'))
-      .forEach(function (button) {
-        button.addEventListener('click', function () { showModal(cookieModal); });
-      });
-
-    if (!readConsent()) {
-      setTimeout(function () { showModal(cookieModal); }, 900);
-    }
-  }
-
-  /* -------------------------- Login & session --------------------------- */
-
-  var loginModal = document.querySelector('[data-login]');
-
-  if (loginModal) {
-    var SESSION_KEY = 'gemrun-web-session';
-    var loginButton = document.querySelector('[data-login-open]');
-    var sessionChip = document.querySelector('[data-session]');
-    var sessionInitial = document.querySelector('[data-session-initial]');
-    var loginForm = loginModal.querySelector('[data-login-form]');
-    var emailInput = loginModal.querySelector('[data-login-email]');
-    var passwordInput = loginModal.querySelector('[data-login-password]');
-    var loginMsg = loginModal.querySelector('[data-login-msg]');
-    var loginSubmit = loginModal.querySelector('[data-login-submit]');
-    var LOGIN_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
-    var readSession = function () {
-      try { return localStorage.getItem(SESSION_KEY); } catch (e) { return null; }
-    };
-
-    var syncSession = function () {
-      var email = readSession();
-      if (email) {
-        loginButton.hidden = true;
-        sessionChip.hidden = false;
-        sessionInitial.textContent = email.charAt(0).toUpperCase();
-        sessionChip.title = 'Signed in as ' + email;
-      } else {
-        loginButton.hidden = false;
-        sessionChip.hidden = true;
-      }
-    };
-
-    var openLogin = function () {
-      showModal(loginModal);
-      emailInput.focus();
-    };
-
-    var closeLogin = function () {
-      hideModal(loginModal);
-      loginForm.classList.remove('is-error');
-      loginMsg.textContent = '';
-    };
-
-    loginButton.addEventListener('click', openLogin);
-
-    Array.prototype.slice
-      .call(loginModal.querySelectorAll('[data-login-close]'))
-      .forEach(function (el) { el.addEventListener('click', closeLogin); });
-
-    document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape' && !loginModal.hidden) closeLogin();
-    });
-
-    loginModal
-      .querySelector('[data-apple-login]')
-      .addEventListener('click', function () {
-        loginForm.classList.remove('is-error');
-        loginMsg.textContent = 'Sign in with Apple arrives with the public launch — use email for now.';
-      });
-
-    loginForm.addEventListener('submit', function (event) {
-      event.preventDefault();
-      var email = emailInput.value.trim();
-
-      if (!LOGIN_EMAIL.test(email)) {
-        loginForm.classList.add('is-error');
-        loginMsg.textContent = 'That doesn’t look like an email — try again?';
-        emailInput.focus();
-        return;
-      }
-      if (passwordInput.value.length < 6) {
-        loginForm.classList.add('is-error');
-        loginMsg.textContent = 'Passwords are at least 6 characters.';
-        passwordInput.focus();
-        return;
-      }
-
-      loginForm.classList.remove('is-error');
-      loginMsg.textContent = '';
-      loginSubmit.classList.add('is-loading');
-
-      // TODO: replace the timeout with POST {API_BASE}/v1/auth/login once
-      // the web backend is exposed; store the returned token instead.
-      setTimeout(function () {
-        try { localStorage.setItem(SESSION_KEY, email); } catch (e) { /* private mode */ }
-        loginSubmit.classList.remove('is-loading');
-        closeLogin();
-        loginForm.reset();
-        syncSession();
-      }, 900);
-    });
-
-    document.querySelector('[data-logout]').addEventListener('click', function () {
-      try { localStorage.removeItem(SESSION_KEY); } catch (e) { /* private mode */ }
-      syncSession();
-    });
-
-    syncSession();
-  }
-
-  /* ------------------------- Hero phone tilt ----------------------------- */
-
-  var tiltEl = document.querySelector('[data-tilt]');
-
-  if (tiltEl && !prefersReducedMotion && window.matchMedia('(hover: hover)').matches) {
-    tiltEl.addEventListener('mousemove', function (event) {
-      var rect = tiltEl.getBoundingClientRect();
-      var x = (event.clientX - rect.left) / rect.width - 0.5;
-      var y = (event.clientY - rect.top) / rect.height - 0.5;
-      tiltEl.style.transform =
-        'perspective(900px) rotateY(' + (x * 10).toFixed(2) + 'deg) rotateX(' + (-y * 10).toFixed(2) + 'deg)';
-    });
-    tiltEl.addEventListener('mouseleave', function () {
-      tiltEl.style.transform = '';
-    });
-  }
-
-  /* ------------------------------ Footer ------------------------------- */
-
-  var yearEl = document.querySelector('[data-year]');
-  if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 })();

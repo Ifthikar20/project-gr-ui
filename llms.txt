@@ -1,6 +1,6 @@
-# GemRun
+# FindRun
 
-> GemRun is a gamified running experience for iPhone (iOS 17+, currently in
+> FindRun is a gamified running experience for iPhone (iOS 17+, currently in
 > TestFlight beta). The system drops virtual gems on real, walkable streets;
 > runners claim them by passing within 200 ft. Claims are GPS-verified
 > server-side and first-come-first-served — one shared world, one winner per
@@ -25,7 +25,7 @@ Key facts:
   the server is the claim-verification GPS track plus username and route best
   times for leaderboards
 - Map data: © OpenStreetMap contributors, Open Database License (ODbL)
-- Contact: hello@gemrun.app
+- Contact: hello@findrun.app
 
 ## Pages
 

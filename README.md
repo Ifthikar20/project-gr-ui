@@ -1,6 +1,6 @@
-# GemRun — Landing Page
+# FindRun — Landing Page
 
-The marketing landing page for **[GemRun](https://github.com/ifthikar20/project-gr)**,
+The marketing landing page for **[FindRun](https://github.com/ifthikar20/project-gr)**,
 the iPhone app that turns any running route into a treasure hunt: the system
 drops gems on real streets, you run within 200 ft to claim them, first one
 there takes it.
@@ -88,10 +88,10 @@ tray as gems are claimed, and shows live gem/XP counters.
 - **Changelog entries** are grounded in the app repo's real feature history
   but carry invented build numbers/dates — sync with actual TestFlight
   builds.
-- **Contact email** `hello@gemrun.app` is a placeholder domain — search and
+- **Contact email** `hello@findrun.app` is a placeholder domain — search and
   replace once the real domain exists.
 - **Login** is a working preview flow: full validation, loading state, and a
-  local demo session in `localStorage` (`gemrun-web-session`), restored on
+  local demo session in `localStorage` (`findrun-web-session`), restored on
   reload with a header session chip + logout. The `TODO` in `js/main.js`
   marks where the real `POST /v1/auth/login` call goes.
 
@@ -110,7 +110,7 @@ self-looping gem-capture demo with its stash tray, hero-phone mouse tilt,
 the full-width screens carousel (scroll-snap + arrows + keyboard),
 hidden-stone rarity reveals with XP chips, the auto-scrolling reviews
 marquee (pauses on hover), single-open FAQ, waitlist validation, a **cookie-consent popup
-modal** (Accept all / Essential only, persisted as `gemrun-consent`,
+modal** (Accept all / Essential only, persisted as `findrun-consent`,
 reopenable from the footer), and a **login modal** (validation, loading
 state, demo session with header chip + logout) — all gated on
 `prefers-reduced-motion` (animated scenes settle into their finished

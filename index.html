@@ -3,16 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GemRun — A gamified running experience</title>
-  <meta name="description" content="GemRun is a gamified running experience: gems drop on real streets near you — run within 100 feet to claim them, race friends on leaderboards, and track every kilometer and calorie along the way.">
-  <meta property="og:title" content="GemRun — A gamified running experience">
-  <meta property="og:description" content="Gems drop on real streets near you. Run within 200 ft to claim them, race your friends, track every calorie.">
+  <title>FindRun — Run to find. Collect the cards no one else has.</title>
+  <meta name="description" content="FindRun turns every run into a hunt for collectible cards. Gems, artifacts and fact cards surface in zones where runners have been — reach one on foot and it's yours. Track your distance, pace and streak while you collect.">
+  <meta property="og:title" content="FindRun — Run to find">
+  <meta property="og:description" content="Collectible cards surface in real-world zones. Run to reach them, collect what no one else has, and track every mile along the way.">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://findrun.app">
   <meta property="og:image" content="assets/og-card.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="GemRun — A gamified running experience">
+  <meta name="twitter:title" content="FindRun — Run to find">
   <meta name="twitter:image" content="assets/og-card.jpg">
-  <meta name="theme-color" content="#16181d">
+  <meta name="theme-color" content="#17150f">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="stylesheet" href="css/styles.css">
@@ -22,34 +23,29 @@
 
   <header class="site-header" data-header>
     <div class="container site-header__inner">
-      <a class="brand" href="#top" aria-label="GemRun home">
+      <a class="brand" href="#top" aria-label="FindRun home">
         <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
-          <path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/>
-          <path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#ffffff" opacity="0.28"/>
-          <path d="M5 12 L27 12 L16 15.5 Z" fill="#ffffff" opacity="0.18"/>
+          <rect x="6" y="3" width="20" height="26" rx="4.5" transform="rotate(-8 16 16)" fill="#17150f"/>
+          <rect x="6" y="3" width="20" height="26" rx="4.5" transform="rotate(-8 16 16)" fill="none" stroke="#61ff00" stroke-width="1.4" opacity="0.5"/>
+          <path d="M18 7 L11 18 h4.2 l-1.2 7 L21 14 h-4.2 z" fill="#61ff00"/>
         </svg>
-        <span class="brand__name">GemRun</span>
+        <span class="brand__name">Find<b>Run</b></span>
         <span class="brand__beta">beta</span>
       </a>
 
       <nav class="site-nav" id="site-nav" aria-label="Primary">
         <ul class="site-nav__list">
-          <li><a class="site-nav__link" href="#how-it-works" data-navlink>How it works</a></li>
-          <li><a class="site-nav__link" href="#screens" data-navlink>Screens</a></li>
-          <li><a class="site-nav__link" href="#rarity" data-navlink>Gems</a></li>
+          <li><a class="site-nav__link" href="#how" data-navlink>How it works</a></li>
+          <li><a class="site-nav__link" href="#zones" data-navlink>Zones</a></li>
+          <li><a class="site-nav__link" href="#cards" data-navlink>Cards</a></li>
+          <li><a class="site-nav__link" href="#rarity" data-navlink>Rarity</a></li>
           <li><a class="site-nav__link" href="#track" data-navlink>Track</a></li>
           <li><a class="site-nav__link" href="#faq" data-navlink>FAQ</a></li>
-          <li><a class="site-nav__link" href="changelog.html">Changelog</a></li>
         </ul>
       </nav>
 
       <div class="site-header__actions">
-        <button class="btn btn--sm btn--login" type="button" data-login-open>Log in</button>
-        <div class="session" data-session hidden>
-          <span class="session__ava" data-session-initial aria-hidden="true">?</span>
-          <button class="session__out" type="button" data-logout>Log out</button>
-        </div>
-        <a class="btn btn--pulse btn--sm" href="#download">Join the community</a>
+        <a class="btn btn--volt btn--sm" href="#join">Join the beta</a>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
           <span class="nav-toggle__bar" aria-hidden="true"></span>
           <span class="nav-toggle__bar" aria-hidden="true"></span>
@@ -65,1230 +61,507 @@
     <section class="hero" id="top">
       <div class="container hero__inner">
         <div class="hero__copy" data-reveal>
-          <p class="kicker kicker--hero">A gamified running experience</p>
-          <h1 class="hero__title">Every run is a treasure&nbsp;hunt.</h1>
+          <p class="kicker kicker--on-ink">A running game you can hold</p>
+          <h1 class="hero__title">Run to find.<br>Collect what <span class="volt">no one else</span> has.</h1>
           <p class="hero__lead">
-            Gems drop on real streets near you. Get within 200&nbsp;ft
-            and they're yours — <strong>first one there takes it</strong>.
+            Collectible cards surface in real-world <strong>zones</strong> — patches of the
+            map where runners have already been. Lace up, reach one on foot, and the
+            card is <strong>yours to keep</strong>. Gems, artifacts, and facts, all found on the move.
           </p>
           <div class="hero__cta">
-            <a class="btn btn--pulse btn--lg" href="#download">Join the community</a>
-            <a class="btn btn--ghost-light btn--lg" href="#how-it-works">Watch the hunt</a>
+            <a class="btn btn--volt btn--lg" href="#join">Join the beta</a>
+            <a class="btn btn--ghost-light btn--lg" href="#how">See how it works</a>
           </div>
           <ul class="hero__trust">
             <li>Free to play</li>
             <li>iPhone · iOS 17+</li>
-            <li>Your data stays on your phone</li>
+            <li>Runs on your real routes</li>
           </ul>
         </div>
 
         <div class="hero__media" data-reveal data-reveal-delay="2">
-          <div class="phone phone--hero" data-tilt>
-            <div class="phone__notch" aria-hidden="true"></div>
-            <div class="phone__screen app" role="img"
-                 aria-label="Replica of the GemRun Explore screen: a light map with a route, gem markers, your location, a route card and the tab bar">
-              <div class="app__status" aria-hidden="true">
-                <span class="app__time">9:41</span>
-                <svg class="app__status-icons" viewBox="0 0 46 12">
-                  <rect x="0" y="6" width="2.5" height="5" rx="1"/>
-                  <rect x="4" y="4" width="2.5" height="7" rx="1"/>
-                  <rect x="8" y="2" width="2.5" height="9" rx="1"/>
-                  <path d="M18 10.5a5.5 5.5 0 0 1 8 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" transform="translate(0,-3.5)"/>
-                  <circle cx="22" cy="9.5" r="1.3"/>
-                  <rect x="32" y="2.5" width="12" height="7" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.2"/>
-                  <rect x="33.5" y="4" width="7" height="4" rx="1.2"/>
+          <div class="hero__glow" aria-hidden="true"></div>
+          <!-- ===== HERO RUN CARD (Legendary Gem) — simple & beveled ===== -->
+          <article class="card card--gem card--interactive card--float" data-card aria-label="FindRun collectible card: Harbor Sapphire, a Legendary gem found in the Harbor Loop zone">
+            <div class="card__inner">
+              <div class="card__top">
+                <span class="card__rarity"><i class="card__pip" aria-hidden="true"></i>Legendary</span>
+                <span class="card__value">240<span>XP</span></span>
+              </div>
+
+              <div class="card__art">
+                <svg viewBox="0 0 300 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="gemBg" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="#20242e"/><stop offset="1" stop-color="#343b4d"/>
+                    </linearGradient>
+                    <linearGradient id="gemTop" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0" stop-color="#dff6ff"/><stop offset="1" stop-color="#9fd8ff"/>
+                    </linearGradient>
+                    <linearGradient id="gemBody" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="#6cb9ff"/><stop offset="1" stop-color="#3a6fe0"/>
+                    </linearGradient>
+                  </defs>
+                  <rect width="300" height="240" fill="url(#gemBg)"/>
+                  <circle cx="150" cy="118" r="76" fill="#61ff00" opacity="0.10"/>
+                  <g transform="translate(150 112)" stroke-linejoin="round">
+                    <polygon points="-34,-26 34,-26 52,0 0,58 -52,0" fill="url(#gemBody)"/>
+                    <polygon points="-34,-26 34,-26 18,0 -18,0" fill="url(#gemTop)"/>
+                    <polygon points="-34,-26 -18,0 -52,0" fill="#8ecbff"/>
+                    <polygon points="34,-26 52,0 18,0" fill="#5090ee"/>
+                    <polygon points="-18,0 18,0 0,58" fill="#2f5bd0"/>
+                  </g>
+                  <path d="M92 52 l2.5 6 6 2.5 -6 2.5 -2.5 6 -2.5 -6 -6 -2.5 6 -2.5 z" fill="#ffffff" opacity="0.9"/>
+                  <circle cx="216" cy="172" r="2.4" fill="#ffffff" opacity="0.6"/>
                 </svg>
               </div>
 
-              <div class="app__map">
-                <svg viewBox="0 0 300 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                  <g class="app-streets">
-                    <path d="M40 0 V560 M110 0 V560 M162 0 V560 M240 0 V560"/>
-                    <path d="M0 70 H300 M0 208 H300 M0 348 H300 M0 480 H300"/>
-                  </g>
-                  <rect class="app-park" x="180" y="368" width="100" height="80" rx="12"/>
-                  <path class="app-route"
-                        d="M40 430 L40 360 Q40 348 52 348 L150 348 Q162 348 162 336 L162 220 Q162 208 174 208 L240 208"/>
-                  <g class="app-origin" transform="translate(40,430)">
-                    <circle r="10"/>
-                    <text y="3.5">4</text>
-                  </g>
-                  <circle class="app-zone" cx="40" cy="396" r="17"/>
-                  <path class="app-gem gem-tq" transform="translate(40,396)" d="M0 -7.5 L7 0 L0 7.5 L-7 0 Z"/>
-                  <circle class="app-zone" cx="110" cy="348" r="17"/>
-                  <path class="app-gem gem-te" transform="translate(110,348)" d="M0 -7.5 L7 0 L0 7.5 L-7 0 Z"/>
-                  <circle class="app-zone" cx="162" cy="278" r="17"/>
-                  <path class="app-gem gem-ts" transform="translate(162,278)" d="M0 -7.5 L7 0 L0 7.5 L-7 0 Z"/>
-                  <circle class="app-zone" cx="240" cy="208" r="17"/>
-                  <path class="app-gem gem-ta" transform="translate(240,208) scale(1.1)" d="M0 -7.5 L7 0 L0 7.5 L-7 0 Z"/>
-                  <g class="app-ember" transform="translate(240,96)">
-                    <circle class="app-ember__glow" r="14"/>
-                    <path class="app-ember__flame" d="M0 -8.5 C5 -3.5 7 2 0 12 C-7 2 -5 -3.5 0 -8.5 Z"/>
-                  </g>
-                  <g class="app-puck" transform="translate(222,300)">
-                    <circle class="app-puck__ring app-puck__ring--a" r="9"/>
-                    <circle class="app-puck__ring app-puck__ring--b" r="9"/>
-                    <circle class="app-puck__dot" r="8"/>
-                  </g>
-                </svg>
-
-                <div class="app__search" aria-hidden="true">Search this area</div>
-                <div class="app__recenter" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><path d="M12 4l3.5 8.5L12 11l-3.5 1.5z" fill="currentColor"/><path d="M12 4v7" stroke="currentColor" stroke-width="1.6"/></svg>
-                </div>
-                <div class="app__fab" aria-hidden="true">+</div>
-
-                <div class="app__card" aria-hidden="true">
-                  <div class="app__card-main">
-                    <div class="app__card-top">
-                      <strong>Harbor Loop 5k</strong>
-                      <span class="app__gems"><b class="tq"></b><b class="te"></b><b class="ts"></b><b class="ta"></b></span>
-                    </div>
-                    <span class="app__meta">5.0 km · 62 m ↑ · 4 gems</span>
-                    <span class="app__top">Top 24:31 · by @sam_runs</span>
-                  </div>
-                  <div class="app__card-peek"></div>
-                </div>
+              <div class="card__caption">
+                <h2 class="card__name">Harbor Sapphire</h2>
+                <p class="card__sub">Gem · found in the Harbor Loop zone</p>
               </div>
 
-              <nav class="app__tabs" aria-hidden="true">
-                <span class="app__tab is-on">
-                  <svg viewBox="0 0 24 24"><path d="M12 21s-7-5.1-7-11a7 7 0 0 1 14 0c0 5.9-7 11-7 11z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.4" fill="currentColor"/></svg>
-                  Explore
-                </span>
-                <span class="app__tab">
-                  <svg viewBox="0 0 24 24"><path d="M12 3 L20 11 L12 21 L4 11 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-                  Stash
-                </span>
-                <span class="app__tab">
-                  <svg viewBox="0 0 24 24"><path d="M5 20v-7M12 20V6M19 20v-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-                  Compete
-                </span>
-                <span class="app__tab">
-                  <svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5.5 19.5a6.5 6.5 0 0 1 13 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                  Profile
-                </span>
-              </nav>
+              <div class="card__foot"><span>1 in 900 runs</span><span class="card__set">142 / 500</span></div>
             </div>
-          </div>
+            <div class="card__sheen" aria-hidden="true"></div>
+          </article>
         </div>
       </div>
     </section>
 
 
-    <!-- ======================= STATS BAND (ink) ===================== -->
-    <section class="stats" aria-label="GemRun by the numbers">
-      <div class="container stats__grid">
-        <div class="stat" data-reveal>
-          <span class="stat__value"><span data-count-to="200">0</span>&nbsp;ft</span>
-          <span class="stat__label">claim radius — get close, it's yours</span>
-        </div>
-        <div class="stat" data-reveal data-reveal-delay="1">
-          <span class="stat__value"><span data-count-to="1">0</span></span>
-          <span class="stat__label">winner per gem — everyone races the same map</span>
-        </div>
-        <div class="stat" data-reveal data-reveal-delay="2">
-          <span class="stat__value"><span data-count-to="5">0</span></span>
-          <span class="stat__label">rarity tiers, from Quartz to Ember</span>
-        </div>
-        <div class="stat" data-reveal data-reveal-delay="3">
-          <span class="stat__value"><span data-count-to="500">0</span>&nbsp;XP</span>
-          <span class="stat__label">for a Legendary — first finder gets the crown</span>
+    <!-- ======================= STATS BAND ===================== -->
+    <section class="stats" aria-label="FindRun by the numbers">
+      <div class="container">
+        <div class="stats__inner">
+          <div class="stat"><div class="stat__num"><span class="volt">3</span></div><div class="stat__label">card types to hunt</div></div>
+          <div class="stat"><div class="stat__num">5</div><div class="stat__label">rarity tiers</div></div>
+          <div class="stat"><div class="stat__num">200<small style="font-size:.5em"> ft</small></div><div class="stat__label">zone reach radius</div></div>
+          <div class="stat"><div class="stat__num">100%</div><div class="stat__label">found on real runs</div></div>
         </div>
       </div>
     </section>
 
-    <!-- ========================= WHAT IS GEMRUN ===================== -->
+
+    <!-- ======================= WHAT IS FINDRUN ===================== -->
     <section class="section" id="what">
-      <div class="container what-grid">
-        <div class="section__head section__head--flush" data-reveal>
-          <p class="kicker">What is GemRun</p>
-          <h2 class="section__title">A running game played on real streets.</h2>
+      <div class="container">
+        <div class="section__head" data-reveal>
+          <p class="kicker">What is FindRun</p>
+          <h2 class="section__title">A collection you can only build by moving.</h2>
           <p class="section__lead">
-            GemRun gives you a reason to get out the door: there's always a
-            gem waiting on a street near you. Pass within 200&nbsp;ft and
-            it's yours — everyone sees the same gems, and the first runner
-            there takes it.
+            FindRun is a fitness game where the rewards are real collectible cards.
+            You don't buy packs — you <strong>earn</strong> them by running to where they surface.
+            Every card you own is proof you were there.
           </p>
         </div>
-
-        <ul class="row-list">
-          <li class="row" data-reveal>
-            <span class="row__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 9h17M3.5 15h17M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-            </span>
-            <div>
-              <h3 class="row__title">One shared world</h3>
-              <p class="row__body">The map is the same for every runner. First one there takes it — then it's gone.</p>
-            </div>
-          </li>
-          <li class="row" data-reveal>
-            <span class="row__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 21s-7-5.1-7-11a7 7 0 0 1 14 0c0 5.9-7 11-7 11z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.6" fill="currentColor"/></svg>
-            </span>
-            <div>
-              <h3 class="row__title">Never an empty map</h3>
-              <p class="row__body">Open the map anywhere and gems are already waiting — on real, walkable streets only.</p>
-            </div>
-          </li>
-          <li class="row" data-reveal>
-            <span class="row__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.6-3 8.4-7 10-4-1.6-7-5.4-7-10V6z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.8 12.2l2.2 2.2 4.2-4.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-            <div>
-              <h3 class="row__title">Verified, not vibes</h3>
-              <p class="row__body">Every claim is checked against your GPS track on the server. Fakes don't count.</p>
-            </div>
-          </li>
-        </ul>
+        <div class="mini-cards">
+          <article class="feature" data-reveal>
+            <div class="feature__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 L20 11 L12 21 L4 11 Z" stroke-linejoin="round"/></svg></div>
+            <h3 class="feature__title">Cards worth chasing</h3>
+            <p class="feature__text">Every drop is a gem, an artifact never catalogued before, or a fact card. Some are common. A few are one in a thousand.</p>
+          </article>
+          <article class="feature" data-reveal data-reveal-delay="1">
+            <div class="feature__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5.1-7-11a7 7 0 0 1 14 0c0 5.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.4" fill="currentColor" stroke="none"/></svg></div>
+            <h3 class="feature__title">Found in real zones</h3>
+            <p class="feature__text">Cards appear in zones seeded by real runs — including routes other people have already covered near you. Get within reach and it's yours.</p>
+          </article>
+          <article class="feature" data-reveal data-reveal-delay="2">
+            <div class="feature__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 20v-6M12 20V5M19 20v-9"/></svg></div>
+            <h3 class="feature__title">Fitness that counts</h3>
+            <p class="feature__text">Distance, pace, streak and cards-per-mile — tracked on every hunt. The fitter you get, the more ground you cover, the more you find.</p>
+          </article>
+        </div>
       </div>
     </section>
 
-    <!-- ========================= HOW IT WORKS ======================= -->
-    <section class="section section--tint" id="how-it-works">
+
+    <!-- ======================= HOW IT WORKS ===================== -->
+    <section class="section section--tint" id="how">
       <div class="container">
-        <div class="section__head" data-reveal>
-          <p class="kicker">How it works</p>
-          <h2 class="section__title">How you collect a gem.</h2>
-          <p class="section__lead">
-            The whole collect in nine seconds: a gem waits on the map, you
-            close the distance, and the first runner inside 200&nbsp;ft
-            claims it. Here it is start to finish — press play.
-          </p>
+        <div class="section__head section__head--center" data-reveal>
+          <p class="kicker">How you find a card</p>
+          <h2 class="section__title">Four steps. One good run.</h2>
         </div>
+        <div class="steps">
+          <div class="step" data-reveal>
+            <div class="step__n" aria-hidden="true"></div>
+            <h3 class="step__title">Open the map</h3>
+            <p class="step__text">Active zones glow near you — each one holds cards waiting to be reached.</p>
+            <svg class="step__arrow" width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M4 13h16M14 7l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="step" data-reveal data-reveal-delay="1">
+            <div class="step__n" aria-hidden="true"></div>
+            <h3 class="step__title">Run to the zone</h3>
+            <p class="step__text">Pick a card, follow your route, and close the distance on foot. Your run is tracked the whole way.</p>
+            <svg class="step__arrow" width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M4 13h16M14 7l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="step" data-reveal data-reveal-delay="2">
+            <div class="step__n" aria-hidden="true"></div>
+            <h3 class="step__title">The card reveals</h3>
+            <p class="step__text">Get within 200 ft and the card flips — gem, artifact or fact. First one there takes it.</p>
+            <svg class="step__arrow" width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M4 13h16M14 7l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="step" data-reveal data-reveal-delay="3">
+            <div class="step__n" aria-hidden="true"></div>
+            <h3 class="step__title">Keep it forever</h3>
+            <p class="step__text">It lands in your collection with the zone, date and rarity stamped on it. Yours, permanently.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <div class="demo" data-demo data-reveal>
-          <div class="demo__map">
-            <div class="demo__bar">
-              <span class="demo__tag">The collect, simulated — no GPS required</span>
-              <span class="demo__chips" aria-live="polite">
-                <span class="demo__chip" data-demo-gems>0/4 gems</span>
-                <span class="demo__chip demo__chip--xp" data-demo-xp>0 XP</span>
-              </span>
-            </div>
 
-            <svg class="demo__svg" viewBox="0 0 760 560" role="img"
-                 aria-label="Animated demo: a runner follows a route through a street grid, claiming four gems as they pass within 100 feet of each">
-              <!-- street grid -->
-              <g class="demo-streets">
-                <path d="M20 100 H740 M20 200 H740 M20 300 H740 M20 400 H740 M20 500 H740" class="demo-street"/>
-                <path d="M100 20 V540 M240 20 V540 M380 20 V540 M520 20 V540 M660 20 V540" class="demo-street"/>
-                <path d="M20 100 H740 M100 20 V540 M380 20 V540 M20 300 H740 M20 500 H740" class="demo-street demo-street--main"/>
+    <!-- ============================ ZONES ============================ -->
+    <section class="section section--ink" id="zones">
+      <div class="container">
+        <div class="track__grid">
+          <div class="rings" data-reveal>
+            <svg viewBox="0 0 300 260" width="100%" aria-label="A stylised map with three glowing zones and a running route">
+              <defs>
+                <radialGradient id="zoneGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0" stop-color="#61ff00" stop-opacity="0.55"/><stop offset="1" stop-color="#61ff00" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <rect x="0" y="0" width="300" height="260" rx="20" fill="#12141b"/>
+              <g stroke="#1f2430" stroke-width="2">
+                <path d="M0 60 H300 M0 130 H300 M0 200 H300"/>
+                <path d="M60 0 V260 M140 0 V260 M220 0 V260"/>
               </g>
-              <rect class="demo-park" x="530" y="210" width="120" height="80" rx="14"/>
-
-              <!-- the route -->
-              <path id="demo-route" class="demo-route"
-                    d="M100 500 H380 V300 H660 V100"/>
-
-              <!-- start marker -->
-              <g class="demo-start" transform="translate(100,500)">
-                <circle r="7"/>
-                <text y="26">START</text>
-              </g>
-
-              <!-- gems (positions mirrored in data-x/data-y for the script) -->
-              <g class="demo-gem" transform="translate(240,500)" data-x="240" data-y="500" data-xp="10">
-                <circle class="demo-gem__zone" r="40"/>
-                <text class="demo-gem__zonelabel" y="-52">200 ft</text>
-                <g class="demo-gem__art" style="--step:.30">
-                  <path transform="translate(-15.6,-15.6) scale(1.3)" d="M12 2 L22 12 L12 22 L2 12 Z" fill="none" stroke="currentColor" stroke-width="2"/>
-                </g>
-                <g class="demo-gem__check"><circle r="12"/><path d="M-4.5 0l3 3 6-6"/></g>
-                <text class="demo-gem__toast" y="-26">+10 XP</text>
-              </g>
-              <g class="demo-gem" transform="translate(380,400)" data-x="380" data-y="400" data-xp="25">
-                <circle class="demo-gem__zone" r="40"/>
-                <g class="demo-gem__art" style="--step:.50">
-                  <path transform="translate(-15.6,-15.6) scale(1.3)" d="M12 2 L22 12 L12 22 L2 12 Z" fill="currentColor"/>
-                </g>
-                <g class="demo-gem__check"><circle r="12"/><path d="M-4.5 0l3 3 6-6"/></g>
-                <text class="demo-gem__toast" y="-26">+25 XP</text>
-              </g>
-              <g class="demo-gem" transform="translate(520,300)" data-x="520" data-y="300" data-xp="200">
-                <circle class="demo-gem__zone" r="40"/>
-                <g class="demo-gem__art" style="--step:.88">
-                  <path transform="translate(-15.6,-15.6) scale(1.3)" d="M12 1.8l2.5 2 3.2-.3 1 3 2.9 1.4-.7 3.1 2 2.5-2 2.5.7 3.1-2.9 1.4-1 3-3.2-.3-2.5 2-2.5-2-3.2.3-1-3-2.9-1.4.7-3.1-2-2.5 2-2.5-.7-3.1L7.3 6.5l1-3 3.2.3z" fill="currentColor"/>
-                </g>
-                <g class="demo-gem__check"><circle r="12"/><path d="M-4.5 0l3 3 6-6"/></g>
-                <text class="demo-gem__toast" y="-26">+200 XP</text>
-              </g>
-              <g class="demo-gem" transform="translate(660,100)" data-x="660" data-y="100" data-xp="500">
-                <circle class="demo-gem__zone" r="40"/>
-                <g class="demo-gem__art" style="--step:1">
-                  <path transform="translate(-15.6,-15.6) scale(1.3)" d="M3 8l4.5 4L12 5l4.5 7L21 8l-1.6 10H4.6z" fill="currentColor"/>
-                </g>
-                <g class="demo-gem__check"><circle r="12"/><path d="M-4.5 0l3 3 6-6"/></g>
-                <text class="demo-gem__toast" y="-26">+500 XP · first find</text>
-              </g>
-
-              <!-- the runner: step inside a gem's green zone and it's claimed -->
-              <g class="demo-runner" data-demo-runner transform="translate(100,500)">
-                <circle class="demo-runner__dot" r="9"/>
-              </g>
+              <rect x="150" y="140" width="80" height="60" rx="8" fill="#161b16" stroke="#243024" stroke-width="2"/>
+              <!-- zones -->
+              <circle cx="72" cy="70" r="34" fill="url(#zoneGlow)"/><circle cx="72" cy="70" r="20" fill="none" stroke="#61ff00" stroke-width="2.5"/>
+              <circle cx="210" cy="96" r="30" fill="url(#zoneGlow)"/><circle cx="210" cy="96" r="16" fill="none" stroke="#61ff00" stroke-width="2.5" opacity="0.85"/>
+              <circle cx="120" cy="188" r="36" fill="url(#zoneGlow)"/><circle cx="120" cy="188" r="22" fill="none" stroke="#61ff00" stroke-width="2.5"/>
+              <!-- route -->
+              <path d="M40 220 Q72 150 72 70 Q72 40 120 60 Q170 82 210 96" fill="none" stroke="#4f8fe0" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="1 10"/>
+              <!-- gem markers -->
+              <g transform="translate(72 70)"><path d="M0 -9 L8 0 L0 9 L-8 0 Z" fill="#e0a63a"/></g>
+              <g transform="translate(210 96)"><path d="M0 -8 L7 0 L0 8 L-7 0 Z" fill="#9b6fe0"/></g>
+              <g transform="translate(120 188)"><path d="M0 -9 L8 0 L0 9 L-8 0 Z" fill="#4f8fe0"/></g>
+              <!-- runner puck -->
+              <circle cx="40" cy="220" r="8" fill="#61ff00" stroke="#0b0c0f" stroke-width="2"/>
             </svg>
-
-            <div class="demo-stash" aria-hidden="true">
-              <span class="demo-stash__label">Your stash</span>
-              <b class="demo-stash__slot"></b><b class="demo-stash__slot"></b><b class="demo-stash__slot"></b><b class="demo-stash__slot"></b>
-            </div>
           </div>
-
-          <div class="demo__side">
-            <ol class="demo-steps" data-demo-steps>
-              <li class="demo-step is-active">
-                <span class="demo-step__dot">1</span>
-                <div>
-                  <h3 class="demo-step__title">Spot gems on the map</h3>
-                  <p class="demo-step__body">The system has already stocked the streets around you. Open the map, pick a target, plan a line.</p>
-                </div>
-              </li>
-              <li class="demo-step">
-                <span class="demo-step__dot">2</span>
-                <div>
-                  <h3 class="demo-step__title">Close the distance</h3>
-                  <p class="demo-step__body">Run toward it. The moment you're inside 200 ft your phone pops with haptics — no need to look at the screen.</p>
-                </div>
-              </li>
-              <li class="demo-step">
-                <span class="demo-step__dot">3</span>
-                <div>
-                  <h3 class="demo-step__title">Claim it first</h3>
-                  <p class="demo-step__body">Your GPS track proves you were there and the server settles it: one winner, XP banked, gem gone for everyone else.</p>
-                </div>
-              </li>
-            </ol>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ========================== SCREENS =========================== -->
-    <section class="section" id="screens">
-      <div class="container">
-        <div class="screens__head" data-reveal>
-          <div class="section__head section__head--flush">
-            <p class="kicker">Inside the app</p>
-            <h2 class="section__title">Six screens.<br>Zero clutter.</h2>
+          <div data-reveal>
+            <p class="kicker kicker--on-ink">Zones</p>
+            <h2 class="section__title">Cards live where runners have been.</h2>
             <p class="section__lead">
-              Everything lives in four tabs plus two full-screen moments.
-              Currently iPhone-only (iOS&nbsp;17+) — swipe through what each
-              screen is for.
+              A zone is a patch of the real map that's been activated by a run — yours,
+              or someone else's who came through before you. Active zones are where cards
+              surface, so the more your city runs, the more there is to find.
             </p>
-          </div>
-          <div class="screens__nav">
-            <button class="screens__btn" type="button" data-screens-prev aria-label="Previous screens">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-            <button class="screens__btn" type="button" data-screens-next aria-label="Next screens">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
+            <p class="section__lead" style="margin-top:14px">
+              Reach an active zone on foot and its card is in range. No zone, no card —
+              which means every collection is a map of the ground you've actually covered.
+            </p>
           </div>
         </div>
       </div>
-
-      <div class="screens" data-screens tabindex="0" aria-label="App screens carousel">
-          <article class="screen-card" data-reveal>
-            <div class="mock" data-placeholder="screen-explore" role="img"
-                 aria-label="Drawn mockup of the Explore screen: map with gem pins and route cards">
-              <div class="mock__map">
-                <svg viewBox="0 0 240 250" aria-hidden="true">
-                  <g class="sc-streets"><path d="M60 0 V250 M140 0 V250 M205 0 V250"/><path d="M0 62 H240 M0 132 H240 M0 205 H240"/></g>
-                  <path class="mk-poly" d="M60 205 L60 132 L140 132 L140 62 L205 62"/>
-                </svg>
-                <span class="mk-pin" style="left:25%;top:82%"></span>
-                <span class="mk-pin mk-pin--pulse" style="left:58%;top:53%"></span>
-                <span class="mk-pin" style="left:85%;top:25%"></span>
-              </div>
-              <div class="mock__sheet">
-                <div class="mk-card"><span class="mk-line mk-line--t"></span><span class="mk-line"></span><span class="mk-dots"><i></i><i></i><i class="is-dim"></i></span></div>
-                <div class="mk-card"><span class="mk-line mk-line--t"></span><span class="mk-line"></span><span class="mk-dots"><i></i><i class="is-dim"></i><i class="is-dim"></i></span></div>
-              </div>
-              <div class="mock__tabs" aria-hidden="true"><i class="is-on"></i><i></i><i></i><i></i></div>
-            </div>
-            <h3 class="screen-card__title">Explore</h3>
-            <p class="screen-card__body">The map home. Gems and routes near you, live from the server, with swipeable route cards and the ➕ that starts a new route. Answers "what can I run right now?" in one glance.</p>
-          </article>
-
-          <article class="screen-card" data-reveal data-reveal-delay="1">
-            <div class="mock" data-placeholder="screen-route-detail" role="img"
-                 aria-label="Drawn mockup of the Route Detail screen: map preview, stats and a Start Run button">
-              <div class="mock__map mock__map--half">
-                <svg viewBox="0 0 240 150" aria-hidden="true">
-                  <g class="sc-streets"><path d="M60 0 V150 M140 0 V150 M205 0 V150"/><path d="M0 45 H240 M0 105 H240"/></g>
-                  <path class="mk-poly" d="M30 120 L60 120 L60 45 L140 45 L140 105 L205 105"/>
-                </svg>
-                <span class="mk-zone" aria-hidden="true"></span>
-              </div>
-              <div class="mock__body">
-                <span class="mk-line mk-line--title"></span>
-                <div class="mk-statrow"><i></i><i></i><i></i></div>
-                <span class="mk-line"></span>
-                <span class="mk-line mk-line--s"></span>
-                <div class="mk-gems"><b class="g30"></b><b class="g50"></b><b class="g70"></b><b class="g100"></b></div>
-              </div>
-              <div class="mock__cta">Start Run</div>
-            </div>
-            <h3 class="screen-card__title">Route Detail</h3>
-            <p class="screen-card__body">Everything you need to commit: map preview, distance, elevation, the gem manifest and leaderboard. Rare gems show only a fuzzy zone — finding the exact spot is the game.</p>
-          </article>
-
-          <article class="screen-card" data-reveal data-reveal-delay="2">
-            <div class="mock mock--dark" data-placeholder="screen-active-run" role="img"
-                 aria-label="Drawn mockup of the Active Run screen: dark chase view with live pace">
-              <svg class="mock__trail" viewBox="0 0 240 430" aria-hidden="true">
-                <g class="sc-streets sc-streets--dark"><path d="M60 0 V430 M150 0 V430 M215 0 V430"/><path d="M0 110 H240 M0 230 H240 M0 350 H240"/></g>
-                <path class="mk-trailpath" d="M60 400 L60 230 Q60 220 70 220 L150 220 Q160 220 160 210 L160 110"/>
-                <path class="mk-gemup" d="M215 102 L224 111 L215 120 L206 111 Z"/>
-              </svg>
-              <span class="mk-runner" aria-hidden="true"></span>
-              <div class="mk-bigstat"><b>4:52</b><span>pace /km</span></div>
-              <div class="mk-chip mk-chip--dark">2 of 4 gems · auto-pause on</div>
-            </div>
-            <h3 class="screen-card__title">Active Run</h3>
-            <p class="screen-card__body">A full-screen chase camera pointed where you're headed, breadcrumb trail behind you, next-gem arrow ahead. Built to stay in your pocket — haptics do the talking.</p>
-          </article>
-
-          <article class="screen-card" data-reveal>
-            <div class="mock" data-placeholder="screen-stash" role="img"
-                 aria-label="Drawn mockup of the Stash screen: collected gems and silhouettes to chase">
-              <div class="mock__body mock__body--pad">
-                <span class="mk-line mk-line--title"></span>
-                <div class="mk-grid">
-                  <b class="g30"></b><b class="g50"></b><b class="sil"></b><b class="g70"></b>
-                  <b class="sil"></b><b class="g30"></b><b class="g100 gem-shimmer"></b><b class="sil"></b>
-                  <b class="g50"></b><b class="sil"></b><b class="g70"></b><b class="sil"></b>
-                </div>
-                <div class="mk-chip">Harbor Lights · 3 of 5</div>
-                <div class="mk-chip mk-chip--ghost">Trailblazer · 1 of 5</div>
-              </div>
-              <div class="mock__tabs" aria-hidden="true"><i></i><i class="is-on"></i><i></i><i></i></div>
-            </div>
-            <h3 class="screen-card__title">Stash</h3>
-            <p class="screen-card__body">Every gem you've caught, plus silhouettes of the ones you haven't — sets of five with a badge and bonus XP for completing each. The completionist's tab.</p>
-          </article>
-
-          <article class="screen-card" data-reveal data-reveal-delay="1">
-            <div class="mock" data-placeholder="screen-compete" role="img"
-                 aria-label="Drawn mockup of the Compete screen: leaderboard rows with your row highlighted">
-              <div class="mock__body mock__body--pad">
-                <div class="mk-seg"><i class="is-on"></i><i></i></div>
-                <div class="mk-row"><span class="mk-rank">1</span><span class="mk-ava-s"></span><span class="mk-line"></span><span class="mk-val">24:31</span></div>
-                <div class="mk-row mk-row--you"><span class="mk-rank">2</span><span class="mk-ava-s mk-ava-s--you"></span><span class="mk-line"></span><span class="mk-val">25:04</span></div>
-                <div class="mk-row"><span class="mk-rank">3</span><span class="mk-ava-s"></span><span class="mk-line"></span><span class="mk-val">26:02</span></div>
-                <div class="mk-row"><span class="mk-rank">4</span><span class="mk-ava-s"></span><span class="mk-line"></span><span class="mk-val">27:48</span></div>
-                <div class="mk-chip">Streak ×1.4 · 11 days</div>
-              </div>
-              <div class="mock__tabs" aria-hidden="true"><i></i><i></i><i class="is-on"></i><i></i></div>
-            </div>
-            <h3 class="screen-card__title">Compete</h3>
-            <p class="screen-card__body">Route leaderboards, your streak and its multiplier, and the weekly head-to-head against people you follow — gems, distance, calories, best times.</p>
-          </article>
-
-          <article class="screen-card" data-reveal data-reveal-delay="2">
-            <div class="mock" data-placeholder="screen-profile" role="img"
-                 aria-label="Drawn mockup of the Profile screen: totals, level and gem wallet">
-              <div class="mock__body mock__body--pad mock__body--center">
-                <span class="mk-ava">M</span>
-                <span class="mk-line mk-line--title mk-line--c"></span>
-                <div class="mk-statrow mk-statrow--2"><i></i><i></i></div>
-                <div class="mk-wallet"><b class="g50"></b><b class="g70"></b><b class="g100"></b></div>
-                <div class="mk-chip">Wallet · 3 droppable</div>
-                <span class="mk-pillbtn"></span>
-              </div>
-              <div class="mock__tabs" aria-hidden="true"><i></i><i></i><i></i><i class="is-on"></i></div>
-            </div>
-            <h3 class="screen-card__title">Profile</h3>
-            <p class="screen-card__body">Your lifetime kilometers, calories, level and wallet, the routes you've published and how they're doing. Your running life, one screen.</p>
-          </article>
-      </div>
     </section>
 
-    <!-- ========================= FEATURE ROWS ======================= -->
-    <section class="section section--tint" id="features">
+
+    <!-- ========================= CARD TYPES ========================= -->
+    <section class="section" id="cards">
       <div class="container">
-        <div class="section__head" data-reveal>
-          <p class="kicker">Features</p>
-          <h2 class="section__title">Built for the hunt.</h2>
+        <div class="section__head section__head--center" data-reveal>
+          <p class="kicker">Three kinds of find</p>
+          <h2 class="section__title">Gems. Artifacts. Facts.</h2>
+          <p class="section__lead">Every card is one of three. Tilt one — the good ones shimmer.</p>
         </div>
 
-        <div class="feature">
-          <div class="feature__copy" data-reveal>
-            <p class="kicker">The living map</p>
-            <h3 class="feature__title">The map is never empty.</h3>
-            <p class="feature__body">
-              Gems don't depend on other players. Every map open triggers the
-              backend to stock that area — on popular routes first, otherwise
-              directly on streets OpenStreetMap says you can actually walk.
-              No gems on highways. No gems on private land. A city nobody has
-              opened yet fills up the moment you arrive.
-            </p>
-            <ul class="feature__list">
-              <li>System-stocked on every map open</li>
-              <li>Walkability checked against OpenStreetMap</li>
-              <li>Auto-refreshes as you move</li>
-            </ul>
+        <div class="gallery">
+          <!-- GEM -->
+          <div class="gallery__item" data-reveal>
+            <article class="card card--gem card--interactive" data-card aria-label="Gem card: Harbor Sapphire, Legendary, 240 XP">
+              <div class="card__inner">
+                <div class="card__top">
+                  <span class="card__rarity"><i class="card__pip" aria-hidden="true"></i>Legendary</span>
+                  <span class="card__value">240<span>XP</span></span>
+                </div>
+                <div class="card__art">
+                  <svg viewBox="0 0 300 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                    <rect width="300" height="240" fill="url(#gemBg)"/>
+                    <circle cx="150" cy="118" r="76" fill="#61ff00" opacity="0.10"/>
+                    <g transform="translate(150 112)" stroke-linejoin="round">
+                      <polygon points="-34,-26 34,-26 52,0 0,58 -52,0" fill="url(#gemBody)"/>
+                      <polygon points="-34,-26 34,-26 18,0 -18,0" fill="url(#gemTop)"/>
+                      <polygon points="-34,-26 -18,0 -52,0" fill="#8ecbff"/>
+                      <polygon points="34,-26 52,0 18,0" fill="#5090ee"/>
+                      <polygon points="-18,0 18,0 0,58" fill="#2f5bd0"/>
+                    </g>
+                    <path d="M92 52 l2.5 6 6 2.5 -6 2.5 -2.5 6 -2.5 -6 -6 -2.5 6 -2.5 z" fill="#ffffff" opacity="0.9"/>
+                  </svg>
+                </div>
+                <div class="card__caption">
+                  <h3 class="card__name">Harbor Sapphire</h3>
+                  <p class="card__sub">Gem · Harbor Loop zone</p>
+                </div>
+                <div class="card__foot"><span>1 in 900 runs</span><span class="card__set">142 / 500</span></div>
+              </div>
+              <div class="card__sheen" aria-hidden="true"></div>
+            </article>
+            <div class="gallery__cap"><h3>Gem<span class="tag" style="background:var(--r-legendary)">valuable</span></h3><p>Cut stones with a collection value. The chase cards — hunted, traded, ranked.</p></div>
           </div>
-          <div class="feature__media" data-reveal data-reveal-delay="1">
-            <div class="scene" data-placeholder="feature-living-map" role="img"
-                 aria-label="Animated scene: gems populate across a street map around your location">
-              <svg viewBox="0 0 520 360" aria-hidden="true">
-                <g class="sc-streets">
-                  <path d="M60 10 V350 M150 10 V350 M250 10 V350 M350 10 V350 M450 10 V350"/>
-                  <path d="M10 70 H510 M10 150 H510 M10 230 H510 M10 310 H510"/>
-                </g>
-                <g class="sc-puck" transform="translate(150,230)">
-                  <circle class="sc-puck__ring sc-puck__ring--a" r="10"/>
-                  <circle class="sc-puck__ring sc-puck__ring--b" r="10"/>
-                  <circle class="sc-puck__dot" r="9"/>
-                </g>
-                <g transform="translate(250,70)"><g class="sc-spawn" style="--i:0"><path class="gem-tq" d="M0 -10 L9 0 L0 10 L-9 0 Z"/></g></g>
-                <g transform="translate(350,150)"><g class="sc-spawn" style="--i:1"><path class="gem-te" d="M0 -10 L9 0 L0 10 L-9 0 Z"/></g></g>
-                <g transform="translate(60,150)"><g class="sc-spawn" style="--i:2"><path class="gem-tq" d="M0 -10 L9 0 L0 10 L-9 0 Z"/></g></g>
-                <g transform="translate(450,70)"><g class="sc-spawn" style="--i:3"><path class="gem-ts" d="M0 -10 L9 0 L0 10 L-9 0 Z"/></g></g>
-                <g transform="translate(150,310)"><g class="sc-spawn" style="--i:4"><path class="gem-te" d="M0 -10 L9 0 L0 10 L-9 0 Z"/></g></g>
-                <g transform="translate(450,310)"><g class="sc-spawn" style="--i:5"><path class="gem-ta" d="M0 -10 L9 0 L0 10 L-9 0 Z"/></g></g>
-                <g transform="translate(350,230)"><g class="sc-spawn" style="--i:6">
-                  <circle class="app-ember__glow" r="13"/>
-                  <path class="app-ember__flame" d="M0 -8.5 C5 -3.5 7 2 0 12 C-7 2 -5 -3.5 0 -8.5 Z"/>
-                </g></g>
-              </svg>
-            </div>
-          </div>
-        </div>
 
-        <div class="feature feature--flip">
-          <div class="feature__copy" data-reveal>
-            <p class="kicker">Active run</p>
-            <h3 class="feature__title">Heads-up. Phone in pocket.</h3>
-            <p class="feature__body">
-              The run screen is a chase camera: tilted to your live direction
-              of travel with a breadcrumb trail behind you. But you don't need
-              it — gems pop with haptics as you pass, a bearing chip points to
-              the next one, auto-pause handles the traffic lights, and a
-              crash-safe buffer means a dead battery never eats your run.
-            </p>
-            <ul class="feature__list">
-              <li>Haptic pop at 200 ft — rarity-scaled patterns</li>
-              <li>Next-gem chip with bearing arrow</li>
-              <li>Per-km splits and a shareable run card</li>
-            </ul>
+          <!-- ARTIFACT -->
+          <div class="gallery__item" data-reveal data-reveal-delay="1">
+            <article class="card card--artifact card--interactive" data-card aria-label="Artifact card: The Unmarked Obelisk, Epic, 160 XP">
+              <div class="card__inner">
+                <div class="card__top">
+                  <span class="card__rarity"><i class="card__pip" aria-hidden="true"></i>Epic</span>
+                  <span class="card__value">160<span>XP</span></span>
+                </div>
+                <div class="card__art">
+                  <svg viewBox="0 0 300 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="artBg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#262031"/><stop offset="1" stop-color="#3c3350"/></linearGradient>
+                      <linearGradient id="artStone" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#cbb8ee"/><stop offset="0.5" stop-color="#a586dd"/><stop offset="1" stop-color="#7e5cc0"/></linearGradient>
+                    </defs>
+                    <rect width="300" height="240" fill="url(#artBg)"/>
+                    <circle cx="150" cy="112" r="72" fill="#b06bff" opacity="0.12"/>
+                    <g transform="translate(150 118)">
+                      <polygon points="-15,62 15,62 10,-46 -10,-46" fill="url(#artStone)"/>
+                      <polygon points="-10,-46 10,-46 0,-66" fill="#d8c8f4"/>
+                      <ellipse cx="0" cy="10" rx="52" ry="16" fill="none" stroke="#c9b2f0" stroke-width="2" opacity="0.65"/>
+                      <circle cx="52" cy="10" r="3.4" fill="#e0a63a"/>
+                    </g>
+                    <circle cx="92" cy="54" r="2" fill="#ffffff" opacity="0.7"/>
+                    <circle cx="222" cy="70" r="1.6" fill="#ffffff" opacity="0.55"/>
+                  </svg>
+                </div>
+                <div class="card__caption">
+                  <h3 class="card__name">The Unmarked Obelisk</h3>
+                  <p class="card__sub">Artifact · first find, one copy</p>
+                </div>
+                <div class="card__foot"><span>known copies: 1</span><span class="card__set">071 / 500</span></div>
+              </div>
+              <div class="card__sheen" aria-hidden="true"></div>
+            </article>
+            <div class="gallery__cap"><h3>Artifact<span class="tag" style="background:var(--r-epic)">unseen</span></h3><p>Discoveries never catalogued before. Find one first and your name is on it — forever.</p></div>
           </div>
-          <div class="feature__media" data-reveal data-reveal-delay="1">
-            <div class="scene scene--dark" data-placeholder="feature-active-run" role="img"
-                 aria-label="Animated scene: a runner's breadcrumb trail draws toward a pulsing gem">
-              <svg viewBox="0 0 520 360" aria-hidden="true">
-                <g class="sc-streets sc-streets--dark">
-                  <path d="M80 10 V350 M190 10 V350 M310 10 V350 M430 10 V350"/>
-                  <path d="M10 80 H510 M10 180 H510 M10 280 H510"/>
-                </g>
-                <path class="sc-trail" pathLength="1"
-                      d="M80 320 L80 190 Q80 180 90 180 L180 180 Q190 180 190 170 L190 90 Q190 80 200 80 L360 80"/>
-                <g class="sc-target" transform="translate(430,80)">
-                  <circle class="sc-target__ring sc-target__ring--a" r="12"/>
-                  <circle class="sc-target__ring sc-target__ring--b" r="12"/>
-                  <path class="sc-target__gem" d="M0 -11 L10 0 L0 11 L-10 0 Z"/>
-                </g>
-                <circle class="sc-chaser" r="8"/>
-              </svg>
-              <div class="scene__chip scene__chip--dark">Pace 4:52 /km</div>
-              <div class="scene__chip scene__chip--dark scene__chip--tr">Next gem · 320 ft ↗</div>
-            </div>
-          </div>
-        </div>
 
-        <div class="feature">
-          <div class="feature__copy" data-reveal>
-            <p class="kicker">Route creation</p>
-            <h3 class="feature__title">Every runner is a level designer.</h3>
-            <p class="feature__body">
-              Tap waypoints and the path snaps to real walking routes — roads,
-              trails, paths, never through buildings. Then place gems like
-              level design: a budget of slots and rarity points scales with
-              distance, Epics demand a genuinely hard hill, and minimum
-              spacing stops cluster-grazing. Publish, and it's live on nearby
-              maps immediately.
-            </p>
-            <ul class="feature__list">
-              <li>Paths snapped to real streets at creation</li>
-              <li>Slot + rarity-point budget per route</li>
-              <li>Run counts and a leaderboard on your route</li>
-            </ul>
-          </div>
-          <div class="feature__media" data-reveal data-reveal-delay="1">
-            <div class="scene" data-placeholder="feature-route-editor" role="img"
-                 aria-label="Animated scene: tapped waypoints snap into a route and a gem is placed">
-              <svg viewBox="0 0 520 360" aria-hidden="true">
-                <g class="sc-streets">
-                  <path d="M80 10 V350 M200 10 V350 M320 10 V350 M440 10 V350"/>
-                  <path d="M10 90 H510 M10 180 H510 M10 290 H510"/>
-                </g>
-                <path class="sc-seg sc-seg--1" pathLength="1" d="M80 290 L80 190 Q80 180 90 180 L200 180"/>
-                <path class="sc-seg sc-seg--2" pathLength="1" d="M200 180 L310 180 Q320 180 320 170 L320 90"/>
-                <path class="sc-seg sc-seg--3" pathLength="1" d="M320 90 L430 90 Q440 90 440 100 L440 180"/>
-                <g class="sc-wp sc-wp--1" transform="translate(80,290)"><circle class="sc-wp__ripple" r="10"/><circle class="sc-wp__dot" r="7"/></g>
-                <g class="sc-wp sc-wp--2" transform="translate(200,180)"><circle class="sc-wp__ripple" r="10"/><circle class="sc-wp__dot" r="7"/></g>
-                <g class="sc-wp sc-wp--3" transform="translate(320,90)"><circle class="sc-wp__ripple" r="10"/><circle class="sc-wp__dot" r="7"/></g>
-                <g class="sc-wp sc-wp--4" transform="translate(440,180)"><circle class="sc-wp__ripple" r="10"/><circle class="sc-wp__dot" r="7"/></g>
-                <g class="sc-drop" transform="translate(320,90)"><path d="M0 -10 L9 0 L0 10 L-9 0 Z"/></g>
-              </svg>
-              <div class="scene__chip">Draw · snaps to real streets</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="feature feature--flip">
-          <div class="feature__copy" data-reveal>
-            <p class="kicker">Fair play</p>
-            <h3 class="feature__title">You can't fake your way to a gem.</h3>
-            <p class="feature__body">
-              People will try to spoof GPS to farm gems — we planned for it.
-              After every run the server replays your entire track: pace
-              bounds, teleport detection, route adherence. Fixes worse than
-              50&nbsp;m of accuracy can't prove presence. Claims settle under a
-              database lock so ties have exactly one winner, and every attempt
-              — winners and losers — lands in an audit log.
-            </p>
-            <ul class="feature__list">
-              <li>Full-track replay after every run</li>
-              <li>One winner per gem, settled atomically</li>
-              <li>Every claim attempt audited</li>
-            </ul>
-          </div>
-          <div class="feature__media" data-reveal data-reveal-delay="1">
-            <div class="scene" data-placeholder="feature-fair-play" role="img"
-                 aria-label="Animated scene: a GPS track is replayed and verified while a teleport attempt is rejected">
-              <svg viewBox="0 0 520 360" aria-hidden="true">
-                <g class="sc-streets">
-                  <path d="M90 10 V350 M230 10 V350 M370 10 V350"/>
-                  <path d="M10 100 H510 M10 200 H510 M10 300 H510"/>
-                </g>
-                <path class="sc-replay" pathLength="1"
-                      d="M90 300 L90 210 Q90 200 100 200 L220 200 Q230 200 230 190 L230 100 L370 100"/>
-                <path class="sc-cheat" pathLength="1" d="M230 100 L460 300"/>
-                <g class="sc-check sc-check--1" transform="translate(90,255)"><circle r="11"/><path d="M-4 0l3 3 5.5-6"/></g>
-                <g class="sc-check sc-check--2" transform="translate(180,200)"><circle r="11"/><path d="M-4 0l3 3 5.5-6"/></g>
-                <g class="sc-check sc-check--3" transform="translate(300,100)"><circle r="11"/><path d="M-4 0l3 3 5.5-6"/></g>
-                <g class="sc-reject" transform="translate(460,300)"><circle r="12"/><path d="M-4.5 -4.5 L4.5 4.5 M4.5 -4.5 L-4.5 4.5"/></g>
-                <g class="sc-seal" transform="translate(430,180)">
-                  <circle r="26"/>
-                  <path d="M0 -12 l8 3.5 v6 c0 6 -3.6 10 -8 12 c-4.4 -2 -8 -6 -8 -12 v-6 z" fill="none"/>
-                  <path d="M-3.4 0.6 l2.6 2.6 4.6 -5.4"/>
-                </g>
-              </svg>
-              <div class="scene__chip">Server replay · pace &amp; teleport checks</div>
-            </div>
+          <!-- FACT -->
+          <div class="gallery__item" data-reveal data-reveal-delay="2">
+            <article class="card card--fact card--interactive" data-card aria-label="Fact card: Runner's High, Rare, 60 XP">
+              <div class="card__inner">
+                <div class="card__top">
+                  <span class="card__rarity"><i class="card__pip" aria-hidden="true"></i>Rare</span>
+                  <span class="card__value">60<span>XP</span></span>
+                </div>
+                <div class="card__art">
+                  <svg viewBox="0 0 300 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="factBg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1d2a26"/><stop offset="1" stop-color="#2b4038"/></linearGradient>
+                    </defs>
+                    <rect width="300" height="240" fill="url(#factBg)"/>
+                    <circle cx="150" cy="120" r="72" fill="#61ff00" opacity="0.10"/>
+                    <!-- simple constellation spark -->
+                    <g fill="none" stroke="#8fe8b0" stroke-width="1.6" opacity="0.8">
+                      <path d="M78 84 L126 108 L170 76 L216 100"/>
+                      <path d="M126 108 L140 152"/>
+                    </g>
+                    <g fill="#eafff0">
+                      <circle cx="78" cy="84" r="3"/><circle cx="126" cy="108" r="3.6"/><circle cx="170" cy="76" r="2.8"/><circle cx="216" cy="100" r="3.2"/><circle cx="140" cy="152" r="2.8"/>
+                    </g>
+                    <path d="M150 118 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4 z" fill="#c9ffd6" opacity="0.95"/>
+                  </svg>
+                </div>
+                <div class="card__caption">
+                  <h3 class="card__name">Runner's High</h3>
+                  <p class="card__sub">Fact · Body &amp; Mind set</p>
+                </div>
+                <div class="card__foot"><span>set 4 of 12</span><span class="card__set">308 / 500</span></div>
+              </div>
+              <div class="card__sheen" aria-hidden="true"></div>
+            </article>
+            <div class="gallery__cap"><h3>Fact<span class="tag" style="background:var(--r-rare)">knowledge</span></h3><p>Real facts about your body, your city and the run. Collect sets to complete decks.</p></div>
           </div>
         </div>
       </div>
     </section>
+
 
     <!-- =========================== RARITY =========================== -->
     <section class="section section--ink" id="rarity">
       <div class="container">
         <div class="section__head" data-reveal>
-          <p class="kicker kicker--on-ink">The gems</p>
-          <h2 class="section__title">Five stones.<br>No mercy.</h2>
-          <p class="section__lead section__lead--on-ink">
-            Every tier is its own stone — its own color, its own cut, its own
-            rules. The rare ones stay hidden until you reveal them, just
-            like the stash. Tap a tier to uncover its stone, its XP and
-            its rules.
-          </p>
+          <p class="kicker kicker--on-ink">Rarity</p>
+          <h2 class="section__title">Five tiers.<br>The rare ones make you run further.</h2>
+          <p class="section__lead">Every card carries a tier. Commons keep the streak alive; legendaries surface once in a blue moon and only in the toughest zones.</p>
         </div>
-
-        <div class="rarity" data-rarity>
-          <div class="rarity__tiers" role="tablist" aria-label="Gem rarity tiers">
-            <button class="tier is-active" role="tab" aria-selected="true" id="tier-tab-0" aria-controls="tier-panel" data-tier="0" type="button">
-              <span class="tier__stone" aria-hidden="true">
-                <svg viewBox="0 0 64 64">
-                  <defs>
-                    <linearGradient id="gem-q" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#dfe8ee"/><stop offset="1" stop-color="#a9bac6"/>
-                    </linearGradient>
-                  </defs>
-                  <path d="M32 5 L45 24 L40 57 L24 57 L19 24 Z" fill="url(#gem-q)" stroke="rgba(22,24,29,.4)" stroke-width="1.2"/>
-                  <path d="M32 5 L38 24 L35 57 L29 57 L26 24 Z" fill="#ffffff" opacity=".6"/>
-                  <path d="M45 24 L40 57 L35 57 L38 24 Z" fill="#8fa4b2" opacity=".55"/>
-                  <path d="M19 24 L45 24 L32 31 Z" fill="#cfdae2" opacity=".75"/>
-                  <path d="M46 12 l1.7 3.4 3.4 1.7 -3.4 1.7 -1.7 3.4 -1.7 -3.4 -3.4 -1.7 3.4 -1.7 z" fill="#ffffff" opacity=".9"/>
-                </svg>
-              </span>
-              <span class="tier__name">Quartz</span>
-              <span class="tier__grade">Common</span>
-              <span class="tier__xp">+10 XP</span>
-            </button>
-            <button class="tier" role="tab" aria-selected="false" id="tier-tab-1" aria-controls="tier-panel" data-tier="1" type="button">
-              <span class="tier__stone" aria-hidden="true">
-                <svg viewBox="0 0 64 64">
-                  <defs>
-                    <linearGradient id="gem-e" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0" stop-color="#7be3a8"/><stop offset=".5" stop-color="#1fa55a"/><stop offset="1" stop-color="#0b6b37"/>
-                    </linearGradient>
-                  </defs>
-                  <path d="M19 10 H45 L55 20 V44 L45 54 H19 L9 44 V20 Z" fill="url(#gem-e)" stroke="rgba(8,60,32,.55)" stroke-width="1.2"/>
-                  <path d="M23 16 H41 L49 23 V41 L41 48 H23 L15 41 V23 Z" fill="none" stroke="#d9ffe9" stroke-width="1.4" opacity=".5"/>
-                  <rect x="24" y="24" width="16" height="16" fill="#39c478" opacity=".85"/>
-                  <path d="M19 10 L9 20 L15 23 L23 16 Z" fill="#ffffff" opacity=".38"/>
-                  <path d="M45 54 L55 44 L49 41 L41 48 Z" fill="#07482a" opacity=".6"/>
-                  <path d="M48 13 l1.5 3 3 1.5 -3 1.5 -1.5 3 -1.5 -3 -3 -1.5 3 -1.5 z" fill="#ffffff" opacity=".85"/>
-                </svg>
-              </span>
-              <span class="tier__name">Emerald</span>
-              <span class="tier__grade">Uncommon</span>
-              <span class="tier__xp">+25 XP</span>
-            </button>
-            <button class="tier tier--secret" role="tab" aria-selected="false" id="tier-tab-2" aria-controls="tier-panel" data-tier="2" type="button">
-              <span class="tier__stone" aria-hidden="true">
-                <span class="tier__mystery">?</span>
-                <svg viewBox="0 0 64 64">
-                  <defs>
-                    <radialGradient id="gem-s" cx=".35" cy=".3" r=".9">
-                      <stop offset="0" stop-color="#8fb0ff"/><stop offset=".55" stop-color="#2456e6"/><stop offset="1" stop-color="#122c8a"/>
-                    </radialGradient>
-                  </defs>
-                  <circle cx="32" cy="32" r="24" fill="url(#gem-s)" stroke="rgba(10,22,70,.55)" stroke-width="1.2"/>
-                  <path d="M32 8 L40 24 L56 32 L40 40 L32 56 L24 40 L8 32 L24 24 Z" fill="#ffffff" opacity=".16"/>
-                  <path d="M32 17 L42 32 L32 47 L22 32 Z" fill="#4a78f2" opacity=".85" stroke="#bfd2ff" stroke-width="1" stroke-opacity=".45"/>
-                  <path d="M20 18 a18 18 0 0 1 12 -6 l0 6 a12 12 0 0 0 -8 4 z" fill="#ffffff" opacity=".4"/>
-                  <path d="M45 14 l1.5 3 3 1.5 -3 1.5 -1.5 3 -1.5 -3 -3 -1.5 3 -1.5 z" fill="#ffffff" opacity=".85"/>
-                </svg>
-              </span>
-              <span class="tier__name">Sapphire</span>
-              <span class="tier__grade">Rare</span>
-              <span class="tier__xp">+75 XP</span>
-            </button>
-            <button class="tier tier--secret" role="tab" aria-selected="false" id="tier-tab-3" aria-controls="tier-panel" data-tier="3" type="button">
-              <span class="tier__stone" aria-hidden="true">
-                <span class="tier__mystery">?</span>
-                <svg viewBox="0 0 64 64">
-                  <defs>
-                    <linearGradient id="gem-a" x1="0" y1="0" x2=".8" y2="1">
-                      <stop offset="0" stop-color="#c29aff"/><stop offset=".55" stop-color="#8a3ffc"/><stop offset="1" stop-color="#49209b"/>
-                    </linearGradient>
-                  </defs>
-                  <path d="M32 7 L55 43 Q57 49 51 51 L13 51 Q7 49 9 43 Z" fill="url(#gem-a)" stroke="rgba(40,16,88,.55)" stroke-width="1.2"/>
-                  <path d="M32 14 L45 44 L19 44 Z" fill="#a669ff" opacity=".85"/>
-                  <path d="M32 7 L9 43 L19 44 L32 14 Z" fill="#ffffff" opacity=".3"/>
-                  <path d="M32 14 L45 44 L51 51 L55 43 Z" fill="#3b1580" opacity=".55"/>
-                  <path d="M42 12 l1.5 3 3 1.5 -3 1.5 -1.5 3 -1.5 -3 -3 -1.5 3 -1.5 z" fill="#ffffff" opacity=".85"/>
-                </svg>
-              </span>
-              <span class="tier__name">Amethyst</span>
-              <span class="tier__grade">Epic</span>
-              <span class="tier__xp">+200 XP</span>
-            </button>
-            <button class="tier tier--secret" role="tab" aria-selected="false" id="tier-tab-4" aria-controls="tier-panel" data-tier="4" type="button">
-              <span class="tier__stone" aria-hidden="true">
-                <span class="tier__mystery">?</span>
-                <svg viewBox="0 0 64 64">
-                  <defs>
-                    <radialGradient id="gem-m" cx=".5" cy=".42" r=".75">
-                      <stop offset="0" stop-color="#ffd36b"/><stop offset=".5" stop-color="#ff7a1a"/><stop offset="1" stop-color="#e8230f"/>
-                    </radialGradient>
-                    <radialGradient id="gem-mg" cx=".5" cy=".5" r=".5">
-                      <stop offset="0" stop-color="rgba(255,122,26,.5)"/><stop offset="1" stop-color="rgba(255,122,26,0)"/>
-                    </radialGradient>
-                  </defs>
-                  <circle cx="32" cy="32" r="30" fill="url(#gem-mg)"/>
-                  <path d="M32 6 C44 17 50 30 32 58 C14 30 20 17 32 6 Z" fill="url(#gem-m)" stroke="rgba(120,20,0,.5)" stroke-width="1.2"/>
-                  <path d="M32 16 C39 24 41 32 32 48 C23 32 25 24 32 16 Z" fill="#ffe9a8" opacity=".75"/>
-                  <path d="M32 26 C36 31 36 36 32 44 C28 36 28 31 32 26 Z" fill="#ff9d3d" opacity=".9"/>
-                  <path d="M44 10 l1.5 3 3 1.5 -3 1.5 -1.5 3 -1.5 -3 -3 -1.5 3 -1.5 z" fill="#ffffff" opacity=".9"/>
-                </svg>
-              </span>
-              <span class="tier__name">Ember</span>
-              <span class="tier__grade">Legendary</span>
-              <span class="tier__xp">+500 XP</span>
-            </button>
-          </div>
-
-          <div class="rarity__panel" id="tier-panel" role="tabpanel" aria-live="polite" data-tier-panel>
-            <div class="rarity__row">
-              <span class="rarity__stat"><strong data-tier-xp>10</strong> XP</span>
-              <span class="rarity__stat" data-tier-respawn>Respawns daily, per runner</span>
-            </div>
-            <p class="rarity__rule" data-tier-rule>
-              The bread and butter of every route — placeable anywhere, worth
-              re-running for daily.
-            </p>
-          </div>
+        <div class="rarity">
+          <article class="rarity__tier rarity__t--common" data-reveal>
+            <div class="rarity__chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="7"/></svg></div>
+            <h3 class="rarity__name">Common</h3><p class="rarity__odds">~ 6 in 10</p>
+            <p class="rarity__desc">The everyday find. Keeps your streak and your deck growing.</p>
+          </article>
+          <article class="rarity__tier rarity__t--uncommon" data-reveal data-reveal-delay="1">
+            <div class="rarity__chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 L20 12 L12 21 L4 12 Z"/></svg></div>
+            <h3 class="rarity__name">Uncommon</h3><p class="rarity__odds">~ 1 in 4</p>
+            <p class="rarity__desc">A little further out. Worth the extra half-mile.</p>
+          </article>
+          <article class="rarity__tier rarity__t--rare" data-reveal data-reveal-delay="2">
+            <div class="rarity__chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L15 9 L22 9 L16 14 L18 21 L12 17 L6 21 L8 14 L2 9 L9 9 Z"/></svg></div>
+            <h3 class="rarity__name">Rare</h3><p class="rarity__odds">~ 1 in 12</p>
+            <p class="rarity__desc">Most fact cards and the sharper gems live here.</p>
+          </article>
+          <article class="rarity__tier rarity__t--epic" data-reveal data-reveal-delay="3">
+            <div class="rarity__chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 9 L12 3 L20 9 L17 20 L7 20 Z" stroke-linejoin="round"/></svg></div>
+            <h3 class="rarity__name">Epic</h3><p class="rarity__odds">~ 1 in 60</p>
+            <p class="rarity__desc">Artifacts surface here — first finder gets the credit.</p>
+          </article>
+          <article class="rarity__tier rarity__t--legendary" data-reveal data-reveal-delay="4">
+            <div class="rarity__chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 19 L3 8 L8 12 L12 4 L16 12 L21 8 L19 19 Z"/></svg></div>
+            <h3 class="rarity__name">Legendary</h3><p class="rarity__odds">~ 1 in 900</p>
+            <p class="rarity__desc">The holo chase cards. Toughest zones, longest runs, brightest shimmer.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- ====================== TRACK EVERYTHING ====================== -->
-    <section class="section section--tint" id="track">
+
+    <!-- ========================= FITNESS TRACK ========================= -->
+    <section class="section" id="track">
       <div class="container">
-        <div class="section__head" data-reveal>
-          <p class="kicker">Track everything</p>
-          <h2 class="section__title">Every mile counted.<br>Every calorie banked.</h2>
-          <p class="section__lead">
-            Under the game, GemRun is a full running tracker. Every run
-            records your distance, time, per-km splits, pace, elevation gain
-            and estimated calorie burn — synced with Apple Health — and those
-            same miles feed the game: streak multipliers, XP, and gem mints.
-          </p>
-        </div>
-
-        <div class="tile-grid">
-          <div class="tile" data-reveal>
-            <div class="tile__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 22c-4 0-6.5-2.7-6.5-6.2 0-2.6 1.5-4.5 2.8-6 .5-.6 1.5-.2 1.5.6 0 .9.6 1.4 1.2 1.2C12.4 11.2 10 6.5 13 2c.4 2.8 1.7 4 3.1 5.6 1.4 1.6 2.4 3.6 2.4 6.2 0 4.4-2.5 8.2-6.5 8.2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
-            </div>
-            <h3 class="tile__title">Calories burned</h3>
-            <p class="tile__body">Estimated from your pace, the grade, and your Apple Health profile — logged on every run.</p>
+        <div class="track__grid">
+          <div class="rings" data-reveal>
+            <svg viewBox="0 0 240 240" aria-label="Activity rings: distance, cards found and streak">
+              <g transform="rotate(-90 120 120)" fill="none" stroke-linecap="round" stroke-width="18">
+                <circle cx="120" cy="120" r="100" stroke="var(--ink-08)"/>
+                <circle cx="120" cy="120" r="100" stroke="#61ff00" stroke-dasharray="490 640"/>
+                <circle cx="120" cy="120" r="76" stroke="var(--ink-08)"/>
+                <circle cx="120" cy="120" r="76" stroke="#4f8fe0" stroke-dasharray="300 478"/>
+                <circle cx="120" cy="120" r="52" stroke="var(--ink-08)"/>
+                <circle cx="120" cy="120" r="52" stroke="#9b6fe0" stroke-dasharray="295 327"/>
+              </g>
+              <g text-anchor="middle" font-family="var(--font-display)">
+                <text x="120" y="114" font-size="34" font-weight="800" fill="var(--ink)">5.0</text>
+                <text x="120" y="134" font-size="13" font-weight="700" fill="var(--ink-55)">KM TODAY</text>
+              </g>
+            </svg>
           </div>
-          <div class="tile" data-reveal data-reveal-delay="1">
-            <div class="tile__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M5 20v-2a4 4 0 0 1 4-4h6a4 4 0 0 0 4-4V4M5 20l-2-2m2 2 2-2M19 4l-2 2m2-2 2 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div data-reveal>
+            <p class="kicker">Track</p>
+            <h2 class="section__title">A real fitness tracker, wrapped around a hunt.</h2>
+            <p class="section__lead" style="margin-bottom:26px">Every run is measured like it should be. The cards are the reason to lace up — the fitness is what you keep either way.</p>
+            <div class="tiles">
+              <div class="tile"><div class="tile__label">Distance</div><div class="tile__num">5.0<small>km</small></div></div>
+              <div class="tile tile--volt"><div class="tile__label">Cards found</div><div class="tile__num">3</div></div>
+              <div class="tile"><div class="tile__label">Avg pace</div><div class="tile__num">5:24<small>/km</small></div></div>
+              <div class="tile"><div class="tile__label">Day streak</div><div class="tile__num">12</div></div>
             </div>
-            <h3 class="tile__title">Distance &amp; splits</h3>
-            <p class="tile__body">Per-km splits on every run; lifetime kilometers mint wallet gems at each tier threshold.</p>
-          </div>
-          <div class="tile" data-reveal data-reveal-delay="2">
-            <div class="tile__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 20a8 8 0 1 1 8-8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 12l5-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></svg>
-            </div>
-            <h3 class="tile__title">Live pace</h3>
-            <p class="tile__body">Current and average pace with auto-pause at the lights — and pace-sanity checks keep claims honest.</p>
-          </div>
-          <div class="tile" data-reveal>
-            <div class="tile__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M3 19L9 8l4 6 3-4 5 9z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
-            </div>
-            <h3 class="tile__title">Elevation gain</h3>
-            <p class="tile__body">Climb counts double: it shapes your calorie burn, and Epic gems only live on hard ground.</p>
-          </div>
-          <div class="tile" data-reveal data-reveal-delay="1">
-            <div class="tile__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M13 2 L6 13h5l-1 9 8-12h-5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
-            </div>
-            <h3 class="tile__title">Streak multiplier</h3>
-            <p class="tile__body">Daily gems keep the chain alive; the longer the streak, the bigger the XP multiplier on every find.</p>
-          </div>
-          <div class="tile" data-reveal data-reveal-delay="2">
-            <div class="tile__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.2 6.4.5-4.9 4.3 1.5 6.5L12 16l-5.6 3.5 1.5-6.5L3 8.7l6.4-.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
-            </div>
-            <h3 class="tile__title">XP &amp; levels</h3>
-            <p class="tile__body">Every gem pays XP toward your level — pure bragging rights on the boards, never a paywall.</p>
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- ========================== PRIVACY =========================== -->
-    <section class="section" id="privacy">
-      <div class="container privacy">
-        <div class="privacy__intro" data-reveal>
-          <p class="kicker">Privacy</p>
-          <h2 class="section__title">Your data lives<br>on your iPhone.</h2>
-          <p class="section__lead">
-            GemRun is built local-first. Your iPhone is the system of record
-            for your running data; our servers receive only the minimum
-            required to maintain one fair, shared world. We don't serve ads,
-            and we never sell your data to third parties.
-          </p>
-          <p class="privacy__platform">iPhone only, for now · iOS 17 and later</p>
-        </div>
 
-        <ul class="privacy__list">
-          <li class="privacy__row" data-reveal>
-            <span class="privacy__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 18.5h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            </span>
-            <div>
-              <h3 class="privacy__title">Stored on your device first</h3>
-              <p class="privacy__body">Your runs, routes, collected gems, and settings are kept in an on-device database on your iPhone. If you lose signal mid-run, nothing is lost: the run is buffered locally and crash-safe, then reconciles when you're back online.</p>
-            </div>
-          </li>
-          <li class="privacy__row" data-reveal>
-            <span class="privacy__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-9.6C5 7.6 7 6 9.2 6c1.3 0 2.3.6 2.8 1.5C12.5 6.6 13.5 6 14.8 6 17 6 19 7.6 19 10.4c0 5.1-7 9.6-7 9.6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
-            </span>
-            <div>
-              <h3 class="privacy__title">Apple Health stays on your device</h3>
-              <p class="privacy__body">GemRun reads your lifetime distance from Apple Health on-device only, solely to award the gems you earn at distance milestones. Health data is never uploaded, never shared, and never part of any leaderboard.</p>
-            </div>
-          </li>
-          <li class="privacy__row" data-reveal>
-            <span class="privacy__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 21s-7-5.1-7-11a7 7 0 0 1 14 0c0 5.9-7 11-7 11z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="10" r="2.4" fill="currentColor"/></svg>
-            </span>
-            <div>
-              <h3 class="privacy__title">Location access only while you run</h3>
-              <p class="privacy__body">GemRun uses “While Using” location permission and nothing more. Your position is accessed only during an active run, to confirm gem claims. There is no background tracking, and no location history is kept outside a run.</p>
-            </div>
-          </li>
-          <li class="privacy__row" data-reveal>
-            <span class="privacy__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.6-3 8.4-7 10-4-1.6-7-5.4-7-10V6z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8.8 12l2.2 2.2 4.2-4.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-            <div>
-              <h3 class="privacy__title">What leaves your device</h3>
-              <p class="privacy__body">Only two things reach our servers: the GPS track that proves a claim — used to verify it, then discarded — and your public profile, meaning your username and route best times for the leaderboards. Delete your account and all of it is permanently erased.</p>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ============================ REVIEWS ========================= -->
-    <section class="section section--reviews" id="reviews">
+    <!-- ============================ REVIEWS ============================ -->
+    <section class="section section--tint" id="reviews">
       <div class="container">
-        <div class="section__head" data-reveal>
+        <div class="section__head section__head--center" data-reveal>
           <p class="kicker">From the beta</p>
-          <h2 class="section__title">The streets are talking.</h2>
-          <p class="section__lead">What TestFlight runners say after their first week on the hunt.</p>
+          <h2 class="section__title">Runners who came for the cards, stayed for the miles.</h2>
         </div>
-      </div>
-
-      <div class="reviews" data-reviews>
-        <div class="reviews__row">
-          <div class="reviews__seq">
-            <figure class="review">
-              <blockquote class="review__quote">I've run the same loop for two years. GemRun made me turn left instead of right for the first time. Eleven-day streak and counting.</blockquote>
-              <figcaption class="review__who"><span class="review__ava">M</span><span><strong>Maya R.</strong><em>Streak runner · beta wave 1</em></span></figcaption>
-            </figure>
-            <figure class="review">
-              <blockquote class="review__quote">Walked 5k in the rain for an Amethyst. Zero regrets. The stash silhouettes are evil in the best way.</blockquote>
-              <figcaption class="review__who"><span class="review__ava">D</span><span><strong>Dev K.</strong><em>Collector · beta wave 1</em></span></figcaption>
-            </figure>
-            <figure class="review">
-              <blockquote class="review__quote">Published our Tuesday loop and watched nine people race it by Friday. The leaderboard did my recruiting for me.</blockquote>
-              <figcaption class="review__who"><span class="review__ava">S</span><span><strong>Sam O.</strong><em>Run-club captain</em></span></figcaption>
-            </figure>
-            <figure class="review">
-              <blockquote class="review__quote">It's a real tracker that happens to be a game. Splits, calories, elevation — all there when I want them, invisible when I don't.</blockquote>
-              <figcaption class="review__who"><span class="review__ava">A</span><span><strong>Aisha T.</strong><em>Marathon trainee</em></span></figcaption>
-            </figure>
-          </div>
-          <div class="reviews__seq" aria-hidden="true">
-            <figure class="review">
-              <blockquote class="review__quote">I've run the same loop for two years. GemRun made me turn left instead of right for the first time. Eleven-day streak and counting.</blockquote>
-              <figcaption class="review__who"><span class="review__ava">M</span><span><strong>Maya R.</strong><em>Streak runner · beta wave 1</em></span></figcaption>
-            </figure>
-            <figure class="review">
-              <blockquote class="review__quote">Walked 5k in the rain for an Amethyst. Zero regrets. The stash silhouettes are evil in the best way.</blockquote>
-              <figcaption class="review__who"><span class="review__ava">D</span><span><strong>Dev K.</strong><em>Collector · beta wave 1</em></span></figcaption>
-            </figure>
-            <figure class="review">
-              <blockquote class="review__quote">Published our Tuesday loop and watched nine people race it by Friday. The leaderboard did my recruiting for me.</blockquote>
-              <figcaption class="review__who"><span class="review__ava">S</span><span><strong>Sam O.</strong><em>Run-club captain</em></span></figcaption>
-            </figure>
-            <figure class="review">
-              <blockquote class="review__quote">It's a real tracker that happens to be a game. Splits, calories, elevation — all there when I want them, invisible when I don't.</blockquote>
-              <figcaption class="review__who"><span class="review__ava">A</span><span><strong>Aisha T.</strong><em>Marathon trainee</em></span></figcaption>
-            </figure>
-          </div>
-        </div>
-
-        <div class="reviews__row reviews__row--reverse">
-          <div class="reviews__seq">
-            <figure class="review">
-              <blockquote class="review__quote">The haptic pop when you snag a gem mid-run? Genuinely addictive. I never look at my phone anymore.</blockquote>
-              <figcaption class="review__who"><span class="review__ava">P</span><span><strong>Priya N.</strong><em>Trail runner</em></span></figcaption>
-            </figure>
-            <figure class="review">
-              <blockquote class="review__quote">Beat my brother to an Ember by forty seconds. He still brings it up. Ten out of ten.</blockquote>
-              <figcaption class="review__who"><span class="review__ava">J</span><span><strong>Jonas M.</strong><em>Weekend 10k</em></span></figcaption>
-            </figure>
-            <figure class="review">
-              <blockquote class="review__quote">Someone GPS-spoofed our block's Legendary and the server just… rejected it. Respect.</blockquote>
-              <figcaption class="review__who"><span class="review__ava">L</span><span><strong>Leo B.</strong><em>Beta wave 2</em></span></figcaption>
-            </figure>
-            <figure class="review">
-              <blockquote class="review__quote">My Sunday long run is now a supply run. I drop Quartz along the river for the morning crew.</blockquote>
-              <figcaption class="review__who"><span class="review__ava">N</span><span><strong>Nora F.</strong><em>Route creator</em></span></figcaption>
-            </figure>
-          </div>
-          <div class="reviews__seq" aria-hidden="true">
-            <figure class="review">
-              <blockquote class="review__quote">The haptic pop when you snag a gem mid-run? Genuinely addictive. I never look at my phone anymore.</blockquote>
-              <figcaption class="review__who"><span class="review__ava">P</span><span><strong>Priya N.</strong><em>Trail runner</em></span></figcaption>
-            </figure>
-            <figure class="review">
-              <blockquote class="review__quote">Beat my brother to an Ember by forty seconds. He still brings it up. Ten out of ten.</blockquote>
-              <figcaption class="review__who"><span class="review__ava">J</span><span><strong>Jonas M.</strong><em>Weekend 10k</em></span></figcaption>
-            </figure>
-            <figure class="review">
-              <blockquote class="review__quote">Someone GPS-spoofed our block's Legendary and the server just… rejected it. Respect.</blockquote>
-              <figcaption class="review__who"><span class="review__ava">L</span><span><strong>Leo B.</strong><em>Beta wave 2</em></span></figcaption>
-            </figure>
-            <figure class="review">
-              <blockquote class="review__quote">My Sunday long run is now a supply run. I drop Quartz along the river for the morning crew.</blockquote>
-              <figcaption class="review__who"><span class="review__ava">N</span><span><strong>Nora F.</strong><em>Route creator</em></span></figcaption>
-            </figure>
-          </div>
+        <div class="reviews">
+          <article class="review" data-reveal>
+            <div class="review__stars" aria-label="5 out of 5">★★★★★</div>
+            <p class="review__body">"I ran 6 km chasing a legendary that turned out to be common. Ran it again the next day anyway. That's the trap — in the best way."</p>
+            <div class="review__who"><span class="review__ava">SM</span><div class="review__meta"><b>Sam M.</b><span>TestFlight · 41 cards</span></div></div>
+          </article>
+          <article class="review" data-reveal data-reveal-delay="1">
+            <div class="review__stars" aria-label="5 out of 5">★★★★★</div>
+            <p class="review__body">"Found an artifact nobody else had. My name's on the card now. I've never cared this much about a 5k."</p>
+            <div class="review__who"><span class="review__ava">DP</span><div class="review__meta"><b>Devi P.</b><span>TestFlight · first-finder ×3</span></div></div>
+          </article>
+          <article class="review" data-reveal data-reveal-delay="2">
+            <div class="review__stars" aria-label="5 out of 5">★★★★★</div>
+            <p class="review__body">"The fact cards get me. I'm collecting a whole deck about my own city while my pace quietly drops every week."</p>
+            <div class="review__who"><span class="review__ava">JR</span><div class="review__meta"><b>Jordan R.</b><span>TestFlight · 12-day streak</span></div></div>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- ============================= FAQ ============================ -->
+
+    <!-- ============================== FAQ ============================== -->
     <section class="section" id="faq">
-      <div class="container container--narrow">
-        <div class="section__head" data-reveal>
+      <div class="container">
+        <div class="section__head section__head--center" data-reveal>
           <p class="kicker">FAQ</p>
           <h2 class="section__title">Questions, answered.</h2>
         </div>
-
-        <div class="faq" data-faq>
-          <details class="faq__item" data-reveal>
-            <summary class="faq__q">What exactly is GemRun?</summary>
-            <div class="faq__a">
-              <p>A free iPhone game that turns running into a treasure hunt.
-              The system places virtual gems on real, walkable streets near
-              you. Run or walk within 200 ft of one and it's yours — collected
-              gems build your stash, earn XP, complete sets, and climb
-              leaderboards. You can also create routes, place your own gems on
-              them, and publish them for runners nearby.</p>
-            </div>
-          </details>
-
-          <details class="faq__item" data-reveal>
-            <summary class="faq__q">Do I have to run fast — or run at all?</summary>
-            <div class="faq__a">
-              <p>No. Claims are about presence, not pace: walking collects
-              gems too (at reduced XP). Speed only matters if you're chasing a
-              route's leaderboard time or racing someone to a fresh Legendary.</p>
-            </div>
-          </details>
-
-          <details class="faq__item" data-reveal>
-            <summary class="faq__q">Where do gems come from?</summary>
-            <div class="faq__a">
-              <p>Two places. The system stocks every area that gets opened —
-              so the map is never empty, even somewhere no player has been.
-              And runners place gems on routes they create, from a budget that
-              scales with route distance. Either way, placement is checked
-              against OpenStreetMap so gems only ever sit on walkable ground.</p>
-            </div>
-          </details>
-
-          <details class="faq__item" data-reveal>
-            <summary class="faq__q">What stops people from faking GPS?</summary>
-            <div class="faq__a">
-              <p>The server treats every run as a claim to be verified, not a
-              fact. It replays your full track and checks pace bounds,
-              teleports, and route adherence; GPS fixes with worse than 50 m
-              accuracy can't prove presence. One winner per gem is enforced
-              atomically, and every attempt — successful or not — is logged
-              for audit.</p>
-            </div>
-          </details>
-
-          <details class="faq__item" data-reveal>
-            <summary class="faq__q">Will there be gems where I live?</summary>
-            <div class="faq__a">
-              <p>If people can walk there, yes. Stocking is triggered by the
-              map itself: the first time anyone opens your area, the backend
-              fills it — popular routes first, otherwise directly on walkable
-              streets a short distance from you.</p>
-            </div>
-          </details>
-
-          <details class="faq__item" data-reveal>
-            <summary class="faq__q">Does it track calories and stats like a normal running app?</summary>
-            <div class="faq__a">
-              <p>Yes — under the game it's a full tracker. Every run records
-              distance, time, per-km splits, pace, elevation gain and an
-              estimated calorie burn, and syncs with Apple Health. The same
-              miles power the game: streaks, XP multipliers, and lifetime-km
-              gem mints.</p>
-            </div>
-          </details>
-
-          <details class="faq__item" data-reveal>
-            <summary class="faq__q">How do I compete with friends?</summary>
-            <div class="faq__a">
-              <p>Follow them, and every shared street becomes a scoreboard:
-              per-route leaderboards for best times, weekly head-to-head
-              totals for gems, distance and calories, and first-find crowns
-              when you beat everyone to a Legendary. Racing your actual
-              neighborhood beats racing strangers.</p>
-            </div>
-          </details>
-
-          <details class="faq__item" data-reveal>
-            <summary class="faq__q">Where is my data stored?</summary>
-            <div class="faq__a">
-              <p>On your iPhone, first and foremost. Runs, routes, your stash
-              and settings live in an on-device database; Apple Health is
-              read on the phone and never uploaded; location works only while
-              you run. The server receives just the GPS track that settles a
-              claim and your public leaderboard entries — nothing else.</p>
-            </div>
-          </details>
-
-          <details class="faq__item" data-reveal>
-            <summary class="faq__q">What does it cost, and what do I need?</summary>
-            <div class="faq__a">
-              <p>GemRun is free to play, and currently iPhone-only — you need
-              iOS 17 or later, and location permission while you use it.
-              GemRun never tracks you in the background outside a run.</p>
-            </div>
-          </details>
+        <div class="faq" data-faq data-reveal>
+          <details><summary>Do I have to run to get cards?</summary><div class="faq__a">Yes — that's the whole point. Cards surface in zones out in the world, and the only way to collect one is to reach it on foot. Walk it if you like; the app tracks the distance either way.</div></details>
+          <details><summary>What's a zone?</summary><div class="faq__a">A zone is a patch of the real map that's been activated by a run — yours or another runner's who passed through before you. Active zones are where cards appear, so busier areas have more to find.</div></details>
+          <details><summary>What's the difference between gems, artifacts and facts?</summary><div class="faq__a">Gems are valuable collectible stones with a rarity and a trade value. Artifacts are one-of-a-kind discoveries — the first person to find one is credited on the card forever. Facts are real, verifiable snippets about your body and your city that you collect into sets.</div></details>
+          <details><summary>Is it free?</summary><div class="faq__a">FindRun is free to play during the beta. There are no packs to buy — the only way to get a card is to go find it.</div></details>
+          <details><summary>Does it actually track my fitness?</summary><div class="faq__a">It does. Distance, pace, day streak and cards-per-mile are logged on every run, so it works as a genuine running tracker even on the days the drops are quiet.</div></details>
+          <details><summary>When can I play?</summary><div class="faq__a">We're rolling out on iPhone (iOS 17+) through TestFlight. Drop your email below and we'll send an invite as spots open in your city.</div></details>
         </div>
       </div>
     </section>
 
-    <!-- ========================= FINAL CTA ========================== -->
-    <section class="cta" id="download">
+
+    <!-- ============================== CTA ============================== -->
+    <section class="cta" id="join">
       <div class="container cta__inner" data-reveal>
-        <svg class="cta__gem gem-shimmer" viewBox="0 0 32 32" aria-hidden="true">
-          <path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/>
-          <path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#ffffff" opacity="0.28"/>
-          <path d="M5 12 L27 12 L16 15.5 Z" fill="#ffffff" opacity="0.18"/>
-        </svg>
-        <h2 class="cta__title">The streets are already stocked.</h2>
-        <p class="cta__lead">Somewhere within a mile of you, a gem is sitting on a sidewalk with your name on it — until someone else gets there first.</p>
-
-        <div class="cta__actions">
-          <span class="store-badge store-badge--soon" data-placeholder="app-store-badge" aria-label="Coming soon to the App Store">
-            <svg viewBox="0 0 24 24" aria-hidden="true" class="store-badge__icon">
-              <path d="M16.7 12.6c0-2 1.6-3 1.7-3-1-1.4-2.4-1.6-2.9-1.6-1.2-.1-2.4.7-3 .7-.6 0-1.6-.7-2.6-.7-1.3 0-2.6.8-3.3 2-1.4 2.4-.4 6 1 8 .7 1 1.5 2.1 2.5 2 1-.1 1.4-.7 2.6-.7s1.6.7 2.6.7c1.1 0 1.8-1 2.5-2 .8-1.1 1.1-2.2 1.1-2.3 0 0-2.1-.8-2.2-3.1zM14.8 6.1c.5-.7.9-1.6.8-2.6-.8 0-1.8.6-2.3 1.2-.5.6-1 1.6-.8 2.5.9.1 1.8-.4 2.3-1.1z" fill="currentColor"/>
-            </svg>
-            <span class="store-badge__text">
-              <small>Coming soon to the</small>
-              App Store
-            </span>
-          </span>
-        </div>
-
-        <p class="cta__platform">In TestFlight beta · iPhone-only, iOS 17+ · your data stays on your phone</p>
-
-        <form class="waitlist" data-waitlist novalidate>
-          <label class="waitlist__label" for="waitlist-email">Want in? Join the beta waitlist:</label>
-          <div class="waitlist__row">
-            <input class="waitlist__input" id="waitlist-email" name="email" type="email"
-                   placeholder="you@example.com" autocomplete="email" required>
-            <button class="btn btn--pulse" type="submit">Notify me</button>
-          </div>
-          <p class="waitlist__msg" data-waitlist-msg role="status" aria-live="polite"></p>
+        <h2 class="cta__title">Your city is full of cards<br>you haven't <span class="volt">found yet</span>.</h2>
+        <p class="cta__lead">Join the FindRun beta and start collecting the ground you cover.</p>
+        <form class="cta__form" data-waitlist novalidate>
+          <input class="cta__input" type="email" name="email" placeholder="you@email.com" aria-label="Email address" required>
+          <button class="btn btn--volt btn--lg" type="submit">Get my invite</button>
         </form>
+        <p class="cta__note">iPhone · iOS 17+ · Free during beta · No spam, one invite email.</p>
+        <p class="cta__ok" data-waitlist-ok hidden>You're on the list — check your inbox for a TestFlight invite.</p>
       </div>
     </section>
+
   </main>
 
   <footer class="site-footer">
     <div class="container">
-      <div class="site-footer__grid">
+      <div class="site-footer__top">
         <div class="site-footer__brand">
-          <a class="brand brand--footer" href="#top" aria-label="GemRun home">
+          <a class="brand" href="#top" aria-label="FindRun home">
             <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
-              <path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/>
-              <path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#ffffff" opacity="0.28"/>
+              <rect x="6" y="3" width="20" height="26" rx="4.5" transform="rotate(-8 16 16)" fill="#221f17"/>
+              <path d="M18 7 L11 18 h4.2 l-1.2 7 L21 14 h-4.2 z" fill="#61ff00"/>
             </svg>
-            <span class="brand__name">GemRun</span>
+            <span class="brand__name">Find<b style="color:var(--volt)">Run</b></span>
           </a>
-          <p class="site-footer__tag">
-            GemRun turns any running route into a treasure hunt. Gems on real
-            streets, one shared world, first one there takes it.
-          </p>
+          <p class="site-footer__tag">Run to find. Collect the cards no one else has. Built for runners on iPhone.</p>
         </div>
-
-        <nav class="site-footer__col" aria-label="Product">
-          <h3 class="site-footer__heading">Product</h3>
-          <ul>
-            <li><a href="#what">What is GemRun</a></li>
-            <li><a href="#how-it-works">How it works</a></li>
-            <li><a href="#screens">The screens</a></li>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#rarity">Gem rarities</a></li>
-            <li><a href="#privacy">Privacy</a></li>
-            <li><a href="#faq">FAQ</a></li>
-          </ul>
-        </nav>
-
-        <nav class="site-footer__col" aria-label="Company">
-          <h3 class="site-footer__heading">Company</h3>
-          <ul>
-            <li><a href="changelog.html">Changelog</a></li>
-            <li><a href="press.html">Press kit</a></li>
-            <li><a href="mailto:hello@gemrun.app">Contact</a></li>
-          </ul>
-        </nav>
-
-        <nav class="site-footer__col" aria-label="Legal">
-          <h3 class="site-footer__heading">Legal</h3>
-          <ul>
-            <li><a href="privacy.html">Privacy</a></li>
-            <li><a href="terms.html">Terms &amp; fair play</a></li>
-          </ul>
-        </nav>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h4>Play</h4>
+            <a href="#how">How it works</a>
+            <a href="#zones">Zones</a>
+            <a href="#cards">Card types</a>
+            <a href="#rarity">Rarity</a>
+          </div>
+          <div class="footer-col">
+            <h4>App</h4>
+            <a href="#track">Fitness tracking</a>
+            <a href="#faq">FAQ</a>
+            <a href="changelog.html">Changelog</a>
+            <a href="press.html">Press</a>
+          </div>
+          <div class="footer-col">
+            <h4>Legal</h4>
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <a href="mailto:hey@findrun.app">Contact</a>
+          </div>
+        </div>
       </div>
-
-      <div class="site-footer__legal">
-        <p>© <span data-year>2026</span> GemRun. iPhone, iOS 17+. Location is used only while you run.</p>
-        <p>
-          <button class="link-button" type="button" data-cookie-open>Cookie preferences</button>
-          · Map data © <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap</a> contributors, available under the Open Database License.
-        </p>
+      <div class="site-footer__bottom">
+        <span>© 2026 FindRun · findrun.app</span>
+        <span>Made for people who'd rather be running.</span>
       </div>
     </div>
   </footer>
-
-  <div class="modal" data-cookie hidden>
-    <div class="modal__backdrop" aria-hidden="true"></div>
-    <div class="modal__card modal__card--cookie" role="dialog" aria-modal="true" aria-labelledby="cookie-title">
-      <svg class="modal__gem" viewBox="0 0 32 32" aria-hidden="true">
-        <path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/>
-        <path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/>
-      </svg>
-      <h3 class="modal__title" id="cookie-title">Before you run off —</h3>
-      <p class="modal__text">
-        Essential cookies keep this site working; optional ones help us see
-        what's resonating so we can make the hunt better. Your choice is
-        saved on this device. <a href="privacy.html">Privacy policy</a>
-      </p>
-      <div class="modal__actions">
-        <button class="btn btn--pulse" type="button" data-cookie-accept>Accept all</button>
-        <button class="btn btn--ghost" type="button" data-cookie-essential>Essential only</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal" data-login hidden>
-    <div class="modal__backdrop" data-login-close aria-hidden="true"></div>
-    <div class="modal__card modal__card--login" role="dialog" aria-modal="true" aria-labelledby="login-title">
-      <button class="modal__x" type="button" data-login-close aria-label="Close login">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-      </button>
-      <svg class="modal__gem" viewBox="0 0 32 32" aria-hidden="true">
-        <path d="M16 3 L27 12 L16 29 L5 12 Z" fill="var(--pulse)"/>
-        <path d="M16 3 L21 12 L16 29 L11 12 Z" fill="#fff" opacity="0.28"/>
-      </svg>
-      <h3 class="modal__title" id="login-title">Welcome back, runner.</h3>
-      <p class="modal__text">Log in to the GemRun web app to see your stash, boards and routes.</p>
-
-      <button class="btn btn--apple" type="button" data-apple-login>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.7 12.6c0-2 1.6-3 1.7-3-1-1.4-2.4-1.6-2.9-1.6-1.2-.1-2.4.7-3 .7-.6 0-1.6-.7-2.6-.7-1.3 0-2.6.8-3.3 2-1.4 2.4-.4 6 1 8 .7 1 1.5 2.1 2.5 2 1-.1 1.4-.7 2.6-.7s1.6.7 2.6.7c1.1 0 1.8-1 2.5-2 .8-1.1 1.1-2.2 1.1-2.3 0 0-2.1-.8-2.2-3.1zM14.8 6.1c.5-.7.9-1.6.8-2.6-.8 0-1.8.6-2.3 1.2-.5.6-1 1.6-.8 2.5.9.1 1.8-.4 2.3-1.1z" fill="currentColor"/></svg>
-        Continue with Apple
-      </button>
-
-      <div class="modal__divider"><span>or with email</span></div>
-
-      <form class="login-form" data-login-form novalidate>
-        <label class="login-form__field">
-          <span>Email</span>
-          <input type="email" name="email" autocomplete="email" placeholder="you@example.com" data-login-email required>
-        </label>
-        <label class="login-form__field">
-          <span>Password</span>
-          <input type="password" name="password" autocomplete="current-password" placeholder="••••••••" data-login-password required>
-        </label>
-        <p class="login-form__msg" data-login-msg role="status" aria-live="polite"></p>
-        <button class="btn btn--pulse login-form__submit" type="submit" data-login-submit>Log in</button>
-        <p class="login-form__foot">
-          Preview build — this signs you into a local demo session until web
-          accounts launch. <a href="mailto:hello@gemrun.app?subject=Password%20reset">Forgot password?</a>
-        </p>
-      </form>
-    </div>
-  </div>
 
   <script src="js/main.js"></script>
 </body>
