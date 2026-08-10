@@ -1,103 +1,255 @@
-import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { BatteryMedium, RotateCcw, Signal, Wifi } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import './RunScreenDemo.css'
 
 /**
- * The FindRun run screen, live. The app chrome is static — what animates is
- * the rewards system: the runner moves along a real route, and reaching a
- * zone claims its card (toast, stash slot, XP). Auto-plays while in view,
- * loops after a run-complete summary, and settles into the finished state
- * under prefers-reduced-motion. Click the phone (or Replay) to restart.
+ * A faithful mockup of the app's Active Run screen, transcribed from the
+ * iOS source (ActiveRunView + DesignSystem): light flat map, 🏃 runner
+ * with a heading arrow, green capture rings, a bottom stats band
+ * (Time · mi · Steps · min/mi, pace in pulse violet), pause orb and
+ * Hold-to-stop. Claims follow the app's choreography — rarity burst,
+ * gem flight into the stash chip, "+1" float — no toasts, no XP mid-run.
+ * Auto-plays in view and loops via the real "Run complete" summary.
+ * Sizes are the app's point values at ~0.69 scale (393pt → 270px).
  */
 
-interface ZoneDef {
-  x: number
-  y: number
-  r: number
-  glow: number
-  name: string
-  tier: string
-  xp: number
-  color: string
+// ---- DesignSystem tokens (Colors.swift) --------------------------------
+const INK = '#16181D'
+const SNOW = '#FAFAF8'
+const PULSE = '#5F40BF'
+const MAP_GREEN = '#61FF00'
+const ink = (a: number) => `rgba(22, 24, 29, ${a})`
+// Rarity = pulse at opacity steps (never a new hue)
+const rarityColor: Record<string, string> = {
+  uncommon: 'rgba(95, 64, 191, 0.5)',
+  rare: 'rgba(95, 64, 191, 0.7)',
+  legendary: 'rgba(95, 64, 191, 1)',
 }
 
-const ZONES: ZoneDef[] = [
-  { x: 80, y: 470, r: 20, glow: 34, name: 'Rose Quartz', tier: 'Uncommon Gem', xp: 40, color: '#57b878' },
-  { x: 210, y: 300, r: 18, glow: 30, name: 'Harbor Fox', tier: 'Rare Creature', xp: 90, color: '#4f8fe0' },
-  { x: 150, y: 130, r: 22, glow: 36, name: 'Harbor Sapphire', tier: 'Legendary Gem', xp: 240, color: '#e0a63a' },
+interface GemDef {
+  x: number
+  y: number
+  name: string
+  tier: 'uncommon' | 'rare' | 'legendary'
+  emoji: string
+}
+
+// Real catalog names (GemCatalog.swift); positions in map viewBox units.
+const GEMS: GemDef[] = [
+  { x: 78, y: 306, name: 'Moss Emerald', tier: 'uncommon', emoji: '💚' },
+  { x: 210, y: 192, name: 'Ridge Sapphire', tier: 'rare', emoji: '💙' },
+  { x: 150, y: 66, name: 'First Light Ember', tier: 'legendary', emoji: '🔥' },
 ]
 
 const ROUTE =
-  'M40 590 Q70 520 80 470 Q95 405 150 380 Q205 355 210 300 Q214 240 170 205 Q140 180 150 130'
+  'M36 392 Q64 356 78 306 Q92 252 148 234 Q200 218 210 192 Q218 156 178 130 Q150 110 150 66'
+
+const VIEW_W = 300
+const VIEW_H = 420
+const RING_R = 38 // svg units — the 61 m capture radius
+const M_PER_UNIT = 61 / RING_R
+const PACE_S_PER_M = 521.4 / 1609.344 // 8:41 /mi
 
 const RUN_MS = 11000
-const SUMMARY_MS = 2600
-const TOTAL_KM = 5.0
-const TOTAL_RUN_SECONDS = 27 * 60 // 5.0 km at 5:24 /km
+const SUMMARY_MS = 3400
+const TOTAL_MI = 3.11 // 5.0 km
+const TOTAL_SECONDS = 27 * 60
+const TOTAL_STEPS = 6830
+const TOTAL_CAL = 342
 
 function fmtTime(totalSeconds: number) {
-  const m = Math.floor(totalSeconds / 60)
-  const s = Math.floor(totalSeconds % 60)
-  return `${m}:${String(s).padStart(2, '0')}`
+  const s = Math.floor(totalSeconds)
+  const h = Math.floor(s / 3600)
+  const m = Math.floor((s % 3600) / 60)
+  const sec = s % 60
+  return h > 0
+    ? `${h}:${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`
+    : `${m}:${String(sec).padStart(2, '0')}`
+}
+
+// UnitFormat.shortDistance: feet under 152.4 m, else miles at 1 decimal
+function shortDistance(meters: number) {
+  return meters < 152.4 ? `${Math.round(meters * 3.28084)} ft` : `${(meters / 1609.344).toFixed(1)} mi`
+}
+
+function normalizeDeg(d: number) {
+  let deg = d % 360
+  if (deg > 180) deg -= 360
+  if (deg < -180) deg += 360
+  return deg
+}
+
+// SF-symbol-shaped rarity glyphs: diamond.fill / rhombus.fill / crown.fill
+function RarityGlyphApp({ tier, size, color }: { tier: GemDef['tier']; size: number; color: string }) {
+  const d =
+    tier === 'uncommon'
+      ? 'M12 3 L21 12 L12 21 L3 12 Z'
+      : tier === 'rare'
+        ? 'M12 5 L22 12 L12 19 L2 12 Z'
+        : 'M5 19 L3 8 L8 12 L12 4 L16 12 L21 8 L19 19 Z'
+  return (
+    <svg viewBox="0 0 24 24" style={{ width: size, height: size }} aria-hidden="true">
+      <path d={d} fill={color} />
+    </svg>
+  )
+}
+
+interface SummaryStats {
+  mi: string
+  time: string
+  pace: string
+  steps: number
+  cal: number
+  gems: number
 }
 
 export function RunScreenDemo() {
-  const glowId = useId()
   const frameRef = useRef<HTMLDivElement>(null)
+  const mapRef = useRef<HTMLDivElement>(null)
   const routeRef = useRef<SVGPathElement>(null)
+  const remainRef = useRef<SVGPathElement>(null)
   const trailRef = useRef<SVGPathElement>(null)
   const runnerRef = useRef<SVGGElement>(null)
+  const arrowRef = useRef<SVGGElement>(null)
   const distRef = useRef<HTMLSpanElement>(null)
   const timeRef = useRef<HTMLSpanElement>(null)
+  const stepsRef = useRef<HTMLSpanElement>(null)
   const paceRef = useRef<HTMLSpanElement>(null)
+  const chipTextRef = useRef<HTMLSpanElement>(null)
+  const chipArrowRef = useRef<HTMLSpanElement>(null)
 
   const [reduced] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
   const [visible, setVisible] = useState(false)
   const [claimed, setClaimed] = useState([false, false, false])
-  const [toast, setToast] = useState<ZoneDef | null>(null)
-  const [summary, setSummary] = useState(false)
+  const [stash, setStash] = useState(0)
+  const [paused, setPaused] = useState(false)
+  const [holding, setHolding] = useState(false)
+  const [fx, setFx] = useState<{ i: number; key: number; from: { x: number; y: number }; to: { x: number; y: number } } | null>(null)
+  const [summaryStats, setSummaryStats] = useState<SummaryStats | null>(null)
 
   const lengthRef = useRef(0)
   const elapsedRef = useRef(0)
   const claimedRef = useRef([false, false, false])
-  const summaryRef = useRef(false)
-  const toastTimer = useRef<number | undefined>(undefined)
+  const pausedRef = useRef(false)
+  const frozenRef = useRef(1)
+  const summaryRef = useRef<SummaryStats | null>(null)
+  const fxCounter = useRef(0)
+  const timers = useRef(new Set<number>())
+  const holdTimer = useRef<number | undefined>(undefined)
+
+  const later = (ms: number, fn: () => void) => {
+    const id = window.setTimeout(() => {
+      timers.current.delete(id)
+      fn()
+    }, ms)
+    timers.current.add(id)
+  }
+  const clearTimers = () => {
+    timers.current.forEach((id) => window.clearTimeout(id))
+    timers.current.clear()
+  }
 
   const claim = (i: number) => {
     claimedRef.current = claimedRef.current.map((c, j) => (j === i ? true : c))
     setClaimed([...claimedRef.current])
-    setToast(ZONES[i])
-    window.clearTimeout(toastTimer.current)
-    toastTimer.current = window.setTimeout(() => setToast(null), 1700)
+    const mapEl = mapRef.current
+    if (mapEl) {
+      // gem's on-screen position under preserveAspectRatio="xMidYMid slice"
+      const w = mapEl.offsetWidth
+      const h = mapEl.offsetHeight
+      const s = Math.max(w / VIEW_W, h / VIEW_H)
+      const g = GEMS[i]
+      fxCounter.current += 1
+      setFx({
+        i,
+        key: fxCounter.current,
+        from: { x: (w - VIEW_W * s) / 2 + g.x * s, y: (h - VIEW_H * s) / 2 + g.y * s },
+        to: { x: 38, y: 40 }, // the stash chip, app coords (52, 30)pt scaled
+      })
+    }
+    later(950, () => setStash((s) => s + 1))
+    later(1600, () => setFx(null))
   }
 
   const applyFrame = (progress: number) => {
     const route = routeRef.current
-    const trail = trailRef.current
-    const runner = runnerRef.current
-    if (!route || !trail || !runner || !lengthRef.current) return
+    if (!route || !lengthRef.current) return
     const length = lengthRef.current
     const at = length * progress
     const p = route.getPointAtLength(at)
-    runner.setAttribute('transform', `translate(${p.x} ${p.y})`)
-    trail.style.strokeDasharray = `${length}`
-    trail.style.strokeDashoffset = `${length - at}`
-    if (distRef.current) distRef.current.textContent = (TOTAL_KM * progress).toFixed(1)
-    if (timeRef.current) timeRef.current.textContent = fmtTime(TOTAL_RUN_SECONDS * progress)
-    if (paceRef.current) paceRef.current.textContent = progress < 0.04 ? '–:––' : '5:24'
-    ZONES.forEach((z, i) => {
-      if (!claimedRef.current[i] && Math.hypot(p.x - z.x, p.y - z.y) < z.r * 0.8) claim(i)
-    })
+    const p2 = route.getPointAtLength(Math.min(at + 2, length))
+    const course = (Math.atan2(p2.x - p.x, -(p2.y - p.y)) * 180) / Math.PI
+
+    runnerRef.current?.setAttribute('transform', `translate(${p.x} ${p.y})`)
+    arrowRef.current?.setAttribute('transform', `rotate(${course.toFixed(1)})`)
+    if (remainRef.current) {
+      // guide line: only the not-yet-covered remainder
+      remainRef.current.style.strokeDasharray = `${length}`
+      remainRef.current.style.strokeDashoffset = `${-at}`
+    }
+    if (trailRef.current) {
+      // traveled breadcrumb
+      trailRef.current.style.strokeDasharray = `${length}`
+      trailRef.current.style.strokeDashoffset = `${length - at}`
+    }
+
+    if (distRef.current) distRef.current.textContent = (TOTAL_MI * progress).toFixed(2)
+    if (timeRef.current) timeRef.current.textContent = fmtTime(TOTAL_SECONDS * progress)
+    if (stepsRef.current) stepsRef.current.textContent = `${Math.round(TOTAL_STEPS * progress)}`
+    if (paceRef.current) paceRef.current.textContent = progress < 0.04 ? '–:––' : '8:41'
+
+    // next-gem chip + proximity claims
+    const next = claimedRef.current.findIndex((c) => !c)
+    if (next >= 0) {
+      const g = GEMS[next]
+      const d = Math.hypot(p.x - g.x, p.y - g.y)
+      const meters = d * M_PER_UNIT
+      if (chipTextRef.current) {
+        const tier = g.tier.charAt(0).toUpperCase() + g.tier.slice(1)
+        const eta = progress >= 0.04 ? ` · ~${fmtTime(meters * PACE_S_PER_M)}` : ''
+        chipTextRef.current.textContent = `${tier} · ${shortDistance(meters)}${eta}`
+      }
+      if (chipArrowRef.current) {
+        const bearing = (Math.atan2(g.x - p.x, -(g.y - p.y)) * 180) / Math.PI
+        chipArrowRef.current.style.transform = `rotate(${normalizeDeg(bearing - course).toFixed(1)}deg)`
+      }
+      if (d < RING_R) claim(next)
+    }
+  }
+
+  const captureSummary = (progress: number): SummaryStats => ({
+    mi: (TOTAL_MI * progress).toFixed(2),
+    time: fmtTime(TOTAL_SECONDS * progress),
+    pace: progress < 0.04 ? '–:––' : '8:41',
+    steps: Math.round(TOTAL_STEPS * progress),
+    cal: Math.round(TOTAL_CAL * progress),
+    gems: claimedRef.current.filter(Boolean).length,
+  })
+
+  const finishEarly = () => {
+    const progress = Math.min(elapsedRef.current / RUN_MS, 1)
+    frozenRef.current = progress
+    summaryRef.current = captureSummary(progress)
+    setSummaryStats(summaryRef.current)
+    setPaused(false)
+    pausedRef.current = false
+    elapsedRef.current = RUN_MS
   }
 
   const reset = () => {
+    clearTimers()
     elapsedRef.current = 0
     claimedRef.current = [false, false, false]
-    summaryRef.current = false
+    frozenRef.current = 1
+    summaryRef.current = null
+    pausedRef.current = false
     setClaimed([false, false, false])
-    setToast(null)
-    setSummary(false)
+    setStash(0)
+    setFx(null)
+    setSummaryStats(null)
+    setPaused(false)
   }
 
   const replay = () => {
@@ -106,12 +258,13 @@ export function RunScreenDemo() {
     applyFrame(0)
   }
 
-  // Measure the route once, paint the first (or final) frame.
+  // Measure the route; paint the first (or, reduced, the final) frame.
   useLayoutEffect(() => {
     if (routeRef.current) lengthRef.current = routeRef.current.getTotalLength()
     if (reduced) {
       claimedRef.current = [true, true, true]
       setClaimed([true, true, true])
+      setStash(3)
       applyFrame(1)
     } else {
       applyFrame(0)
@@ -136,22 +289,19 @@ export function RunScreenDemo() {
     let raf = 0
     let last = performance.now()
     const tick = (now: number) => {
-      const dt = Math.min(now - last, 64) // ignore background-tab gaps
+      const dt = Math.min(now - last, 64)
       last = now
-      elapsedRef.current += dt
+      if (!pausedRef.current) elapsedRef.current += dt
       const elapsed = elapsedRef.current
       if (elapsed <= RUN_MS) {
-        if (summaryRef.current) {
-          summaryRef.current = false
-          setSummary(false)
-        }
         applyFrame(elapsed / RUN_MS)
       } else if (elapsed <= RUN_MS + SUMMARY_MS) {
-        applyFrame(1)
         if (!summaryRef.current) {
-          summaryRef.current = true
-          setSummary(true)
+          frozenRef.current = 1
+          summaryRef.current = captureSummary(1)
+          setSummaryStats(summaryRef.current)
         }
+        applyFrame(frozenRef.current)
       } else {
         reset()
         applyFrame(0)
@@ -162,213 +312,410 @@ export function RunScreenDemo() {
     return () => cancelAnimationFrame(raf)
   }, [visible, reduced])
 
-  useEffect(() => () => window.clearTimeout(toastTimer.current), [])
+  useEffect(() => () => {
+    clearTimers()
+    window.clearTimeout(holdTimer.current)
+  }, [])
 
-  const runXp = ZONES.reduce((sum, z, i) => sum + (claimed[i] ? z.xp : 0), 0)
+  const togglePause = () => {
+    if (reduced || summaryStats) return
+    pausedRef.current = !pausedRef.current
+    setPaused(pausedRef.current)
+  }
+
+  const holdStart = () => {
+    if (reduced || summaryStats) return
+    setHolding(true)
+    holdTimer.current = window.setTimeout(() => {
+      setHolding(false)
+      finishEarly()
+    }, 1000)
+  }
+  const holdEnd = () => {
+    window.clearTimeout(holdTimer.current)
+    setHolding(false)
+  }
+
+  const nextGemVisible = claimed.some((c) => !c)
 
   return (
     <div className="flex flex-col items-center gap-3">
       <div
         ref={frameRef}
         role="img"
-        aria-label="FindRun run screen demo: a tracked 5 kilometre run passes through three zones and claims Rose Quartz, Harbor Fox and Harbor Sapphire for 370 XP"
+        aria-label="GemRun active run screen: a live 3.11 mile run collects Moss Emerald, Ridge Sapphire and First Light Ember; the stats band shows time, distance, steps and pace, with pause and hold-to-stop controls"
         onClick={replay}
         className={cn(
-          'relative w-[290px] max-w-[80vw] rounded-[46px] bg-[#0b0c0f] p-[10px] select-none',
+          'relative w-[290px] rounded-[46px] bg-[#0b0c0f] p-[10px] select-none',
           'shadow-[0_34px_90px_rgba(16,18,22,0.38),inset_0_0_0_1.5px_rgba(255,255,255,0.06)]',
           !reduced && 'cursor-pointer',
         )}
       >
-        <div className="relative aspect-[300/650] overflow-hidden rounded-[37px] bg-[#12141b]" aria-hidden="true">
-          {/* ------------------------------------------------ the map */}
-          <svg viewBox="0 0 300 650" className="absolute inset-0 h-full w-full">
-            <defs>
-              <radialGradient id={glowId} cx="50%" cy="50%" r="50%">
-                <stop offset="0" stopColor="#61ff00" stopOpacity="0.5" />
-                <stop offset="1" stopColor="#61ff00" stopOpacity="0" />
-              </radialGradient>
-            </defs>
-            <g stroke="#1f2430" strokeWidth="2">
-              <path d="M0 80 H300 M0 160 H300 M0 240 H300 M0 320 H300 M0 400 H300 M0 480 H300 M0 560 H300" />
-              <path d="M60 0 V650 M140 0 V650 M220 0 V650" />
-            </g>
-            <rect x="170" y="420" width="90" height="70" rx="8" fill="#161b16" stroke="#243024" strokeWidth="2" />
-            <rect x="28" y="184" width="72" height="88" rx="8" fill="#16181f" stroke="#242a36" strokeWidth="2" />
-            <rect x="236" y="86" width="52" height="58" rx="8" fill="#16181f" stroke="#242a36" strokeWidth="2" />
-
-            {/* planned route + traveled trail */}
-            <path
-              ref={routeRef}
-              d={ROUTE}
-              fill="none"
-              stroke="#4f8fe0"
-              strokeWidth="3.5"
-              strokeLinecap="round"
-              strokeDasharray="1 10"
-              opacity="0.85"
-            />
-            <path
-              ref={trailRef}
-              d={ROUTE}
-              fill="none"
-              stroke="#61ff00"
-              strokeWidth="3.5"
-              strokeLinecap="round"
-              opacity="0.9"
-            />
-
-            {/* zones + card markers */}
-            {ZONES.map((z, i) => (
-              <g key={z.name}>
-                <circle
-                  cx={z.x}
-                  cy={z.y}
-                  r={z.glow}
-                  fill={`url(#${glowId})`}
-                  className={cn('transition-opacity duration-700', claimed[i] && 'opacity-30')}
-                />
-                <circle
-                  cx={z.x}
-                  cy={z.y}
-                  r={z.r}
-                  fill="none"
-                  stroke="#61ff00"
-                  strokeWidth="2.5"
-                  className={cn('transition-opacity duration-700', claimed[i] && 'opacity-25')}
-                />
-                <g transform={`translate(${z.x} ${z.y})`}>
-                  <path
-                    d="M0 -9 L8 0 L0 9 L-8 0 Z"
-                    fill={z.color}
-                    className={cn(
-                      'origin-center [transform-box:fill-box] transition-all duration-500',
-                      claimed[i] && 'scale-[2] opacity-0',
-                    )}
-                  />
-                </g>
+        <div
+          className="relative flex aspect-[300/650] flex-col overflow-hidden rounded-[37px]"
+          style={{ background: SNOW }}
+          aria-hidden="true"
+        >
+          {/* ================================================== live map */}
+          <div ref={mapRef} className="relative min-h-0 flex-1">
+            <svg
+              viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
+              preserveAspectRatio="xMidYMid slice"
+              className="absolute inset-0 h-full w-full"
+            >
+              {/* light standard map, POIs excluded */}
+              <rect width={VIEW_W} height={VIEW_H} fill="#F1EFE9" />
+              <path d="M212 0 L300 0 L300 96 Q252 92 226 62 Q210 40 212 0 Z" fill="#C5DEF1" />
+              <path
+                d="M12 176 Q10 138 44 132 Q86 126 96 158 Q104 186 74 202 Q28 220 12 176 Z"
+                fill="#D9EBCB"
+              />
+              <g stroke="#E3DFD6" strokeWidth="9" fill="none">
+                <path d="M0 70 H300 M0 150 H300 M0 230 H300 M0 310 H300 M0 385 H300" />
+                <path d="M60 0 V420 M140 0 V420 M220 0 V420" />
               </g>
-            ))}
+              <g stroke="#FFFFFF" strokeWidth="6" fill="none">
+                <path d="M0 70 H300 M0 150 H300 M0 230 H300 M0 310 H300 M0 385 H300" />
+                <path d="M60 0 V420 M140 0 V420 M220 0 V420" />
+              </g>
+              <g fill="#E8E5DD">
+                <rect x="74" y="84" width="26" height="20" rx="2" />
+                <rect x="160" y="330" width="34" height="24" rx="2" />
+                <rect x="238" y="250" width="30" height="22" rx="2" />
+                <rect x="76" y="252" width="22" height="18" rx="2" />
+                <rect x="164" y="164" width="24" height="18" rx="2" />
+              </g>
 
-            {/* runner */}
-            <g ref={runnerRef}>
-              {!reduced && (
-                <circle r="13" fill="#61ff00" opacity="0.25" className="origin-center animate-ping [transform-box:fill-box]" />
+              {/* capture rings (61 m) around uncollected gems */}
+              {GEMS.map(
+                (g, i) =>
+                  !claimed[i] && (
+                    <circle
+                      key={g.name}
+                      cx={g.x}
+                      cy={g.y}
+                      r={RING_R}
+                      fill="rgba(97,255,0,0.16)"
+                      stroke="rgba(97,255,0,0.65)"
+                      strokeWidth="1.5"
+                    />
+                  ),
               )}
-              <circle r="8" fill="#61ff00" stroke="#0b0c0f" strokeWidth="2.5" />
-            </g>
-          </svg>
 
-          {/* ------------------------------------------- phone chrome */}
-          <div className="absolute top-[10px] left-1/2 z-30 h-[22px] w-[84px] -translate-x-1/2 rounded-full bg-black" />
-          <div className="absolute inset-x-0 top-0 z-20 flex items-center justify-between px-6 pt-[13px] text-[11px] font-semibold text-white/90">
-            <span>9:41</span>
-            <span className="flex items-center gap-1">
-              <Signal className="size-3" strokeWidth={2.6} />
-              <Wifi className="size-3" strokeWidth={2.6} />
-              <BatteryMedium className="size-3.5" strokeWidth={2.4} />
-            </span>
-          </div>
+              {/* guide line (remainder, map green) + traveled breadcrumb */}
+              <path ref={routeRef} d={ROUTE} fill="none" stroke="none" />
+              <path ref={remainRef} d={ROUTE} fill="none" stroke={MAP_GREEN} strokeWidth="4" strokeLinecap="round" />
+              <path
+                ref={trailRef}
+                d={ROUTE}
+                fill="none"
+                stroke={ink(0.55)}
+                strokeWidth="4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
 
-          {/* live run stats */}
-          <div className="absolute inset-x-3 top-[46px] z-20 rounded-2xl border border-white/50 bg-white/92 px-4 py-2.5 shadow-lg backdrop-blur-md">
-            <div className="grid grid-cols-3 divide-x divide-[#101216]/8 text-center">
-              <div>
-                <div className="font-display text-[17px] leading-tight font-bold text-[#101216] tabular-nums">
-                  <span ref={distRef}>0.0</span>
-                  <span className="ml-0.5 text-[10px] font-extrabold text-[#101216]/50">km</span>
-                </div>
-                <div className="text-[8.5px] font-extrabold tracking-[0.08em] uppercase text-[#101216]/55">Distance</div>
-              </div>
-              <div>
-                <div className="font-display text-[17px] leading-tight font-bold text-[#101216] tabular-nums">
-                  <span ref={timeRef}>0:00</span>
-                </div>
-                <div className="text-[8.5px] font-extrabold tracking-[0.08em] uppercase text-[#101216]/55">Time</div>
-              </div>
-              <div>
-                <div className="font-display text-[17px] leading-tight font-bold text-[#101216] tabular-nums">
-                  <span ref={paceRef}>–:––</span>
-                  <span className="ml-0.5 text-[10px] font-extrabold text-[#101216]/50">/km</span>
-                </div>
-                <div className="text-[8.5px] font-extrabold tracking-[0.08em] uppercase text-[#101216]/55">Pace</div>
-              </div>
-            </div>
-          </div>
+              {/* gem pins — emoji, per the app's GemIcon fallback */}
+              {GEMS.map((g, i) =>
+                claimed[i] ? (
+                  <g key={g.name} transform={`translate(${g.x} ${g.y})`} opacity="0.35">
+                    <circle r="6.5" fill={INK} />
+                    <path d="M-3 0 L-0.8 2.6 L3.4 -2.4" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </g>
+                ) : (
+                  <text
+                    key={g.name}
+                    x={g.x}
+                    y={g.y}
+                    fontSize="14"
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    style={{ filter: 'drop-shadow(0 1px 1px rgba(22,24,29,0.5))' }}
+                  >
+                    {g.emoji}
+                  </text>
+                ),
+              )}
 
-          {/* claim toast */}
-          <div
-            className={cn(
-              'absolute inset-x-5 bottom-[96px] z-30 transition-all duration-300 ease-out',
-              toast ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0',
-            )}
-          >
-            {toast && (
-              <div className="flex items-center gap-2.5 rounded-2xl border border-white/50 bg-white/95 px-3.5 py-2.5 shadow-xl backdrop-blur">
-                <span className="size-2.5 shrink-0 rounded-full" style={{ background: toast.color }} />
-                <span className="min-w-0">
-                  <span className="block truncate text-[12.5px] leading-tight font-bold text-[#101216]">
-                    {toast.name} claimed
-                  </span>
-                  <span className="block text-[9.5px] leading-tight font-semibold text-[#101216]/55">{toast.tier}</span>
-                </span>
-                <span className="ml-auto font-display text-[14px] font-bold text-[#101216]">+{toast.xp} XP</span>
-              </div>
-            )}
-          </div>
-
-          {/* stash tray */}
-          <div className="absolute inset-x-3 bottom-3 z-20 rounded-2xl border border-white/50 bg-white/92 px-3 py-2.5 shadow-lg backdrop-blur-md">
-            <div className="flex items-center gap-2">
-              {ZONES.map((z, i) => (
-                <div
-                  key={z.name}
-                  className={cn(
-                    'grid size-10 place-items-center rounded-xl transition-all duration-500',
-                    claimed[i]
-                      ? 'scale-100'
-                      : 'border border-dashed border-[#101216]/20 bg-[#101216]/[0.03]',
-                  )}
-                  style={
-                    claimed[i]
-                      ? { background: `${z.color}1f`, boxShadow: `inset 0 0 0 1.5px ${z.color}80` }
-                      : undefined
-                  }
+              {/* the runner: 🏃 + map-green heading arrow */}
+              <g ref={runnerRef}>
+                <g ref={arrowRef}>
+                  <path d="M0 -18 L5 -10 L-5 -10 Z" fill={MAP_GREEN} stroke={ink(0.3)} strokeWidth="0.5" />
+                </g>
+                <text
+                  fontSize="21"
+                  textAnchor="middle"
+                  dominantBaseline="central"
+                  style={{ filter: 'drop-shadow(0 1px 1px rgba(22,24,29,0.5))' }}
                 >
-                  {claimed[i] ? (
-                    <svg viewBox="0 0 24 24" className="size-5">
-                      <path d="M12 3 L20 12 L12 21 L4 12 Z" fill={z.color} />
-                    </svg>
-                  ) : (
-                    <span className="text-[11px] font-bold text-[#101216]/25">?</span>
-                  )}
-                </div>
-              ))}
-              <div className="ml-auto pr-1 text-right">
-                <div className="text-[8.5px] font-extrabold tracking-[0.08em] uppercase text-[#101216]/55">Run XP</div>
-                <div className="font-display text-[17px] leading-tight font-bold text-[#101216] tabular-nums">{runXp}</div>
-              </div>
+                  🏃
+                </text>
+              </g>
+            </svg>
+
+            {/* status bar — dark content over the light map */}
+            <div
+              className="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-6 pt-[13px] text-[11px] font-semibold"
+              style={{ color: INK }}
+            >
+              <span>9:41</span>
+              <span className="flex items-center gap-1">
+                <Signal className="size-3" strokeWidth={2.6} />
+                <Wifi className="size-3" strokeWidth={2.6} />
+                <BatteryMedium className="size-3.5" strokeWidth={2.4} />
+              </span>
             </div>
+            <div className="absolute top-[10px] left-1/2 z-40 h-[22px] w-[84px] -translate-x-1/2 rounded-full bg-black" />
+
+            {/* MapKit compass, top-trailing */}
+            <div
+              className="absolute top-[38px] right-2 z-20 grid size-[22px] place-items-center rounded-full bg-white/95 shadow-sm"
+              style={{ boxShadow: `0 1px 3px ${ink(0.15)}, inset 0 0 0 1px ${ink(0.1)}` }}
+            >
+              <svg viewBox="0 0 20 20" className="size-[14px]">
+                <path d="M10 3 L12 10 L8 10 Z" fill="#E4574C" />
+                <path d="M10 17 L8 10 L12 10 Z" fill={ink(0.35)} />
+              </svg>
+            </div>
+
+            {/* stash chip — appears after the first collection */}
+            {stash > 0 && (
+              <div
+                key={stash}
+                className="gr-chip-pop absolute top-[38px] left-2 z-30 flex items-center gap-1.5 rounded-full px-2.5 py-[5px]"
+                style={{ background: 'rgba(255,255,255,0.94)', boxShadow: `inset 0 0 0 1px ${ink(0.12)}, 0 2px 5px ${ink(0.08)}` }}
+              >
+                <svg viewBox="0 0 24 24" className="size-[9px]">
+                  <path d="M12 3 L21 12 L12 21 L3 12 Z" fill={PULSE} />
+                </svg>
+                <span className="text-[10px] font-bold tabular-nums" style={{ color: INK }}>
+                  {stash}
+                </span>
+              </div>
+            )}
+
+            {/* "+1" float on catch */}
+            {fx && (
+              <div
+                key={`float-${fx.key}`}
+                className="gr-plus-float absolute top-[14px] left-[66px] z-30 flex items-center gap-[3px]"
+                style={{ color: rarityColor[GEMS[fx.i].tier], textShadow: '0 0 3px rgba(255,255,255,0.9)' }}
+              >
+                <svg viewBox="0 0 24 24" className="size-[8px]">
+                  <path d="M12 3 L21 12 L12 21 L3 12 Z" fill="currentColor" />
+                </svg>
+                <span className="text-[9.5px] font-bold tabular-nums">+1</span>
+              </div>
+            )}
+
+            {/* paused banner */}
+            {paused && (
+              <div className="absolute inset-x-0 top-[40px] z-30 flex justify-center">
+                <span
+                  className="rounded-full px-3.5 py-[6px] text-[9.5px] font-bold text-white"
+                  style={{ background: ink(0.85) }}
+                >
+                  Paused — resume moving
+                </span>
+              </div>
+            )}
+
+            {/* collection burst */}
+            {fx && (
+              <div key={`burst-${fx.key}`} className="pointer-events-none absolute inset-0 z-20 grid place-items-center">
+                <div className="relative grid place-items-center">
+                  <div
+                    className="gr-burst-ring absolute size-[84px] rounded-full"
+                    style={{ border: `3px solid ${rarityColor[GEMS[fx.i].tier]}` }}
+                  />
+                  <div className="gr-burst-glyph" style={{ filter: 'drop-shadow(0 0 8px rgba(255,255,255,0.95))' }}>
+                    <RarityGlyphApp tier={GEMS[fx.i].tier} size={49} color={rarityColor[GEMS[fx.i].tier]} />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* gem flight into the stash chip */}
+            {fx && (
+              <div
+                key={`flight-${fx.key}`}
+                className="gr-gem-flight pointer-events-none absolute top-0 left-0 z-30 text-[15px]"
+                style={
+                  {
+                    '--fx': `${fx.from.x - 8}px`,
+                    '--fy': `${fx.from.y - 10}px`,
+                    '--tx': `${fx.to.x - 8}px`,
+                    '--ty': `${fx.to.y - 10}px`,
+                  } as React.CSSProperties
+                }
+              >
+                {GEMS[fx.i].emoji}
+              </div>
+            )}
           </div>
 
-          {/* run-complete summary */}
+          {/* ================================================ stats band */}
           <div
-            className={cn(
-              'absolute inset-0 z-40 grid place-items-center bg-[#0b0c0f]/45 backdrop-blur-[2px] transition-opacity duration-300',
-              summary ? 'opacity-100' : 'pointer-events-none opacity-0',
-            )}
+            className="relative z-10 flex flex-col items-center gap-2.5 px-3.5 pt-3 pb-5"
+            style={{ background: SNOW, borderTop: `1px solid ${ink(0.12)}` }}
           >
+            {/* next-gem chip */}
             <div
               className={cn(
-                'rounded-[22px] bg-white px-7 py-5 text-center shadow-2xl transition-transform duration-300',
-                summary ? 'scale-100' : 'scale-90',
+                'flex items-center gap-1.5 rounded-full bg-white px-2.5 py-[5px]',
+                !nextGemVisible && 'invisible',
               )}
+              style={{ boxShadow: `inset 0 0 0 1px ${ink(0.12)}` }}
             >
-              <div className="text-[9.5px] font-extrabold tracking-[0.1em] uppercase text-[#101216]/55">
-                Run complete
-              </div>
-              <div className="mt-1 font-display text-[22px] font-bold text-[#101216]">5.0 km · 27:00</div>
-              <div className="mt-0.5 text-[12.5px] font-semibold text-[#101216]/70">3 cards claimed · +370 XP</div>
+              {nextGemVisible && (
+                <RarityGlyphApp
+                  tier={GEMS[claimed.findIndex((c) => !c)].tier}
+                  size={9}
+                  color={rarityColor[GEMS[claimed.findIndex((c) => !c)].tier]}
+                />
+              )}
+              <span ref={chipArrowRef} className="inline-flex transition-transform duration-300" style={{ color: PULSE }}>
+                <svg viewBox="0 0 24 24" className="size-[9px]" fill="none" stroke="currentColor" strokeWidth="3.2">
+                  <path d="M12 20 V5 M6 11 L12 5 L18 11" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+              <span ref={chipTextRef} className="text-[9.5px] font-bold tabular-nums" style={{ color: INK }} />
             </div>
+
+            {/* Time · mi · Steps · min/mi */}
+            <div className="flex items-end gap-4">
+              {[
+                { ref: timeRef, initial: '0:00', label: 'Time' },
+                { ref: distRef, initial: '0.00', label: 'mi' },
+                { ref: stepsRef, initial: '0', label: 'Steps' },
+                { ref: paceRef, initial: '–:––', label: 'min/mi', accent: true },
+              ].map((stat) => (
+                <div key={stat.label} className="flex flex-col items-center gap-[1px]">
+                  <span
+                    className="font-display text-[24px] leading-none font-bold tabular-nums"
+                    style={{ color: stat.accent ? PULSE : INK }}
+                  >
+                    <span ref={stat.ref}>{stat.initial}</span>
+                  </span>
+                  <span className="text-[8.5px] font-medium" style={{ color: ink(0.55) }}>
+                    {stat.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* pause orb + Hold to stop */}
+            <div className="flex w-full items-center gap-3 pt-0.5">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  togglePause()
+                }}
+                className="grid size-[44px] shrink-0 place-items-center rounded-full bg-white"
+                style={{ boxShadow: `inset 0 0 0 1px ${ink(0.12)}, 0 3px 6px ${ink(0.2)}` }}
+                aria-label={paused ? 'Resume' : 'Pause'}
+              >
+                {paused ? (
+                  <svg viewBox="0 0 24 24" className="size-[15px]">
+                    <path d="M8 5 L19 12 L8 19 Z" fill={INK} />
+                  </svg>
+                ) : (
+                  <svg viewBox="0 0 24 24" className="size-[15px]">
+                    <rect x="6" y="5" width="4" height="14" rx="1.4" fill={INK} />
+                    <rect x="14" y="5" width="4" height="14" rx="1.4" fill={INK} />
+                  </svg>
+                )}
+              </button>
+              <button
+                type="button"
+                onClick={(e) => e.stopPropagation()}
+                onPointerDown={(e) => {
+                  e.stopPropagation()
+                  holdStart()
+                }}
+                onPointerUp={holdEnd}
+                onPointerLeave={holdEnd}
+                className="relative h-[44px] flex-1 overflow-hidden rounded-full"
+                style={{ background: PULSE, boxShadow: `0 3px 6px ${ink(0.18)}` }}
+              >
+                <span
+                  className="absolute inset-y-0 left-0 rounded-full bg-white/35"
+                  style={{ width: holding ? '100%' : '0%', transition: holding ? 'width 1s linear' : 'width 0.15s ease' }}
+                />
+                <span className="relative font-display text-[14px] font-semibold text-white">Hold to stop</span>
+              </button>
+            </div>
+          </div>
+
+          {/* home indicator */}
+          <div
+            className="absolute bottom-[5px] left-1/2 z-30 h-[4px] w-[100px] -translate-x-1/2 rounded-full"
+            style={{ background: ink(0.3) }}
+          />
+
+          {/* ======================================= Run complete summary */}
+          <div
+            className={cn(
+              'absolute inset-0 z-40 flex flex-col items-center justify-center gap-3.5 px-5 transition-opacity duration-300',
+              summaryStats ? 'opacity-100' : 'pointer-events-none opacity-0',
+            )}
+            style={{ background: SNOW }}
+          >
+            {summaryStats && (
+              <>
+                <div className="font-display text-[19px] font-semibold" style={{ color: INK }}>
+                  Run complete
+                </div>
+                <div
+                  className="w-full rounded-[15px] bg-white px-4 py-4"
+                  style={{ boxShadow: `inset 0 0 0 1px ${ink(0.12)}, 0 11px 16px ${ink(0.12)}` }}
+                >
+                  <div className="grid grid-cols-3 gap-x-2 gap-y-3.5 text-center">
+                    {[
+                      { label: 'DISTANCE', value: summaryStats.mi, unit: 'mi' },
+                      { label: 'DURATION', value: summaryStats.time, unit: 'min' },
+                      { label: 'AVG PACE', value: summaryStats.pace, unit: '/mi' },
+                      { label: 'STEPS', value: `${summaryStats.steps}` },
+                      { label: 'CALORIES', value: `${summaryStats.cal}`, unit: 'cal' },
+                      { label: 'GEMS', value: `${summaryStats.gems}` },
+                    ].map((s) => (
+                      <div key={s.label} className="flex flex-col items-center gap-[2px]">
+                        <span className="text-[7px] font-semibold tracking-[1px]" style={{ color: ink(0.55) }}>
+                          {s.label}
+                        </span>
+                        <span className="font-display text-[16.5px] leading-none font-bold tabular-nums" style={{ color: INK }}>
+                          {s.value}
+                          {s.unit && (
+                            <span className="ml-[2px] text-[8.5px] font-semibold" style={{ color: ink(0.55) }}>
+                              {s.unit}
+                            </span>
+                          )}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-3.5 flex items-center justify-center gap-1.5 text-[14px]">
+                    {GEMS.filter((_, i) => claimed[i]).map((g) => (
+                      <span key={g.name} style={{ filter: 'drop-shadow(0 1px 1px rgba(22,24,29,0.35))' }}>
+                        {g.emoji}
+                      </span>
+                    ))}
+                    {summaryStats.gems === 0 && (
+                      <span className="text-[9px] font-medium" style={{ color: ink(0.55) }}>
+                        No gems this time. The route remembers you anyway.
+                      </span>
+                    )}
+                  </div>
+                  <div className="mt-2 text-center text-[8.5px] font-medium" style={{ color: ink(0.55) }}>
+                    Aug 10 · +75 XP
+                  </div>
+                  <div className="mt-2.5 text-center text-[9px] font-semibold" style={{ color: PULSE }}>
+                    Tap to meet your finds
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

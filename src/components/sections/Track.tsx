@@ -25,7 +25,7 @@ export function Track() {
             <SectionTitle>A real fitness tracker, wrapped around a hunt.</SectionTitle>
             <SectionLead className="mb-7">
               Every run is measured like it should be. The cards are the reason to lace up — the fitness is what you
-              keep either way. Watch a run play out: reach a zone, claim its card.
+              keep either way. This is the real run screen: get within reach and the find is collected mid-stride.
             </SectionLead>
             <div className="grid grid-cols-2 gap-4">
               {tiles.map((tile) => (
