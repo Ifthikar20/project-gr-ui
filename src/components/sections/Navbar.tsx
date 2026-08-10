@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Menu } from 'lucide-react'
+import { ArrowUpRight, Menu } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   Sheet,
@@ -73,7 +73,10 @@ export function Navbar() {
 
         <div className="flex items-center gap-2">
           <Button asChild size="sm" className="rounded-full px-4">
-            <a href="#join">Join the beta</a>
+            <a href="#join">
+              Join the beta
+              <ArrowUpRight className="size-3.5" />
+            </a>
           </Button>
 
           <Sheet open={open} onOpenChange={setOpen}>

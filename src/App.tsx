@@ -6,6 +6,7 @@ import { HowItWorks } from '@/components/sections/HowItWorks'
 import { Zones } from '@/components/sections/Zones'
 import { CardTypes } from '@/components/sections/CardTypes'
 import { Rarity } from '@/components/sections/Rarity'
+import { FitnessBanner } from '@/components/sections/FitnessBanner'
 import { Track } from '@/components/sections/Track'
 import { Privacy } from '@/components/sections/Privacy'
 import { Reviews } from '@/components/sections/Reviews'
@@ -31,6 +32,7 @@ export default function App() {
         <Zones />
         <CardTypes />
         <Rarity />
+        <FitnessBanner />
         <Track />
         <Privacy />
         <Reviews />
