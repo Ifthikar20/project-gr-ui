@@ -62,6 +62,10 @@ under a project path (`/project-gr-ui/`), a custom domain, and local preview.
 
 ## Sample content to replace before launch
 
+- **Banner photos**: the fitness banner and the closing CTA use
+  `PhotoPlaceholder` image slots — swap each for a real
+  `<img className="absolute inset-0 h-full w-full object-cover" />`.
+
 - **Reviews** are written sample quotes for the beta-marketing voice — swap in
   real TestFlight feedback.
 - **Changelog entries** carry invented build numbers/dates — sync with actual
