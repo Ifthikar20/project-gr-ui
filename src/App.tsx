@@ -1,7 +1,7 @@
 import { Navbar } from '@/components/sections/Navbar'
 import { Hero } from '@/components/sections/Hero'
 import { StatsBand } from '@/components/sections/StatsBand'
-import { WhatIs } from '@/components/sections/WhatIs'
+import { AboutBento } from '@/components/sections/AboutBento'
 import { HowItWorks } from '@/components/sections/HowItWorks'
 import { Zones } from '@/components/sections/Zones'
 import { CardTypes } from '@/components/sections/CardTypes'
@@ -27,7 +27,7 @@ export default function App() {
       <main id="main">
         <Hero />
         <StatsBand />
-        <WhatIs />
+        <AboutBento />
         <HowItWorks />
         <Zones />
         <CardTypes />
