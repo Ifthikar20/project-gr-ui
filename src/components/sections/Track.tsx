@@ -1,7 +1,7 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { Container, Kicker, SectionLead, SectionTitle } from '@/components/Bits'
 import { Reveal } from '@/components/Reveal'
-import { ActivityRingsArt } from '@/components/cards/art/ActivityRingsArt'
+import { RunScreenDemo } from '@/components/RunScreenDemo'
 
 const tiles = [
   { label: 'Distance', num: '5.0', unit: 'km' },
@@ -16,8 +16,8 @@ export function Track() {
       <Container>
         <div className="grid items-center gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-16">
           <Reveal>
-            <div className="grid place-items-center rounded-[30px] bg-gradient-to-b from-wash-blue to-[#eef3fb] p-6 shadow-sm md:p-10">
-              <ActivityRingsArt />
+            <div className="grid place-items-center rounded-[30px] bg-gradient-to-b from-wash-blue to-[#eef3fb] px-6 py-10 shadow-sm md:px-10 md:py-12">
+              <RunScreenDemo />
             </div>
           </Reveal>
           <Reveal delay={1}>
@@ -25,7 +25,7 @@ export function Track() {
             <SectionTitle>A real fitness tracker, wrapped around a hunt.</SectionTitle>
             <SectionLead className="mb-7">
               Every run is measured like it should be. The cards are the reason to lace up — the fitness is what you
-              keep either way.
+              keep either way. Watch a run play out: reach a zone, claim its card.
             </SectionLead>
             <div className="grid grid-cols-2 gap-4">
               {tiles.map((tile) => (
