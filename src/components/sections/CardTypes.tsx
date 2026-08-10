@@ -44,7 +44,7 @@ export function CardTypes() {
               <TabsContent key={entry.type} value={entry.type}>
                 <div className="mx-auto mt-8 grid max-w-[880px] items-center justify-items-center gap-10 md:grid-cols-[auto_1fr] md:justify-items-start">
                   <div className="[perspective:1400px]">
-                    <CollectibleCard data={entry.card} compact />
+                    <CollectibleCard data={entry.card} />
                   </div>
                   <div className="max-w-[52ch] text-center md:text-left">
                     <h3 className="flex items-center justify-center gap-2.5 font-display text-2xl font-bold md:justify-start">

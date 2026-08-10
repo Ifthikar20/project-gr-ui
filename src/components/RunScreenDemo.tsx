@@ -757,10 +757,10 @@ export function RunScreenDemo() {
                         {/* the capture of the run, as its collectible card */}
                         <div
                           className="gr-card-reveal"
-                          style={{ width: 330 * CARD_SCALE, height: 344 * CARD_SCALE }}
+                          style={{ width: 330 * CARD_SCALE, height: 334 * CARD_SCALE }}
                         >
                           <div style={{ width: 330, transform: `scale(${CARD_SCALE})`, transformOrigin: 'top left' }}>
-                            <CollectibleCard data={FIND_CARDS[featured]} compact />
+                            <CollectibleCard data={FIND_CARDS[featured]} />
                           </div>
                         </div>
                         {rest.length > 0 && (

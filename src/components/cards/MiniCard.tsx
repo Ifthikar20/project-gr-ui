@@ -14,7 +14,7 @@ export function MiniCard({ data }: { data: MiniData }) {
         </span>
       </div>
       <span className="mini__type">
-        <i className="card__pip" aria-hidden="true" />
+        <i className="mini__dot" aria-hidden="true" />
         {data.type}
       </span>
     </div>

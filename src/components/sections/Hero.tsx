@@ -70,7 +70,7 @@ export function Hero() {
             aria-hidden="true"
             className="pointer-events-none absolute size-[480px] max-w-[90vw] bg-[radial-gradient(50%_50%_at_50%_50%,rgba(255,255,255,0.9),transparent_70%)]"
           />
-          <CollectibleCard data={gemCard} compact float heroHeading ariaLabel={heroCardAriaLabel} />
+          <CollectibleCard data={gemCard} float heroHeading ariaLabel={heroCardAriaLabel} />
         </Reveal>
       </Container>
     </section>
