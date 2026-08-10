@@ -1,6 +1,6 @@
 import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Kicker, SectionCard, SectionLead, SectionTitle } from '@/components/Bits'
+import { Container, Kicker, SectionLead, SectionTitle } from '@/components/Bits'
 import { Reveal } from '@/components/Reveal'
 import { CollectibleCard } from '@/components/cards/CollectibleCard'
 import { MiniCard } from '@/components/cards/MiniCard'
@@ -16,7 +16,8 @@ const tagBg = {
 
 export function CardTypes() {
   return (
-    <SectionCard id="cards">
+    <section id="cards" className="scroll-mt-24 py-14 md:py-20">
+      <Container>
         <Reveal className="text-center">
           <Kicker center>Five kinds of find</Kicker>
           <SectionTitle className="mx-auto">
@@ -98,6 +99,7 @@ export function CardTypes() {
             500 cards at launch · 5 types · 5 rarities · all found on foot
           </p>
         </Reveal>
-    </SectionCard>
+      </Container>
+    </section>
   )
 }

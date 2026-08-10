@@ -7,6 +7,7 @@ import { Zones } from '@/components/sections/Zones'
 import { CardTypes } from '@/components/sections/CardTypes'
 import { Rarity } from '@/components/sections/Rarity'
 import { Track } from '@/components/sections/Track'
+import { Privacy } from '@/components/sections/Privacy'
 import { Reviews } from '@/components/sections/Reviews'
 import { Faq } from '@/components/sections/Faq'
 import { JoinCta } from '@/components/sections/JoinCta'
@@ -31,6 +32,7 @@ export default function App() {
         <CardTypes />
         <Rarity />
         <Track />
+        <Privacy />
         <Reviews />
         <Faq />
         <JoinCta />

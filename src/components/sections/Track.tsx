@@ -1,5 +1,5 @@
 import { Card, CardContent } from '@/components/ui/card'
-import { Kicker, SectionCard, SectionLead, SectionTitle } from '@/components/Bits'
+import { Container, Kicker, SectionLead, SectionTitle } from '@/components/Bits'
 import { Reveal } from '@/components/Reveal'
 import { RunScreenDemo } from '@/components/RunScreenDemo'
 
@@ -12,7 +12,8 @@ const tiles = [
 
 export function Track() {
   return (
-    <SectionCard id="track">
+    <section id="track" className="scroll-mt-24 py-14 md:py-20">
+      <Container>
         <div className="grid items-center gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-16">
           <Reveal>
             <div className="grid place-items-center rounded-[30px] bg-gradient-to-b from-wash-blue to-[#eef3fb] px-6 py-10 shadow-sm md:px-10 md:py-12">
@@ -43,6 +44,7 @@ export function Track() {
             </div>
           </Reveal>
         </div>
-    </SectionCard>
+      </Container>
+    </section>
   )
 }
