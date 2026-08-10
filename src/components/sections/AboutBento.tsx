@@ -23,8 +23,7 @@ export function AboutBento() {
       <Container>
         <div className="flex flex-col gap-4">
           {/* statement panel + art tiles */}
-          <Reveal>
-            <div className="grid gap-4 md:grid-cols-[1.45fr_1fr]">
+          <Reveal stagger className="grid gap-4 md:grid-cols-[1.45fr_1fr]">
               <div className="flex flex-col items-start rounded-[28px] bg-[#e9fbdb] p-8 md:rounded-[36px] md:p-12">
                 <span className="rounded-full bg-white/75 px-4 py-1.5 text-[13px] font-semibold text-foreground/70">
                   What is FindRun
@@ -48,12 +47,10 @@ export function AboutBento() {
                   <CreatureArt />
                 </div>
               </div>
-            </div>
           </Reveal>
 
           {/* mission panel + join panel */}
-          <Reveal delay={1}>
-            <div className="grid gap-4 md:grid-cols-2">
+          <Reveal stagger delay={1} className="grid gap-4 md:grid-cols-2">
               <div className="flex flex-col gap-7 rounded-[28px] bg-[#101216] p-8 md:rounded-[36px] md:p-10">
                 <p className="max-w-[34ch] text-[clamp(19px,2vw,24px)] leading-snug font-semibold text-white">
                   Our mission is to bring the game back to running — real streets, real miles, and rewards you can
@@ -90,7 +87,6 @@ export function AboutBento() {
                   </div>
                 </div>
               </div>
-            </div>
           </Reveal>
         </div>
       </Container>

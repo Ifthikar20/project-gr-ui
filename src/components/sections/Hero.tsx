@@ -1,6 +1,7 @@
 import { ArrowUpRight, Star } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/Bits'
+import { Parallax } from '@/components/Parallax'
 import { Reveal } from '@/components/Reveal'
 import { CollectibleCard } from '@/components/cards/CollectibleCard'
 import { gemCard, heroCardAriaLabel } from '@/components/cards/data'
@@ -29,7 +30,7 @@ export function Hero() {
         style={horizonGlow}
       />
       <Container className="relative z-10">
-        <Reveal className="flex flex-col items-center">
+        <Reveal stagger className="flex flex-col items-center">
           {/* proof strip */}
           <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
             <div className="flex items-center">
@@ -74,7 +75,9 @@ export function Hero() {
             aria-hidden="true"
             className="pointer-events-none absolute size-[480px] max-w-[90vw] bg-[radial-gradient(50%_50%_at_50%_50%,rgba(255,255,255,0.9),transparent_70%)]"
           />
-          <CollectibleCard data={gemCard} float heroHeading ariaLabel={heroCardAriaLabel} />
+          <Parallax speed={0.07}>
+            <CollectibleCard data={gemCard} float heroHeading ariaLabel={heroCardAriaLabel} />
+          </Parallax>
         </Reveal>
       </Container>
     </section>

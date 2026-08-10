@@ -2,6 +2,7 @@ import { useId, useRef, useState, type FormEvent } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Parallax } from '@/components/Parallax'
 import { Reveal } from '@/components/Reveal'
 
 /* The closing CTA as a full-width image banner: a dawn run — the hour
@@ -144,7 +145,9 @@ export function JoinCta() {
       <Reveal>
         <div className="relative mx-auto w-full max-w-[1180px] overflow-hidden rounded-[28px] md:rounded-[40px]">
           <div className="relative min-h-[480px] md:aspect-[1200/560]">
-            <DawnRunScene />
+            <Parallax speed={0.06} className="absolute -inset-y-[9%] inset-x-0">
+              <DawnRunScene />
+            </Parallax>
             {/* legibility scrim */}
             <div
               aria-hidden="true"

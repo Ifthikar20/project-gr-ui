@@ -1,6 +1,7 @@
 import { useId } from 'react'
 import { ChartNoAxesColumn } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Parallax } from '@/components/Parallax'
 import { Reveal } from '@/components/Reveal'
 
 /* The fitness statement — a wide showcase panel in the style of a photo
@@ -136,7 +137,9 @@ export function FitnessBanner() {
       <Reveal>
         <div className="relative mx-auto w-full max-w-[1180px] overflow-hidden rounded-[28px] md:rounded-[40px]">
           <div className="relative aspect-[1200/520] min-h-[360px]">
-            <NightRunScene />
+            <Parallax speed={0.06} className="absolute -inset-y-[9%] inset-x-0">
+              <NightRunScene />
+            </Parallax>
             {/* caption scrim */}
             <div
               aria-hidden="true"

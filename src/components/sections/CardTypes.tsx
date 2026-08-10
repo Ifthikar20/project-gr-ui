@@ -42,7 +42,11 @@ export function CardTypes() {
               ))}
             </TabsList>
             {galleryEntries.map((entry) => (
-              <TabsContent key={entry.type} value={entry.type}>
+              <TabsContent
+                key={entry.type}
+                value={entry.type}
+                className="data-[state=active]:animate-in data-[state=active]:fade-in data-[state=active]:slide-in-from-bottom-4 data-[state=active]:duration-500"
+              >
                 <div className="mx-auto mt-8 grid max-w-[880px] items-center justify-items-center gap-10 md:grid-cols-[auto_1fr] md:justify-items-start">
                   <div className="[perspective:1400px]">
                     <CollectibleCard data={entry.card} />
