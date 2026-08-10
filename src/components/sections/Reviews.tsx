@@ -1,7 +1,7 @@
 import { Star } from 'lucide-react'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Card, CardContent } from '@/components/ui/card'
-import { Container, Kicker, SectionTitle } from '@/components/Bits'
+import { Kicker, SectionCard, SectionTitle } from '@/components/Bits'
 import { Reveal } from '@/components/Reveal'
 
 const reviews = [
@@ -27,8 +27,7 @@ const reviews = [
 
 export function Reviews() {
   return (
-    <section id="reviews" className="scroll-mt-20 bg-muted/50 py-16 md:py-24">
-      <Container>
+    <SectionCard id="reviews" tint>
         <Reveal className="text-center">
           <Kicker center>From the beta</Kicker>
           <SectionTitle className="mx-auto max-w-[24ch]">
@@ -62,7 +61,6 @@ export function Reviews() {
             </Reveal>
           ))}
         </div>
-      </Container>
-    </section>
+    </SectionCard>
   )
 }

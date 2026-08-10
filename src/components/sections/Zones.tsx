@@ -1,11 +1,10 @@
-import { Container, Kicker, SectionLead, SectionTitle } from '@/components/Bits'
+import { Kicker, SectionCard, SectionLead, SectionTitle } from '@/components/Bits'
 import { Reveal } from '@/components/Reveal'
 import { ZoneMapArt } from '@/components/cards/art/ZoneMapArt'
 
 export function Zones() {
   return (
-    <section id="zones" className="scroll-mt-20 py-16 md:py-24">
-      <Container>
+    <SectionCard id="zones">
         <div className="grid items-center gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-16">
           <Reveal>
             <div className="grid place-items-center rounded-[30px] bg-gradient-to-b from-wash-blue to-[#eef3fb] p-6 shadow-sm md:p-10">
@@ -26,7 +25,6 @@ export function Zones() {
             </SectionLead>
           </Reveal>
         </div>
-      </Container>
-    </section>
+    </SectionCard>
   )
 }

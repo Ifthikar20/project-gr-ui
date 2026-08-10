@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
-import { Container, Kicker, SectionTitle } from '@/components/Bits'
+import { Kicker, SectionCard, SectionTitle } from '@/components/Bits'
 import { Reveal } from '@/components/Reveal'
 
 const steps = [
@@ -21,8 +21,7 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section id="how" className="scroll-mt-20 bg-muted/50 py-16 md:py-24">
-      <Container>
+    <SectionCard id="how" tint>
         <Reveal className="text-center">
           <Kicker center>How you find a card</Kicker>
           <SectionTitle>Four steps. One good run.</SectionTitle>
@@ -49,7 +48,6 @@ export function HowItWorks() {
             </Reveal>
           ))}
         </div>
-      </Container>
-    </section>
+    </SectionCard>
   )
 }

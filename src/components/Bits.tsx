@@ -5,6 +5,34 @@ export function Container({ className, children }: { className?: string; childre
   return <div className={cn('mx-auto w-full max-w-[1120px] px-6', className)}>{children}</div>
 }
 
+/** A big rounded section card — every content section sits in one. */
+export function SectionCard({
+  id,
+  tint = false,
+  className,
+  children,
+}: {
+  id?: string
+  /** Soft-tinted variant for alternating rhythm. */
+  tint?: boolean
+  className?: string
+  children: ReactNode
+}) {
+  return (
+    <section id={id} className="scroll-mt-24 px-3 py-2 md:px-6 md:py-2.5">
+      <div
+        className={cn(
+          'mx-auto w-full max-w-[1180px] rounded-[28px] border px-5 py-12 md:rounded-[40px] md:px-12 md:py-16',
+          tint ? 'border-border/40 bg-[#eef1f6]/80' : 'border-border/60 bg-card shadow-sm',
+          className,
+        )}
+      >
+        {children}
+      </div>
+    </section>
+  )
+}
+
 export function Kicker({
   center = false,
   className,

@@ -101,6 +101,34 @@ export function TramTokenArt() {
   )
 }
 
+export function EmeraldMiniArt() {
+  return (
+    <svg viewBox="0 0 300 240" {...slice} aria-hidden="true">
+      <rect width="300" height="240" fill="#16241a" />
+      <circle cx="150" cy="118" r="58" fill="#57d68a" opacity="0.12" />
+      <g transform="translate(150 116)" strokeLinejoin="round">
+        <polygon points="-24,-18 24,-18 36,0 0,40 -36,0" fill="#57d68a" />
+        <polygon points="-24,-18 24,-18 12,0 -12,0" fill="#bdf2d2" />
+        <polygon points="-12,0 12,0 0,40" fill="#2a9a55" />
+      </g>
+    </svg>
+  )
+}
+
+export function SapphireMiniArt() {
+  return (
+    <svg viewBox="0 0 300 240" {...slice} aria-hidden="true">
+      <rect width="300" height="240" fill="#1c2436" />
+      <circle cx="150" cy="118" r="58" fill="#6cb9ff" opacity="0.12" />
+      <g transform="translate(150 116)" strokeLinejoin="round">
+        <polygon points="-24,-18 24,-18 36,0 0,40 -36,0" fill="#5aa2f0" />
+        <polygon points="-24,-18 24,-18 12,0 -12,0" fill="#cfe8ff" />
+        <polygon points="-12,0 12,0 0,40" fill="#2f5bd0" />
+      </g>
+    </svg>
+  )
+}
+
 export function CitySparrowArt() {
   return (
     <svg viewBox="0 0 300 240" {...slice} aria-hidden="true">

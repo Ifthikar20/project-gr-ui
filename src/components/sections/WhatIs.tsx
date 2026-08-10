@@ -1,7 +1,7 @@
 import type { LucideIcon } from 'lucide-react'
 import { ChartNoAxesColumn, Gem, MapPin } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
-import { Container, Kicker, SectionLead, SectionTitle } from '@/components/Bits'
+import { Kicker, SectionCard, SectionLead, SectionTitle } from '@/components/Bits'
 import { Reveal } from '@/components/Reveal'
 
 const features: { icon: LucideIcon; title: string; text: string }[] = [
@@ -24,8 +24,7 @@ const features: { icon: LucideIcon; title: string; text: string }[] = [
 
 export function WhatIs() {
   return (
-    <section id="what" className="scroll-mt-20 py-16 md:py-24">
-      <Container>
+    <SectionCard id="what">
         <Reveal>
           <Kicker>What is FindRun</Kicker>
           <SectionTitle>A collection you can only build by moving.</SectionTitle>
@@ -50,7 +49,6 @@ export function WhatIs() {
             </Reveal>
           ))}
         </div>
-      </Container>
-    </section>
+    </SectionCard>
   )
 }

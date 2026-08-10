@@ -2,6 +2,13 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { BatteryMedium, RotateCcw, Signal, Wifi } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { CollectibleCard } from '@/components/cards/CollectibleCard'
+import { MiniCard } from '@/components/cards/MiniCard'
+import type { CardData, MiniData } from '@/components/cards/data'
+import { GemArt } from '@/components/cards/art/GemArt'
+import { EmeraldArt } from '@/components/cards/art/EmeraldArt'
+import { EmberArt } from '@/components/cards/art/EmberArt'
+import { EmeraldMiniArt, SapphireMiniArt } from '@/components/cards/art/minis'
 import './RunScreenDemo.css'
 
 /**
@@ -45,6 +52,72 @@ const GEMS: GemDef[] = [
 
 const ROUTE =
   'M36 392 Q64 356 78 306 Q92 252 148 234 Q200 218 210 192 Q218 156 178 130 Q150 110 150 66'
+
+// The finds as collectible cards, revealed on the Run complete screen.
+// Indices match GEMS; the highest-tier find is featured.
+const FIND_CARDS: CardData[] = [
+  {
+    edge: 'uncommon',
+    stage: 'Stage 1',
+    name: 'Moss Emerald',
+    xp: '40',
+    art: <EmeraldArt />,
+    band: 'Uncommon Gem · Trailblazer set',
+    stats: [
+      { v: '1.4', label: 'km run' },
+      { v: '1,900', label: 'steps' },
+      { v: '+40', label: 'xp gained', volt: true },
+    ],
+    use: { name: 'Soft Ground', val: '+5%', text: 'Trail kilometres count 5% extra XP while displayed.' },
+    found: { where: 'Park & greenway zones', pct: 46 },
+    flavor: 'Grows its colour where the path stays damp. Brightest after rain.',
+    foot: { left: 'illus. FINDRUN · morning runs', right: '118 / 500' },
+    ariaLabel: 'Gem card: Moss Emerald, Stage 1 Uncommon — 40 XP, found in park and greenway zones',
+  },
+  {
+    edge: 'rare',
+    stage: 'Stage 2',
+    name: 'Ridge Sapphire',
+    xp: '90',
+    art: <GemArt />,
+    band: 'Rare Gem · Trailblazer set',
+    stats: [
+      { v: '3.1', label: 'km run' },
+      { v: '4,200', label: 'steps' },
+      { v: '+90', label: 'xp gained', volt: true },
+    ],
+    use: { name: 'Clear View', val: '+1', text: 'Reveals one hidden zone after every climb you finish.' },
+    found: { where: 'Ridge & hill zones', pct: 22 },
+    flavor: 'Cut from ridge light. Holds the last blue of the evening.',
+    foot: { left: 'illus. FINDRUN · 1 in 12 runs', right: '164 / 500' },
+    ariaLabel: 'Gem card: Ridge Sapphire, Stage 2 Rare — 90 XP, found in ridge and hill zones',
+  },
+  {
+    edge: 'legendary',
+    stage: 'Stage 3',
+    name: 'First Light Ember',
+    xp: '240',
+    art: <EmberArt />,
+    band: 'Legendary Gem · Trailblazer set',
+    stats: [
+      { v: '5.0', label: 'km run' },
+      { v: '6,830', label: 'steps' },
+      { v: '+240', label: 'xp gained', volt: true },
+    ],
+    use: { name: 'First Light', val: '2×', text: 'Dawn runs bank double XP while your streak holds.' },
+    found: { where: 'Dawn summit zones', pct: 4 },
+    flavor: 'Only surfaces in the first light after a climb — warm to the touch, or so runners say.',
+    foot: { left: 'illus. FINDRUN · dawn only', right: '007 / 500' },
+    ariaLabel: 'Gem card: First Light Ember, Stage 3 Legendary — 240 XP, surfaces at dawn',
+  },
+]
+
+const FIND_MINIS: MiniData[] = [
+  { tier: 'uncommon', name: 'Moss Emerald', xp: '40', type: 'Uncommon Gem', art: <EmeraldMiniArt /> },
+  { tier: 'rare', name: 'Ridge Sapphire', xp: '90', type: 'Rare Gem', art: <SapphireMiniArt /> },
+]
+
+const CARD_SCALE = 0.66
 
 const VIEW_W = 300
 const VIEW_H = 420
@@ -662,60 +735,61 @@ export function RunScreenDemo() {
             )}
             style={{ background: SNOW }}
           >
-            {summaryStats && (
-              <>
-                <div className="font-display text-[19px] font-semibold" style={{ color: INK }}>
-                  Run complete
-                </div>
-                <div
-                  className="w-full rounded-[15px] bg-white px-4 py-4"
-                  style={{ boxShadow: `inset 0 0 0 1px ${ink(0.12)}, 0 11px 16px ${ink(0.12)}` }}
-                >
-                  <div className="grid grid-cols-3 gap-x-2 gap-y-3.5 text-center">
-                    {[
-                      { label: 'DISTANCE', value: summaryStats.mi, unit: 'mi' },
-                      { label: 'DURATION', value: summaryStats.time, unit: 'min' },
-                      { label: 'AVG PACE', value: summaryStats.pace, unit: '/mi' },
-                      { label: 'STEPS', value: `${summaryStats.steps}` },
-                      { label: 'CALORIES', value: `${summaryStats.cal}`, unit: 'cal' },
-                      { label: 'GEMS', value: `${summaryStats.gems}` },
-                    ].map((s) => (
-                      <div key={s.label} className="flex flex-col items-center gap-[2px]">
-                        <span className="text-[7px] font-semibold tracking-[1px]" style={{ color: ink(0.55) }}>
-                          {s.label}
-                        </span>
-                        <span className="font-display text-[16.5px] leading-none font-bold tabular-nums" style={{ color: INK }}>
-                          {s.value}
-                          {s.unit && (
-                            <span className="ml-[2px] text-[8.5px] font-semibold" style={{ color: ink(0.55) }}>
-                              {s.unit}
-                            </span>
-                          )}
-                        </span>
+            {summaryStats &&
+              (() => {
+                const found = claimed.map((c, i) => (c ? i : -1)).filter((i) => i >= 0)
+                const featured = found.length > 0 ? found[found.length - 1] : null
+                const rest = found.slice(0, -1)
+                return (
+                  <>
+                    <div className="text-center">
+                      <div className="font-display text-[19px] font-semibold" style={{ color: INK }}>
+                        Run complete
                       </div>
-                    ))}
-                  </div>
-                  <div className="mt-3.5 flex items-center justify-center gap-1.5 text-[14px]">
-                    {GEMS.filter((_, i) => claimed[i]).map((g) => (
-                      <span key={g.name} style={{ filter: 'drop-shadow(0 1px 1px rgba(22,24,29,0.35))' }}>
-                        {g.emoji}
-                      </span>
-                    ))}
-                    {summaryStats.gems === 0 && (
-                      <span className="text-[9px] font-medium" style={{ color: ink(0.55) }}>
+                      <div className="mt-1 text-[9.5px] font-semibold tabular-nums" style={{ color: ink(0.55) }}>
+                        {summaryStats.mi} mi · {summaryStats.time} · {summaryStats.pace} /mi · {summaryStats.steps}{' '}
+                        steps
+                      </div>
+                    </div>
+
+                    {featured != null ? (
+                      <>
+                        {/* the capture of the run, as its collectible card */}
+                        <div
+                          className="gr-card-reveal"
+                          style={{ width: 330 * CARD_SCALE, height: 344 * CARD_SCALE }}
+                        >
+                          <div style={{ width: 330, transform: `scale(${CARD_SCALE})`, transformOrigin: 'top left' }}>
+                            <CollectibleCard data={FIND_CARDS[featured]} compact />
+                          </div>
+                        </div>
+                        {rest.length > 0 && (
+                          <div className={cn('grid w-full gap-2 px-1', rest.length === 2 ? 'grid-cols-2' : 'max-w-[132px]')}>
+                            {rest.map((i, n) => (
+                              <div key={GEMS[i].name} className="gr-find-in" style={{ animationDelay: `${0.55 + n * 0.12}s` }}>
+                                <MiniCard data={FIND_MINIS[i]} />
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <p className="max-w-[200px] text-center text-[10px] font-medium" style={{ color: ink(0.55) }}>
                         No gems this time. The route remembers you anyway.
-                      </span>
+                      </p>
                     )}
-                  </div>
-                  <div className="mt-2 text-center text-[8.5px] font-medium" style={{ color: ink(0.55) }}>
-                    Aug 10 · +75 XP
-                  </div>
-                  <div className="mt-2.5 text-center text-[9px] font-semibold" style={{ color: PULSE }}>
-                    Tap to meet your finds
-                  </div>
-                </div>
-              </>
-            )}
+
+                    <div className="text-center">
+                      <div className="text-[8.5px] font-medium" style={{ color: ink(0.55) }}>
+                        Aug 10 · +75 XP · {summaryStats.gems} {summaryStats.gems === 1 ? 'find' : 'finds'}
+                      </div>
+                      <div className="mt-1 text-[9px] font-semibold" style={{ color: PULSE }}>
+                        Tap to meet your finds
+                      </div>
+                    </div>
+                  </>
+                )
+              })()}
           </div>
         </div>
       </div>

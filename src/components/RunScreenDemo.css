@@ -34,9 +34,28 @@
 .gr-plus-float { animation: gr-plus-float 0.9s ease-out 0.95s both; }
 .gr-chip-pop { animation: gr-chip-pop 0.5s cubic-bezier(0.3, 1.4, 0.5, 1) both; }
 
+/* Run-complete: the captured card flips in, remaining finds follow. */
+@keyframes gr-card-reveal {
+  0% { transform: perspective(900px) translateY(26px) rotateY(-85deg) scale(0.9); opacity: 0; }
+  55% { transform: perspective(900px) translateY(0) rotateY(8deg) scale(1.01); opacity: 1; }
+  75% { transform: perspective(900px) rotateY(-3deg) scale(1); }
+  100% { transform: perspective(900px) rotateY(0deg) scale(1); opacity: 1; }
+}
+.gr-card-reveal { animation: gr-card-reveal 0.85s cubic-bezier(0.2, 0.75, 0.25, 1) 0.18s both; }
+
+@keyframes gr-find-in {
+  0% { transform: translateY(14px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.gr-find-in { animation: gr-find-in 0.5s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+
 @media (prefers-reduced-motion: reduce) {
   .gr-burst-ring, .gr-burst-glyph, .gr-gem-flight, .gr-plus-float, .gr-chip-pop {
     animation: none;
     opacity: 0;
+  }
+  .gr-card-reveal, .gr-find-in {
+    animation: none;
+    opacity: 1;
   }
 }

@@ -6,7 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { Container, Kicker, SectionLead, SectionTitle } from '@/components/Bits'
+import { Kicker, SectionCard, SectionLead, SectionTitle } from '@/components/Bits'
 import { Reveal } from '@/components/Reveal'
 import { RarityGlyph, type RarityTier } from '@/components/cards/art/RarityGlyph'
 
@@ -50,8 +50,7 @@ const tiers: { tier: RarityTier; name: string; odds: string; desc: string; bg: s
 
 export function Rarity() {
   return (
-    <section id="rarity" className="scroll-mt-20 py-16 md:py-24">
-      <Container>
+    <SectionCard id="rarity" tint>
         <Reveal className="text-center">
           <Kicker center>Rarity</Kicker>
           <SectionTitle className="mx-auto">
@@ -106,7 +105,6 @@ export function Rarity() {
             </Table>
           </div>
         </Reveal>
-      </Container>
-    </section>
+    </SectionCard>
   )
 }

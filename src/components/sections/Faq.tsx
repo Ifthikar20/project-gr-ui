@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import { Container, Kicker, SectionTitle } from '@/components/Bits'
+import { Kicker, SectionCard, SectionTitle } from '@/components/Bits'
 import { Reveal } from '@/components/Reveal'
 
 const faqs = [
@@ -36,8 +36,7 @@ const faqs = [
 
 export function Faq() {
   return (
-    <section id="faq" className="scroll-mt-20 py-16 md:py-24">
-      <Container>
+    <SectionCard id="faq">
         <Reveal className="text-center">
           <Kicker center>FAQ</Kicker>
           <SectionTitle>Questions, answered.</SectionTitle>
@@ -60,7 +59,6 @@ export function Faq() {
             ))}
           </Accordion>
         </Reveal>
-      </Container>
-    </section>
+    </SectionCard>
   )
 }
