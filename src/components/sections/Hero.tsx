@@ -1,10 +1,12 @@
+import { useEffect, useState } from 'react'
 import { ArrowUpRight, Star } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/Bits'
 import { Parallax } from '@/components/Parallax'
 import { Reveal } from '@/components/Reveal'
 import { CollectibleCard } from '@/components/cards/CollectibleCard'
-import { gemCard, heroCardAriaLabel } from '@/components/cards/data'
+import { artifactCard, creatureCard, factCard, gearCard, gemCard } from '@/components/cards/data'
+import { cn } from '@/lib/utils'
 
 const horizonGlow = {
   background: [
@@ -17,11 +19,57 @@ const horizonGlow = {
 
 const betaRunners = ['SM', 'DP', 'PK']
 
+// One card of each type, dealt into a hand.
+const hand = [gearCard, creatureCard, gemCard, artifactCard, factCard]
+const FAN_X = [-260, -132, 0, 132, 260]
+const FAN_Y = [34, 9, 0, 9, 34]
+const FAN_R = [-14, -7, 0, 7, 14]
+const FAN_Z = ['z-[11]', 'z-[12]', 'z-[13]', 'z-[12]', 'z-[11]']
+
+function CardFan() {
+  const [dealt, setDealt] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+
+  useEffect(() => {
+    if (dealt) return
+    const id = window.setTimeout(() => setDealt(true), 250)
+    return () => window.clearTimeout(id)
+  }, [dealt])
+
+  return (
+    <div
+      role="group"
+      aria-label="A hand of five collectible run cards — gear, creature, gem, artifact and fact"
+      className="relative mx-auto h-[200px] w-full [--fs:0.48] [perspective:1400px] sm:h-[300px] sm:[--fs:0.75] md:h-[400px] md:[--fs:1]"
+    >
+      {hand.map((card, i) => (
+        <div
+          key={card.name}
+          className={cn(
+            'absolute top-0 left-1/2 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] hover:z-20',
+            FAN_Z[i],
+          )}
+          style={{
+            transform: dealt
+              ? `translateX(calc(-50% + ${FAN_X[i]}px * var(--fs))) translateY(calc(${FAN_Y[i]}px * var(--fs))) rotate(${FAN_R[i]}deg) scale(var(--fs))`
+              : 'translateX(-50%) translateY(48px) rotate(0deg) scale(var(--fs))',
+            transitionDelay: `${i * 80}ms`,
+            opacity: dealt ? 1 : 0,
+          }}
+        >
+          <div className="transition-transform duration-300 ease-out hover:-translate-y-6 motion-reduce:hover:translate-y-0">
+            <CollectibleCard data={card} />
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export function Hero() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden bg-gradient-to-b from-[#eef3fa] to-background pt-14 pb-16 text-center md:pt-20 md:pb-28"
+      className="relative overflow-hidden bg-gradient-to-b from-[#eef3fa] to-background pt-14 pb-10 text-center md:pt-20 md:pb-20"
     >
       {/* pastel horizon, ported from the legacy .hero::before */}
       <div
@@ -70,13 +118,13 @@ export function Hero() {
           </div>
         </Reveal>
 
-        <Reveal delay={2} className="relative mt-12 grid place-items-center [perspective:1400px] md:mt-16">
+        <Reveal delay={2} className="relative mt-10 md:mt-14">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute size-[480px] max-w-[90vw] bg-[radial-gradient(50%_50%_at_50%_50%,rgba(255,255,255,0.9),transparent_70%)]"
+            className="pointer-events-none absolute left-1/2 top-1/2 size-[520px] max-w-[96vw] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(50%_50%_at_50%_50%,rgba(255,255,255,0.9),transparent_70%)]"
           />
           <Parallax speed={0.07}>
-            <CollectibleCard data={gemCard} float heroHeading ariaLabel={heroCardAriaLabel} />
+            <CardFan />
           </Parallax>
         </Reveal>
       </Container>
