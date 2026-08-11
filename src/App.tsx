@@ -2,8 +2,6 @@ import { Navbar } from '@/components/sections/Navbar'
 import { Hero } from '@/components/sections/Hero'
 import { StatsBand } from '@/components/sections/StatsBand'
 import { AboutBento } from '@/components/sections/AboutBento'
-import { HowItWorks } from '@/components/sections/HowItWorks'
-import { Zones } from '@/components/sections/Zones'
 import { Track } from '@/components/sections/Track'
 import { Privacy } from '@/components/sections/Privacy'
 import { Reviews } from '@/components/sections/Reviews'
@@ -26,8 +24,6 @@ export default function App() {
         <Hero />
         <StatsBand />
         <AboutBento />
-        <HowItWorks />
-        <Zones />
         <Track />
         <Privacy />
         <Reviews />

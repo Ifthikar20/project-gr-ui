@@ -36,7 +36,7 @@ export function AboutBento() {
                   you were there.
                 </p>
                 <Button asChild size="lg" className="mt-8 h-12 rounded-full px-7 text-[15px]">
-                  <a href="#how">How it works</a>
+                  <a href="#track">Watch a run</a>
                 </Button>
               </div>
               <div className="grid grid-cols-2 gap-4">

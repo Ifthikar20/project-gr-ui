@@ -12,9 +12,9 @@ import {
 import { BrandMark } from '@/components/BrandMark'
 
 const navLinks = [
-  { href: '#how', label: 'How it works' },
-  { href: '#zones', label: 'Zones' },
+  { href: '#what', label: 'About' },
   { href: '#track', label: 'Track' },
+  { href: '#privacy', label: 'Privacy' },
   { href: '#community', label: 'Community' },
   { href: '#faq', label: 'FAQ' },
 ]

@@ -5,8 +5,7 @@ const columns = [
   {
     title: 'Play',
     links: [
-      { href: '#how', label: 'How it works' },
-      { href: '#zones', label: 'Zones' },
+      { href: '#what', label: 'About' },
       { href: '#community', label: 'Community' },
     ],
   },

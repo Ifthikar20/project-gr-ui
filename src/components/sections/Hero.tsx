@@ -124,10 +124,10 @@ export function Hero() {
               </a>
             </Button>
             <a
-              href="#how"
+              href="#track"
               className="text-[14.5px] font-semibold text-foreground/55 transition-colors hover:text-foreground"
             >
-              How it works
+              See it in action
             </a>
           </div>
         </Reveal>
