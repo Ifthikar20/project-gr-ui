@@ -62,11 +62,12 @@ under a project path (`/project-gr-ui/`), a custom domain, and local preview.
 
 ## Sample content to replace before launch
 
-- **Banner photos**: the fitness banner, the closing CTA and the hero /
-  community photo slots use `PhotoPlaceholder` — the hero and community
-  slots load `assets/running-sf.jpg` automatically once that file exists
-  in `public/assets/`; swap the banner slots for real
-  `<img className="absolute inset-0 h-full w-full object-cover" />`.
+- **Photos**: the hero deck loads `assets/run-1.jpg` and `run-2.jpg`; the
+  community strip loads `run-3.jpg` … `run-6.jpg`. Drop those files into
+  `public/assets/` and every slot lights up automatically (placeholders
+  show until then). The closing CTA banner still uses `PhotoPlaceholder` —
+  swap it for a real `<img className="absolute inset-0 h-full w-full
+  object-cover" />`.
 - **Social handle** `@findrunapp` in the community section is invented —
   point it at the real account.
 

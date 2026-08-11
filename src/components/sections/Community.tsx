@@ -4,8 +4,6 @@ import { Container, Kicker, SectionTitle } from '@/components/Bits'
 import { Reveal } from '@/components/Reveal'
 import { RunPhoto } from '@/components/RunPhoto'
 import { GemArt } from '@/components/cards/art/GemArt'
-import { GearArt } from '@/components/cards/art/GearArt'
-import { CreatureArt } from '@/components/cards/art/CreatureArt'
 import { ArtifactArt } from '@/components/cards/art/ArtifactArt'
 import { EmberArt } from '@/components/cards/art/EmberArt'
 import { cn } from '@/lib/utils'
@@ -15,13 +13,13 @@ import { cn } from '@/lib/utils'
    toward the bleeding edges. */
 
 const ITEMS: { id: string; node: ReactNode }[] = [
-  { id: 'photo', node: <RunPhoto /> },
+  { id: 'photo-3', node: <RunPhoto n={3} /> },
   { id: 'gem', node: <GemArt /> },
-  { id: 'gear', node: <GearArt /> },
-  { id: 'photo-mono', node: <RunPhoto mono /> },
-  { id: 'creature', node: <CreatureArt /> },
+  { id: 'photo-4', node: <RunPhoto n={4} /> },
   { id: 'ember', node: <EmberArt /> },
+  { id: 'photo-5', node: <RunPhoto n={5} /> },
   { id: 'artifact', node: <ArtifactArt /> },
+  { id: 'photo-6', node: <RunPhoto n={6} /> },
 ]
 
 /* Horizontal strip placement by offset from the active card (0 = center). */

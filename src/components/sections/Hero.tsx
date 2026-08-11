@@ -14,9 +14,9 @@ interface DeckCard {
 }
 
 const DECK: DeckCard[] = [
-  { id: 'photo', node: <RunPhoto /> },
+  { id: 'photo-1', node: <RunPhoto n={1} /> },
   { id: 'gem', node: <GemArt /> },
-  { id: 'photo-mono', node: <RunPhoto mono /> },
+  { id: 'photo-2', node: <RunPhoto n={2} /> },
   { id: 'creature', node: <CreatureArt /> },
 ]
 
