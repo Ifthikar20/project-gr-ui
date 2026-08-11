@@ -1,4 +1,3 @@
-import { BrandMark } from '@/components/BrandMark'
 import { Container } from '@/components/Bits'
 
 const columns = [
@@ -34,8 +33,7 @@ export function Footer() {
       <Container>
         <div className="flex flex-wrap justify-between gap-10">
           <div className="max-w-[320px]">
-            <a href="#top" aria-label="RunnerCard home" className="flex items-center gap-2">
-              <BrandMark variant="footer" />
+            <a href="#top" aria-label="RunnerCard home" className="inline-block">
               <span className="text-[17px] font-semibold text-black">RunnerCard</span>
             </a>
             <p className="mt-3 text-sm leading-relaxed text-foreground/70">
