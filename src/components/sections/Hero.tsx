@@ -1,13 +1,11 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
-import { ArrowUpRight, Star } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/Bits'
 import { Reveal } from '@/components/Reveal'
 import { RunPhoto } from '@/components/RunPhoto'
 import { GemArt } from '@/components/cards/art/GemArt'
 import { CreatureArt } from '@/components/cards/art/CreatureArt'
-
-const betaRunners = ['SM', 'DP', 'PK']
 
 interface DeckCard {
   id: string
@@ -97,59 +95,42 @@ function ShuffleDeck() {
 
 export function Hero() {
   return (
-    <section id="top" className="scroll-mt-24 overflow-hidden pt-24 pb-14 md:pt-32 md:pb-20">
-      <Container>
-        <div className="grid items-center gap-12 md:grid-cols-[1.05fr_0.95fr] md:gap-16">
-          <Reveal stagger className="text-left">
-            {/* proof strip */}
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-              <div className="flex items-center">
-                {betaRunners.map((initials, i) => (
-                  <span
-                    key={initials}
-                    className={`grid size-7 place-items-center rounded-full bg-foreground text-[9px] font-bold text-background ring-2 ring-background ${i > 0 ? '-ml-1.5' : ''}`}
-                  >
-                    {initials}
-                  </span>
-                ))}
-              </div>
-              <span className="flex items-center gap-0.5 text-rarity-legendary" aria-label="5 out of 5">
-                {Array.from({ length: 5 }, (_, i) => (
-                  <Star key={i} className="size-3 fill-current" strokeWidth={0} />
-                ))}
-              </span>
-              <span className="text-[12.5px] font-semibold text-muted-foreground">Loved by beta runners</span>
-            </div>
-
-            <h1 className="mt-7 font-display text-[clamp(46px,6vw,88px)] leading-[0.95] font-extrabold tracking-[-0.03em] uppercase">
+    <section id="top" className="flex min-h-[100svh] scroll-mt-24 flex-col overflow-hidden pt-24 pb-10 md:pt-28">
+      <Container className="flex flex-1 flex-col">
+        <div className="grid flex-1 items-start gap-12 md:grid-cols-[1fr_1fr] md:gap-8">
+          <Reveal stagger className="text-left md:pt-6">
+            <h1 className="font-display text-[clamp(46px,5.2vw,84px)] leading-[0.95] font-extrabold tracking-[-0.03em] uppercase">
               Every run
               <br />
               mints a card.
             </h1>
-            <p className="mt-8 max-w-[40ch] text-[15.5px] leading-relaxed text-foreground/60">
-              A real fitness tracker with a collection on top — gems, gear and creatures, minted only on the streets
-              you actually run.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Button size="lg" asChild className="h-13 rounded-full px-8 text-[15.5px]">
-                <a href="#join">
-                  Start collecting
-                  <ArrowUpRight className="size-4" />
-                </a>
-              </Button>
-              <a
-                href="#how"
-                className="text-[14.5px] font-semibold text-foreground/55 transition-colors hover:text-foreground"
-              >
-                How it works
-              </a>
-            </div>
           </Reveal>
 
-          <Reveal delay={2}>
+          <Reveal delay={2} className="self-center">
             <ShuffleDeck />
           </Reveal>
         </div>
+
+        <Reveal delay={3} className="mt-12 md:mt-0">
+          <p className="max-w-[42ch] text-[15.5px] leading-relaxed text-foreground/60">
+            A real fitness tracker with a collection on top — gems, gear and creatures, minted only on the streets you
+            actually run.
+          </p>
+          <div className="mt-6 flex flex-wrap items-center gap-4">
+            <Button size="lg" asChild className="h-12 rounded-full px-7 text-[15px]">
+              <a href="#join">
+                Start collecting
+                <ArrowUpRight className="size-4" />
+              </a>
+            </Button>
+            <a
+              href="#how"
+              className="text-[14.5px] font-semibold text-foreground/55 transition-colors hover:text-foreground"
+            >
+              How it works
+            </a>
+          </div>
+        </Reveal>
       </Container>
     </section>
   )
