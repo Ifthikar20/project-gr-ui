@@ -19,12 +19,12 @@ export function Track() {
     <section id="track" className="scroll-mt-24 py-14 md:py-20">
       <Container>
         <div className="grid items-center gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-16">
-          <Reveal>
-            <div className="grid place-items-center rounded-[30px] bg-gradient-to-b from-wash-blue to-[#eef3fb] px-6 py-10 shadow-sm md:px-10 md:py-12">
+          <Reveal className="min-w-0">
+            <div className="grid place-items-center rounded-[30px] bg-gradient-to-b from-wash-blue to-[#eef3fb] px-3 py-8 sm:px-6 sm:py-10 md:px-6 md:py-12 lg:px-10">
               <RunScreenDemo onLive={onLive} />
             </div>
           </Reveal>
-          <Reveal delay={1}>
+          <Reveal delay={1} className="min-w-0">
             <Kicker>Track</Kicker>
             <SectionTitle>A real fitness tracker, wrapped around a hunt.</SectionTitle>
             <SectionLead className="mb-7">

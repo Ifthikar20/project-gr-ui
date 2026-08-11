@@ -453,14 +453,14 @@ export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: 
   const nextGemVisible = claimed.some((c) => !c)
 
   return (
-    <div className="flex flex-col items-center gap-3">
+    <div className="flex w-full max-w-[290px] flex-col items-center gap-3">
       <div
         ref={frameRef}
         role="img"
         aria-label="GemRun active run screen: a live 3.11 mile run collects Moss Emerald, Ridge Sapphire and First Light Ember; the stats band shows time, distance, steps and pace, with pause and hold-to-stop controls"
         onClick={replay}
         className={cn(
-          'relative w-[290px] rounded-[46px] bg-[#0b0c0f] p-[10px] select-none',
+          'gr-frame relative w-full rounded-[46px] bg-[#0b0c0f] p-[10px] select-none',
           'shadow-[0_34px_90px_rgba(16,18,22,0.38),inset_0_0_0_1.5px_rgba(255,255,255,0.06)]',
           'transition-[transform,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
           !reduced &&
@@ -699,7 +699,7 @@ export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: 
             </div>
 
             {/* Time · mi · Steps · min/mi */}
-            <div className="flex items-end gap-4">
+            <div className="gr-stats flex items-end gap-4">
               {[
                 { ref: timeRef, initial: '0:00', label: 'Time' },
                 { ref: distRef, initial: '0.00', label: 'mi' },
@@ -708,7 +708,7 @@ export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: 
               ].map((stat) => (
                 <div key={stat.label} className="flex flex-col items-center gap-[1px]">
                   <span
-                    className="font-display text-[24px] leading-none font-bold tabular-nums"
+                    className="gr-num font-display text-[24px] leading-none font-bold tabular-nums"
                     style={{ color: stat.accent ? PULSE : INK }}
                   >
                     <span ref={stat.ref}>{stat.initial}</span>

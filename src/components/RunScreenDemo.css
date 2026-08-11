@@ -59,3 +59,17 @@
     opacity: 1;
   }
 }
+
+/* On the narrowest phones the frame shrinks below its natural 290px
+   (max-w-full); tighten the stats band so all four figures still fit. */
+.gr-frame {
+  container-type: inline-size;
+}
+@container (max-width: 279px) {
+  .gr-stats {
+    gap: 9px;
+  }
+  .gr-stats .gr-num {
+    font-size: 21px;
+  }
+}

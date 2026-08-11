@@ -39,7 +39,7 @@ export function AboutBento() {
                   <a href="#track">Watch a run</a>
                 </Button>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 md:grid-cols-1 lg:grid-cols-2">
                 <div className={artTile}>
                   <GemArt />
                 </div>
