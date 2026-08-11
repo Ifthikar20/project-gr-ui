@@ -15,8 +15,6 @@ import { cn } from '@/lib/utils'
 const navLinks = [
   { href: '#how', label: 'How it works' },
   { href: '#zones', label: 'Zones' },
-  { href: '#cards', label: 'Cards' },
-  { href: '#rarity', label: 'Rarity' },
   { href: '#track', label: 'Track' },
   { href: '#faq', label: 'FAQ' },
 ]
@@ -24,11 +22,11 @@ const navLinks = [
 function Brand() {
   return (
     <a href="#top" aria-label="FindRun home" className="flex items-center gap-2">
-      <BrandMark />
-      <span className="font-display text-[17px] font-bold tracking-[-0.02em]">
+      <BrandMark className="size-7" />
+      <span className="font-display text-[16px] font-bold tracking-[-0.02em]">
         Find<b>Run</b>
       </span>
-      <span className="rounded-md border border-border bg-secondary px-1.5 py-0.5 text-[9.5px] font-extrabold tracking-[0.08em] uppercase text-muted-foreground">
+      <span className="rounded-md border border-border bg-secondary px-1.5 py-0.5 text-[9px] font-extrabold tracking-[0.08em] uppercase text-muted-foreground">
         beta
       </span>
     </a>
@@ -47,17 +45,19 @@ export function Navbar() {
   }, [])
 
   return (
-    <header
-      className={cn(
-        'sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md transition-[border-color,box-shadow]',
-        stuck ? 'border-border shadow-[0_8px_30px_rgba(16,18,22,0.06)]' : 'border-transparent',
-      )}
-    >
-      <div className="mx-auto flex h-14 w-full max-w-[1120px] items-center justify-between gap-4 px-6">
+    <header className="fixed inset-x-0 top-3 z-50 px-3 md:top-4">
+      <div
+        className={cn(
+          'mx-auto flex h-14 w-full max-w-[880px] items-center justify-between gap-4 rounded-full border bg-background/85 pr-2 pl-5 backdrop-blur-md transition-[box-shadow,border-color,background-color] duration-300',
+          stuck
+            ? 'border-border bg-background/95 shadow-[0_12px_36px_rgba(16,18,22,0.14)]'
+            : 'border-border/60 shadow-[0_4px_18px_rgba(16,18,22,0.07)]',
+        )}
+      >
         <Brand />
 
         <nav aria-label="Primary" className="hidden md:block">
-          <ul className="flex items-center gap-7">
+          <ul className="flex items-center gap-6">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <a
@@ -71,8 +71,8 @@ export function Navbar() {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-2">
-          <Button asChild size="sm" className="rounded-full px-4">
+        <div className="flex items-center gap-1.5">
+          <Button asChild size="sm" className="h-10 rounded-full px-4">
             <a href="#join">
               Join the beta
               <ArrowUpRight className="size-3.5" />
@@ -81,7 +81,7 @@ export function Navbar() {
 
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden" aria-label="Menu">
+              <Button variant="ghost" size="icon" className="rounded-full md:hidden" aria-label="Menu">
                 <Menu className="size-5" />
               </Button>
             </SheetTrigger>

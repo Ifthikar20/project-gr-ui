@@ -7,8 +7,7 @@ const columns = [
     links: [
       { href: '#how', label: 'How it works' },
       { href: '#zones', label: 'Zones' },
-      { href: '#cards', label: 'Card types' },
-      { href: '#rarity', label: 'Rarity' },
+      { href: '#community', label: 'Community' },
     ],
   },
   {

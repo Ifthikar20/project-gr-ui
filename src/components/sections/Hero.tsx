@@ -97,7 +97,7 @@ function ShuffleDeck() {
 
 export function Hero() {
   return (
-    <section id="top" className="scroll-mt-24 overflow-hidden pt-10 pb-14 md:pt-16 md:pb-20">
+    <section id="top" className="scroll-mt-24 overflow-hidden pt-24 pb-14 md:pt-32 md:pb-20">
       <Container>
         <div className="grid items-center gap-12 md:grid-cols-[1.05fr_0.95fr] md:gap-16">
           <Reveal stagger className="text-left">
