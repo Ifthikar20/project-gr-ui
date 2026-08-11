@@ -1,132 +1,171 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { ArrowUpRight, Star } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/Bits'
-import { Parallax } from '@/components/Parallax'
+import { PhotoPlaceholder } from '@/components/PhotoPlaceholder'
 import { Reveal } from '@/components/Reveal'
-import { CollectibleCard } from '@/components/cards/CollectibleCard'
-import { artifactCard, creatureCard, factCard, gearCard, gemCard } from '@/components/cards/data'
+import { GemArt } from '@/components/cards/art/GemArt'
+import { CreatureArt } from '@/components/cards/art/CreatureArt'
 import { cn } from '@/lib/utils'
-
-const horizonGlow = {
-  background: [
-    'radial-gradient(34% 42% at 18% 78%, rgba(122, 180, 255, 0.50), transparent 70%)',
-    'radial-gradient(30% 40% at 42% 88%, rgba(255, 168, 212, 0.42), transparent 70%)',
-    'radial-gradient(32% 42% at 64% 80%, rgba(151, 235, 178, 0.48), transparent 70%)',
-    'radial-gradient(30% 40% at 86% 86%, rgba(255, 224, 150, 0.42), transparent 70%)',
-  ].join(', '),
-}
 
 const betaRunners = ['SM', 'DP', 'PK']
 
-// One card of each type, dealt into a hand.
-const hand = [gearCard, creatureCard, gemCard, artifactCard, factCard]
-const FAN_X = [-260, -132, 0, 132, 260]
-const FAN_Y = [34, 9, 0, 9, 34]
-const FAN_R = [-14, -7, 0, 7, 14]
-const FAN_Z = ['z-[11]', 'z-[12]', 'z-[13]', 'z-[12]', 'z-[11]']
+/* The photo card: renders assets/running-sf.jpg and falls back to the
+   placeholder until that file exists in public/assets/. */
+function RunPhoto({ mono = false }: { mono?: boolean }) {
+  const [failed, setFailed] = useState(false)
+  if (failed) return <PhotoPlaceholder label="Add running-sf.jpg" />
+  return (
+    <img
+      src="assets/running-sf.jpg"
+      alt="Runners out on the streets"
+      onError={() => setFailed(true)}
+      className={cn('h-full w-full object-cover', mono && 'object-[70%_30%] grayscale')}
+    />
+  )
+}
 
-function CardFan() {
-  const [dealt, setDealt] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+interface DeckCard {
+  id: string
+  node: ReactNode
+}
 
+const DECK: DeckCard[] = [
+  { id: 'photo', node: <RunPhoto /> },
+  { id: 'gem', node: <GemArt /> },
+  { id: 'photo-mono', node: <RunPhoto mono /> },
+  { id: 'creature', node: <CreatureArt /> },
+]
+
+/* Resting transforms per stack position, top first. */
+const STACK = [
+  { transform: 'translate(0, 0) rotate(0deg) scale(1)', z: 40 },
+  { transform: 'translate(-18px, 16px) rotate(-6deg) scale(0.97)', z: 30 },
+  { transform: 'translate(16px, 26px) rotate(5deg) scale(0.94)', z: 20 },
+  { transform: 'translate(-2px, 34px) rotate(-2deg) scale(0.92)', z: 10 },
+]
+
+function ShuffleDeck() {
+  const [order, setOrder] = useState([0, 1, 2, 3])
+  const [exiting, setExiting] = useState<number | null>(null)
+  const orderRef = useRef(order)
+  const busyRef = useRef(false)
+  const bucketRef = useRef(0)
+  orderRef.current = order
+
+  const shuffle = () => {
+    if (busyRef.current) return
+    busyRef.current = true
+    setExiting(orderRef.current[0])
+    window.setTimeout(() => {
+      setOrder((o) => [...o.slice(1), o[0]])
+      setExiting(null)
+      window.setTimeout(() => {
+        busyRef.current = false
+      }, 120)
+    }, 460)
+  }
+
+  // scroll shuffles to the next card
   useEffect(() => {
-    if (dealt) return
-    const id = window.setTimeout(() => setDealt(true), 250)
-    return () => window.clearTimeout(id)
-  }, [dealt])
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    bucketRef.current = Math.floor(window.scrollY / 180)
+    const onScroll = () => {
+      const bucket = Math.floor(window.scrollY / 180)
+      if (bucket !== bucketRef.current) {
+        bucketRef.current = bucket
+        shuffle()
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <div
-      role="group"
-      aria-label="A hand of five collectible run cards — gear, creature, gem, artifact and fact"
-      className="relative mx-auto h-[200px] w-full [--fs:0.48] [perspective:1400px] sm:h-[300px] sm:[--fs:0.75] md:h-[400px] md:[--fs:1]"
+    <button
+      type="button"
+      onClick={shuffle}
+      aria-label="Photo and card deck — scroll or tap to shuffle to the next one"
+      className="relative mx-auto block aspect-[4/5] w-full max-w-[420px] cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-ring/60 focus-visible:ring-offset-4 focus-visible:ring-offset-background md:max-w-[440px]"
     >
-      {hand.map((card, i) => (
-        <div
-          key={card.name}
-          className={cn(
-            'absolute top-0 left-1/2 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] hover:z-20',
-            FAN_Z[i],
-          )}
-          style={{
-            transform: dealt
-              ? `translateX(calc(-50% + ${FAN_X[i]}px * var(--fs))) translateY(calc(${FAN_Y[i]}px * var(--fs))) rotate(${FAN_R[i]}deg) scale(var(--fs))`
-              : 'translateX(-50%) translateY(48px) rotate(0deg) scale(var(--fs))',
-            transitionDelay: `${i * 80}ms`,
-            opacity: dealt ? 1 : 0,
-          }}
-        >
-          <div className="transition-transform duration-300 ease-out hover:-translate-y-6 motion-reduce:hover:translate-y-0">
-            <CollectibleCard data={card} />
+      {DECK.map((card, i) => {
+        const pos = order.indexOf(i)
+        const isExiting = exiting === i
+        const rest = STACK[Math.min(pos, STACK.length - 1)]
+        return (
+          <div
+            key={card.id}
+            aria-hidden={pos !== 0}
+            className="absolute inset-0 overflow-hidden rounded-[28px] bg-card shadow-[0_24px_60px_rgba(16,18,22,0.18)] transition-all duration-[550ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none [&>svg]:absolute [&>svg]:inset-0 [&>svg]:h-full [&>svg]:w-full"
+            style={{
+              transform: isExiting ? 'translate(120%, -6%) rotate(18deg)' : rest.transform,
+              opacity: isExiting ? 0 : 1,
+              zIndex: isExiting ? 50 : rest.z,
+            }}
+          >
+            {card.node}
           </div>
-        </div>
-      ))}
-    </div>
+        )
+      })}
+    </button>
   )
 }
 
 export function Hero() {
   return (
-    <section
-      id="top"
-      className="relative overflow-hidden bg-gradient-to-b from-[#eef3fa] to-background pt-14 pb-10 text-center md:pt-20 md:pb-20"
-    >
-      {/* pastel horizon, ported from the legacy .hero::before */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-[22%] -left-[10%] -right-[10%] h-[70%] opacity-75 blur-[46px]"
-        style={horizonGlow}
-      />
-      <Container className="relative z-10">
-        <Reveal stagger className="flex flex-col items-center">
-          {/* proof strip */}
-          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
-            <div className="flex items-center">
-              {betaRunners.map((initials, i) => (
-                <span
-                  key={initials}
-                  className={`grid size-8 place-items-center rounded-full bg-foreground text-[10px] font-bold text-background ring-2 ring-[#eef3fa] ${i > 0 ? '-ml-2' : ''}`}
-                >
-                  {initials}
-                </span>
-              ))}
+    <section id="top" className="scroll-mt-24 overflow-hidden pt-10 pb-14 md:pt-16 md:pb-20">
+      <Container>
+        <div className="grid items-center gap-12 md:grid-cols-[1.05fr_0.95fr] md:gap-16">
+          <Reveal stagger className="text-left">
+            {/* proof strip */}
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <div className="flex items-center">
+                {betaRunners.map((initials, i) => (
+                  <span
+                    key={initials}
+                    className={`grid size-7 place-items-center rounded-full bg-foreground text-[9px] font-bold text-background ring-2 ring-background ${i > 0 ? '-ml-1.5' : ''}`}
+                  >
+                    {initials}
+                  </span>
+                ))}
+              </div>
+              <span className="flex items-center gap-0.5 text-rarity-legendary" aria-label="5 out of 5">
+                {Array.from({ length: 5 }, (_, i) => (
+                  <Star key={i} className="size-3 fill-current" strokeWidth={0} />
+                ))}
+              </span>
+              <span className="text-[12.5px] font-semibold text-muted-foreground">Loved by beta runners</span>
             </div>
-            <span className="flex items-center gap-0.5 text-rarity-legendary" aria-label="5 out of 5">
-              {Array.from({ length: 5 }, (_, i) => (
-                <Star key={i} className="size-3.5 fill-current" strokeWidth={0} />
-              ))}
-            </span>
-            <span className="text-[13px] font-semibold text-muted-foreground">Loved by TestFlight beta runners</span>
-          </div>
 
-          <h1 className="mt-6 max-w-[13ch] font-display text-[clamp(44px,7vw,84px)] leading-[1.0] font-bold tracking-[-0.035em]">
-            Every run
-            <br />
-            mints a card.
-          </h1>
-          <p className="mt-6 max-w-[54ch] text-[clamp(17px,2vw,20px)] leading-relaxed text-foreground/70">
-            A real fitness tracker with a collection on top: miles in, cards out. Gems, gear and creatures — minted
-            only on the streets you actually run.
-          </p>
-          <div className="mt-8">
-            <Button size="lg" asChild className="h-13 rounded-full px-8 text-[15.5px]">
-              <a href="#join">
-                Start collecting
-                <ArrowUpRight className="size-4" />
+            <h1 className="mt-7 font-display text-[clamp(46px,6vw,88px)] leading-[0.95] font-extrabold tracking-[-0.03em] uppercase">
+              Every run
+              <br />
+              mints a card.
+            </h1>
+            <p className="mt-8 max-w-[40ch] text-[15.5px] leading-relaxed text-foreground/60">
+              A real fitness tracker with a collection on top — gems, gear and creatures, minted only on the streets
+              you actually run.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <Button size="lg" asChild className="h-13 rounded-full px-8 text-[15.5px]">
+                <a href="#join">
+                  Start collecting
+                  <ArrowUpRight className="size-4" />
+                </a>
+              </Button>
+              <a
+                href="#how"
+                className="text-[14.5px] font-semibold text-foreground/55 transition-colors hover:text-foreground"
+              >
+                How it works
               </a>
-            </Button>
-          </div>
-        </Reveal>
+            </div>
+          </Reveal>
 
-        <Reveal delay={2} className="relative mt-10 md:mt-14">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-1/2 size-[520px] max-w-[96vw] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(50%_50%_at_50%_50%,rgba(255,255,255,0.9),transparent_70%)]"
-          />
-          <Parallax speed={0.07}>
-            <CardFan />
-          </Parallax>
-        </Reveal>
+          <Reveal delay={2}>
+            <ShuffleDeck />
+          </Reveal>
+        </div>
       </Container>
     </section>
   )
