@@ -1,27 +1,11 @@
-import { useRef, useState, type FormEvent } from 'react'
-import { ArrowRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { AppStoreButton } from '@/components/AppStoreButton'
 import { RunPhoto } from '@/components/RunPhoto'
 import { Reveal } from '@/components/Reveal'
 
 /* The closing CTA as a full-width photo banner: headline and the
-   waitlist form over the photo. */
+   App Store button over the photo. */
 
 export function JoinCta() {
-  const [email, setEmail] = useState('')
-  const [joined, setJoined] = useState(false)
-  const inputRef = useRef<HTMLInputElement>(null)
-
-  const onSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    if (!email.includes('@')) {
-      inputRef.current?.focus()
-      return
-    }
-    setJoined(true)
-  }
-
   return (
     <section id="join" className="scroll-mt-24 px-3 py-8 md:px-6 md:py-12">
       <Reveal>
@@ -41,40 +25,14 @@ export function JoinCta() {
                   Your city is full of cards you haven't found yet.
                 </h2>
                 <p className="mt-4 max-w-[42ch] text-[16.5px] leading-relaxed text-white/75">
-                  Join the RunnerCard beta and start collecting the ground you cover.
+                  Download RunnerCard and start collecting the ground you cover.
                 </p>
-                {!joined ? (
-                  <>
-                    <form className="mt-7 flex flex-wrap gap-2.5" noValidate onSubmit={onSubmit}>
-                      <Input
-                        ref={inputRef}
-                        type="email"
-                        name="email"
-                        placeholder="you@email.com"
-                        aria-label="Email address"
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="h-12 min-w-[230px] max-w-[300px] flex-1 rounded-full border-transparent bg-white/95 px-5 text-[15px] text-[#101216] placeholder:text-[#101216]/45"
-                      />
-                      <Button
-                        type="submit"
-                        size="lg"
-                        className="h-12 rounded-full bg-volt px-6 text-[15px] font-semibold text-[#101216] hover:bg-volt/90"
-                      >
-                        Get my invite
-                        <ArrowRight className="size-4" />
-                      </Button>
-                    </form>
-                    <p className="mt-4 text-[12.5px] font-medium text-white/55">
-                      iPhone · iOS 17+ · Free during beta · No spam, one invite email.
-                    </p>
-                  </>
-                ) : (
-                  <p className="mt-7 text-[16px] font-semibold text-white">
-                    You're on the list — check your inbox for a TestFlight invite.
-                  </p>
-                )}
+                <div className="mt-7">
+                  <AppStoreButton className="bg-volt text-[#101216] hover:bg-volt/90" />
+                </div>
+                <p className="mt-4 text-[12.5px] font-medium text-white/55">
+                  iPhone · iOS 17+ · Free to play · No packs to buy.
+                </p>
               </div>
             </div>
           </div>

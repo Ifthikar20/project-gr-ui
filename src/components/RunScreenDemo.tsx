@@ -5,19 +5,19 @@ import { cn } from '@/lib/utils'
 import { CollectibleCard } from '@/components/cards/CollectibleCard'
 import { MiniCard } from '@/components/cards/MiniCard'
 import type { CardData, MiniData } from '@/components/cards/data'
-import { GemArt } from '@/components/cards/art/GemArt'
 import { EmeraldArt } from '@/components/cards/art/EmeraldArt'
 import { EmberArt } from '@/components/cards/art/EmberArt'
-import { EmeraldMiniArt, SapphireMiniArt } from '@/components/cards/art/minis'
+import { EmeraldMiniArt } from '@/components/cards/art/minis'
 import './RunScreenDemo.css'
 
 /**
  * A faithful mockup of the app's Active Run screen, transcribed from the
- * iOS source (ActiveRunView + DesignSystem): light flat map, 🏃 runner
- * with a heading arrow, green capture rings, a bottom stats band
- * (Time · mi · Steps · min/mi, pace in pulse violet), pause orb and
- * Hold-to-stop. Claims follow the app's choreography — rarity burst,
- * gem flight into the stash chip, "+1" float — no toasts, no XP mid-run.
+ * iOS source (ActiveRunView + DesignSystem): light flat city map, 🏃
+ * runner with a heading arrow, a route that follows the streets between
+ * blocks, two shaded active regions, a bottom stats band (Time · mi ·
+ * Steps · min/mi, pace in pulse violet), pause orb and Hold-to-stop.
+ * Claims follow the app's choreography — rarity burst, card flight into
+ * the stash chip, "+1" float — no toasts, no XP mid-run.
  * Auto-plays in view and loops via the real "Run complete" summary.
  * Sizes are the app's point values at ~0.69 scale (393pt → 270px).
  */
@@ -35,26 +35,123 @@ const rarityColor: Record<string, string> = {
   legendary: 'rgba(95, 64, 191, 1)',
 }
 
-interface GemDef {
+interface ZoneDef {
+  /** Region rect in map viewBox units — cards surface anywhere inside. */
   x: number
   y: number
-  name: string
+  w: number
+  h: number
+  label: string
+  short: string
   tier: 'uncommon' | 'rare' | 'legendary'
-  emoji: string
+  fill: string
+  stroke: string
+  ink: string
+  /** Label and collected-badge anchors, kept inside the sliced viewport. */
+  lx: number
+  ly: number
+  bx: number
+  by: number
 }
 
-// Real catalog names (GemCatalog.swift); positions in map viewBox units.
-const GEMS: GemDef[] = [
-  { x: 78, y: 306, name: 'Moss Emerald', tier: 'uncommon', emoji: '💚' },
-  { x: 210, y: 192, name: 'Ridge Sapphire', tier: 'rare', emoji: '💙' },
-  { x: 150, y: 66, name: 'First Light Ember', tier: 'legendary', emoji: '🔥' },
+/* Two active regions rather than pin-drops: run into the shaded area and
+   the card inside it is collected. */
+const ZONES: ZoneDef[] = [
+  {
+    x: 0,
+    y: 208,
+    w: 146,
+    h: 116,
+    label: 'PARK ZONE',
+    short: 'Park zone',
+    tier: 'uncommon',
+    fill: 'rgba(97, 255, 0, 0.2)',
+    stroke: 'rgba(72, 168, 16, 0.75)',
+    ink: '#3d7f13',
+    lx: 40,
+    ly: 232,
+    bx: 126,
+    by: 227,
+  },
+  {
+    x: 156,
+    y: 16,
+    w: 146,
+    h: 116,
+    label: 'DAWN ZONE',
+    short: 'Dawn zone',
+    tier: 'legendary',
+    fill: 'rgba(95, 64, 191, 0.17)',
+    stroke: 'rgba(95, 64, 191, 0.7)',
+    ink: '#4a2fa0',
+    lx: 176,
+    ly: 118,
+    bx: 266,
+    by: 113,
+  },
 ]
 
+/* The route follows the street grid — every leg runs down an avenue or a
+   cross street, never through a block. */
 const ROUTE =
-  'M36 392 Q64 356 78 306 Q92 252 148 234 Q200 218 210 192 Q218 156 178 130 Q150 110 150 66'
+  'M52 408 L52 286 Q52 266 72 266 L130 266 Q150 266 150 246 L150 186 Q150 166 170 166 L228 166 Q248 166 248 146 L248 86 Q248 66 228 66 L168 66'
+
+const GRID_MAJOR = 'M0 66 H300 M0 166 H300 M0 266 H300 M0 366 H300 M52 0 V420 M150 0 V420 M248 0 V420'
+const GRID_MINOR = 'M0 116 H300 M0 216 H300 M0 316 H300 M101 0 V420 M199 0 V420'
+
+/* Building footprints, block by block: the gaps between them are the
+   streets and alleys the runner threads. */
+const COL: [number, number][] = [
+  [2, 43],
+  [61, 95.5],
+  [106.5, 141],
+  [159, 193.5],
+  [204.5, 239],
+  [257, 298],
+]
+const ROW: [number, number][] = [
+  [2, 59],
+  [75, 110.5],
+  [119.5, 159],
+  [175, 210.5],
+  [219.5, 259],
+  [275, 310.5],
+  [319.5, 359],
+  [375, 418],
+]
+const FILLS = ['#E4E0D5', '#EAE6DB', '#DEDACE', '#EDE9DF']
+// blocks given over to the park and the water instead
+const OPEN = new Set(['0-3', '0-4', '5-5', '5-6', '5-7', '4-7'])
+
+const BUILDINGS: { x: number; y: number; w: number; h: number; fill: string }[] = []
+COL.forEach(([x0, x1], i) => {
+  ROW.forEach(([y0, y1], j) => {
+    if (OPEN.has(`${i}-${j}`)) return
+    const w = x1 - x0
+    const h = y1 - y0
+    const tone = (n: number) => FILLS[(i + j + n) % FILLS.length]
+    switch ((i * 3 + j * 5) % 4) {
+      case 0:
+        BUILDINGS.push({ x: x0, y: y0, w, h: h * 0.58, fill: tone(0) })
+        BUILDINGS.push({ x: x0, y: y0 + h * 0.66, w, h: h * 0.34, fill: tone(1) })
+        break
+      case 1:
+        BUILDINGS.push({ x: x0, y: y0, w: w * 0.54, h, fill: tone(0) })
+        BUILDINGS.push({ x: x0 + w * 0.62, y: y0, w: w * 0.38, h, fill: tone(2) })
+        break
+      case 2:
+        BUILDINGS.push({ x: x0, y: y0, w, h, fill: tone(1) })
+        break
+      default:
+        BUILDINGS.push({ x: x0, y: y0, w: w * 0.46, h, fill: tone(3) })
+        BUILDINGS.push({ x: x0 + w * 0.54, y: y0, w: w * 0.46, h: h * 0.44, fill: tone(0) })
+        BUILDINGS.push({ x: x0 + w * 0.54, y: y0 + h * 0.52, w: w * 0.46, h: h * 0.48, fill: tone(2) })
+    }
+  })
+})
 
 // The finds as collectible cards, revealed on the Run complete screen.
-// Indices match GEMS; the highest-tier find is featured.
+// Indices match ZONES; the last one collected is featured.
 const FIND_CARDS: CardData[] = [
   {
     edge: 'uncommon',
@@ -73,24 +170,6 @@ const FIND_CARDS: CardData[] = [
     flavor: 'Grows its colour where the path stays damp. Brightest after rain.',
     foot: { left: 'illus. RUNNERCARD · morning runs', right: '118 / 500' },
     ariaLabel: 'Gem card: Moss Emerald, Stage 1 Uncommon — 40 XP, found in park and greenway zones',
-  },
-  {
-    edge: 'rare',
-    stage: 'Stage 2',
-    name: 'Ridge Sapphire',
-    xp: '90',
-    art: <GemArt />,
-    band: 'Rare Gem · Trailblazer set',
-    stats: [
-      { v: '3.1', label: 'km run' },
-      { v: '4,200', label: 'steps' },
-      { v: '+90', label: 'xp gained', volt: true },
-    ],
-    use: { name: 'Clear View', val: '+1', text: 'Reveals one hidden zone after every climb you finish.' },
-    found: { where: 'Ridge & hill zones', pct: 22 },
-    flavor: 'Cut from ridge light. Holds the last blue of the evening.',
-    foot: { left: 'illus. RUNNERCARD · 1 in 12 runs', right: '164 / 500' },
-    ariaLabel: 'Gem card: Ridge Sapphire, Stage 2 Rare — 90 XP, found in ridge and hill zones',
   },
   {
     edge: 'legendary',
@@ -114,15 +193,14 @@ const FIND_CARDS: CardData[] = [
 
 const FIND_MINIS: MiniData[] = [
   { tier: 'uncommon', name: 'Moss Emerald', xp: '40', type: 'Uncommon Gem', art: <EmeraldMiniArt /> },
-  { tier: 'rare', name: 'Ridge Sapphire', xp: '90', type: 'Rare Gem', art: <SapphireMiniArt /> },
+  { tier: 'legendary', name: 'First Light Ember', xp: '240', type: 'Legendary Gem', art: <EmberArt /> },
 ]
 
 const CARD_SCALE = 0.66
 
 const VIEW_W = 300
 const VIEW_H = 420
-const RING_R = 38 // svg units — the 61 m capture radius
-const M_PER_UNIT = 61 / RING_R
+const M_PER_UNIT = 1.6 // map units → metres
 const PACE_S_PER_M = 521.4 / 1609.344 // 8:41 /mi
 
 const RUN_MS = 11000
@@ -157,7 +235,7 @@ function normalizeDeg(d: number) {
 }
 
 // SF-symbol-shaped rarity glyphs: diamond.fill / rhombus.fill / crown.fill
-function RarityGlyphApp({ tier, size, color }: { tier: GemDef['tier']; size: number; color: string }) {
+function RarityGlyphApp({ tier, size, color }: { tier: ZoneDef['tier']; size: number; color: string }) {
   const d =
     tier === 'uncommon'
       ? 'M12 3 L21 12 L12 21 L3 12 Z'
@@ -206,7 +284,7 @@ export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: 
 
   const [reduced] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
   const [visible, setVisible] = useState(false)
-  const [claimed, setClaimed] = useState([false, false, false])
+  const [claimed, setClaimed] = useState(() => ZONES.map(() => false))
   const [stash, setStash] = useState(0)
   const [paused, setPaused] = useState(false)
   const [holding, setHolding] = useState(false)
@@ -215,7 +293,7 @@ export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: 
 
   const lengthRef = useRef(0)
   const elapsedRef = useRef(0)
-  const claimedRef = useRef([false, false, false])
+  const claimedRef = useRef(ZONES.map(() => false))
   const pausedRef = useRef(false)
   const frozenRef = useRef(1)
   const summaryRef = useRef<SummaryStats | null>(null)
@@ -263,16 +341,19 @@ export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: 
     setClaimed([...claimedRef.current])
     const mapEl = mapRef.current
     if (mapEl) {
-      // gem's on-screen position under preserveAspectRatio="xMidYMid slice"
+      // zone centre on screen, under preserveAspectRatio="xMidYMid slice"
       const w = mapEl.offsetWidth
       const h = mapEl.offsetHeight
       const s = Math.max(w / VIEW_W, h / VIEW_H)
-      const g = GEMS[i]
+      const z = ZONES[i]
       fxCounter.current += 1
       setFx({
         i,
         key: fxCounter.current,
-        from: { x: (w - VIEW_W * s) / 2 + g.x * s, y: (h - VIEW_H * s) / 2 + g.y * s },
+        from: {
+          x: (w - VIEW_W * s) / 2 + (z.x + z.w / 2) * s,
+          y: (h - VIEW_H * s) / 2 + (z.y + z.h / 2) * s,
+        },
         to: { x: 38, y: 40 }, // the stash chip, app coords (52, 30)pt scaled
       })
     }
@@ -310,22 +391,24 @@ export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: 
     if (stepsRef.current) stepsRef.current.textContent = `${Math.round(TOTAL_STEPS * progress)}`
     if (paceRef.current) paceRef.current.textContent = progress < 0.04 ? '–:––' : '8:41'
 
-    // next-gem chip + proximity claims
+    // next-zone chip + the claim that fires on entering the region
     const next = claimedRef.current.findIndex((c) => !c)
     if (next >= 0) {
-      const g = GEMS[next]
-      const d = Math.hypot(p.x - g.x, p.y - g.y)
+      const z = ZONES[next]
+      // distance to the region edge — zero once the runner is inside it
+      const dx = Math.max(z.x - p.x, 0, p.x - (z.x + z.w))
+      const dy = Math.max(z.y - p.y, 0, p.y - (z.y + z.h))
+      const d = Math.hypot(dx, dy)
       const meters = d * M_PER_UNIT
       if (chipTextRef.current) {
-        const tier = g.tier.charAt(0).toUpperCase() + g.tier.slice(1)
         const eta = progress >= 0.04 ? ` · ~${fmtTime(meters * PACE_S_PER_M)}` : ''
-        chipTextRef.current.textContent = `${tier} · ${shortDistance(meters)}${eta}`
+        chipTextRef.current.textContent = `${z.short} · ${shortDistance(meters)}${eta}`
       }
       if (chipArrowRef.current) {
-        const bearing = (Math.atan2(g.x - p.x, -(g.y - p.y)) * 180) / Math.PI
+        const bearing = (Math.atan2(z.x + z.w / 2 - p.x, -(z.y + z.h / 2 - p.y)) * 180) / Math.PI
         chipArrowRef.current.style.transform = `rotate(${normalizeDeg(bearing - course).toFixed(1)}deg)`
       }
-      if (d < RING_R) claim(next)
+      if (d === 0) claim(next)
     }
 
     emitLive(progress)
@@ -353,12 +436,12 @@ export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: 
   const reset = () => {
     clearTimers()
     elapsedRef.current = 0
-    claimedRef.current = [false, false, false]
+    claimedRef.current = ZONES.map(() => false)
     frozenRef.current = 1
     summaryRef.current = null
     pausedRef.current = false
     stashRef.current = 0
-    setClaimed([false, false, false])
+    setClaimed(ZONES.map(() => false))
     setStash(0)
     setFx(null)
     setSummaryStats(null)
@@ -375,10 +458,10 @@ export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: 
   useLayoutEffect(() => {
     if (routeRef.current) lengthRef.current = routeRef.current.getTotalLength()
     if (reduced) {
-      claimedRef.current = [true, true, true]
-      setClaimed([true, true, true])
-      stashRef.current = 3
-      setStash(3)
+      claimedRef.current = ZONES.map(() => true)
+      setClaimed(ZONES.map(() => true))
+      stashRef.current = ZONES.length
+      setStash(ZONES.length)
       applyFrame(1)
     } else {
       applyFrame(0)
@@ -450,14 +533,14 @@ export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: 
     setHolding(false)
   }
 
-  const nextGemVisible = claimed.some((c) => !c)
+  const nextZoneVisible = claimed.some((c) => !c)
 
   return (
     <div className="flex w-full max-w-[290px] flex-col items-center gap-3">
       <div
         ref={frameRef}
         role="img"
-        aria-label="RunnerCard active run screen: a live 3.11 mile run collects Moss Emerald, Ridge Sapphire and First Light Ember; the stats band shows time, distance, steps and pace, with pause and hold-to-stop controls"
+        aria-label="RunnerCard active run screen: a live 3.11 mile run along city streets through two shaded card regions, collecting Moss Emerald and First Light Ember; the stats band shows time, distance, steps and pace, with pause and hold-to-stop controls"
         onClick={replay}
         className={cn(
           'gr-frame relative w-full rounded-[46px] bg-[#0b0c0f] p-[10px] select-none',
@@ -479,79 +562,71 @@ export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: 
               preserveAspectRatio="xMidYMid slice"
               className="absolute inset-0 h-full w-full"
             >
-              {/* light standard map, POIs excluded */}
-              <rect width={VIEW_W} height={VIEW_H} fill="#F1EFE9" />
-              <path d="M212 0 L300 0 L300 96 Q252 92 226 62 Q210 40 212 0 Z" fill="#C5DEF1" />
-              <path
-                d="M12 176 Q10 138 44 132 Q86 126 96 158 Q104 186 74 202 Q28 220 12 176 Z"
-                fill="#D9EBCB"
-              />
-              <g stroke="#E3DFD6" strokeWidth="9" fill="none">
-                <path d="M0 70 H300 M0 150 H300 M0 230 H300 M0 310 H300 M0 385 H300" />
-                <path d="M60 0 V420 M140 0 V420 M220 0 V420" />
+              {/* light standard map: land, water, park, city blocks, streets */}
+              <rect width={VIEW_W} height={VIEW_H} fill="#EFEDE6" />
+              <path d="M300 292 Q262 314 250 356 Q243 392 222 420 L300 420 Z" fill="#C5DEF1" />
+              <rect x="-4" y="170" width="50" height="96" rx="10" fill="#D5E8C3" />
+              <g>
+                {BUILDINGS.map((b, i) => (
+                  <rect key={i} x={b.x} y={b.y} width={b.w} height={b.h} rx="1.6" fill={b.fill} />
+                ))}
               </g>
-              <g stroke="#FFFFFF" strokeWidth="6" fill="none">
-                <path d="M0 70 H300 M0 150 H300 M0 230 H300 M0 310 H300 M0 385 H300" />
-                <path d="M60 0 V420 M140 0 V420 M220 0 V420" />
+              {/* street casing then surface — the runnable gaps between blocks */}
+              <g fill="none" stroke="#E2DDD1">
+                <path d={GRID_MAJOR} strokeWidth="17" />
+                <path d={GRID_MINOR} strokeWidth="9.5" />
               </g>
-              <g fill="#E8E5DD">
-                <rect x="74" y="84" width="26" height="20" rx="2" />
-                <rect x="160" y="330" width="34" height="24" rx="2" />
-                <rect x="238" y="250" width="30" height="22" rx="2" />
-                <rect x="76" y="252" width="22" height="18" rx="2" />
-                <rect x="164" y="164" width="24" height="18" rx="2" />
+              <g fill="none" stroke="#FFFFFF">
+                <path d={GRID_MAJOR} strokeWidth="14" />
+                <path d={GRID_MINOR} strokeWidth="7" />
               </g>
 
-              {/* capture rings (61 m) around uncollected gems */}
-              {GEMS.map(
-                (g, i) =>
-                  !claimed[i] && (
-                    <circle
-                      key={g.name}
-                      cx={g.x}
-                      cy={g.y}
-                      r={RING_R}
-                      fill="rgba(97,255,0,0.16)"
-                      stroke="rgba(97,255,0,0.65)"
-                      strokeWidth="1.5"
-                    />
-                  ),
-              )}
+              {/* the two active regions — run inside one and its card is yours */}
+              {ZONES.map((z, i) => (
+                <g key={z.label} opacity={claimed[i] ? 0.4 : 1}>
+                  <rect x={z.x} y={z.y} width={z.w} height={z.h} rx="16" fill={z.fill} />
+                  <rect
+                    x={z.x}
+                    y={z.y}
+                    width={z.w}
+                    height={z.h}
+                    rx="16"
+                    fill="none"
+                    stroke={z.stroke}
+                    strokeWidth="2"
+                    strokeDasharray="8 6"
+                  />
+                  <text x={z.lx} y={z.ly} fontSize="9.5" fontWeight="700" letterSpacing="0.6" fill={z.ink}>
+                    {z.label}
+                  </text>
+                  {claimed[i] && (
+                    <g transform={`translate(${z.bx} ${z.by})`}>
+                      <circle r="8" fill={INK} opacity="0.8" />
+                      <path
+                        d="M-3.4 0 L-1 2.6 L3.8 -2.8"
+                        fill="none"
+                        stroke="#fff"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </g>
+                  )}
+                </g>
+              ))}
 
               {/* guide line (remainder, map green) + traveled breadcrumb */}
               <path ref={routeRef} d={ROUTE} fill="none" stroke="none" />
-              <path ref={remainRef} d={ROUTE} fill="none" stroke={MAP_GREEN} strokeWidth="4" strokeLinecap="round" />
+              <path ref={remainRef} d={ROUTE} fill="none" stroke={MAP_GREEN} strokeWidth="4.5" strokeLinecap="round" />
               <path
                 ref={trailRef}
                 d={ROUTE}
                 fill="none"
                 stroke={ink(0.55)}
-                strokeWidth="4"
+                strokeWidth="4.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
-
-              {/* gem pins — emoji, per the app's GemIcon fallback */}
-              {GEMS.map((g, i) =>
-                claimed[i] ? (
-                  <g key={g.name} transform={`translate(${g.x} ${g.y})`} opacity="0.35">
-                    <circle r="6.5" fill={INK} />
-                    <path d="M-3 0 L-0.8 2.6 L3.4 -2.4" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                  </g>
-                ) : (
-                  <text
-                    key={g.name}
-                    x={g.x}
-                    y={g.y}
-                    fontSize="14"
-                    textAnchor="middle"
-                    dominantBaseline="central"
-                    style={{ filter: 'drop-shadow(0 1px 1px rgba(22,24,29,0.5))' }}
-                  >
-                    {g.emoji}
-                  </text>
-                ),
-              )}
 
               {/* the runner: 🏃 + map-green heading arrow */}
               <g ref={runnerRef}>
@@ -559,7 +634,7 @@ export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: 
                   <path d="M0 -18 L5 -10 L-5 -10 Z" fill={MAP_GREEN} stroke={ink(0.3)} strokeWidth="0.5" />
                 </g>
                 <text
-                  fontSize="21"
+                  fontSize="18"
                   textAnchor="middle"
                   dominantBaseline="central"
                   style={{ filter: 'drop-shadow(0 1px 1px rgba(22,24,29,0.5))' }}
@@ -615,7 +690,7 @@ export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: 
               <div
                 key={`float-${fx.key}`}
                 className="gr-plus-float absolute top-[14px] left-[66px] z-30 flex items-center gap-[3px]"
-                style={{ color: rarityColor[GEMS[fx.i].tier], textShadow: '0 0 3px rgba(255,255,255,0.9)' }}
+                style={{ color: rarityColor[ZONES[fx.i].tier], textShadow: '0 0 3px rgba(255,255,255,0.9)' }}
               >
                 <svg viewBox="0 0 24 24" className="size-[8px]">
                   <path d="M12 3 L21 12 L12 21 L3 12 Z" fill="currentColor" />
@@ -642,30 +717,41 @@ export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: 
                 <div className="relative grid place-items-center">
                   <div
                     className="gr-burst-ring absolute size-[84px] rounded-full"
-                    style={{ border: `3px solid ${rarityColor[GEMS[fx.i].tier]}` }}
+                    style={{ border: `3px solid ${rarityColor[ZONES[fx.i].tier]}` }}
                   />
                   <div className="gr-burst-glyph" style={{ filter: 'drop-shadow(0 0 8px rgba(255,255,255,0.95))' }}>
-                    <RarityGlyphApp tier={GEMS[fx.i].tier} size={49} color={rarityColor[GEMS[fx.i].tier]} />
+                    <RarityGlyphApp tier={ZONES[fx.i].tier} size={49} color={rarityColor[ZONES[fx.i].tier]} />
                   </div>
                 </div>
               </div>
             )}
 
-            {/* gem flight into the stash chip */}
+            {/* the found card flying into the stash chip */}
             {fx && (
               <div
                 key={`flight-${fx.key}`}
-                className="gr-gem-flight pointer-events-none absolute top-0 left-0 z-30 text-[15px]"
+                className="gr-gem-flight pointer-events-none absolute top-0 left-0 z-30"
                 style={
                   {
                     '--fx': `${fx.from.x - 8}px`,
-                    '--fy': `${fx.from.y - 10}px`,
+                    '--fy': `${fx.from.y - 11}px`,
                     '--tx': `${fx.to.x - 8}px`,
-                    '--ty': `${fx.to.y - 10}px`,
+                    '--ty': `${fx.to.y - 11}px`,
                   } as React.CSSProperties
                 }
               >
-                {GEMS[fx.i].emoji}
+                <svg viewBox="0 0 16 22" className="h-[22px] w-[16px]">
+                  <rect
+                    width="16"
+                    height="22"
+                    rx="3.5"
+                    fill={rarityColor[ZONES[fx.i].tier]}
+                    stroke="rgba(255,255,255,0.9)"
+                    strokeWidth="1.2"
+                  />
+                  <rect x="3.4" y="4" width="9.2" height="7" rx="1.6" fill="rgba(255,255,255,0.75)" />
+                  <rect x="3.4" y="13.4" width="9.2" height="1.8" rx="0.9" fill="rgba(255,255,255,0.55)" />
+                </svg>
               </div>
             )}
           </div>
@@ -675,19 +761,19 @@ export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: 
             className="relative z-10 flex flex-col items-center gap-2.5 px-3.5 pt-3 pb-5"
             style={{ background: SNOW, borderTop: `1px solid ${ink(0.12)}` }}
           >
-            {/* next-gem chip */}
+            {/* next-zone chip */}
             <div
               className={cn(
                 'flex items-center gap-1.5 rounded-full bg-white px-2.5 py-[5px]',
-                !nextGemVisible && 'invisible',
+                !nextZoneVisible && 'invisible',
               )}
               style={{ boxShadow: `inset 0 0 0 1px ${ink(0.12)}` }}
             >
-              {nextGemVisible && (
+              {nextZoneVisible && (
                 <RarityGlyphApp
-                  tier={GEMS[claimed.findIndex((c) => !c)].tier}
+                  tier={ZONES[claimed.findIndex((c) => !c)].tier}
                   size={9}
-                  color={rarityColor[GEMS[claimed.findIndex((c) => !c)].tier]}
+                  color={rarityColor[ZONES[claimed.findIndex((c) => !c)].tier]}
                 />
               )}
               <span ref={chipArrowRef} className="inline-flex transition-transform duration-300" style={{ color: PULSE }}>
@@ -809,7 +895,7 @@ export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: 
                         {rest.length > 0 && (
                           <div className={cn('grid w-full gap-2 px-1', rest.length === 2 ? 'grid-cols-2' : 'max-w-[132px]')}>
                             {rest.map((i, n) => (
-                              <div key={GEMS[i].name} className="gr-find-in" style={{ animationDelay: `${0.55 + n * 0.12}s` }}>
+                              <div key={ZONES[i].label} className="gr-find-in" style={{ animationDelay: `${0.55 + n * 0.12}s` }}>
                                 <MiniCard data={FIND_MINIS[i]} />
                               </div>
                             ))}

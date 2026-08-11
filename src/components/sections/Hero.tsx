@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { APP_STORE_URL } from '@/components/AppStoreButton'
 import { Container } from '@/components/Bits'
 import { Reveal } from '@/components/Reveal'
 import { RunPhoto } from '@/components/RunPhoto'
@@ -130,7 +131,7 @@ export function Hero() {
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-4">
             <Button size="lg" asChild className="h-12 rounded-full px-7 text-[15px]">
-              <a href="#join">
+              <a href={APP_STORE_URL}>
                 Start collecting
                 <ArrowUpRight className="size-4" />
               </a>

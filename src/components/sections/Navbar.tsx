@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { AppStoreButton } from '@/components/AppStoreButton'
 
 const navLinks = [
   { href: '#what', label: 'About' },
@@ -35,9 +35,7 @@ export function Navbar() {
               ))}
             </ul>
           </nav>
-          <Button asChild className="h-10 rounded-full px-5 text-[14px]">
-            <a href="#join">Join the beta</a>
-          </Button>
+          <AppStoreButton label="Get the app" className="h-10 px-5 text-[14px]" />
         </div>
       </div>
     </header>

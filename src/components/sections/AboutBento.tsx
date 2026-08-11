@@ -1,8 +1,9 @@
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/Bits'
 import { Reveal } from '@/components/Reveal'
+import { AppStoreButton } from '@/components/AppStoreButton'
+import { RunPhoto } from '@/components/RunPhoto'
 import { GemArt } from '@/components/cards/art/GemArt'
-import { CreatureArt } from '@/components/cards/art/CreatureArt'
 import { ZoneMapArt } from '@/components/cards/art/ZoneMapArt'
 
 /* The about story as a bento block set: a soft-volt statement panel with
@@ -10,7 +11,7 @@ import { ZoneMapArt } from '@/components/cards/art/ZoneMapArt'
    map, and a join panel with the beta crowd. */
 
 const artTile =
-  'group relative min-h-[240px] overflow-hidden rounded-[24px] [&>svg]:absolute [&>svg]:inset-0 [&>svg]:h-full [&>svg]:w-full [&>svg]:transition-transform [&>svg]:duration-700 [&>svg]:ease-[cubic-bezier(0.22,1,0.36,1)] hover:[&>svg]:scale-[1.06]'
+  'group relative min-h-[240px] overflow-hidden rounded-[24px] [&>svg]:absolute [&>svg]:inset-0 [&>svg]:h-full [&>svg]:w-full [&>svg]:transition-transform [&>svg]:duration-700 [&>svg]:ease-[cubic-bezier(0.22,1,0.36,1)] hover:[&>svg]:scale-[1.06] [&_img]:transition-transform [&_img]:duration-700 [&_img]:ease-[cubic-bezier(0.22,1,0.36,1)] hover:[&_img]:scale-[1.06]'
 
 const mapChip =
   'rounded-full border border-white/10 bg-[#0b0c0f]/85 px-4 py-1.5 text-[13px] font-semibold text-white backdrop-blur-sm'
@@ -41,10 +42,10 @@ export function AboutBento() {
               </div>
               <div className="grid grid-cols-2 gap-4 md:grid-cols-1 lg:grid-cols-2">
                 <div className={artTile}>
-                  <GemArt />
+                  <RunPhoto n={2} />
                 </div>
                 <div className={artTile}>
-                  <CreatureArt />
+                  <GemArt />
                 </div>
               </div>
           </Reveal>
@@ -65,16 +66,14 @@ export function AboutBento() {
               </div>
               <div className="flex flex-col rounded-[28px] bg-[#e9fbdb] p-8 md:rounded-[36px] md:p-10 transition-[transform,box-shadow] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(16,18,22,0.1)]">
                 <h3 className="max-w-[16ch] font-display text-[clamp(26px,3.2vw,40px)] leading-[1.1] font-bold tracking-[-0.02em]">
-                  Join the hunt — get your invite.
+                  Join the hunt — get the app.
                 </h3>
                 <p className="mt-4 max-w-[40ch] text-[15.5px] leading-relaxed text-foreground/60">
-                  RunnerCard is rolling out city by city on TestFlight. Grab a spot and start collecting the ground you
-                  cover.
+                  RunnerCard is free on the App Store. Download it, start a run, and the ground you cover starts paying
+                  out in cards.
                 </p>
                 <div className="mt-auto flex flex-wrap items-center justify-between gap-5 pt-9">
-                  <Button asChild size="lg" className="h-12 rounded-full px-7 text-[15px]">
-                    <a href="#join">Get my invite</a>
-                  </Button>
+                  <AppStoreButton />
                   <div className="flex items-center">
                     {crowd.map((initials, i) => (
                       <span

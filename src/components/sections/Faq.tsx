@@ -22,7 +22,7 @@ const faqs = [
   },
   {
     q: 'Is it free?',
-    a: 'RunnerCard is free to play during the beta. There are no packs to buy — the only way to get a card is to go find it.',
+    a: 'RunnerCard is free to download and free to play. There are no packs to buy — the only way to get a card is to go find it.',
   },
   {
     q: 'Does it actually track my fitness?',
@@ -30,7 +30,7 @@ const faqs = [
   },
   {
     q: 'When can I play?',
-    a: "We're rolling out on iPhone (iOS 17+) through TestFlight. Drop your email below and we'll send an invite as spots open in your city.",
+    a: 'Now — RunnerCard is on the App Store for iPhone (iOS 17+). Download it, allow location and motion access, and your first run can start minting cards straight away.',
   },
 ]
 

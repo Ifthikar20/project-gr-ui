@@ -75,7 +75,8 @@ under a project path (`/project-gr-ui/`), a custom domain, and local preview.
   real TestFlight feedback.
 - **Changelog entries** carry invented build numbers/dates — sync with actual
   TestFlight builds.
-- **Waitlist form** shows a local success state only; wire it to a real
-  endpoint in `src/components/sections/JoinCta.tsx`.
+- **App Store link** — every CTA points at `APP_STORE_URL` in
+  `src/components/AppStoreButton.tsx`, currently a placeholder listing URL.
+  Change it there once the real listing exists and the whole site follows.
 - **Contact email** `hey@runnercard.app` is a placeholder domain — search and
   replace once the real domain exists.
