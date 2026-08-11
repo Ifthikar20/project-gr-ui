@@ -66,7 +66,7 @@ export function Community() {
               >
                 <div
                   className={cn(
-                    'h-full w-full overflow-hidden rounded-[24px] bg-card shadow-[0_20px_50px_rgba(16,18,22,0.16)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
+                    'isolate h-full w-full overflow-hidden rounded-[24px] bg-card shadow-[0_20px_50px_rgba(16,18,22,0.16)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] [clip-path:inset(0_round_24px)]',
                     offset === 0 && 'hover:scale-[1.025]',
                     '[&_img]:transition-transform [&_img]:duration-700 [&>svg]:absolute [&>svg]:inset-0 [&>svg]:h-full [&>svg]:w-full [&>svg]:transition-transform [&>svg]:duration-700',
                     offset === 0 && 'hover:[&_img]:scale-[1.06] hover:[&>svg]:scale-[1.06]',

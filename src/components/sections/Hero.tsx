@@ -88,7 +88,7 @@ function ShuffleDeck() {
           >
             <div
               className={cn(
-                'h-full w-full overflow-hidden rounded-[28px] bg-card shadow-[0_24px_60px_rgba(16,18,22,0.18)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
+                'isolate h-full w-full overflow-hidden rounded-[28px] bg-card shadow-[0_24px_60px_rgba(16,18,22,0.18)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] [clip-path:inset(0_round_28px)]',
                 pos === 0 && 'group-hover:-translate-y-2 group-hover:rotate-[-1deg]',
                 '[&_img]:transition-transform [&_img]:duration-700 [&_img]:ease-[cubic-bezier(0.22,1,0.36,1)] [&>svg]:absolute [&>svg]:inset-0 [&>svg]:h-full [&>svg]:w-full [&>svg]:transition-transform [&>svg]:duration-700 [&>svg]:ease-[cubic-bezier(0.22,1,0.36,1)]',
                 pos === 0 && 'group-hover:[&_img]:scale-[1.05] group-hover:[&>svg]:scale-[1.05]',
