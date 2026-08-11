@@ -62,9 +62,13 @@ under a project path (`/project-gr-ui/`), a custom domain, and local preview.
 
 ## Sample content to replace before launch
 
-- **Banner photos**: the fitness banner and the closing CTA use
-  `PhotoPlaceholder` image slots — swap each for a real
+- **Banner photos**: the fitness banner, the closing CTA and the hero /
+  community photo slots use `PhotoPlaceholder` — the hero and community
+  slots load `assets/running-sf.jpg` automatically once that file exists
+  in `public/assets/`; swap the banner slots for real
   `<img className="absolute inset-0 h-full w-full object-cover" />`.
+- **Social handle** `@findrunapp` in the community section is invented —
+  point it at the real account.
 
 - **Reviews** are written sample quotes for the beta-marketing voice — swap in
   real TestFlight feedback.

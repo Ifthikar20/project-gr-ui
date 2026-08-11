@@ -10,6 +10,7 @@ import { FitnessBanner } from '@/components/sections/FitnessBanner'
 import { Track } from '@/components/sections/Track'
 import { Privacy } from '@/components/sections/Privacy'
 import { Reviews } from '@/components/sections/Reviews'
+import { Community } from '@/components/sections/Community'
 import { Faq } from '@/components/sections/Faq'
 import { JoinCta } from '@/components/sections/JoinCta'
 import { Footer } from '@/components/sections/Footer'
@@ -36,6 +37,7 @@ export default function App() {
         <Track />
         <Privacy />
         <Reviews />
+        <Community />
         <Faq />
         <JoinCta />
       </main>

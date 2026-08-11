@@ -2,28 +2,12 @@ import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { ArrowUpRight, Star } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/Bits'
-import { PhotoPlaceholder } from '@/components/PhotoPlaceholder'
 import { Reveal } from '@/components/Reveal'
+import { RunPhoto } from '@/components/RunPhoto'
 import { GemArt } from '@/components/cards/art/GemArt'
 import { CreatureArt } from '@/components/cards/art/CreatureArt'
-import { cn } from '@/lib/utils'
 
 const betaRunners = ['SM', 'DP', 'PK']
-
-/* The photo card: renders assets/running-sf.jpg and falls back to the
-   placeholder until that file exists in public/assets/. */
-function RunPhoto({ mono = false }: { mono?: boolean }) {
-  const [failed, setFailed] = useState(false)
-  if (failed) return <PhotoPlaceholder label="Add running-sf.jpg" />
-  return (
-    <img
-      src="assets/running-sf.jpg"
-      alt="Runners out on the streets"
-      onError={() => setFailed(true)}
-      className={cn('h-full w-full object-cover', mono && 'object-[70%_30%] grayscale')}
-    />
-  )
-}
 
 interface DeckCard {
   id: string
