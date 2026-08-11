@@ -10,7 +10,7 @@ import { ZoneMapArt } from '@/components/cards/art/ZoneMapArt'
    map, and a join panel with the beta crowd. */
 
 const artTile =
-  'relative min-h-[240px] overflow-hidden rounded-[24px] [&>svg]:absolute [&>svg]:inset-0 [&>svg]:h-full [&>svg]:w-full'
+  'group relative min-h-[240px] overflow-hidden rounded-[24px] [&>svg]:absolute [&>svg]:inset-0 [&>svg]:h-full [&>svg]:w-full [&>svg]:transition-transform [&>svg]:duration-700 [&>svg]:ease-[cubic-bezier(0.22,1,0.36,1)] hover:[&>svg]:scale-[1.06]'
 
 const mapChip =
   'rounded-full border border-white/10 bg-[#0b0c0f]/85 px-4 py-1.5 text-[13px] font-semibold text-white backdrop-blur-sm'
@@ -56,7 +56,7 @@ export function AboutBento() {
                   Our mission is to bring the game back to running — real streets, real miles, and rewards you can
                   actually hold.
                 </p>
-                <div className="relative flex-1 overflow-hidden rounded-[20px] [&>svg]:absolute [&>svg]:inset-0 [&>svg]:h-full [&>svg]:w-full [&>svg]:min-h-[240px]">
+                <div className="relative flex-1 overflow-hidden rounded-[20px] [&>svg]:absolute [&>svg]:inset-0 [&>svg]:h-full [&>svg]:w-full [&>svg]:min-h-[240px] [&>svg]:transition-transform [&>svg]:duration-700 [&>svg]:ease-[cubic-bezier(0.22,1,0.36,1)] hover:[&>svg]:scale-[1.05]">
                   <ZoneMapArt />
                   <span className={`${mapChip} absolute top-5 left-5`}>Run</span>
                   <span className={`${mapChip} absolute top-1/2 right-5 -translate-y-1/2`}>Find</span>

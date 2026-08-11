@@ -8,6 +8,7 @@ import { GearArt } from '@/components/cards/art/GearArt'
 import { CreatureArt } from '@/components/cards/art/CreatureArt'
 import { ArtifactArt } from '@/components/cards/art/ArtifactArt'
 import { EmberArt } from '@/components/cards/art/EmberArt'
+import { cn } from '@/lib/utils'
 
 /* The community arc: an arc of photo and card tiles — the active one in
    full color with prev/next controls, the rest tilted, faded and mono
@@ -57,7 +58,7 @@ export function Community() {
               <div
                 key={item.id}
                 aria-hidden={offset !== 0}
-                className="absolute top-0 left-1/2 aspect-[3/4] w-[340px] overflow-hidden rounded-[24px] bg-card shadow-[0_20px_50px_rgba(16,18,22,0.16)] transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none [&>svg]:absolute [&>svg]:inset-0 [&>svg]:h-full [&>svg]:w-full"
+                className="absolute top-0 left-1/2 aspect-[3/4] w-[340px] transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
                 style={{
                   transform: `translateX(calc(-50% + ${sign * arc.x}px * var(--fs))) translateY(calc(${arc.y}px * var(--fs))) rotate(${sign * arc.r}deg) scale(calc(${arc.s} * var(--fs)))`,
                   opacity: arc.o,
@@ -65,7 +66,16 @@ export function Community() {
                   filter: offset === 0 ? 'none' : 'grayscale(1)',
                 }}
               >
-                {item.node}
+                <div
+                  className={cn(
+                    'h-full w-full overflow-hidden rounded-[24px] bg-card shadow-[0_20px_50px_rgba(16,18,22,0.16)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
+                    offset === 0 && 'hover:scale-[1.025]',
+                    '[&_img]:transition-transform [&_img]:duration-700 [&>svg]:absolute [&>svg]:inset-0 [&>svg]:h-full [&>svg]:w-full [&>svg]:transition-transform [&>svg]:duration-700',
+                    offset === 0 && 'hover:[&_img]:scale-[1.06] hover:[&>svg]:scale-[1.06]',
+                  )}
+                >
+                  {item.node}
+                </div>
               </div>
             )
           })}

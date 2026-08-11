@@ -29,7 +29,10 @@ export function Track() {
             </SectionLead>
             <div className="grid grid-cols-2 gap-4">
               {tiles.map((tile) => (
-                <Card key={tile.label} className="rounded-[20px] border-border/60 py-5 shadow-sm">
+                <Card
+                  key={tile.label}
+                  className="rounded-[20px] border-border/60 py-5 shadow-sm transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-md"
+                >
                   <CardContent className="px-5">
                     <div className="text-xs font-bold tracking-[0.04em] uppercase text-muted-foreground">
                       {tile.label}

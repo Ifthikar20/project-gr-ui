@@ -57,7 +57,7 @@ const reviews: Review[] = [
 
 function ReviewCard({ review }: { review: Review }) {
   return (
-    <article className="w-[340px] flex-none rounded-[26px] bg-[#e9effa] p-7 text-left">
+    <article className="w-[340px] flex-none rounded-[26px] bg-[#e9effa] p-7 text-left transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-2 hover:shadow-[0_18px_40px_rgba(16,18,22,0.1)]">
       <div className="flex gap-0.5 text-rarity-legendary" aria-label="5 out of 5">
       {Array.from({ length: 5 }, (_, i) => (
           <Star key={i} className="size-[18px] fill-current" strokeWidth={0} />

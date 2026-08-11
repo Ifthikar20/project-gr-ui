@@ -48,7 +48,7 @@ export function Faq() {
               <AccordionItem
                 key={faq.q}
                 value={faq.q}
-                className="rounded-[20px] border border-border/60 bg-card px-6 shadow-sm last:border-b"
+                className="rounded-[20px] border border-border/60 bg-card px-6 shadow-sm transition-[background-color,transform] duration-300 last:border-b hover:-translate-y-0.5 hover:bg-secondary/40"
               >
                 <AccordionTrigger className="py-5 font-display text-[17px] font-semibold hover:no-underline">
                   {faq.q}

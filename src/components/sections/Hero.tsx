@@ -6,6 +6,7 @@ import { Reveal } from '@/components/Reveal'
 import { RunPhoto } from '@/components/RunPhoto'
 import { GemArt } from '@/components/cards/art/GemArt'
 import { CreatureArt } from '@/components/cards/art/CreatureArt'
+import { cn } from '@/lib/utils'
 
 interface DeckCard {
   id: string
@@ -68,7 +69,7 @@ function ShuffleDeck() {
       type="button"
       onClick={shuffle}
       aria-label="Photo and card deck — scroll or tap to shuffle to the next one"
-      className="relative mx-auto block aspect-[4/5] w-full max-w-[420px] cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-ring/60 focus-visible:ring-offset-4 focus-visible:ring-offset-background md:max-w-[440px]"
+      className="group relative mx-auto block aspect-[4/5] w-full max-w-[420px] cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-ring/60 focus-visible:ring-offset-4 focus-visible:ring-offset-background md:max-w-[440px]"
     >
       {DECK.map((card, i) => {
         const pos = order.indexOf(i)
@@ -78,14 +79,23 @@ function ShuffleDeck() {
           <div
             key={card.id}
             aria-hidden={pos !== 0}
-            className="absolute inset-0 overflow-hidden rounded-[28px] bg-card shadow-[0_24px_60px_rgba(16,18,22,0.18)] transition-all duration-[550ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none [&>svg]:absolute [&>svg]:inset-0 [&>svg]:h-full [&>svg]:w-full"
+            className="absolute inset-0 transition-all duration-[550ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
             style={{
               transform: isExiting ? 'translate(120%, -6%) rotate(18deg)' : rest.transform,
               opacity: isExiting ? 0 : 1,
               zIndex: isExiting ? 50 : rest.z,
             }}
           >
-            {card.node}
+            <div
+              className={cn(
+                'h-full w-full overflow-hidden rounded-[28px] bg-card shadow-[0_24px_60px_rgba(16,18,22,0.18)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
+                pos === 0 && 'group-hover:-translate-y-2 group-hover:rotate-[-1deg]',
+                '[&_img]:transition-transform [&_img]:duration-700 [&_img]:ease-[cubic-bezier(0.22,1,0.36,1)] [&>svg]:absolute [&>svg]:inset-0 [&>svg]:h-full [&>svg]:w-full [&>svg]:transition-transform [&>svg]:duration-700 [&>svg]:ease-[cubic-bezier(0.22,1,0.36,1)]',
+                pos === 0 && 'group-hover:[&_img]:scale-[1.05] group-hover:[&>svg]:scale-[1.05]',
+              )}
+            >
+              {card.node}
+            </div>
           </div>
         )
       })}

@@ -28,7 +28,7 @@ export function Navbar() {
       <a
         href="#top"
         aria-label="FindRun home"
-        className="fixed top-4 left-4 z-50 flex h-11 items-center gap-2 rounded-full border border-border/60 bg-background/85 pr-3.5 pl-3 shadow-[0_4px_18px_rgba(16,18,22,0.08)] backdrop-blur-md md:top-5 md:left-6"
+        className="fixed top-4 left-4 z-50 flex h-11 items-center gap-2 rounded-full border border-border/60 bg-background/85 pr-3.5 pl-3 shadow-[0_4px_18px_rgba(16,18,22,0.08)] backdrop-blur-md transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_28px_rgba(16,18,22,0.14)] md:top-5 md:left-6"
       >
         <BrandMark className="size-6" />
         <span className="font-display text-[15px] font-bold tracking-[-0.02em]">
@@ -66,7 +66,7 @@ export function Navbar() {
                   <a
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="block rounded-xl px-3 py-3 text-[17px] font-semibold text-foreground/80 transition-colors hover:bg-accent hover:text-foreground"
+                    className="block rounded-xl px-3 py-3 text-[17px] font-semibold text-foreground/80 transition-[color,background-color,transform] duration-200 hover:translate-x-1 hover:bg-accent hover:text-foreground"
                   >
                     {link.label}
                   </a>
