@@ -36,9 +36,7 @@ export function Footer() {
           <div className="max-w-[320px]">
             <a href="#top" aria-label="RunnerCard home" className="flex items-center gap-2">
               <BrandMark variant="footer" />
-              <span className="font-display text-[17px] font-bold tracking-[-0.02em]">
-                Runner<b>Card</b>
-              </span>
+              <span className="text-[17px] font-semibold text-black">RunnerCard</span>
             </a>
             <p className="mt-3 text-sm leading-relaxed text-foreground/70">
               Run to find. Collect the cards no one else has. Built for runners on iPhone.

@@ -20,9 +20,7 @@ export function Navbar() {
         className="fixed top-4 left-4 z-50 flex h-11 items-center gap-2 rounded-full border border-border/60 bg-background/85 pr-3.5 pl-3 shadow-[0_4px_18px_rgba(16,18,22,0.08)] backdrop-blur-md transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_28px_rgba(16,18,22,0.14)] md:top-5 md:left-6"
       >
         <BrandMark className="size-6" />
-        <span className="font-display text-[15px] font-bold tracking-[-0.02em]">
-          Runner<b>Card</b>
-        </span>
+        <span className="text-[15px] font-semibold text-black">RunnerCard</span>
         <span className="rounded-md border border-border bg-secondary px-1.5 py-0.5 text-[8.5px] font-extrabold tracking-[0.08em] uppercase text-muted-foreground">
           beta
         </span>
