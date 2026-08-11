@@ -421,7 +421,9 @@ export function RunScreenDemo() {
         className={cn(
           'relative w-[290px] rounded-[46px] bg-[#0b0c0f] p-[10px] select-none',
           'shadow-[0_34px_90px_rgba(16,18,22,0.38),inset_0_0_0_1.5px_rgba(255,255,255,0.06)]',
-          !reduced && 'cursor-pointer',
+          'transition-[transform,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
+          !reduced &&
+            'cursor-pointer hover:-translate-y-1.5 hover:shadow-[0_44px_110px_rgba(16,18,22,0.45),inset_0_0_0_1.5px_rgba(255,255,255,0.08)]',
         )}
       >
         <div

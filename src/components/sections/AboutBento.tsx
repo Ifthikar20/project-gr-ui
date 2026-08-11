@@ -24,7 +24,7 @@ export function AboutBento() {
         <div className="flex flex-col gap-4">
           {/* statement panel + art tiles */}
           <Reveal stagger className="grid gap-4 md:grid-cols-[1.45fr_1fr]">
-              <div className="flex flex-col items-start rounded-[28px] bg-[#e9fbdb] p-8 md:rounded-[36px] md:p-12">
+              <div className="flex flex-col items-start rounded-[28px] bg-[#e9fbdb] p-8 md:rounded-[36px] md:p-12 transition-[transform,box-shadow] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(16,18,22,0.1)]">
                 <span className="rounded-full bg-white/75 px-4 py-1.5 text-[13px] font-semibold text-foreground/70">
                   What is FindRun
                 </span>
@@ -51,7 +51,7 @@ export function AboutBento() {
 
           {/* mission panel + join panel */}
           <Reveal stagger delay={1} className="grid gap-4 md:grid-cols-2">
-              <div className="flex flex-col gap-7 rounded-[28px] bg-[#101216] p-8 md:rounded-[36px] md:p-10">
+              <div className="flex flex-col gap-7 rounded-[28px] bg-[#101216] p-8 md:rounded-[36px] md:p-10 transition-[transform,box-shadow] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(16,18,22,0.1)]">
                 <p className="max-w-[34ch] text-[clamp(19px,2vw,24px)] leading-snug font-semibold text-white">
                   Our mission is to bring the game back to running — real streets, real miles, and rewards you can
                   actually hold.
@@ -63,7 +63,7 @@ export function AboutBento() {
                   <span className={`${mapChip} absolute bottom-5 left-8`}>Keep</span>
                 </div>
               </div>
-              <div className="flex flex-col rounded-[28px] bg-[#e9fbdb] p-8 md:rounded-[36px] md:p-10">
+              <div className="flex flex-col rounded-[28px] bg-[#e9fbdb] p-8 md:rounded-[36px] md:p-10 transition-[transform,box-shadow] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(16,18,22,0.1)]">
                 <h3 className="max-w-[16ch] font-display text-[clamp(26px,3.2vw,40px)] leading-[1.1] font-bold tracking-[-0.02em]">
                   Join the hunt — get your invite.
                 </h3>
