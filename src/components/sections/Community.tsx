@@ -42,7 +42,7 @@ export function Community() {
         <Reveal className="text-center">
           <Kicker center>Social media</Kicker>
           <SectionTitle className="mx-auto max-w-[26ch]">
-            Follow the run, follow the community <span className="text-foreground/35">@findrunapp</span>
+            Follow the run, follow the community <span className="text-foreground/35">@runnercardapp</span>
           </SectionTitle>
         </Reveal>
       </Container>

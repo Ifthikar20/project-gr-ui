@@ -22,7 +22,7 @@ const faqs = [
   },
   {
     q: 'Is it free?',
-    a: 'FindRun is free to play during the beta. There are no packs to buy — the only way to get a card is to go find it.',
+    a: 'RunnerCard is free to play during the beta. There are no packs to buy — the only way to get a card is to go find it.',
   },
   {
     q: 'Does it actually track my fitness?',

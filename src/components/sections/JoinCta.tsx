@@ -41,7 +41,7 @@ export function JoinCta() {
                   Your city is full of cards you haven't found yet.
                 </h2>
                 <p className="mt-4 max-w-[42ch] text-[16.5px] leading-relaxed text-white/75">
-                  Join the FindRun beta and start collecting the ground you cover.
+                  Join the RunnerCard beta and start collecting the ground you cover.
                 </p>
                 {!joined ? (
                   <>

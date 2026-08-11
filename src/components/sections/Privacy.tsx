@@ -2,7 +2,7 @@ import { HeartPulse, Server, Smartphone } from 'lucide-react'
 import { Reveal } from '@/components/Reveal'
 
 /* Where your data resides — a dark showcase panel with an embossed
-   padlock carrying the FindRun bolt. Copy matches the real privacy
+   padlock carrying the RunnerCard bolt. Copy matches the real privacy
    policy: runs and health data stay on the phone; the server only
    ever sees GPS-verified claims. */
 
@@ -57,7 +57,7 @@ function LockMotif() {
         stroke="rgba(255,255,255,0.05)"
         strokeWidth="1.5"
       />
-      {/* the FindRun bolt, embossed into the body */}
+      {/* the RunnerCard bolt, embossed into the body */}
       <path
         d="M228 240 L148 348 h38 l-11 74 L262 310 h-38 z"
         fill="rgba(255,255,255,0.05)"

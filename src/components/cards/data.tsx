@@ -53,12 +53,12 @@ export const gemCard: CardData = {
   },
   found: { where: 'Waterfront zones', pct: 78 },
   flavor: 'Cut from harbor light. A stone this clear surfaces about once a season — almost always at dawn.',
-  foot: { left: 'illus. FINDRUN · 1 in 900 runs', right: '142 / 500' },
+  foot: { left: 'illus. RUNNERCARD · 1 in 900 runs', right: '142 / 500' },
   ariaLabel: 'Gem card: Harbor Sapphire, Stage 2 Legendary — 240 XP, found most in waterfront zones',
 }
 
 export const heroCardAriaLabel =
-  'FindRun collectible card: Harbor Sapphire, Stage 2 Legendary gem — 5.0 km, 6,830 steps, 240 XP gained, found most in waterfront zones'
+  'RunnerCard collectible card: Harbor Sapphire, Stage 2 Legendary gem — 5.0 km, 6,830 steps, 240 XP gained, found most in waterfront zones'
 
 export const gearCard: CardData = {
   edge: 'legendary',
@@ -79,7 +79,7 @@ export const gearCard: CardData = {
   },
   found: { where: 'Stadium & track zones', pct: 8 },
   flavor: 'Only surfaces after a personal best. Gold where the laces should be.',
-  foot: { left: 'illus. FINDRUN · after a PB', right: '009 / 500' },
+  foot: { left: 'illus. RUNNERCARD · after a PB', right: '009 / 500' },
   ariaLabel: 'Gear card: Golden Shoes, Stage 3 Legendary — 300 XP, surfaces after a personal best',
 }
 
@@ -102,7 +102,7 @@ export const creatureCard: CardData = {
   },
   found: { where: 'Park & greenway zones', pct: 41 },
   flavor: 'Seen at dawn, gone by seven. Keeps pace with runners who hold a steady rhythm.',
-  foot: { left: 'illus. FINDRUN · dawn runs', right: '217 / 500' },
+  foot: { left: 'illus. RUNNERCARD · dawn runs', right: '217 / 500' },
   ariaLabel: 'Creature card: Harbor Fox, Stage 1 Rare — 90 XP, seen on dawn runs in park zones',
 }
 
@@ -125,7 +125,7 @@ export const artifactCard: CardData = {
   },
   found: { where: 'Old quarry zones', pct: 12 },
   flavor: 'No map marks it. The first runner to reach it gets to name it — this one is still unexplained.',
-  foot: { left: 'illus. FINDRUN · one known copy', right: '071 / 500' },
+  foot: { left: 'illus. RUNNERCARD · one known copy', right: '071 / 500' },
   ariaLabel: 'Artifact card: The Unmarked Obelisk, Stage 3 Epic — 160 XP, one known copy',
 }
 
@@ -148,7 +148,7 @@ export const factCard: CardData = {
   },
   found: { where: 'Riverside zones', pct: 64 },
   flavor: "The runner's high rides on endocannabinoids — molecules small enough to slip into the brain.",
-  foot: { left: 'illus. FINDRUN · morning runs', right: '308 / 500' },
+  foot: { left: 'illus. RUNNERCARD · morning runs', right: '308 / 500' },
   ariaLabel: "Fact card: Runner's High, Stage 1 Rare — 60 XP, Body and Mind set",
 }
 

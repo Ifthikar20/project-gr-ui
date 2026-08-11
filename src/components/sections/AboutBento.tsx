@@ -26,7 +26,7 @@ export function AboutBento() {
           <Reveal stagger className="grid gap-4 md:grid-cols-[1.45fr_1fr]">
               <div className="flex flex-col items-start rounded-[28px] bg-[#e9fbdb] p-8 md:rounded-[36px] md:p-12 transition-[transform,box-shadow] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(16,18,22,0.1)]">
                 <span className="rounded-full bg-white/75 px-4 py-1.5 text-[13px] font-semibold text-foreground/70">
-                  What is FindRun
+                  What is RunnerCard
                 </span>
                 <h2 className="mt-7 max-w-[20ch] font-display text-[clamp(28px,4vw,46px)] leading-[1.12] font-bold tracking-[-0.025em]">
                   A collection you can only build by moving.
@@ -68,7 +68,7 @@ export function AboutBento() {
                   Join the hunt — get your invite.
                 </h3>
                 <p className="mt-4 max-w-[40ch] text-[15.5px] leading-relaxed text-foreground/60">
-                  FindRun is rolling out city by city on TestFlight. Grab a spot and start collecting the ground you
+                  RunnerCard is rolling out city by city on TestFlight. Grab a spot and start collecting the ground you
                   cover.
                 </p>
                 <div className="mt-auto flex flex-wrap items-center justify-between gap-5 pt-9">

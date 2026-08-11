@@ -23,7 +23,7 @@ const columns = [
     links: [
       { href: 'privacy.html', label: 'Privacy' },
       { href: 'terms.html', label: 'Terms' },
-      { href: 'mailto:hey@findrun.app', label: 'Contact' },
+      { href: 'mailto:hey@runnercard.app', label: 'Contact' },
     ],
   },
 ]
@@ -34,10 +34,10 @@ export function Footer() {
       <Container>
         <div className="flex flex-wrap justify-between gap-10">
           <div className="max-w-[320px]">
-            <a href="#top" aria-label="FindRun home" className="flex items-center gap-2">
+            <a href="#top" aria-label="RunnerCard home" className="flex items-center gap-2">
               <BrandMark variant="footer" />
               <span className="font-display text-[17px] font-bold tracking-[-0.02em]">
-                Find<b>Run</b>
+                Runner<b>Card</b>
               </span>
             </a>
             <p className="mt-3 text-sm leading-relaxed text-foreground/70">
@@ -64,7 +64,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-10 flex flex-wrap justify-between gap-3 border-t pt-5 text-[12.5px] text-foreground/40">
-          <span>© 2026 FindRun · findrun.app</span>
+          <span>© 2026 RunnerCard · runnercard.app</span>
           <span>Made for people who'd rather be running.</span>
         </div>
       </Container>

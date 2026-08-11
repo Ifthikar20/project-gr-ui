@@ -71,7 +71,7 @@ const FIND_CARDS: CardData[] = [
     use: { name: 'Soft Ground', val: '+5%', text: 'Trail kilometres count 5% extra XP while displayed.' },
     found: { where: 'Park & greenway zones', pct: 46 },
     flavor: 'Grows its colour where the path stays damp. Brightest after rain.',
-    foot: { left: 'illus. FINDRUN · morning runs', right: '118 / 500' },
+    foot: { left: 'illus. RUNNERCARD · morning runs', right: '118 / 500' },
     ariaLabel: 'Gem card: Moss Emerald, Stage 1 Uncommon — 40 XP, found in park and greenway zones',
   },
   {
@@ -89,7 +89,7 @@ const FIND_CARDS: CardData[] = [
     use: { name: 'Clear View', val: '+1', text: 'Reveals one hidden zone after every climb you finish.' },
     found: { where: 'Ridge & hill zones', pct: 22 },
     flavor: 'Cut from ridge light. Holds the last blue of the evening.',
-    foot: { left: 'illus. FINDRUN · 1 in 12 runs', right: '164 / 500' },
+    foot: { left: 'illus. RUNNERCARD · 1 in 12 runs', right: '164 / 500' },
     ariaLabel: 'Gem card: Ridge Sapphire, Stage 2 Rare — 90 XP, found in ridge and hill zones',
   },
   {
@@ -107,7 +107,7 @@ const FIND_CARDS: CardData[] = [
     use: { name: 'First Light', val: '2×', text: 'Dawn runs bank double XP while your streak holds.' },
     found: { where: 'Dawn summit zones', pct: 4 },
     flavor: 'Only surfaces in the first light after a climb — warm to the touch, or so runners say.',
-    foot: { left: 'illus. FINDRUN · dawn only', right: '007 / 500' },
+    foot: { left: 'illus. RUNNERCARD · dawn only', right: '007 / 500' },
     ariaLabel: 'Gem card: First Light Ember, Stage 3 Legendary — 240 XP, surfaces at dawn',
   },
 ]
@@ -457,7 +457,7 @@ export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: 
       <div
         ref={frameRef}
         role="img"
-        aria-label="GemRun active run screen: a live 3.11 mile run collects Moss Emerald, Ridge Sapphire and First Light Ember; the stats band shows time, distance, steps and pace, with pause and hold-to-stop controls"
+        aria-label="RunnerCard active run screen: a live 3.11 mile run collects Moss Emerald, Ridge Sapphire and First Light Ember; the stats band shows time, distance, steps and pace, with pause and hold-to-stop controls"
         onClick={replay}
         className={cn(
           'gr-frame relative w-full rounded-[46px] bg-[#0b0c0f] p-[10px] select-none',

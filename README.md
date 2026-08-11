@@ -1,6 +1,6 @@
-# FindRun — Landing Page
+# RunnerCard — Landing Page
 
-The marketing landing page for **[FindRun](https://github.com/ifthikar20/project-gr)**,
+The marketing landing page for **[RunnerCard](https://github.com/ifthikar20/project-gr)**,
 the iPhone app that turns any running route into a treasure hunt: collectible
 cards surface in real-world zones, you run within reach on foot to claim them,
 first one there takes it.
@@ -31,7 +31,7 @@ npm run lint       # oxlint
 index.html                     Vite entry — carries the real <head> meta/OG tags
 src/
   App.tsx                      Assembles the landing page sections
-  index.css                    Tailwind v4 theme: FindRun palette on shadcn vars
+  index.css                    Tailwind v4 theme: RunnerCard palette on shadcn vars
   components/
     sections/                  Navbar, Hero, StatsBand, … Footer (one per section)
     cards/                     The collectible-card system:
@@ -68,7 +68,7 @@ under a project path (`/project-gr-ui/`), a custom domain, and local preview.
   `run-6.jpg` plus `run-8.jpg`; closing CTA banner: `run-9.jpg`. The two
   gem card tiles also try `gem-1.png` (hero) and `gem-2.png` (community)
   before falling back to the illustrated gem art.
-- **Social handle** `@findrunapp` in the community section is invented —
+- **Social handle** `@runnercardapp` in the community section is invented —
   point it at the real account.
 
 - **Reviews** are written sample quotes for the beta-marketing voice — swap in
@@ -77,5 +77,5 @@ under a project path (`/project-gr-ui/`), a custom domain, and local preview.
   TestFlight builds.
 - **Waitlist form** shows a local success state only; wire it to a real
   endpoint in `src/components/sections/JoinCta.tsx`.
-- **Contact email** `hey@findrun.app` is a placeholder domain — search and
+- **Contact email** `hey@runnercard.app` is a placeholder domain — search and
   replace once the real domain exists.

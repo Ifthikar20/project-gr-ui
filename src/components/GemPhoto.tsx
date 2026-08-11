@@ -10,7 +10,7 @@ export function GemPhoto({ n }: { n: number }) {
   return (
     <img
       src={`assets/gem-${n}.png`}
-      alt="A FindRun gem card"
+      alt="A RunnerCard gem card"
       onError={() => setFailed(true)}
       className="h-full w-full bg-[#eef1f7] object-contain p-8"
     />
