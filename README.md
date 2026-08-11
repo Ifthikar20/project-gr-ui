@@ -62,12 +62,12 @@ under a project path (`/project-gr-ui/`), a custom domain, and local preview.
 
 ## Sample content to replace before launch
 
-- **Photos**: the hero deck loads `assets/run-1.jpg` and `run-2.jpg`; the
-  community strip loads `run-3.jpg` … `run-6.jpg`. Drop those files into
-  `public/assets/` and every slot lights up automatically (placeholders
-  show until then). The closing CTA banner still uses `PhotoPlaceholder` —
-  swap it for a real `<img className="absolute inset-0 h-full w-full
-  object-cover" />`.
+- **Photos**: every slot loads from `public/assets/` and falls back to a
+  labeled placeholder until the file exists. The full map — hero deck:
+  `run-1.jpg`, `run-2.jpg`, `run-7.jpg`; community strip: `run-3.jpg` …
+  `run-6.jpg` plus `run-8.jpg`; closing CTA banner: `run-9.jpg`. The two
+  gem card tiles also try `gem-1.png` (hero) and `gem-2.png` (community)
+  before falling back to the illustrated gem art.
 - **Social handle** `@findrunapp` in the community section is invented —
   point it at the real account.
 

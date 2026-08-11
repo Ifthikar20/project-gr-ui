@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Container, Kicker, SectionTitle } from '@/components/Bits'
 import { Reveal } from '@/components/Reveal'
 import { RunPhoto } from '@/components/RunPhoto'
-import { GemArt } from '@/components/cards/art/GemArt'
+import { GemPhoto } from '@/components/GemPhoto'
 import { ArtifactArt } from '@/components/cards/art/ArtifactArt'
 import { EmberArt } from '@/components/cards/art/EmberArt'
 import { cn } from '@/lib/utils'
@@ -14,12 +14,13 @@ import { cn } from '@/lib/utils'
 
 const ITEMS: { id: string; node: ReactNode }[] = [
   { id: 'photo-3', node: <RunPhoto n={3} /> },
-  { id: 'gem', node: <GemArt /> },
-  { id: 'photo-4', node: <RunPhoto n={4} /> },
+  { id: 'gem', node: <GemPhoto n={2} /> },
+  { id: 'photo-4', node: <RunPhoto n={4} className="object-[62%_center]" /> },
   { id: 'ember', node: <EmberArt /> },
   { id: 'photo-5', node: <RunPhoto n={5} /> },
   { id: 'artifact', node: <ArtifactArt /> },
-  { id: 'photo-6', node: <RunPhoto n={6} /> },
+  { id: 'photo-6', node: <RunPhoto n={6} className="object-[30%_center]" /> },
+  { id: 'photo-8', node: <RunPhoto n={8} /> },
 ]
 
 /* Horizontal strip placement by offset from the active card (0 = center). */

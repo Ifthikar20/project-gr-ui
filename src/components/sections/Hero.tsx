@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Container } from '@/components/Bits'
 import { Reveal } from '@/components/Reveal'
 import { RunPhoto } from '@/components/RunPhoto'
-import { GemArt } from '@/components/cards/art/GemArt'
+import { GemPhoto } from '@/components/GemPhoto'
 import { CreatureArt } from '@/components/cards/art/CreatureArt'
 import { cn } from '@/lib/utils'
 
@@ -14,10 +14,11 @@ interface DeckCard {
 }
 
 const DECK: DeckCard[] = [
-  { id: 'photo-1', node: <RunPhoto n={1} /> },
-  { id: 'gem', node: <GemArt /> },
+  { id: 'photo-1', node: <RunPhoto n={1} className="object-[28%_center]" /> },
+  { id: 'gem', node: <GemPhoto n={1} /> },
   { id: 'photo-2', node: <RunPhoto n={2} /> },
   { id: 'creature', node: <CreatureArt /> },
+  { id: 'photo-7', node: <RunPhoto n={7} /> },
 ]
 
 /* Resting transforms per stack position, top first. */
@@ -26,10 +27,11 @@ const STACK = [
   { transform: 'translate(-18px, 16px) rotate(-6deg) scale(0.97)', z: 30 },
   { transform: 'translate(16px, 26px) rotate(5deg) scale(0.94)', z: 20 },
   { transform: 'translate(-2px, 34px) rotate(-2deg) scale(0.92)', z: 10 },
+  { transform: 'translate(12px, 40px) rotate(3deg) scale(0.9)', z: 5 },
 ]
 
 function ShuffleDeck() {
-  const [order, setOrder] = useState([0, 1, 2, 3])
+  const [order, setOrder] = useState([0, 1, 2, 3, 4])
   const [exiting, setExiting] = useState<number | null>(null)
   const orderRef = useRef(order)
   const busyRef = useRef(false)

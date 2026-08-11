@@ -2,11 +2,11 @@ import { useRef, useState, type FormEvent } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { PhotoPlaceholder } from '@/components/PhotoPlaceholder'
+import { RunPhoto } from '@/components/RunPhoto'
 import { Reveal } from '@/components/Reveal'
 
 /* The closing CTA as a full-width photo banner: headline and the
-   waitlist form over the image slot (placeholder until photography). */
+   waitlist form over the photo. */
 
 export function JoinCta() {
   const [email, setEmail] = useState('')
@@ -27,7 +27,9 @@ export function JoinCta() {
       <Reveal>
         <div className="relative mx-auto w-full max-w-[1180px] overflow-hidden rounded-[28px] md:rounded-[40px]">
           <div className="relative min-h-[480px] md:aspect-[1200/560]">
-            <PhotoPlaceholder label="City-run photo here" align="right" />
+            <div className="absolute inset-0">
+              <RunPhoto n={9} align="right" />
+            </div>
             {/* legibility scrim */}
             <div
               aria-hidden="true"
