@@ -1,23 +1,27 @@
+import { useCallback, useState } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Container, Kicker, SectionLead, SectionTitle } from '@/components/Bits'
 import { Reveal } from '@/components/Reveal'
-import { RunScreenDemo } from '@/components/RunScreenDemo'
-
-const tiles = [
-  { label: 'Distance', num: '5.0', unit: 'km' },
-  { label: 'Cards found', num: '3' },
-  { label: 'Avg pace', num: '5:24', unit: '/km' },
-  { label: 'Day streak', num: '12' },
-]
+import { RunScreenDemo, type LiveStats } from '@/components/RunScreenDemo'
 
 export function Track() {
+  const [live, setLive] = useState<LiveStats>({ km: '0.0', cards: 0, pace: '–:––', streak: 12 })
+  const onLive = useCallback((s: LiveStats) => setLive(s), [])
+
+  const tiles = [
+    { label: 'Distance', num: live.km, unit: 'km' },
+    { label: 'Cards found', num: String(live.cards) },
+    { label: 'Avg pace', num: live.pace, unit: '/km' },
+    { label: 'Day streak', num: String(live.streak) },
+  ]
+
   return (
     <section id="track" className="scroll-mt-24 py-14 md:py-20">
       <Container>
         <div className="grid items-center gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-16">
           <Reveal>
             <div className="grid place-items-center rounded-[30px] bg-gradient-to-b from-wash-blue to-[#eef3fb] px-6 py-10 shadow-sm md:px-10 md:py-12">
-              <RunScreenDemo />
+              <RunScreenDemo onLive={onLive} />
             </div>
           </Reveal>
           <Reveal delay={1}>
@@ -37,8 +41,10 @@ export function Track() {
                     <div className="text-xs font-bold tracking-[0.04em] uppercase text-muted-foreground">
                       {tile.label}
                     </div>
-                    <div className="mt-1.5 font-display text-[clamp(26px,3.6vw,36px)] font-bold tracking-[-0.02em]">
-                      {tile.num}
+                    <div className="mt-1.5 font-display text-[clamp(26px,3.6vw,36px)] font-bold tracking-[-0.02em] tabular-nums">
+                      <span key={tile.num} className="stat-tick inline-block">
+                        {tile.num}
+                      </span>
                       {tile.unit && <small className="ml-0.5 text-[0.5em] font-bold text-muted-foreground">{tile.unit}</small>}
                     </div>
                   </CardContent>

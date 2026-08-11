@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { memo, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { BatteryMedium, RotateCcw, Signal, Wifi } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -128,6 +128,8 @@ const PACE_S_PER_M = 521.4 / 1609.344 // 8:41 /mi
 const RUN_MS = 11000
 const SUMMARY_MS = 3400
 const TOTAL_MI = 3.11 // 5.0 km
+const TOTAL_KM = 5.0
+const KM_PACE = '5:24' // 8:41 /mi
 const TOTAL_SECONDS = 27 * 60
 const TOTAL_STEPS = 6830
 const TOTAL_CAL = 342
@@ -178,7 +180,16 @@ interface SummaryStats {
   gems: number
 }
 
-export function RunScreenDemo() {
+/** The demo's live numbers, in the site's metric voice — emitted whenever
+    a displayed value changes so the section's stat tiles can follow the run. */
+export interface LiveStats {
+  km: string
+  cards: number
+  pace: string
+  streak: number
+}
+
+export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: (s: LiveStats) => void }) {
   const frameRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<HTMLDivElement>(null)
   const routeRef = useRef<SVGPathElement>(null)
@@ -208,9 +219,32 @@ export function RunScreenDemo() {
   const pausedRef = useRef(false)
   const frozenRef = useRef(1)
   const summaryRef = useRef<SummaryStats | null>(null)
+  const stashRef = useRef(0)
   const fxCounter = useRef(0)
   const timers = useRef(new Set<number>())
   const holdTimer = useRef<number | undefined>(undefined)
+  const onLiveRef = useRef(onLive)
+  const lastLiveRef = useRef('')
+
+  useEffect(() => {
+    onLiveRef.current = onLive
+  })
+
+  const emitLive = (progress: number) => {
+    const cb = onLiveRef.current
+    if (!cb) return
+    const s: LiveStats = {
+      km: (TOTAL_KM * progress).toFixed(1),
+      cards: stashRef.current,
+      pace: progress < 0.04 ? '–:––' : KM_PACE,
+      // the finished run extends the streak; a fresh loop winds it back
+      streak: summaryRef.current ? 13 : 12,
+    }
+    const key = `${s.km}|${s.cards}|${s.pace}|${s.streak}`
+    if (key === lastLiveRef.current) return
+    lastLiveRef.current = key
+    cb(s)
+  }
 
   const later = (ms: number, fn: () => void) => {
     const id = window.setTimeout(() => {
@@ -242,7 +276,10 @@ export function RunScreenDemo() {
         to: { x: 38, y: 40 }, // the stash chip, app coords (52, 30)pt scaled
       })
     }
-    later(950, () => setStash((s) => s + 1))
+    later(950, () => {
+      stashRef.current += 1
+      setStash(stashRef.current)
+    })
     later(1600, () => setFx(null))
   }
 
@@ -290,6 +327,8 @@ export function RunScreenDemo() {
       }
       if (d < RING_R) claim(next)
     }
+
+    emitLive(progress)
   }
 
   const captureSummary = (progress: number): SummaryStats => ({
@@ -318,6 +357,7 @@ export function RunScreenDemo() {
     frozenRef.current = 1
     summaryRef.current = null
     pausedRef.current = false
+    stashRef.current = 0
     setClaimed([false, false, false])
     setStash(0)
     setFx(null)
@@ -337,6 +377,7 @@ export function RunScreenDemo() {
     if (reduced) {
       claimedRef.current = [true, true, true]
       setClaimed([true, true, true])
+      stashRef.current = 3
       setStash(3)
       applyFrame(1)
     } else {
@@ -809,4 +850,4 @@ export function RunScreenDemo() {
       )}
     </div>
   )
-}
+})

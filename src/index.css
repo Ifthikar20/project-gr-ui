@@ -182,6 +182,25 @@
 .reveal-stagger.is-revealed > *:nth-child(6) { transition-delay: 450ms; }
 .reveal-stagger.is-revealed > *:nth-child(n + 7) { transition-delay: 540ms; }
 
+/* stat tiles ticking along with the run demo: a tiny odometer step
+   each time a value changes (the span remounts via its key). */
+@keyframes stat-tick {
+  from {
+    transform: translateY(5px);
+    opacity: 0.35;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.stat-tick {
+  animation: stat-tick 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .stat-tick { animation: none; }
+}
+
 /* spring micro-interaction on every pill/button */
 [data-slot='button'] {
   transition:
