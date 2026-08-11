@@ -26,7 +26,7 @@ function LockMotif() {
     <svg
       viewBox="0 0 400 470"
       aria-hidden="true"
-      className="pointer-events-none absolute left-1/2 top-1/2 h-[150%] w-auto -translate-x-1/2 -translate-y-[44%]"
+      className="pointer-events-none absolute left-1/2 top-1/2 h-[190%] w-auto -translate-x-1/2 -translate-y-[46%]"
     >
       {/* shackle */}
       <path
@@ -70,22 +70,22 @@ function LockMotif() {
 
 export function Privacy() {
   return (
-    <section id="privacy" className="scroll-mt-24 px-3 py-8 md:px-6 md:py-12">
+    <section id="privacy" className="scroll-mt-24 px-3 py-6 md:px-6 md:py-8">
       <Reveal>
-        <div className="relative mx-auto w-full max-w-[1180px] overflow-hidden rounded-[28px] bg-[#0e1310] px-6 py-24 text-center md:rounded-[40px] md:py-36">
+        <div className="relative mx-auto w-full max-w-[1180px] overflow-hidden rounded-[28px] bg-[#0e1310] px-6 py-14 text-center md:rounded-[40px] md:py-16">
           <div aria-hidden="true" className="absolute inset-0" style={panelGlow} />
           <LockMotif />
           <div className="relative z-10 mx-auto max-w-[880px]">
-            <div className="mx-auto max-w-[560px]">
-              <h2 className="font-display text-[clamp(30px,4.4vw,50px)] leading-[1.08] font-bold tracking-[-0.028em] text-white">
+            <div className="mx-auto max-w-[520px]">
+              <h2 className="font-display text-[clamp(24px,3vw,34px)] leading-[1.08] font-bold tracking-[-0.025em] text-white">
                 Private by design.
               </h2>
-              <p className="mx-auto mt-4 max-w-[46ch] text-[16.5px] leading-relaxed text-white/60">
+              <p className="mx-auto mt-3 max-w-[52ch] text-[14.5px] leading-relaxed text-white/60">
                 Your runs, routes and health data live on your phone. The server only ever sees the claims you make —
                 GPS-verified, nothing more.
               </p>
             </div>
-            <ul className="mt-8 flex flex-wrap justify-center gap-2.5">
+            <ul className="mt-6 flex flex-wrap justify-center gap-2.5">
               {residency.map((item) => (
                 <li
                   key={item.label}
@@ -98,7 +98,7 @@ export function Privacy() {
             </ul>
             <a
               href="privacy.html"
-              className="mt-7 inline-block text-[13.5px] font-semibold text-white/45 transition-colors hover:text-white"
+              className="mt-5 inline-block text-[13px] font-semibold text-white/45 transition-colors hover:text-white"
             >
               Read the privacy policy →
             </a>
