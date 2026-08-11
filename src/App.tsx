@@ -1,6 +1,5 @@
 import { Navbar } from '@/components/sections/Navbar'
 import { Hero } from '@/components/sections/Hero'
-import { StatsBand } from '@/components/sections/StatsBand'
 import { AboutBento } from '@/components/sections/AboutBento'
 import { Track } from '@/components/sections/Track'
 import { Privacy } from '@/components/sections/Privacy'
@@ -22,7 +21,6 @@ export default function App() {
       <Navbar />
       <main id="main">
         <Hero />
-        <StatsBand />
         <AboutBento />
         <Track />
         <Privacy />
