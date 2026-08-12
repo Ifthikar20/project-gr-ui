@@ -182,6 +182,29 @@
 .reveal-stagger.is-revealed > *:nth-child(6) { transition-delay: 450ms; }
 .reveal-stagger.is-revealed > *:nth-child(n + 7) { transition-delay: 540ms; }
 
+/* the headline's last word flipping over like a card being turned */
+@keyframes flip-word-in {
+  0% {
+    transform: rotateX(-92deg) translateY(0.1em);
+    opacity: 0;
+  }
+  55% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotateX(0deg) translateY(0);
+    opacity: 1;
+  }
+}
+.flip-word {
+  animation: flip-word-in 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: 50% 62%;
+  backface-visibility: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  .flip-word { animation: none; }
+}
+
 /* stat tiles ticking along with the run demo: a tiny odometer step
    each time a value changes (the span remounts via its key). */
 @keyframes stat-tick {

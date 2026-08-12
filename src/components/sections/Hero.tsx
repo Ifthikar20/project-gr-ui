@@ -106,16 +106,46 @@ function ShuffleDeck() {
   )
 }
 
+const FLIP_WORDS = ['card.', 'collectible.']
+
+/** The headline's last word, turning over like a card between the two
+    things a run mints. The sizer holds the line at the longest word so
+    the layout never shifts. */
+function FlipWord() {
+  const [i, setI] = useState(0)
+  const [reduced] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+
+  useEffect(() => {
+    if (reduced) return
+    const id = window.setInterval(() => setI((n) => (n + 1) % FLIP_WORDS.length), 2600)
+    return () => window.clearInterval(id)
+  }, [reduced])
+
+  return (
+    <>
+      <span className="relative inline-block [perspective:900px]" aria-hidden="true">
+        <span className="invisible">{FLIP_WORDS[1]}</span>
+        <span key={i} className="flip-word absolute top-0 left-0 whitespace-nowrap">
+          {FLIP_WORDS[i]}
+        </span>
+      </span>
+      <span className="sr-only">{FLIP_WORDS[0]}</span>
+    </>
+  )
+}
+
 export function Hero() {
   return (
     <section id="top" className="flex min-h-[100svh] scroll-mt-24 flex-col overflow-hidden pt-24 pb-10 md:pt-28">
       <Container className="flex flex-1 flex-col">
         <div className="grid flex-1 items-start gap-12 md:grid-cols-[1fr_1fr] md:gap-8">
           <Reveal stagger className="text-left md:pt-6">
-            <h1 className="font-display text-[clamp(46px,5.2vw,84px)] leading-[0.95] font-extrabold tracking-[-0.03em] uppercase">
+            <h1 className="font-display text-[clamp(46px,5.2vw,78px)] leading-[0.95] font-extrabold tracking-[-0.03em] uppercase">
               Every run
               <br />
-              mints a card.
+              mints a
+              <br />
+              <FlipWord />
             </h1>
           </Reveal>
 
