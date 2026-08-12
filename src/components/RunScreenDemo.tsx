@@ -35,12 +35,13 @@ const rarityColor: Record<string, string> = {
   legendary: 'rgba(95, 64, 191, 1)',
 }
 
+type Pt = [number, number]
+
 interface ZoneDef {
-  /** Region rect in map viewBox units — cards surface anywhere inside. */
-  x: number
-  y: number
-  w: number
-  h: number
+  /** The region's own outline in map viewBox units — cards surface
+      anywhere inside it. Each zone is a different shape, drawn to the
+      blocks it covers rather than to a box. */
+  points: Pt[]
   label: string
   short: string
   tier: 'uncommon' | 'rare' | 'legendary'
@@ -58,26 +59,41 @@ interface ZoneDef {
    the card inside it is collected. */
 const ZONES: ZoneDef[] = [
   {
-    x: 0,
-    y: 208,
-    w: 146,
-    h: 116,
+    // steps down and out across the park and the blocks below it
+    points: [
+      [0, 180],
+      [60, 180],
+      [60, 206],
+      [152, 206],
+      [152, 268],
+      [110, 268],
+      [110, 300],
+      [58, 300],
+      [58, 340],
+      [0, 340],
+    ],
     label: 'CEDAR HOLLOW',
     short: 'Cedar Hollow',
     tier: 'uncommon',
     fill: 'rgba(97, 255, 0, 0.2)',
     stroke: 'rgba(72, 168, 16, 0.75)',
     ink: '#3d7f13',
-    lx: 40,
+    lx: 32,
     ly: 232,
-    bx: 120,
-    by: 302,
+    bx: 133,
+    by: 227,
   },
   {
-    x: 156,
-    y: 16,
-    w: 146,
-    h: 116,
+    // a wedge cut off at the ridge, wider at the top of the hill
+    points: [
+      [156, 40],
+      [206, 16],
+      [302, 16],
+      [302, 108],
+      [252, 146],
+      [176, 146],
+      [156, 100],
+    ],
     label: 'LANTERN HILL',
     short: 'Lantern Hill',
     tier: 'legendary',
@@ -90,6 +106,40 @@ const ZONES: ZoneDef[] = [
     by: 113,
   },
 ]
+
+const pointsAttr = (pts: Pt[]) => pts.map((p) => p.join(',')).join(' ')
+
+const zoneCenter = (pts: Pt[]) => {
+  const xs = pts.map((p) => p[0])
+  const ys = pts.map((p) => p[1])
+  return { x: (Math.min(...xs) + Math.max(...xs)) / 2, y: (Math.min(...ys) + Math.max(...ys)) / 2 }
+}
+
+const inZone = (x: number, y: number, pts: Pt[]) => {
+  let inside = false
+  for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) {
+    const [xi, yi] = pts[i]
+    const [xj, yj] = pts[j]
+    if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) inside = !inside
+  }
+  return inside
+}
+
+/** Distance to the region's edge — zero once the runner is inside it. */
+const distanceToZone = (x: number, y: number, pts: Pt[]) => {
+  if (inZone(x, y, pts)) return 0
+  let best = Infinity
+  for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) {
+    const [x1, y1] = pts[j]
+    const [x2, y2] = pts[i]
+    const dx = x2 - x1
+    const dy = y2 - y1
+    const len = dx * dx + dy * dy
+    const t = len ? Math.max(0, Math.min(1, ((x - x1) * dx + (y - y1) * dy) / len)) : 0
+    best = Math.min(best, Math.hypot(x - (x1 + t * dx), y - (y1 + t * dy)))
+  }
+  return best
+}
 
 /* The route follows the street grid — every leg runs down an avenue or a
    cross street, never through a block. */
@@ -359,14 +409,14 @@ export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: 
       const w = mapEl.offsetWidth
       const h = mapEl.offsetHeight
       const s = Math.max(w / VIEW_W, h / VIEW_H)
-      const z = ZONES[i]
+      const c = zoneCenter(ZONES[i].points)
       fxCounter.current += 1
       setFx({
         i,
         key: fxCounter.current,
         from: {
-          x: (w - VIEW_W * s) / 2 + (z.x + z.w / 2) * s,
-          y: (h - VIEW_H * s) / 2 + (z.y + z.h / 2) * s,
+          x: (w - VIEW_W * s) / 2 + c.x * s,
+          y: (h - VIEW_H * s) / 2 + c.y * s,
         },
         to: { x: 38, y: 40 }, // the stash chip, app coords (52, 30)pt scaled
       })
@@ -409,17 +459,15 @@ export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: 
     const next = claimedRef.current.findIndex((c) => !c)
     if (next >= 0) {
       const z = ZONES[next]
-      // distance to the region edge — zero once the runner is inside it
-      const dx = Math.max(z.x - p.x, 0, p.x - (z.x + z.w))
-      const dy = Math.max(z.y - p.y, 0, p.y - (z.y + z.h))
-      const d = Math.hypot(dx, dy)
+      const d = distanceToZone(p.x, p.y, z.points)
       const meters = d * M_PER_UNIT
       if (chipTextRef.current) {
         const eta = progress >= 0.04 ? ` · ~${fmtTime(meters * PACE_S_PER_M)}` : ''
         chipTextRef.current.textContent = `${z.short} · ${shortDistance(meters)}${eta}`
       }
       if (chipArrowRef.current) {
-        const bearing = (Math.atan2(z.x + z.w / 2 - p.x, -(z.y + z.h / 2 - p.y)) * 180) / Math.PI
+        const c = zoneCenter(z.points)
+        const bearing = (Math.atan2(c.x - p.x, -(c.y - p.y)) * 180) / Math.PI
         chipArrowRef.current.style.transform = `rotate(${normalizeDeg(bearing - course).toFixed(1)}deg)`
       }
       if (d === 0) claim(next)
@@ -598,17 +646,14 @@ export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: 
               {/* the two active regions — run inside one and its card is yours */}
               {ZONES.map((z, i) => (
                 <g key={z.label} opacity={claimed[i] ? 0.4 : 1}>
-                  <rect x={z.x} y={z.y} width={z.w} height={z.h} rx="16" fill={z.fill} />
-                  <rect
-                    x={z.x}
-                    y={z.y}
-                    width={z.w}
-                    height={z.h}
-                    rx="16"
+                  <polygon points={pointsAttr(z.points)} fill={z.fill} />
+                  <polygon
+                    points={pointsAttr(z.points)}
                     fill="none"
                     stroke={z.stroke}
                     strokeWidth="2"
                     strokeDasharray="8 6"
+                    strokeLinejoin="round"
                   />
                   <text x={z.lx} y={z.ly} fontSize="9.5" fontWeight="700" letterSpacing="0.6" fill={z.ink}>
                     {z.label}
