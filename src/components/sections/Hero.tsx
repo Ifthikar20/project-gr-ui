@@ -126,8 +126,8 @@ export function Hero() {
 
         <Reveal delay={3} className="mt-12 md:mt-0">
           <p className="max-w-[42ch] text-[15.5px] leading-relaxed text-foreground/60">
-            A real fitness tracker with a collection on top — gems, gear and creatures, minted only on the streets you
-            actually run.
+            A real fitness tracker with a collection on top — gems, gear, creatures and artifacts, minted only on the
+            streets you actually run.
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-4">
             <Button size="lg" asChild className="h-12 rounded-full px-7 text-[15px]">

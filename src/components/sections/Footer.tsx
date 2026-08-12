@@ -34,7 +34,7 @@ export function Footer() {
         <div className="flex flex-wrap justify-between gap-10">
           <div className="max-w-[320px]">
             <a href="#top" aria-label="RunnerCard home" className="inline-block">
-              <span className="text-[17px] font-semibold text-black">RunnerCard</span>
+              <span className="text-[21px] font-semibold tracking-[-0.015em] text-black">RunnerCard</span>
             </a>
             <p className="mt-3 text-sm leading-relaxed text-foreground/70">
               Run to find. Collect the cards no one else has. Built for runners on iPhone.
