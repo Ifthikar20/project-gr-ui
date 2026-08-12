@@ -5,7 +5,7 @@ import { Reveal } from '@/components/Reveal'
 import { RunScreenDemo, type LiveStats } from '@/components/RunScreenDemo'
 
 export function Track() {
-  const [live, setLive] = useState<LiveStats>({ km: '0.0', cards: 0, pace: '–:––', streak: 12 })
+  const [live, setLive] = useState<LiveStats>({ km: '4.1', cards: 0, pace: '5:24', streak: 12 })
   const onLive = useCallback((s: LiveStats) => setLive(s), [])
 
   const tiles = [

@@ -203,14 +203,28 @@ const VIEW_H = 420
 const M_PER_UNIT = 1.6 // map units → metres
 const PACE_S_PER_M = 521.4 / 1609.344 // 8:41 /mi
 
-const RUN_MS = 11000
-const SUMMARY_MS = 3400
+/* The demo picks the run up in its closing stretch — the ~950 m the map
+   actually covers — and plays it back at ~13× rather than racing a whole
+   27-minute run past in a few seconds, so the clock reads like a clock.
+   Every figure interpolates from where the run already stood (START_*)
+   to its finishing total, and the two stay consistent at 5:24 /km. */
+const RUN_MS = 24000
+const SUMMARY_MS = 4200
+
 const TOTAL_MI = 3.11 // 5.0 km
+const START_MI = 2.52
 const TOTAL_KM = 5.0
+const START_KM = 4.05
 const KM_PACE = '5:24' // 8:41 /mi
+const MI_PACE = '8:41'
 const TOTAL_SECONDS = 27 * 60
+const START_SECONDS = 21 * 60 + 52
 const TOTAL_STEPS = 6830
+const START_STEPS = 5530
 const TOTAL_CAL = 342
+const START_CAL = 277
+
+const lerp = (from: number, to: number, t: number) => from + (to - from) * t
 
 function fmtTime(totalSeconds: number) {
   const s = Math.floor(totalSeconds)
@@ -312,9 +326,9 @@ export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: 
     const cb = onLiveRef.current
     if (!cb) return
     const s: LiveStats = {
-      km: (TOTAL_KM * progress).toFixed(1),
+      km: lerp(START_KM, TOTAL_KM, progress).toFixed(1),
       cards: stashRef.current,
-      pace: progress < 0.04 ? '–:––' : KM_PACE,
+      pace: KM_PACE,
       // the finished run extends the streak; a fresh loop winds it back
       streak: summaryRef.current ? 13 : 12,
     }
@@ -386,10 +400,10 @@ export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: 
       trailRef.current.style.strokeDashoffset = `${length - at}`
     }
 
-    if (distRef.current) distRef.current.textContent = (TOTAL_MI * progress).toFixed(2)
-    if (timeRef.current) timeRef.current.textContent = fmtTime(TOTAL_SECONDS * progress)
-    if (stepsRef.current) stepsRef.current.textContent = `${Math.round(TOTAL_STEPS * progress)}`
-    if (paceRef.current) paceRef.current.textContent = progress < 0.04 ? '–:––' : '8:41'
+    if (distRef.current) distRef.current.textContent = lerp(START_MI, TOTAL_MI, progress).toFixed(2)
+    if (timeRef.current) timeRef.current.textContent = fmtTime(lerp(START_SECONDS, TOTAL_SECONDS, progress))
+    if (stepsRef.current) stepsRef.current.textContent = `${Math.round(lerp(START_STEPS, TOTAL_STEPS, progress))}`
+    if (paceRef.current) paceRef.current.textContent = MI_PACE
 
     // next-zone chip + the claim that fires on entering the region
     const next = claimedRef.current.findIndex((c) => !c)
@@ -415,11 +429,11 @@ export const RunScreenDemo = memo(function RunScreenDemo({ onLive }: { onLive?: 
   }
 
   const captureSummary = (progress: number): SummaryStats => ({
-    mi: (TOTAL_MI * progress).toFixed(2),
-    time: fmtTime(TOTAL_SECONDS * progress),
-    pace: progress < 0.04 ? '–:––' : '8:41',
-    steps: Math.round(TOTAL_STEPS * progress),
-    cal: Math.round(TOTAL_CAL * progress),
+    mi: lerp(START_MI, TOTAL_MI, progress).toFixed(2),
+    time: fmtTime(lerp(START_SECONDS, TOTAL_SECONDS, progress)),
+    pace: MI_PACE,
+    steps: Math.round(lerp(START_STEPS, TOTAL_STEPS, progress)),
+    cal: Math.round(lerp(START_CAL, TOTAL_CAL, progress)),
     gems: claimedRef.current.filter(Boolean).length,
   })
 
