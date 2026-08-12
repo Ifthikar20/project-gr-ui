@@ -130,7 +130,11 @@ export function Hero() {
             streets you actually run.
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-4">
-            <Button size="lg" asChild className="h-12 rounded-full px-7 text-[15px]">
+            <Button
+              size="lg"
+              asChild
+              className="h-12 rounded-full bg-volt px-7 text-[15px] font-semibold text-[#101216] hover:bg-volt/90"
+            >
               <a href={APP_STORE_URL}>
                 Start collecting
                 <ArrowUpRight className="size-4" />
