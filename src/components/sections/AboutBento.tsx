@@ -17,7 +17,10 @@ const panel =
   'transition-[transform,box-shadow] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(16,18,22,0.1)]'
 
 const mapChip =
-  'rounded-full border border-white/10 bg-[#0b0c0f]/85 px-4 py-1.5 text-[13px] font-semibold text-white backdrop-blur-sm'
+  'rounded-full border border-white/10 bg-[#0b0c0f]/80 px-2.5 py-1 text-[10.5px] font-semibold whitespace-nowrap text-white backdrop-blur-sm sm:px-3 sm:text-[11.5px]'
+
+/* What the map above actually shows, in order. */
+const loop = ['Run the streets', 'Reach a region', 'Keep the card']
 
 const crowd = ['SM', 'DP', 'JR', 'PK', 'MT']
 
@@ -28,28 +31,41 @@ export function AboutBento() {
         <div className="flex flex-col gap-4">
           {/* mission panel + art tiles */}
           <Reveal stagger className="grid gap-4 md:grid-cols-[1.45fr_1fr]">
-            <div className={`flex flex-col gap-7 rounded-[28px] bg-[#101216] p-8 md:rounded-[36px] md:p-10 ${panel}`}>
+            <div className={`flex flex-col gap-6 rounded-[28px] bg-[#101216] p-7 md:rounded-[36px] md:p-9 ${panel}`}>
               <div>
-                <span className="rounded-full bg-white/10 px-4 py-1.5 text-[13px] font-semibold text-white/75">
+                <span className="rounded-full bg-white/10 px-3.5 py-1 text-[12.5px] font-semibold text-white/75">
                   What is RunnerCard
                 </span>
-                <h2 className="mt-6 max-w-[26ch] font-display text-[clamp(23px,2.7vw,33px)] leading-[1.16] font-bold tracking-[-0.022em] text-white">
+                <h2 className="mt-5 max-w-[30ch] font-display text-[clamp(21px,2.3vw,28px)] leading-[1.18] font-bold tracking-[-0.02em] text-white">
                   Our mission is to bring the game back to running — real streets, real miles, and rewards you can
                   actually hold.
                 </h2>
                 <Button
                   asChild
-                  size="lg"
-                  className="mt-7 h-12 rounded-full bg-white px-7 text-[15px] text-[#101216] hover:bg-white/90"
+                  className="mt-6 h-11 rounded-full bg-white px-6 text-[14.5px] text-[#101216] hover:bg-white/90"
                 >
                   <a href="#track">Watch a run</a>
                 </Button>
               </div>
-              <div className="relative mx-auto h-[200px] w-full max-w-[460px] overflow-hidden rounded-[20px] md:h-[230px] [&>svg]:absolute [&>svg]:inset-0 [&>svg]:h-full [&>svg]:w-full [&>svg]:transition-transform [&>svg]:duration-700 [&>svg]:ease-[cubic-bezier(0.22,1,0.36,1)] hover:[&>svg]:scale-[1.05]">
+              <div className="relative h-[150px] w-full overflow-hidden rounded-[18px] md:h-auto md:aspect-[560/170] [&>svg]:absolute [&>svg]:inset-0 [&>svg]:h-full [&>svg]:w-full [&>svg]:transition-transform [&>svg]:duration-700 [&>svg]:ease-[cubic-bezier(0.22,1,0.36,1)] hover:[&>svg]:scale-[1.05]">
                 <ZoneMapArt />
-                <span className={`${mapChip} absolute top-5 left-5`}>Run</span>
-                <span className={`${mapChip} absolute top-1/2 right-5 -translate-y-1/2`}>Find</span>
-                <span className={`${mapChip} absolute bottom-5 left-8`}>Keep</span>
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#0b0c0f]/85 to-transparent"
+                />
+                <div className="absolute inset-x-0 bottom-0 p-2.5">
+                  {/* the same three steps, as chips where they fit and as one line where they don't */}
+                  <div className="hidden items-center justify-center gap-1.5 sm:flex">
+                    {loop.map((step) => (
+                      <span key={step} className={mapChip}>
+                        {step}
+                      </span>
+                    ))}
+                  </div>
+                  <p className="text-center text-[10px] font-semibold text-white/85 sm:hidden">
+                    {loop.join(' · ')}
+                  </p>
+                </div>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4 md:grid-cols-1 lg:grid-cols-2">
