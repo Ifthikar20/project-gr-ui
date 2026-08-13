@@ -233,11 +233,23 @@
       <div class="container">
         <div class="track__grid">
           <div class="rings" data-reveal>
-            <svg viewBox="0 0 300 260" width="100%" aria-label="A stylised map with three glowing zones and a running route">
+            <svg viewBox="0 0 300 260" width="100%" aria-label="A stylised map with three glowing park-shaped zones and a running route">
               <defs>
-                <radialGradient id="zoneGlow" cx="50%" cy="50%" r="50%">
+                <!-- Per-zone glows in user space so each sits on its blob's
+                     visual center, not the bounding box. -->
+                <radialGradient id="glowA" gradientUnits="userSpaceOnUse" cx="74" cy="69" r="42">
                   <stop offset="0" stop-color="#61ff00" stop-opacity="0.55"/><stop offset="1" stop-color="#61ff00" stop-opacity="0"/>
                 </radialGradient>
+                <radialGradient id="glowB" gradientUnits="userSpaceOnUse" cx="210" cy="96" r="36">
+                  <stop offset="0" stop-color="#61ff00" stop-opacity="0.5"/><stop offset="1" stop-color="#61ff00" stop-opacity="0"/>
+                </radialGradient>
+                <radialGradient id="glowC" gradientUnits="userSpaceOnUse" cx="120" cy="186" r="44">
+                  <stop offset="0" stop-color="#61ff00" stop-opacity="0.55"/><stop offset="1" stop-color="#61ff00" stop-opacity="0"/>
+                </radialGradient>
+                <!-- Zones take their park's shape: odd boundaries, not circles. -->
+                <path id="blobA" d="M44 62 C46 44 66 34 84 40 C100 44 110 58 104 74 C100 88 88 100 70 98 C52 96 42 80 44 62 Z"/>
+                <path id="blobB" d="M182 92 C184 78 200 70 216 74 C232 76 242 88 238 102 C234 114 218 122 202 116 C188 112 180 104 182 92 Z"/>
+                <path id="blobC" d="M88 176 C90 162 106 152 122 156 C136 158 150 166 152 182 C154 196 146 210 130 214 C118 218 100 214 92 202 C86 194 86 184 88 176 Z"/>
               </defs>
               <rect x="0" y="0" width="300" height="260" rx="20" fill="#12141b"/>
               <g stroke="#1f2430" stroke-width="2">
@@ -245,12 +257,16 @@
                 <path d="M60 0 V260 M140 0 V260 M220 0 V260"/>
               </g>
               <rect x="150" y="140" width="80" height="60" rx="8" fill="#161b16" stroke="#243024" stroke-width="2"/>
-              <!-- zones -->
-              <circle cx="72" cy="70" r="34" fill="url(#zoneGlow)"/><circle cx="72" cy="70" r="20" fill="none" stroke="#61ff00" stroke-width="2.5"/>
-              <circle cx="210" cy="96" r="30" fill="url(#zoneGlow)"/><circle cx="210" cy="96" r="16" fill="none" stroke="#61ff00" stroke-width="2.5" opacity="0.85"/>
-              <circle cx="120" cy="188" r="36" fill="url(#zoneGlow)"/><circle cx="120" cy="188" r="22" fill="none" stroke="#61ff00" stroke-width="2.5"/>
-              <!-- route -->
-              <path d="M40 220 Q72 150 72 70 Q72 40 120 60 Q170 82 210 96" fill="none" stroke="#4f8fe0" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="1 10"/>
+              <!-- zones: glow fills the park shape; the boundary is the same
+                   shape drawn smaller (scaled about its center) -->
+              <use href="#blobA" fill="url(#glowA)"/>
+              <g transform="translate(74 69) scale(0.62) translate(-74 -69)"><use href="#blobA" fill="none" stroke="#61ff00" stroke-width="4"/></g>
+              <use href="#blobB" fill="url(#glowB)"/>
+              <g transform="translate(210 96) scale(0.6) translate(-210 -96)"><use href="#blobB" fill="none" stroke="#61ff00" stroke-width="4.2" opacity="0.85"/></g>
+              <use href="#blobC" fill="url(#glowC)"/>
+              <g transform="translate(120 186) scale(0.64) translate(-120 -186)"><use href="#blobC" fill="none" stroke="#61ff00" stroke-width="3.9"/></g>
+              <!-- route: volt on the dark map, like the app -->
+              <path d="M40 220 Q72 150 72 70 Q72 40 120 60 Q170 82 210 96" fill="none" stroke="#61ff00" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="1 10"/>
               <!-- gem markers -->
               <g transform="translate(72 70)"><path d="M0 -9 L8 0 L0 9 L-8 0 Z" fill="#e0a63a"/></g>
               <g transform="translate(210 96)"><path d="M0 -8 L7 0 L0 8 L-7 0 Z" fill="#9b6fe0"/></g>
@@ -263,10 +279,11 @@
             <p class="kicker">Zones</p>
             <h2 class="section__title">Cards live on walkable ground.</h2>
             <p class="section__lead">
-              A zone is a big circle of the real map, anchored on a public park or a
-              cluster of walkable trails — plenty of paths, plenty of footsteps to add.
-              Never on private property, private land, or government land. A fresh set
-              lands around you every day.
+              A zone is a big patch of the real map that takes its shape from the
+              public park or trail cluster it's anchored on — odd edges and all, grown
+              outward when the park is small so there's always plenty of ground, plenty
+              of footsteps to add. Never on private property, private land, or
+              government land. A fresh set lands around you every day.
             </p>
             <p class="section__lead" style="margin-top:14px">
               Walk a kilometre inside one and its card mints on the spot. No kilometre,
@@ -734,7 +751,7 @@
         </div>
         <div class="faq" data-faq data-reveal>
           <details><summary>Do I have to run to get cards?</summary><div class="faq__a">No — walking counts. Cover a kilometre inside a zone at walking pace or faster, with the map open or mid-run, and the card mints. Running just covers the ground quicker.</div></details>
-          <details><summary>What's a zone?</summary><div class="faq__a">A large circle of the real map, anchored on a public park or a cluster of walkable trails and picked fresh every day. Zones never sit on private property, private land, or government land — only ground you can honestly walk.</div></details>
+          <details><summary>What's a zone?</summary><div class="faq__a">A large, oddly-shaped patch of the real map — it takes the outline of the public park or trail cluster it's anchored on, and is picked fresh every day. Zones never sit on private property, private land, or government land — only ground you can honestly walk.</div></details>
           <details><summary>What kinds of cards are there?</summary><div class="faq__a">Five types. Gems are valuable stones with a trade value. Gear — golden shoes, running boots, storm shells — can be equipped to change your next run. Creatures are animals that live along the routes and show only at certain hours. Artifacts are one-of-a-kind discoveries, credited to their first finder forever. Facts are real, verifiable snippets you collect into sets.</div></details>
           <details><summary>Is it free?</summary><div class="faq__a">RunnerCard is free to play during the beta. There are no packs to buy — the only way to get a card is to go walk it.</div></details>
           <details><summary>Does it actually track my fitness?</summary><div class="faq__a">It does. Distance, pace, day streak and cards-per-mile are logged on every run, so it works as a genuine running tracker even on the days you don't finish a kilometre in a zone.</div></details>
