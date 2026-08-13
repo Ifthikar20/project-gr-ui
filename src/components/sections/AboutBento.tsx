@@ -3,7 +3,7 @@ import { Container } from '@/components/Bits'
 import { Reveal } from '@/components/Reveal'
 import { AppStoreButton } from '@/components/AppStoreButton'
 import { RunPhoto } from '@/components/RunPhoto'
-import { GemArt } from '@/components/cards/art/GemArt'
+import { FitnessCard } from '@/components/FitnessCard'
 import { ZoneMapArt } from '@/components/cards/art/ZoneMapArt'
 
 /* The about story as a bento block set: the dark mission statement over
@@ -68,16 +68,14 @@ export function AboutBento() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-1 lg:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-1">
               <div className={artTile}>
                 {/* pinned so the photo's own aspect never drives the row height */}
                 <div className="absolute inset-0">
                   <RunPhoto n={2} />
                 </div>
               </div>
-              <div className={artTile}>
-                <GemArt />
-              </div>
+              <FitnessCard />
             </div>
           </Reveal>
 
