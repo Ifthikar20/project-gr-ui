@@ -2,7 +2,7 @@
 
 The marketing landing page for **[RunnerCard](https://github.com/ifthikar20/project-gr)**
 (runnercard.app), the iPhone app that turns walking into a collection: every
-day, large zones land on parks and trails near you — walk 1 km inside one and
+day, large zones land on parks and trails near you — walk a mile inside one and
 a collectible Runner Card mints, stamped with the walk that earned it.
 
 Static site — plain HTML, CSS, and vanilla JavaScript. No framework, no build

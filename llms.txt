@@ -3,7 +3,7 @@
 > RunnerCard is a collectible walking game for iPhone (iOS 17+, currently in
 > TestFlight beta). Every day, a few large zones land on public parks and
 > walkable trails near the player — never on private or government land.
-> Walking 1 km inside a zone (GPS-verified, walking pace or faster) mints a
+> Walking a mile inside a zone (GPS-verified, walking pace or faster) mints a
 > collectible Runner Card stamped with the distance, steps and date that
 > earned it. Free to play, and runner data is stored on the phone first.
 
@@ -15,15 +15,16 @@ Key facts:
   (unseen, first-finder credited), Fact (knowledge, collected into decks)
 - Rarities and published odds: Common ~6 in 10, Uncommon ~1 in 4, Rare
   ~1 in 12, Epic ~1 in 60, Legendary ~1 in 900
-- Zones: 2–4 per day, large circles (roughly 350–500 m radius) anchored on
+- Zones: 2–4 per day, large park-shaped patches (odd boundaries from the
+  park's real outline, about the footprint of a 350–500 m circle) anchored on
   public parks and clusters of walkable trails, picked fresh daily; zones are
   never placed on private property, private land, or government land
   (OpenStreetMap no-go polygons are vetoed fail-closed)
-- Mint rule: cover 1 km inside a zone while the app is open on the map or
+- Mint rule: cover 1 mile inside a zone while the app is open on the map or
   during a run; distance is GPS-verified — accuracy worse than 50 m never
   counts, teleports are rejected, and driving-speed movement fills nothing;
   up to 3 mints per zone per day
-- Tracking: distance, per-km splits, pace and day streaks on every run;
+- Tracking: distance, per-mile splits, pace and day streaks on every run;
   syncs with Apple Health on-device
 - Privacy: local-first storage on the iPhone; Apple Health data is never
   uploaded; location permission is "While Using" only — position is used on
