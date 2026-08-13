@@ -1,4 +1,4 @@
-/* FindRun landing page — vanilla JS, no dependencies.
+/* RunnerCard landing page — vanilla JS, no dependencies.
    Interactions: sticky header, mobile nav, scroll-spy, reveal-on-scroll,
    holographic card tilt, single-open FAQ, waitlist validation. */
 (function () {
