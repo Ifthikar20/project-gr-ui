@@ -1,9 +1,9 @@
-# FindRun — Landing Page
+# RunnerCard — Landing Page
 
-The marketing landing page for **[FindRun](https://github.com/ifthikar20/project-gr)**,
-the iPhone app that turns any running route into a treasure hunt: the system
-drops gems on real streets, you run within 200 ft to claim them, first one
-there takes it.
+The marketing landing page for **[RunnerCard](https://github.com/ifthikar20/project-gr)**
+(runnercard.app), the iPhone app that turns walking into a collection: every
+day, large zones land on parks and trails near you — walk 1 km inside one and
+a collectible Runner Card mints, stamped with the walk that earned it.
 
 Static site — plain HTML, CSS, and vanilla JavaScript. No framework, no build
 step, no external dependencies (fonts, icons, and the favicon are all inline
@@ -23,7 +23,7 @@ npx serve .
 
 ```
 index.html        The landing page (all sections + copy)
-changelog.html    TestFlight beta changelog (linked from the nav)
+changelog.html    TestFlight beta changelog (linked from the footer)
 privacy.html      Real privacy policy matching the app architecture
 terms.html        Terms & fair play
 press.html        Press kit: boilerplate, facts, brand swatches, logo
@@ -31,88 +31,53 @@ press.html        Press kit: boilerplate, facts, brand swatches, logo
 llms.txt          Structured site summary for AI crawlers (llmstxt.org format)
 css/styles.css    Design tokens & every component (shared by all pages)
 js/main.js        Interactions (no dependencies; landing page only)
-assets/           favicon.svg, og-card.jpg, apple-touch-icon.png,
-                  running-background.jpg (the real photo)
+assets/           favicon.svg, og-card.jpg, apple-touch-icon.png
 ```
 
-The nav mixes in-page anchors with one real route (Changelog) plus the
-Log in action; the footer carries the rest of the real routes — no dead
-`#` links anywhere except the App Store badge, which is intentionally
-pending a real store URL.
+The nav is in-page anchors (How it works · Zones · Cards · Rarity · Track ·
+FAQ); the footer carries the real routes (changelog, press, privacy, terms).
 
 ## Design system
 
-**Two accents × black (test).** Map/app graphics — routes, gems, pins,
-the FAB, mockup UI — use the `--map` token; site chrome — buttons,
-ticker, links — uses `--pulse`; text stays ink (black) on light and
-snow on dark. Swap the tokens in `css/styles.css` (and delete the
-"Two-accent test overrides" block to fall back to single-accent):
+Light, bevel-soft: ink on a cool paper ground, volt green kept for small
+accents, pastel washes for card art, and one `--edge` color per card rarity
+driving every accent on a card (pip, band, ability icon, found-most bar,
+sheen). Tokens live at the top of `css/styles.css`:
 
 | Token | Value | Role |
 |---|---|---|
-| Snow  | `#FAFAF8` bg / `#FFFFFF` cards | Surfaces |
-| Ink   | `#16181D` (+ 0.55 gray text, + 0.12 hairlines) | Text, icons, dark bands |
-| Map   | `#61FF00` (+ opacity ramp) | Map & app graphics: routes, gems, pins, FAB, tabs |
-| Pulse | `#5F40BF` | Site chrome: CTAs, ticker, links, focus |
+| Paper | `#f6f8fb` bg / `#ffffff` cards | Surfaces |
+| Ink | `#101216` (+ opacity steps .68/.52/.38 for text, .08 hairlines) | Text, icons |
+| Volt | `#61ff00` (+ `--volt-deep #2c8f00` for focus/text-on-light) | Small accents, CTAs |
+| Rarity | `--r-common #9a9ba1` → `--r-legendary #e0a63a` | Card edge colors |
 
-Grays are opacity steps of ink — never another hue. Gem rarity uses real
-per-tier stone colors (`--gem-q` … `--gem-m`): Quartz white, Emerald green,
-Sapphire blue, Amethyst purple, Ember gold-ruby — consistently across the
-rarity showcase, hero replica, demo, scenes and mockups.
+Grays are opacity steps of ink — never another hue.
 
-## Graphics: animated scenes & drawn mockups (no placeholder boxes)
+## The cards are the product shots
 
-Every visual slot renders real graphics today — animated SVG scenes and
-hand-drawn app-UI mockups — and each is still tagged with a
-`data-placeholder` attribute so a real screenshot can replace it later:
-
-| `data-placeholder` | What renders now |
-|---|---|
-| *(hero phone)* | Replica of the app's Explore screen (docs/03 in the app repo): status bar, light map with route polyline + origin gem-count marker, tier-colored gems inside their 200 ft capture-zone rings, location puck, "Search this area", recenter, green ➕ FAB, swipeable route card, 4-tab bar |
-| `feature-living-map` | Animated: gems spawn around a radar-pinging location puck |
-| `feature-active-run` | Animated: breadcrumb trail draws toward a pulsing gem (dark) |
-| `feature-route-editor` | Animated: tapped waypoints ripple, segments snap in, a gem drops |
-| `feature-fair-play` | Animated: track replays with checks; a teleport branch gets rejected; verified seal |
-| `screen-explore` … `screen-profile` | Six drawn phone mockups, one per app screen |
-| `app-store-badge` | Styled badge — needs the real App Store link |
-
-The "How you collect a gem" map in How It Works is the interactive JS
-demo: it auto-plays on scroll, loops while visible, fills the on-map stash
-tray as gems are claimed, and shows live gem/XP counters.
+There are no phone mockups: the product visuals are the cards themselves,
+rendered as real HTML/CSS/SVG — the hero card (Harbor Sapphire), the four
+gallery cards (Golden Shoes, Harbor Fox, The Unmarked Obelisk, Runner's
+High), and the binder wall of minis. Each card is the full nine-part
+anatomy (stage, name + XP, art, rarity band, run-stat tiles, ability,
+found-most bar, flavor, serialed footer) with a pointer-tracked sheen. The
+Zones section carries the one map visual: a stylised dark map SVG with
+glowing zone rings and a dashed route.
 
 ## Sample content to replace before launch
 
-- **Reviews** ("The streets are talking") are written sample quotes for the
-  beta-marketing voice (no star ratings by design — quotes only) — swap in
-  real TestFlight feedback.
 - **Changelog entries** are grounded in the app repo's real feature history
   but carry invented build numbers/dates — sync with actual TestFlight
   builds.
-- **Contact email** `hello@findrun.app` is a placeholder domain — search and
-  replace once the real domain exists.
-- **Login** is a working preview flow: full validation, loading state, and a
-  local demo session in `localStorage` (`findrun-web-session`), restored on
-  reload with a header session chip + logout. The `TODO` in `js/main.js`
-  marks where the real `POST /v1/auth/login` call goes.
-
-### Hero / CTA background photo
-
-The hero and final-CTA sections use `assets/running-background.jpg` as a
-full-bleed photo (the real shot is committed). To change it, overwrite that
-one file — no code changes needed; an ink gradient scrim above the image
-keeps text readable on any reasonably dark photo.
+- **Card serials, found-most percentages and set counts** ("142 / 500",
+  "500 cards at launch") are launch-target copy, not live data.
+- **Waitlist form** stores nothing server-side yet — wire it to a real list
+  before the beta opens.
 
 ## Interactions implemented
 
-Overlay-to-solid sticky header, mobile drawer nav, scroll-spy,
-Framer-style blur/scale reveal-on-scroll, animated stat counters, the
-self-looping gem-capture demo with its stash tray, hero-phone mouse tilt,
-the full-width screens carousel (scroll-snap + arrows + keyboard),
-hidden-stone rarity reveals with XP chips, the auto-scrolling reviews
-marquee (pauses on hover), single-open FAQ, waitlist validation, a **cookie-consent popup
-modal** (Accept all / Essential only, persisted as `findrun-consent`,
-reopenable from the footer), and a **login modal** (validation, loading
-state, demo session with header chip + logout) — all gated on
-`prefers-reduced-motion` (animated scenes settle into their finished
-state) and fully functional without JavaScript (content is never hidden
-when JS is off).
+Overlay-to-solid sticky header, mobile drawer nav, scroll-spy, reveal-on-
+scroll, pointer-tracked card tilt + sheen on every `data-card`, single-open
+FAQ, and waitlist validation — all gated on `prefers-reduced-motion` and
+fully functional without JavaScript (content is never hidden when JS is
+off).
