@@ -5,6 +5,7 @@ const navLinks = [
   { href: '#track', label: 'Track' },
   { href: '#privacy', label: 'Privacy' },
   { href: '#community', label: 'Community' },
+  { href: '#pricing', label: 'Pricing' },
   { href: '#faq', label: 'FAQ' },
 ]
 

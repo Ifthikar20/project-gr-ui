@@ -163,7 +163,7 @@ export function Hero() {
             <Button
               size="lg"
               asChild
-              className="h-12 rounded-full bg-volt px-7 text-[15px] font-semibold text-[#101216] hover:bg-volt/90"
+              className="h-12 rounded-full px-7 text-[15px] font-semibold"
             >
               <a href={APP_STORE_URL}>
                 Start collecting

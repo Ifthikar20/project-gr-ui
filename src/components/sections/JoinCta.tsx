@@ -28,7 +28,9 @@ export function JoinCta() {
                   Download RunnerCard and start collecting the ground you cover.
                 </p>
                 <div className="mt-7">
-                  <AppStoreButton className="bg-volt text-[#101216] hover:bg-volt/90" />
+                  {/* White over the dark photo — the one place a black
+                      button would sink into the scrim. */}
+                  <AppStoreButton className="bg-white text-[#101216] hover:bg-white/90" />
                 </div>
                 <p className="mt-4 text-[12.5px] font-medium text-white/55">
                   iPhone · iOS 17+ · Free to play · No packs to buy.

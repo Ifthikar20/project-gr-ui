@@ -5,6 +5,7 @@ import { Track } from '@/components/sections/Track'
 import { Privacy } from '@/components/sections/Privacy'
 import { Reviews } from '@/components/sections/Reviews'
 import { Community } from '@/components/sections/Community'
+import { Pricing } from '@/components/sections/Pricing'
 import { Faq } from '@/components/sections/Faq'
 import { JoinCta } from '@/components/sections/JoinCta'
 import { Footer } from '@/components/sections/Footer'
@@ -26,6 +27,7 @@ export default function App() {
         <Privacy />
         <Reviews />
         <Community />
+        <Pricing />
         <Faq />
         <JoinCta />
       </main>
