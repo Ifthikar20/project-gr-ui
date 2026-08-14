@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms &amp; fair play — RunnerCard</title>
+  <meta name="description" content="The rules of the road for the RunnerCard beta: one account, no GPS spoofing, cards have no monetary value, and be decent about routes.">
+  <meta name="theme-color" content="#f6f8fb">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="page-top">
+    <div class="container page-top__inner">
+      <a class="brand" href="index.html" aria-label="RunnerCard home">
+        <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect x="6" y="3" width="20" height="26" rx="4.5" transform="rotate(-8 16 16)" fill="#17150f"/>
+          <path d="M18 7 L11 18 h4.2 l-1.2 7 L21 14 h-4.2 z" fill="#61ff00"/>
+        </svg>
+        <span class="brand__name">Runner<b>Card</b></span>
+        <span class="brand__beta">beta</span>
+      </a>
+      <a class="page-top__back" href="index.html">← Back to the site</a>
+    </div>
+  </header>
+
+  <main class="page__main">
+    <div class="container">
+      <div class="prose">
+        <h1>Terms &amp; fair play</h1>
+        <p class="prose__updated">Last updated August 2026 · applies to the TestFlight beta</p>
+
+        <h2>It's a beta</h2>
+        <p>RunnerCard is pre-release software. Zones rotate daily by design,
+        mint rules may change, and occasionally we'll reset a leaderboard
+        while we tune the economy. We'll always say so in the
+        <a href="changelog.html">changelog</a>.</p>
+
+        <h2>One runner, one account</h2>
+        <p>Keep it to one account per person. Usernames that impersonate other
+        people get renamed.</p>
+
+        <h2>Fair play</h2>
+        <p>The whole game rests on claims being real. Every run is verified
+        server-side — pace bounds, teleport detection, route adherence, and
+        accuracy gating. <strong>Spoofed or simulated GPS voids the claims
+        involved</strong>, and repeat offenders lose the account. If you found
+        a clever exploit, we'd honestly love to hear about it instead:
+        <a href="mailto:hey@runnercard.app">hey@runnercard.app</a>.</p>
+
+        <h2>Cards aren't money</h2>
+        <p>Runner Cards, gems, XP, streaks and crowns have no monetary value,
+        can't be bought, sold or transferred, and may be rebalanced during
+        the beta. The fun is the point.</p>
+
+        <h2>Routes you publish</h2>
+        <p>Routes are public the moment you publish them. Keep them on
+        walkable, legal, public ground — placement is checked automatically,
+        but use judgement too. Every route has a report option; reported
+        routes get reviewed and may be archived.</p>
+
+        <h2>Run safe</h2>
+        <p>Heads up, headphones low, obey the road. RunnerCard is designed to
+        be played without looking at the screen — let the haptics do the
+        work. You're responsible for moving safely; never let a mile
+        pull you into traffic or anywhere you shouldn't be.</p>
+
+        <h2>Liability, briefly</h2>
+        <p>RunnerCard is provided as-is during the beta, without warranties. To the
+        extent the law allows, we're not liable for indirect damages arising
+        from use of the app.</p>
+
+        <h2>Contact</h2>
+        <p><a href="mailto:hey@runnercard.app">hey@runnercard.app</a></p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__legal">
+        <p>© <span data-year>2026</span> RunnerCard. iPhone, iOS 17+.</p>
+        <p><a href="privacy.html">Privacy</a> · <a href="changelog.html">Changelog</a> · <a href="press.html">Press kit</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelector('[data-year]').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
