@@ -1,0 +1,190 @@
+/* Minimal collectible-card chrome. One clean rounded container, an art
+   block, and quiet typography — the tier shows only as a small colored
+   dot. The 3D tilt writes `transform` inline and `--mx/--my` feed the
+   (very subtle) sheen. Tier colors come from the rarity tokens. */
+
+.card {
+  --edge: var(--r-common);
+  position: relative;
+  width: 330px;
+  max-width: 86vw;
+  background: #ffffff;
+  border: 1px solid var(--ink-08);
+  border-radius: 24px;
+  padding: 10px 10px 0;
+  box-shadow: 0 1px 2px rgba(16, 18, 22, 0.04), 0 18px 44px rgba(16, 18, 22, 0.09);
+  transform-style: preserve-3d;
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.3s;
+  will-change: transform;
+}
+.card--interactive { cursor: grab; }
+
+.card__art {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+}
+.card__art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.card__body { padding: 13px 8px 15px; }
+
+.card__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+.card__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  min-width: 0;
+}
+.card__xp {
+  flex: none;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+}
+.card__xp span { font-size: 10px; color: var(--ink-55); margin-left: 2px; font-weight: 700; }
+
+.card__meta {
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-55);
+}
+.card__dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--edge);
+}
+
+.card__stats {
+  margin-top: 12px;
+  padding-top: 11px;
+  border-top: 1px solid var(--ink-08);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+.card__stat b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.card__stat span {
+  display: block;
+  margin-top: 1px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-55);
+}
+
+/* barely-there light sweep while tilting */
+.card__sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: radial-gradient(55% 55% at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.5) 0%, transparent 60%);
+}
+.card--lit .card__sheen { opacity: 0.4; }
+@media (prefers-reduced-motion: reduce) {
+  .card { transition: none; }
+  .card__sheen { display: none; }
+}
+
+.card--gem, .card--legendary { --edge: var(--r-legendary); }
+.card--artifact, .card--epic { --edge: var(--r-epic); }
+.card--fact, .card--rare { --edge: var(--r-rare); }
+.card--common { --edge: var(--r-common); }
+.card--uncommon { --edge: var(--r-uncommon); }
+
+.card--float { animation: cardFloat 6.5s ease-in-out infinite; }
+@keyframes cardFloat {
+  0%, 100% { transform: translateY(0) rotateX(3deg) rotateY(-5deg); }
+  50% { transform: translateY(-10px) rotateX(1deg) rotateY(-3deg); }
+}
+@media (prefers-reduced-motion: reduce) { .card--float { animation: none; } }
+
+/* ----------------------------------------------- the binder (mini cards) */
+.mini {
+  --edge: var(--r-common);
+  background: #ffffff;
+  border: 1px solid var(--ink-08);
+  border-radius: 18px;
+  padding: 8px 8px 10px;
+  box-shadow: 0 1px 2px rgba(16, 18, 22, 0.03), 0 10px 26px rgba(16, 18, 22, 0.06);
+  transition: transform 0.18s ease, box-shadow 0.2s ease;
+}
+.mini:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 1px 2px rgba(16, 18, 22, 0.04), 0 16px 36px rgba(16, 18, 22, 0.1);
+}
+.mini__art {
+  position: relative;
+  border-radius: 11px;
+  overflow: hidden;
+  aspect-ratio: 5 / 4;
+}
+.mini__art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.mini__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px;
+  margin: 9px 3px 0;
+}
+.mini__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 12.5px;
+  letter-spacing: -0.01em;
+}
+.mini__xp {
+  flex: none;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 11px;
+}
+.mini__xp i { font-style: normal; font-size: 8px; color: var(--ink-55); margin-left: 1px; font-weight: 700; }
+.mini__type {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin: 3px 3px 0;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-55);
+}
+.mini__dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--edge);
+}
+.mini--common { --edge: var(--r-common); }
+.mini--uncommon { --edge: var(--r-uncommon); }
+.mini--rare { --edge: var(--r-rare); }
+.mini--epic { --edge: var(--r-epic); }
+.mini--legendary { --edge: var(--r-legendary); }

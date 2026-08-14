@@ -1,83 +1,82 @@
 # RunnerCard — Landing Page
 
-The marketing landing page for **[RunnerCard](https://github.com/ifthikar20/project-gr)**
-(runnercard.app), the iPhone app that turns walking into a collection: every
-day, large zones land on parks and trails near you — walk a mile inside one and
-a collectible Runner Card mints, stamped with the walk that earned it.
+The marketing landing page for **[RunnerCard](https://github.com/ifthikar20/project-gr)**,
+the iPhone app that turns any running route into a treasure hunt: collectible
+cards surface in real-world zones, you run within reach on foot to claim them,
+first one there takes it.
 
-Static site — plain HTML, CSS, and vanilla JavaScript. No framework, no build
-step, no external dependencies (fonts, icons, and the favicon are all inline
-or local).
+Built with **Vite + React + TypeScript**, styled with **Tailwind CSS v4** and
+**[shadcn/ui](https://ui.shadcn.com)** components (vendored under
+`src/components/ui/`). Light theme only, system font stack, zero runtime
+requests to third parties.
 
 ## Run it
 
-Open `index.html` in a browser, or serve the folder:
+```sh
+npm install
+npm run dev        # http://localhost:5173
+```
+
+Other scripts:
 
 ```sh
-python3 -m http.server 8080
-# or
-npx serve .
+npm run build      # type-checks and builds to dist/
+npm run preview    # serves the production build locally
+npm run lint       # oxlint
 ```
 
 ## Structure
 
 ```
-index.html        The landing page (all sections + copy)
-changelog.html    TestFlight beta changelog (linked from the footer)
-privacy.html      Real privacy policy matching the app architecture
-terms.html        Terms & fair play
-press.html        Press kit: boilerplate, facts, brand swatches, logo
-404.html          On-brand not-found page
-llms.txt          Structured site summary for AI crawlers (llmstxt.org format)
-css/styles.css    Design tokens & every component (shared by all pages)
-js/main.js        Interactions (no dependencies; landing page only)
-assets/           favicon.svg, og-card.jpg, apple-touch-icon.png
+index.html                     Vite entry — carries the real <head> meta/OG tags
+src/
+  App.tsx                      Assembles the landing page sections
+  index.css                    Tailwind v4 theme: RunnerCard palette on shadcn vars
+  components/
+    sections/                  Navbar, Hero, StatsBand, … Footer (one per section)
+    cards/                     The collectible-card system:
+      CollectibleCard.tsx      full run-card chrome (data-driven)
+      MiniCard.tsx             binder minis
+      cards.css                the bevel/sheen card chrome (ported hand-written CSS)
+      data.tsx                 all card copy
+      art/                     every SVG illustration as a component
+    ui/                        vendored shadcn/ui primitives
+  hooks/                       useCardTilt (3D tilt + sheen), useReveal
+public/                        legacy static pages, served unchanged at the same URLs:
+  changelog.html  press.html  privacy.html  terms.html  404.html  llms.txt
+  css/styles.css               stylesheet for those legacy pages only
+  assets/                      favicon.svg, og-card.jpg, apple-touch-icon.png
 ```
 
-The nav is in-page anchors (How it works · Zones · Cards · Rarity · Track ·
-FAQ); the footer carries the real routes (changelog, press, privacy, terms).
+The secondary pages (changelog, press, privacy, terms, 404) are intentionally
+untouched legacy HTML: Vite copies `public/` into the build verbatim, so they
+keep working at `/changelog.html` etc. with their own stylesheet.
 
-## Design system
+## Deploying
 
-Light, bevel-soft: ink on a cool paper ground, volt green kept for small
-accents, pastel washes for card art, and one `--edge` color per card rarity
-driving every accent on a card (pip, band, ability icon, found-most bar,
-sheen). Tokens live at the top of `css/styles.css`:
-
-| Token | Value | Role |
-|---|---|---|
-| Paper | `#f6f8fb` bg / `#ffffff` cards | Surfaces |
-| Ink | `#101216` (+ opacity steps .68/.52/.38 for text, .08 hairlines) | Text, icons |
-| Volt | `#61ff00` (+ `--volt-deep #2c8f00` for focus/text-on-light) | Small accents, CTAs |
-| Rarity | `--r-common #9a9ba1` → `--r-legendary #e0a63a` | Card edge colors |
-
-Grays are opacity steps of ink — never another hue.
-
-## The cards are the product shots
-
-There are no phone mockups: the product visuals are the cards themselves,
-rendered as real HTML/CSS/SVG — the hero card (Harbor Sapphire), the four
-gallery cards (Golden Shoes, Harbor Fox, The Unmarked Obelisk, Runner's
-High), and the binder wall of minis. Each card is the full nine-part
-anatomy (stage, name + XP, art, rarity band, run-stat tiles, ability,
-found-most bar, flavor, serialed footer) with a pointer-tracked sheen. The
-Zones section carries the one map visual: a stylised dark map SVG with
-glowing zone rings and a dashed route.
+`.github/workflows/deploy.yml` builds the site and publishes `dist/` to
+GitHub Pages on every push to `main`. One-time setup: in the repo's
+**Settings → Pages**, set **Source** to **GitHub Actions**. The build uses a
+relative base (`base: './'` in `vite.config.ts`), so the same output works
+under a project path (`/project-gr-ui/`), a custom domain, and local preview.
 
 ## Sample content to replace before launch
 
-- **Changelog entries** are grounded in the app repo's real feature history
-  but carry invented build numbers/dates — sync with actual TestFlight
-  builds.
-- **Card serials, found-most percentages and set counts** ("142 / 500",
-  "500 cards at launch") are launch-target copy, not live data.
-- **Waitlist form** stores nothing server-side yet — wire it to a real list
-  before the beta opens.
+- **Photos**: every slot loads from `public/assets/` and falls back to a
+  labeled placeholder until the file exists. The full map — hero deck:
+  `run-1.jpg`, `run-2.jpg`, `run-7.jpg`; community strip: `run-3.jpg` …
+  `run-6.jpg` plus `run-8.jpg`; closing CTA banner: `run-9.jpg`. The two
+  gem card tiles also try `gem-1.png` (hero) and `gem-2.png` (community)
+  before falling back to the illustrated gem art.
+- **Social handle** `@runnercardapp` in the community section is invented —
+  point it at the real account.
 
-## Interactions implemented
-
-Overlay-to-solid sticky header, mobile drawer nav, scroll-spy, reveal-on-
-scroll, pointer-tracked card tilt + sheen on every `data-card`, single-open
-FAQ, and waitlist validation — all gated on `prefers-reduced-motion` and
-fully functional without JavaScript (content is never hidden when JS is
-off).
+- **Reviews** are written sample quotes for the beta-marketing voice — swap in
+  real TestFlight feedback.
+- **Changelog entries** carry invented build numbers/dates — sync with actual
+  TestFlight builds.
+- **App Store link** — every CTA points at `APP_STORE_URL` in
+  `src/components/AppStoreButton.tsx`, currently a placeholder listing URL.
+  Change it there once the real listing exists and the whole site follows.
+- **Contact email** `hey@runnercard.app` is a placeholder domain — search and
+  replace once the real domain exists.
